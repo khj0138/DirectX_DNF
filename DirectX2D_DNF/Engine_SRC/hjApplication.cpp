@@ -1,5 +1,7 @@
 #include "hjApplication.h"
-
+#include "hjInput.h"
+#include "hjTime.h"
+#include "hjRenderer.h"
 
 namespace hj
 {
@@ -25,10 +27,16 @@ namespace hj
 
 	void Application::Initialize()
 	{
+		Time::Initiailize();
+		Input::Initialize();
+
+		renderer::Initialize();
 	}
 
 	void Application::Update()
 	{
+		Time::Update();
+		Input::Update();
 	}
 
 	void Application::LateUpdate()
@@ -37,6 +45,8 @@ namespace hj
 
 	void Application::Render()
 	{
+		Time::Render();
+
 		graphicDevice->Draw();
 	}
 
@@ -50,6 +60,7 @@ namespace hj
 			mHeight = height;
 
 			graphicDevice = std::make_unique<hj::graphics::GraphicDevice_Dx11>();
+			hj::graphics::GetDevice() = graphicDevice.get();
 		}
 
 		// 윈도우 size 설정 (0 ~ width, 0 ~ height)
