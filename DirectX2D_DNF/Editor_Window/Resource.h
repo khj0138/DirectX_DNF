@@ -1,17 +1,17 @@
 ﻿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
-// 다음에서 사용 DirectX2D_DNF.rc
+// 다음에서 사용 Editor_Window.rc
 
 #define IDS_APP_TITLE			103
 
 #define IDR_MAINFRAME			128
-#define IDD_DIRECTX2DDNF_DIALOG	102
+#define IDD_EDITORWINDOW_DIALOG	102
 #define IDD_ABOUTBOX			103
 #define IDM_ABOUT				104
 #define IDM_EXIT				105
-#define IDI_DIRECTX2DDNF			107
+#define IDI_EDITORWINDOW			107
 #define IDI_SMALL				108
-#define IDC_DIRECTX2DDNF			109
+#define IDC_EDITORWINDOW			109
 #define IDC_MYICON				2
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1

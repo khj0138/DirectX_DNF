@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjResources.h">
+      <Filter>Resource\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMath.h">
+      <Filter>Common\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjTime.h">
+      <Filter>Common\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjEngine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjEnums.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjEntity.h">
+      <Filter>Common\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{46c76132-2763-4de3-83b7-64f9d9ab572d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{0c2ac0cf-a5c5-4ef2-bc5b-e1d3e3195cba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{eabc1c8f-a23a-4fcc-b0ec-298d8682bbd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{350eef9b-ada7-4b18-b06f-82cf2f1ccace}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{6b7695bf-4b13-4567-b835-1ef6b52885d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Resources">
+      <UniqueIdentifier>{c3342436-28de-4373-af67-22900e7748f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Entity">
+      <UniqueIdentifier>{16bc6b46-71b1-41e6-aade-69fb718006d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Math">
+      <UniqueIdentifier>{e16a5873-d31c-450d-8d44-a961e36a2348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Time">
+      <UniqueIdentifier>{5724009c-5f10-4c15-92e6-ef8aafbda6b3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp">
+      <Filter>Resource\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMath.cpp">
+      <Filter>Common\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjTime.cpp">
+      <Filter>Common\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjEntity.cpp">
+      <Filter>Common\Entity</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)hjMath.inl">
+      <Filter>Common\Math</Filter>
+    </None>
+  </ItemGroup>
+</Project>

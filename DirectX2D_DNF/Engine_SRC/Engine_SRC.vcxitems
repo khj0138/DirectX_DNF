@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{d9bcca51-e162-4462-8d13-e5ca51f43df6}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjEngine.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjEntity.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjEnums.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphics.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjInput.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjTime.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjInput.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjTime.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)hjMath.inl" />
+  </ItemGroup>
+</Project>
