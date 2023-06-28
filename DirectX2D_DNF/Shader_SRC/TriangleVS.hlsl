@@ -10,6 +10,10 @@ struct VSOut
     float4 Color : COLOR;
 };
 
+cbuffer Transform : register(b0)
+{
+    float4 Pos;
+}
 VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;
