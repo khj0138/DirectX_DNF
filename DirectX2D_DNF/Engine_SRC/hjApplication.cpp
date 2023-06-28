@@ -18,6 +18,9 @@ namespace hj
 
 	void Application::Run()
 	{
+		Update();
+		LateUpdate();
+		Render();
 	}
 
 	void Application::Initialize()
@@ -34,6 +37,7 @@ namespace hj
 
 	void Application::Render()
 	{
+		graphicDevice->Draw();
 	}
 
 	// 윈도우 속성 설정
