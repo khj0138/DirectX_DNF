@@ -140,33 +140,33 @@ namespace hj::graphics
 		vsPath += L"TriangleVS.hlsl";
 
 		D3DCompileFromFile(vsPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "main", "vs_5_0", 0, 0, &hj::renderer::triangleVSBlob, &hj::renderer::errorBlob);
+			, "main", "vs_5_0", 0, 0, &renderer::triangleVSBlob, &renderer::errorBlob);
 
-		if (hj::renderer::errorBlob)
+		if (renderer::errorBlob)
 		{
-			OutputDebugStringA((char*)hj::renderer::errorBlob->GetBufferPointer());
-			hj::renderer::errorBlob->Release();
+			OutputDebugStringA((char*)renderer::errorBlob->GetBufferPointer());
+			renderer::errorBlob->Release();
 		}
 
-		mDevice->CreateVertexShader(hj::renderer::triangleVSBlob->GetBufferPointer()
-			, hj::renderer::triangleVSBlob->GetBufferSize()
-			, nullptr, &hj::renderer::triangleVSShader);
+		mDevice->CreateVertexShader(renderer::triangleVSBlob->GetBufferPointer()
+			, renderer::triangleVSBlob->GetBufferSize()
+			, nullptr, &renderer::triangleVSShader);
 
 		std::filesystem::path psPath(shaderPath.c_str());
 		psPath += L"TrianglePS.hlsl";
 
 		D3DCompileFromFile(psPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
-			, "main", "ps_5_0", 0, 0, &hj::renderer::trianglePSBlob, &hj::renderer::errorBlob);
+			, "main", "ps_5_0", 0, 0, &renderer::trianglePSBlob, &renderer::errorBlob);
 
-		if (hj::renderer::errorBlob)
+		if (renderer::errorBlob)
 		{
-			OutputDebugStringA((char*)hj::renderer::errorBlob->GetBufferPointer());
-			hj::renderer::errorBlob->Release();
+			OutputDebugStringA((char*)renderer::errorBlob->GetBufferPointer());
+			renderer::errorBlob->Release();
 		}
 
-		mDevice->CreatePixelShader(hj::renderer::trianglePSBlob->GetBufferPointer()
-			, hj::renderer::trianglePSBlob->GetBufferSize()
-			, nullptr, &hj::renderer::trianglePSShader);
+		mDevice->CreatePixelShader(renderer::trianglePSBlob->GetBufferPointer()
+			, renderer::trianglePSBlob->GetBufferSize()
+			, nullptr, &renderer::trianglePSShader);
 
 
 		// Input layout 정점 구조 정보를 넘겨줘야한다.
@@ -298,6 +298,9 @@ namespace hj::graphics
 		UINT offset = 0;
 
 		mContext->IASetVertexBuffers(0, 1, &renderer::triangleBuffer, &vertexsize, &offset);
+		mContext->IASetIndexBuffer(renderer::triangleIdxBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+		
 		mContext->IASetInputLayout(renderer::triangleLayout);
 		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -307,7 +310,7 @@ namespace hj::graphics
 		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
 
 		// Draw Render Target
-		mContext->Draw(3, 0);
+		mContext->DrawIndexed(3, 0, 0);
 
 		// 레더타겟에 있는 이미지를 화면에 그려준다
 		mSwapChain->Present(0, 0);

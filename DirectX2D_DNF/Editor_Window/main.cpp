@@ -1,6 +1,7 @@
 ﻿#include "framework.h"
 #include "Editor_Window.h"
 #include "hjApplication.h"
+#include "hjRenderer.h"
 
 hj::Application application;
 
@@ -57,6 +58,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
+    renderer::Release();
     return (int) msg.wParam;
 }
 

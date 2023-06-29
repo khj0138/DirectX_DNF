@@ -3,7 +3,7 @@
 #include "hjGraphicDevice_Dx11.h"
 
 using namespace hj::math;
-namespace hj::renderer
+namespace renderer
 {
 	struct Vertex
 	{
@@ -23,5 +23,6 @@ namespace hj::renderer
 	extern ID3D11PixelShader* trianglePSShader;
 
 	void Initialize();
+	void Release();
 }
 
