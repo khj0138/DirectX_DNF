@@ -302,6 +302,7 @@ namespace hj::graphics
 
 		
 		mContext->IASetInputLayout(renderer::triangleLayout);
+
 		mContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		//Bind VS, PS 
@@ -310,7 +311,7 @@ namespace hj::graphics
 		mContext->PSSetShader(renderer::trianglePSShader, 0, 0);
 
 		// Draw Render Target
-		mContext->DrawIndexed(3, 0, 0);
+		mContext->DrawIndexed(6, 0, 0);
 
 		// 레더타겟에 있는 이미지를 화면에 그려준다
 		mSwapChain->Present(0, 0);

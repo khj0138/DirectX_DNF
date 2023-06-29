@@ -2,7 +2,7 @@
 
 namespace renderer
 {
-	Vertex vertexes[3] = {};
+	Vertex vertexes[4] = {};
 
 	// Input Layout (정점 정보)
 	ID3D11InputLayout* triangleLayout = nullptr;
@@ -37,7 +37,7 @@ namespace renderer
 		// Vertex Buffer
 		D3D11_BUFFER_DESC triangleDesc = {};
 		triangleDesc.Usage = D3D11_USAGE::D3D11_USAGE_DYNAMIC;
-		triangleDesc.ByteWidth = sizeof(Vertex) * 3;
+		triangleDesc.ByteWidth = sizeof(Vertex) * 4;
 		triangleDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_VERTEX_BUFFER;
 		triangleDesc.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 
@@ -50,6 +50,10 @@ namespace renderer
 		indexes.push_back(0);
 		indexes.push_back(1);
 		indexes.push_back(2);
+
+		indexes.push_back(0);
+		indexes.push_back(2);
+		indexes.push_back(3);
 		
 		// Index Buffer
 		D3D11_BUFFER_DESC triangleIdxDesc = {};
@@ -84,14 +88,17 @@ namespace renderer
 
 	void Initialize()
 	{
-		vertexes[0].pos = Vector3(0.0f, 0.5f, 0.0f);
+		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
 		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 
-		vertexes[1].pos = Vector3(0.5f, -0.5f, 0.0f);
+		vertexes[1].pos = Vector3(0.5f, 0.5f, 0.0f);
 		vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 
-		vertexes[2].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[2].pos = Vector3(0.5f, -0.5f, 0.0f);
 		vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+
+		vertexes[3].pos = Vector3(-0.5f, -0.5f, 0.0f);
+		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 
 		SetupState();
 		LoadBuffer();
