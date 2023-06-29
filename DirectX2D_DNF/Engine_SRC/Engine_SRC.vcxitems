@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEngine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEnums.h" />
@@ -23,20 +24,25 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphics.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjInput.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMath.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjEntity.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjInput.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMath.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTime.cpp" />
   </ItemGroup>
   <ItemGroup>

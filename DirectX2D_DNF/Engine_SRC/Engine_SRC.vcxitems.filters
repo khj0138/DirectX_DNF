@@ -40,6 +40,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h">
       <Filter>Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMesh.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjConstantBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -96,6 +105,15 @@
       <Filter>Common\Entity</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjRenderer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMesh.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjShader.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjConstantBuffer.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
