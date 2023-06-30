@@ -2,6 +2,8 @@
 
 namespace renderer
 {
+	using namespace hj;
+	using namespace hj::graphics;
 	Vertex vertexes[4] = {};
 	hj::Mesh* mesh = nullptr;
 	hj::Shader* shader = nullptr;
@@ -52,7 +54,7 @@ namespace renderer
 		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 		
 		// Constant Buffer
-		constantBuffer = new hj::graphics::ConstantBuffer(eCBType::Transform);
+		constantBuffer = new ConstantBuffer(eCBType::Transform);
 		constantBuffer->Create(sizeof(Vector4));
 
 		Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f);

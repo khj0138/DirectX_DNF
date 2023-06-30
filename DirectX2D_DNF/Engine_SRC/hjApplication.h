@@ -4,6 +4,7 @@
 
 namespace hj
 {
+	class Scene;
 	class Application
 	{
 	public:
@@ -32,5 +33,7 @@ namespace hj
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
+
+		Scene* mScene;
 	};
 }

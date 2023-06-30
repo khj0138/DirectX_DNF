@@ -2,9 +2,11 @@
 #include "hjInput.h"
 #include "hjTime.h"
 #include "hjRenderer.h"
+#include "hjScene.h"
 
 namespace hj
 {
+
 	Application::Application()
 		: graphicDevice(nullptr)
 		, mHwnd(NULL)
@@ -31,12 +33,17 @@ namespace hj
 		Input::Initialize();
 
 		renderer::Initialize();
+
+		mScene = new Scene();
+		mScene->Initialize();
 	}
 
 	void Application::Update()
 	{
 		Time::Update();
 		Input::Update();
+
+		mScene->Update();
 	}
 
 	void Application::LateUpdate()
@@ -48,6 +55,8 @@ namespace hj
 		Time::Render();
 
 		graphicDevice->Draw();
+		mScene->Render();
+		graphicDevice->Present();
 	}
 
 	// 윈도우 속성 설정

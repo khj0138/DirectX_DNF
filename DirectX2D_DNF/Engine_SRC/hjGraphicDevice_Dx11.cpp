@@ -207,6 +207,11 @@ namespace hj::graphics
 		mContext->RSSetViewports(1, viewPort);
 	}
 
+	void GraphicDevice_Dx11::DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation)
+	{
+		mContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
+	}
+
 	void GraphicDevice_Dx11::BindInputLayout(ID3D11InputLayout* pInputLayout)
 	{
 		mContext->IASetInputLayout(pInputLayout);
@@ -304,18 +309,10 @@ namespace hj::graphics
 
 		BindViewPort(&mViewPort);
 		mContext->OMSetRenderTargets(1, mRenderTargetView.GetAddressOf(), mDepthStencilView.Get());
+	}
 
-		renderer::mesh->BindBuffer();
-		
-		mContext->IASetInputLayout(renderer::shader->GetInputLayout());
-
-		//Bind VS, PS 
-		renderer::shader->Binds();
-
-		// Draw Render Target
-		mContext->DrawIndexed(renderer::mesh->GetIndexCount(), 0, 0);
-
-		// 레더타겟에 있는 이미지를 화면에 그려준다
+	void GraphicDevice_Dx11::Present()
+	{
 		mSwapChain->Present(0, 0);
 	}
 
