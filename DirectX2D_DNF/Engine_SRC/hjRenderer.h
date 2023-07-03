@@ -12,6 +12,7 @@ namespace renderer
 	{
 		Vector3 pos;
 		Vector4 color;
+		Vector2 uv;
 	};
 
 	extern Vertex vertexes[];

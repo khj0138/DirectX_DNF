@@ -76,6 +76,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTransform.h">
       <Filter>GameObject\Component</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjTexture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -191,6 +192,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTransform.cpp">
       <Filter>GameObject\Component</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)hjMath.inl">

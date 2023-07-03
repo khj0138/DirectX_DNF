@@ -37,6 +37,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjShader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTransform.h" />
   </ItemGroup>
@@ -60,6 +61,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjShader.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjTexture.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTime.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTransform.cpp" />
   </ItemGroup>
