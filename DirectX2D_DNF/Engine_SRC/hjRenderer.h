@@ -16,8 +16,8 @@ namespace renderer
 
 	extern Vertex vertexes[];
 	extern hj::Mesh* mesh;
-	extern ID3D11Buffer* triangleConstantBuffer;
 	extern hj::Shader* shader;
+	extern hj::graphics::ConstantBuffer* constantBuffer;
 
 	void Initialize();
 	void Release();

@@ -28,6 +28,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjLayer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMesh.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMeshRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjPlayScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResource.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTime.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
@@ -49,6 +51,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjLayer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMesh.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMeshRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjPlayScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResource.cpp" />
@@ -58,6 +61,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTime.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)hjMath.inl" />

@@ -7,7 +7,6 @@ namespace renderer
 	Vertex vertexes[4] = {};
 	hj::Mesh* mesh = nullptr;
 	hj::Shader* shader = nullptr;
-	ID3D11Buffer* triangleConstantBuffer = nullptr;
 	hj::graphics::ConstantBuffer* constantBuffer = nullptr;
 
 	void SetupState()

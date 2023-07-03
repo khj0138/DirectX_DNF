@@ -4,6 +4,7 @@ namespace hj
 {
 	Scene::Scene()
 	{
+		mLayers.resize((int)hj::enums::eLayerType::End);
 	}
 	Scene::~Scene()
 	{
@@ -18,20 +19,28 @@ namespace hj
 
 	void Scene::Update()
 	{
-		for (GameObject* gameObj : mGameObjects)
+		for (Layer& layer : mLayers)
 		{
-			gameObj->Update();
+			layer.Update();
 		}
 	}
 
 	void Scene::LateUpdate()
 	{
+		for (Layer& layer : mLayers)
+		{
+			layer.LateUpdate();
+		}
 	}
 	void Scene::Render()
 	{
-		for (GameObject* gameObj : mGameObjects)
+		for (Layer& layer : mLayers)
 		{
-			gameObj->Render();
+			layer.Render();
 		}
+	}
+	void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
+	{
+		mLayers[(int)type].AddGameObject(gameObj);
 	}
 }
