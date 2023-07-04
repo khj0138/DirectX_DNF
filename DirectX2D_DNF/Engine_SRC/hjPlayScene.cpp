@@ -1,6 +1,8 @@
 #include "hjPlayScene.h"
 #include "hjTransform.h"
 #include "hjMeshRenderer.h"
+#include "hjResources.h"
+#include "hjMesh.h"
 
 namespace hj
 {
@@ -16,7 +18,9 @@ namespace hj
 	{
 		GameObject* player = new GameObject();
 		AddGameObject(eLayerType::Player, player);
-		player->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
 	}
 
 	void PlayScene::Update()

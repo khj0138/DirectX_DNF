@@ -67,9 +67,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjScene.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjPlayScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMeshRenderer.h">
       <Filter>GameObject\Component</Filter>
     </ClInclude>
@@ -77,6 +74,8 @@
       <Filter>GameObject\Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTexture.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMaterial.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjPlayScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -183,9 +182,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjScene.cpp">
       <Filter>Scene\Base</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjPlayScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMeshRenderer.cpp">
       <Filter>GameObject\Component</Filter>
     </ClCompile>
@@ -193,6 +189,8 @@
       <Filter>GameObject\Component</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTexture.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMaterial.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjPlayScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)hjMath.inl">

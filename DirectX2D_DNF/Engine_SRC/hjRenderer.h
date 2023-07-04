@@ -6,6 +6,7 @@
 #include "hjConstantBuffer.h"
 
 using namespace hj::math;
+using namespace hj::graphics;
 namespace renderer
 {
 	struct Vertex
@@ -16,9 +17,7 @@ namespace renderer
 	};
 
 	extern Vertex vertexes[];
-	extern hj::Mesh* mesh;
-	extern hj::Shader* shader;
-	extern hj::graphics::ConstantBuffer* constantBuffer;
+	extern hj::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 	void Initialize();
 	void Release();
