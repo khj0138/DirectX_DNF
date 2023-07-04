@@ -14,6 +14,7 @@ namespace hj::graphics
 		virtual HRESULT Load(const std::wstring& path) override;
 
 		void Binds();
+		void Clear();
 
 		void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
 		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }

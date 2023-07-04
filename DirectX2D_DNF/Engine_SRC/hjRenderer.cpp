@@ -84,11 +84,7 @@ namespace renderer
 		
 		// Constant Buffer
 		constantBuffer[(UINT)eCBType::Transform] = new ConstantBuffer(eCBType::Transform);
-		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(Vector4));
-
-		/*Vector4 pos(0.0f, 0.0f, 0.0f, 1.0f);
-		constantBuffer->SetData(&pos);
-		constantBuffer->Bind(eShaderStage::VS);*/
+		constantBuffer[(UINT)eCBType::Transform]->Create(sizeof(TransformCB));
 	}
 
 	void LoadShader()
@@ -103,13 +99,24 @@ namespace renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		hj::Resources::Insert(L"SpriteShader", spriteShader);
 
-		std::shared_ptr<Texture> texture
-			= Resources::Load<Texture>(L"Player", L"..\\Resources\\Texture\\SwordMan.png");
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"SwordMan", L"..\\Resources\\Texture\\SwordMan.png");
 
-		std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-		spriteMateiral->SetShader(spriteShader);
-		spriteMateiral->SetTexture(texture);
-		Resources::Insert(L"SpriteMaterial", spriteMateiral);
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"SpriteMaterial", spriteMateiral);
+		}
+
+		{
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"SwordManAttack", L"..\\Resources\\Texture\\SwordManAttack.png");
+			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
+			spriteMateiral->SetShader(spriteShader);
+			spriteMateiral->SetTexture(texture);
+			Resources::Insert(L"SpriteMaterial02", spriteMateiral);
+		}
 	}
 
 	void Initialize()

@@ -77,6 +77,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMaterial.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjPlayScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCameraScript.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -193,6 +194,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMaterial.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjPlayScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCameraScript.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)hjMath.inl">

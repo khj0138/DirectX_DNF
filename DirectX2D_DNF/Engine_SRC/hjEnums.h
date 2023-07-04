@@ -9,6 +9,7 @@ namespace hj::enums
 		Particle,
 		MeshRenderer,
 		Script,
+		Camera,
 		End,
 	};
 
