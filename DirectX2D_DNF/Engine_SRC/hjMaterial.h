@@ -15,11 +15,11 @@ namespace hj::graphics
 
 		void Binds();
 
-		void SetShader(Shader* shader) { mShader = shader; }
-		void SetTexture(Texture* texture) { mTexture = texture; }
+		void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
+		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }
 
 	private:
-		Shader* mShader;
-		Texture* mTexture;
+		std::shared_ptr<Shader> mShader;
+		std::shared_ptr<Texture> mTexture;
 	};
 }

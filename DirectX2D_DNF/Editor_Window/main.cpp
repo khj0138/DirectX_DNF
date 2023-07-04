@@ -64,7 +64,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     renderer::Release();
-    hj::Resources::Release();
     hj::SceneManager::Release();
 
     return (int) msg.wParam;

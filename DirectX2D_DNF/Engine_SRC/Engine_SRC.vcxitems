@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjCameraScript.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEngine.h" />
@@ -44,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjCameraScript.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjEntity.cpp" />

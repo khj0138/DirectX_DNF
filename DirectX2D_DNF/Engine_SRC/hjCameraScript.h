@@ -1,0 +1,14 @@
+#pragma once
+#include "hjScript.h"
+
+namespace hj
+{
+	class CameraScript : public Script
+	{
+	public:
+		virtual void Update() override;
+
+	private:
+
+	};
+}

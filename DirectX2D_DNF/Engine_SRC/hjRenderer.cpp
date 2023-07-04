@@ -38,7 +38,7 @@ namespace renderer
 		arrLayout[2].SemanticName = "TEXCOORD";
 		arrLayout[2].SemanticIndex = 0;
 
-		Shader* shader = hj::Resources::Find<Shader>(L"TriangleShader");
+		std::shared_ptr<Shader> shader = hj::Resources::Find<Shader>(L"TriangleShader");
 		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -65,7 +65,7 @@ namespace renderer
 	void LoadBuffer()
 	{
 		// Create Mesh
-		Mesh* mesh = new hj::Mesh();
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", mesh);
 
 		mesh->CreateVertexBuffer(vertexes, 4);
@@ -93,20 +93,20 @@ namespace renderer
 
 	void LoadShader()
 	{
-		Shader* shader = new hj::Shader();
+		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
 		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
 		hj::Resources::Insert(L"TriangleShader", shader);
 
-		Shader* spriteShader = new hj::Shader();
+		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
 		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		hj::Resources::Insert(L"SpriteShader", spriteShader);
 
-		Texture* texture
+		std::shared_ptr<Texture> texture
 			= Resources::Load<Texture>(L"Player", L"..\\Resources\\Texture\\SwordMan.png");
 
-		Material* spriteMateiral = new hj::graphics::Material();
+		std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
 		spriteMateiral->SetShader(spriteShader);
 		spriteMateiral->SetTexture(texture);
 		Resources::Insert(L"SpriteMaterial", spriteMateiral);
@@ -134,7 +134,7 @@ namespace renderer
 		LoadShader();
 		SetupState();
 
-		Texture* texture
+		std::shared_ptr<Texture> texture
 			= Resources::Load<Texture>(L"Player", L"..\\Resources\\Texture\\SwordMan.png");
 		/*texture
 			= Resources::Load<Texture>(L"BackGround", L"..\\Resources\\Texture\\SeriaRoom.png");*/

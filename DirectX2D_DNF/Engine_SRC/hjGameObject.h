@@ -1,6 +1,7 @@
 #pragma once
 #include "hjEntity.h"
 #include "hjComponent.h"
+#include "hjScript.h"
 
 namespace hj
 {
@@ -33,6 +34,13 @@ namespace hj
 					return component;
 			}
 
+			for (Script* script : mScripts)
+			{
+				component = dynamic_cast<T*>(script);
+				if (component != nullptr)
+					return component;
+			}
+
 			return nullptr;
 		}
 
@@ -43,11 +51,17 @@ namespace hj
 
 			Component* component
 				= dynamic_cast<Component*>(comp);
+			Script* script
+				= dynamic_cast<Script*>(component);
 
 			if (component == nullptr)
 				return nullptr;
 
-			mComponents.push_back(component);
+			if (script == nullptr)
+				mComponents.push_back(component);
+			else
+				mScripts.push_back(script);
+
 			comp->SetOwner(this);
 
 			return comp;
@@ -56,5 +70,6 @@ namespace hj
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
+		std::vector<Script*> mScripts;
 	};
 }
