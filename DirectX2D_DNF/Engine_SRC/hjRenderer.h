@@ -35,6 +35,7 @@ namespace renderer
 	extern std::vector<hj::Camera*> cameras;
 
 	void Initialize();
+	void Render();
 	void Release();
 }
 

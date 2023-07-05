@@ -252,6 +252,20 @@ namespace renderer
 
 		texture->BindShader(eShaderStage::PS, 0);
 	}
+
+	void Render()
+	{
+		for (Camera* cam : cameras)
+		{
+			if (cam == nullptr)
+				continue;
+
+			cam->Render();
+		}
+
+		cameras.clear();
+	}
+
 	void Release()
 	{
 		for (ConstantBuffer* buff : constantBuffer)

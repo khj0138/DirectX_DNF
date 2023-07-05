@@ -19,13 +19,17 @@
     <ClInclude Include="hjCameraScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="hjPlayScene.h" />
+    <ClInclude Include="hjPlayScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
     <ClCompile Include="hjCameraScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="hjPlayScene.cpp" />
+    <ClCompile Include="hjPlayScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
