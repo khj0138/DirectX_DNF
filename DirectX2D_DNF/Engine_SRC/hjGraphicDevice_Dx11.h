@@ -17,7 +17,10 @@ namespace hj::graphics
 		bool CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode);
 		bool CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader);
 		bool CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11PixelShader** ppPixelShader);
-		bool CreateSampler(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
+		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
+		bool CreateRasterizeState(const D3D11_RASTERIZER_DESC* pRasterizerDesc, ID3D11RasterizerState** ppRasterizerState);
+		bool CreateDepthStencilState(const D3D11_DEPTH_STENCIL_DESC* pDepthStencilDesc, ID3D11DepthStencilState** ppDepthStencilState);
+		bool CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc, ID3D11BlendState** ppBlendState);
 
 		void BindInputLayout(ID3D11InputLayout* pInputLayout);
 		void BindPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY Topology);
@@ -31,7 +34,10 @@ namespace hj::graphics
 		void BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
 		void BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers);
 		void BindViewPort(D3D11_VIEWPORT* viewPort);
-;
+		void BindRasterizeState(ID3D11RasterizerState* pRasterizerState);
+		void BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState);
+		void BindBlendState(ID3D11BlendState* pBlendState);
+
 		void DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
 		void ClearTarget();
 		void UpdateViewPort();

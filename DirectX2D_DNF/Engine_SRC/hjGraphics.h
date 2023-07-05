@@ -39,6 +39,33 @@ namespace hj::graphics
 		Anisotropic,
 		End,
 	};
+
+	enum class eRSType
+	{
+		SolidBack,
+		SolidFront,
+		SolidNone,
+		WireframeNone,
+		End,
+	};
+
+	enum class eDSType
+	{
+		Less,
+		Greater,
+		NoWrite,
+		None,
+		End,
+	};
+
+	enum class eBSType
+	{
+		Default,
+		AlphaBlend,
+		OneOne,
+		End,
+	};
+
 	struct GpuBuffer
 	{
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
