@@ -16,6 +16,8 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+	std::vector<hj::Camera*> cameras = {};
+
 	void SetupState()
 	{
 #pragma region InputLayout

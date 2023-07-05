@@ -3,7 +3,7 @@ namespace hj::enums
 {
 	enum class eComponentType
 	{
-		NOne,
+		None,
 		Transform,
 		Mesh,
 		Particle,

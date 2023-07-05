@@ -1,5 +1,6 @@
 #pragma once
-#include "hjScript.h"
+//#include "hjScript.h"
+#include <hjScript.h>
 
 namespace hj
 {

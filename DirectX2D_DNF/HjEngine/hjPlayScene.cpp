@@ -19,12 +19,12 @@ namespace hj
 	void PlayScene::Initialize()
 	{
 		{
-		GameObject* player = new GameObject();
-		AddGameObject(eLayerType::Player, player);
-		MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+			GameObject* player = new GameObject();
+			AddGameObject(eLayerType::Player, player);
+			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
 
 		}
 

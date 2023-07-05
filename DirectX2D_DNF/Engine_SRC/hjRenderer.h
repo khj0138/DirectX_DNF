@@ -4,6 +4,7 @@
 #include "hjMesh.h"
 #include "hjShader.h"
 #include "hjConstantBuffer.h"
+#include "hjCamera.h"
 
 using namespace hj::math;
 using namespace hj::graphics;
@@ -30,6 +31,8 @@ namespace renderer
 	extern Microsoft::WRL::ComPtr<ID3D11RasterizerState> rasterizerStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
+
+	extern std::vector<hj::Camera*> cameras;
 
 	void Initialize();
 	void Release();

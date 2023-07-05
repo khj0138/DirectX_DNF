@@ -1,5 +1,4 @@
 #include "hjSceneManager.h"
-#include "hjPlayScene.h"
 
 namespace hj
 {
@@ -8,10 +7,7 @@ namespace hj
 
 	void SceneManager::Initialize()
 	{
-		mActiveScene = new PlayScene();
-		mScenes.insert(std::make_pair(L"PlayScene", mActiveScene));
-
-		mActiveScene->Initialize();
+		
 	}
 	void SceneManager::Update()
 	{
@@ -28,7 +24,7 @@ namespace hj
 
 	void SceneManager::Release()
 	{
-		for (auto iter : mScenes)
+		for (auto& iter : mScenes)
 		{
 			delete iter.second;
 			iter.second = nullptr;

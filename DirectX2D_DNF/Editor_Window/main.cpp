@@ -3,7 +3,9 @@
 #include "hjApplication.h"
 #include "hjRenderer.h"
 #include "hjResources.h"
-#include "hjSceneManager.h"
+#include "SceneLoader.h"
+
+
 
 hj::Application application;
 
@@ -73,7 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
-    WNDCLASSEXW wcex;
+    WNDCLASSEXW wcex = {};
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
@@ -109,6 +111,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    UpdateWindow(hWnd);
 
    application.Initialize();
+   hj::InitializeScenes();
 
    return TRUE;
 }
