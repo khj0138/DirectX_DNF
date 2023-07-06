@@ -216,10 +216,11 @@ namespace renderer
 		{
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"SwordManAttack", L"..\\Resources\\Texture\\SwordManAttack.png");
-			std::shared_ptr<Material> spriteMateiral = std::make_shared<Material>();
-			spriteMateiral->SetShader(spriteShader);
-			spriteMateiral->SetTexture(texture);
-			Resources::Insert(L"SpriteMaterial02", spriteMateiral);
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			spriteMaterial->SetRenderingMode(eRenderingMode::Transparent);
+			Resources::Insert(L"SpriteMaterial02", spriteMaterial);
 		}
 	}
 

@@ -56,7 +56,8 @@ namespace hj
 
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
-		SceneManager::Render();
+		
+		renderer::Render();
 
 		graphicDevice->Present();
 	}

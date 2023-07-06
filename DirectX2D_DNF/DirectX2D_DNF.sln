@@ -49,7 +49,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Editor_SRC\Editor_SRC.vcxitems*{51551fa3-eb6b-48c3-b881-b7dd86c8fb27}*SharedItemsImports = 4
-		Engine_SRC\Engine_SRC.vcxitems*{51551fa3-eb6b-48c3-b881-b7dd86c8fb27}*SharedItemsImports = 4
 		Shader_SRC\Shader_SRC.vcxitems*{63340d34-e0d2-4552-a471-822c082e7fd0}*SharedItemsImports = 9
 		Engine_SRC\Engine_SRC.vcxitems*{72e716c7-1639-4457-9c98-24013fbc05e8}*SharedItemsImports = 4
 		Editor_SRC\Editor_SRC.vcxitems*{d2bb377e-d3a5-45e4-9403-53a25c520ad0}*SharedItemsImports = 9

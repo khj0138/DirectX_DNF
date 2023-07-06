@@ -19,9 +19,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMath.h">
       <Filter>Common\Math</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTime.h">
       <Filter>Common\Time</Filter>
     </ClInclude>
@@ -37,23 +34,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjMesh.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjShader.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjConstantBuffer.h">
-      <Filter>Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjGameObject.h">
       <Filter>GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjComponent.h">
-      <Filter>GameObject\Component</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjScript.h">
       <Filter>GameObject\Component\Script</Filter>
@@ -67,15 +49,39 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjScene.h">
       <Filter>Scene\Base</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjTexture.h">
+      <Filter>Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMaterial.h">
+      <Filter>Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjShader.h">
+      <Filter>Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMesh.h">
+      <Filter>Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjComponent.h">
+      <Filter>GameObject\Component\Base</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMeshRenderer.h">
-      <Filter>GameObject\Component</Filter>
+      <Filter>GameObject\Component\MeshRenderer</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTransform.h">
-      <Filter>GameObject\Component</Filter>
+      <Filter>GameObject\Component\Transform</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjTexture.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjMaterial.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h">
+      <Filter>Graphics\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjConstantBuffer.h">
+      <Filter>Graphics\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.h">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h">
+      <Filter>GameObject\Component\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -126,6 +132,39 @@
     <Filter Include="Scene\Base">
       <UniqueIdentifier>{3f1f64b7-c052-4a96-9fea-2ff618490309}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Texture">
+      <UniqueIdentifier>{f7e7d809-a015-495f-9321-92f93126cd80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Material">
+      <UniqueIdentifier>{df4b21e7-6e53-40cb-bb4b-67d27c6e0cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader">
+      <UniqueIdentifier>{c0ed2343-9118-445d-8308-d157f060b843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Mesh">
+      <UniqueIdentifier>{41a01193-2684-465b-9699-4a98e9b6a5eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Base">
+      <UniqueIdentifier>{65c98066-7713-4763-bd31-73e8a35bb7ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\MeshRenderer">
+      <UniqueIdentifier>{e8acd7f1-de16-4e66-a318-85d4e82a97bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Transform">
+      <UniqueIdentifier>{6557068f-9fa4-4b43-ab80-a8bb8c1945fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\ConstantBuffer">
+      <UniqueIdentifier>{87e42b43-8c83-47fe-a865-a8c1d68c3aad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\GraphicDevice">
+      <UniqueIdentifier>{da097081-ab72-4c21-a1a6-bce3fab7e5ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Renderer">
+      <UniqueIdentifier>{aa38ced1-ba65-4f11-8fe4-3b57c095fe8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Camera">
+      <UniqueIdentifier>{c8c93afb-4581-49e0-82f3-511436963d11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp">
@@ -143,32 +182,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMath.cpp">
       <Filter>Common\Math</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTime.cpp">
       <Filter>Common\Time</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjEntity.cpp">
       <Filter>Common\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjRenderer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjMesh.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjShader.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjConstantBuffer.cpp">
-      <Filter>Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjGameObject.cpp">
       <Filter>GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjComponent.cpp">
-      <Filter>GameObject\Component</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjScript.cpp">
       <Filter>GameObject\Component\Script</Filter>
@@ -182,15 +203,39 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjScene.cpp">
       <Filter>Scene\Base</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjTexture.cpp">
+      <Filter>Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMaterial.cpp">
+      <Filter>Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjShader.cpp">
+      <Filter>Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMesh.cpp">
+      <Filter>Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjComponent.cpp">
+      <Filter>GameObject\Component\Base</Filter>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMeshRenderer.cpp">
-      <Filter>GameObject\Component</Filter>
+      <Filter>GameObject\Component\MeshRenderer</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjTransform.cpp">
-      <Filter>GameObject\Component</Filter>
+      <Filter>GameObject\Component\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjTexture.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjMaterial.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjRenderer.cpp">
+      <Filter>Graphics\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjConstantBuffer.cpp">
+      <Filter>Graphics\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.cpp">
+      <Filter>Graphics\GraphicDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjCamera.cpp">
+      <Filter>GameObject\Component\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)hjMath.inl">

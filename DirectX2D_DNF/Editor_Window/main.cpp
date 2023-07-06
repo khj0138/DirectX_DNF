@@ -1,15 +1,21 @@
 ﻿#include "framework.h"
 #include "Editor_Window.h"
-#include "hjApplication.h"
-#include "hjRenderer.h"
-#include "hjResources.h"
+
+#include "..\\Engine_SRC\\hjApplication.h"
+#include "..\\Engine_SRC\\hjRenderer.h"
+#include "..\\Engine_SRC\\hjResources.h"
+
 #include "SceneLoader.h"
 
-
+#ifdef _DEBUG
+#pragma comment(lib, "..\\x64\\Debug\\HjEngine.lib")
+#else
+#pragma comment(lib, "..\\x64\\Release\\HjEngine.lib")
+#endif
 
 hj::Application application;
 
-#define MAX_LOADSTRING 100
+#define MAX_LOADSTRING 1005
 
 HINSTANCE hInst;
 WCHAR szTitle[MAX_LOADSTRING];

@@ -30,9 +30,9 @@ VSOut main(VSIn In)
     float4 view = mul(world, mView);
     float4 proj = mul(view, mProjection);
         
-    Out.Pos = float4(In.Pos, 1.0f);
-    Out.UV = In.UV;
+    Out.Pos = proj;
     Out.Color = In.Color; 
+    Out.UV = In.UV;
     
     return Out;
 }

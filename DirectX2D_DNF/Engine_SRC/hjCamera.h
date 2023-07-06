@@ -14,8 +14,8 @@ namespace hj
 			None,
 		};
 
-		static Matrix GetViewMatrix() { return mView; }
-		static Matrix GetProjectionMatrix() { return mProjection; }
+		static Matrix GetViewMatrix() { return View; }
+		static Matrix GetProjectionMatrix() { return Projection; }
 
 		Camera();
 		~Camera();
@@ -34,14 +34,22 @@ namespace hj
 		void EnableLayerMasks() { mLayerMask.set(); }
 		void DisableLayerMasks() { mLayerMask.reset(); }
 
-		void SortGameObjects();
+		void AlphaSortGameObjects();
+		void ZSortTransparencyGameObjects();
+		void DivideAlphaBlendGameObjects(const std::vector<GameObject*> gameObjs);
 		void RenderOpaque();
 		void RenderCutOut();
 		void RenderTransparent();
 
+		void EnableDepthStencilState();
+		void DisableDepthStencilState();
+
 	private:
-		static Matrix mView;
-		static Matrix mProjection;
+		static Matrix View;
+		static Matrix Projection;
+
+		Matrix mView;
+		Matrix mProjection;
 
 		eProjectionType mType;
 		float mAspectRatio;

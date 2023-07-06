@@ -1,7 +1,7 @@
 #pragma once
-#include "hjSceneManager.h"
+#include "..\\Engine_SRC\\hjSceneManager.h"
 #include "hjPlayScene.h"
-//#include "../Engine_SRC/hjSceneManager.h"
+
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\HjEngine.lib")
 #else

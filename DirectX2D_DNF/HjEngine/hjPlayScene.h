@@ -1,6 +1,6 @@
 #pragma once
-//#include "hjScene.h"
-#include <hjScene.h>
+#include "..\\Engine_SRC\\hjScene.h"
+
 
 namespace hj
 {
