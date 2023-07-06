@@ -1,3 +1,5 @@
+#include "globals.hlsli"
+
 struct VSIn
 {
     float3 Pos : POSITION;
@@ -12,10 +14,6 @@ struct VSOut
     float2 UV : TEXCOORD;
 };
 
-cbuffer Transform : register(b0)
-{
-    float4 Position;
-}
 VSOut main(VSIn In)
 {
     VSOut Out = (VSOut) 0.0f;

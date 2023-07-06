@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -52,7 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -152,12 +152,14 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
+    <ClInclude Include="hjGridScript.h" />
     <ClInclude Include="hjPlayScene.h" />
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="HjEngine.cpp" />
+    <ClCompile Include="hjGridScript.cpp" />
     <ClCompile Include="hjPlayScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
