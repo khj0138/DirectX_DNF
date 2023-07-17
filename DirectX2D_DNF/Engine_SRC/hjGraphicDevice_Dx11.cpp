@@ -100,7 +100,7 @@ namespace hj::graphics
 		dxgiDesc.BufferDesc.RefreshRate.Denominator = 1;
 		dxgiDesc.BufferDesc.Scaling = DXGI_MODE_SCALING::DXGI_MODE_SCALING_UNSPECIFIED;
 		dxgiDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER::DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-
+		
 		dxgiDesc.SampleDesc.Count = 1;
 		dxgiDesc.SampleDesc.Quality = 0;
 

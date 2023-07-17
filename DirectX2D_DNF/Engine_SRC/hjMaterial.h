@@ -18,7 +18,7 @@ namespace hj::graphics
 
 		void SetShader(std::shared_ptr<Shader> shader) { mShader = shader; }
 		void SetTexture(std::shared_ptr<Texture> texture) { mTexture = texture; }
-		void SetRenderingMode(eRenderingMode mode) { mMode = mode; }
+		void SetRenderingMode(eRenderingMode mode);
 		eRenderingMode GetRenderingMode() { return mMode; }
 
 	private:

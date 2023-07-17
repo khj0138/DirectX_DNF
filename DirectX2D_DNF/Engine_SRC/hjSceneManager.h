@@ -10,6 +10,7 @@ namespace hj
 		static void Update();
 		static void LateUpdate();
 		static void Render();
+		static void Destroy();
 		static void Release();
 
 

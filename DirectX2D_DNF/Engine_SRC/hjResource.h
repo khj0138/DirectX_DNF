@@ -7,7 +7,6 @@ namespace hj
 	{
 	public:
 		Resource(const enums::eResourceType type);
-		Resource();
 		virtual ~Resource();
 
 		// 순수 가상 함수 (Load 상속)

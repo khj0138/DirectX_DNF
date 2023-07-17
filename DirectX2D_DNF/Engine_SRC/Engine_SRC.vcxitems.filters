@@ -82,6 +82,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h">
       <Filter>GameObject\Component\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjObject.h">
+      <Filter>Common\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -164,6 +167,9 @@
     </Filter>
     <Filter Include="GameObject\Component\Camera">
       <UniqueIdentifier>{c8c93afb-4581-49e0-82f3-511436963d11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Object">
+      <UniqueIdentifier>{0e45b287-232d-476a-9270-4dc8d25879e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

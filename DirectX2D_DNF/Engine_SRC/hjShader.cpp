@@ -53,7 +53,16 @@ namespace hj
 	{
 		GetDevice()->BindPrimitiveTopology(mTopology);
 		GetDevice()->BindInputLayout(mInputLayout);
+
 		GetDevice()->BindVertexShader(mVS.Get());
 		GetDevice()->BindPixelShader(mPS.Get());
+
+		Microsoft::WRL::ComPtr<ID3D11RasterizerState> rsState = renderer::rasterizerStates[(UINT)mRSType];
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState = renderer::depthStencilStates[(UINT)mDSType];
+		Microsoft::WRL::ComPtr<ID3D11BlendState> bsState = renderer::blendStates[(UINT)mBSType];
+
+		GetDevice()->BindRasterizeState(rsState.Get());
+		GetDevice()->BindDepthStencilState(dsState.Get());
+		GetDevice()->BindBlendState(bsState.Get());
 	}
 }	

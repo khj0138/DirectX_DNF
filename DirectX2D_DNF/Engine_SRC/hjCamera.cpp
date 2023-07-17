@@ -14,7 +14,7 @@ namespace hj
 	bool CompareZSort(GameObject* a, GameObject* b)
 	{
 		if (a->GetComponent<Transform>()->GetPosition().z
-			< b->GetComponent<Transform>()->GetPosition().z)
+			<= b->GetComponent<Transform>()->GetPosition().z)
 			return false;
 
 		return true;
@@ -29,7 +29,10 @@ namespace hj
 		, mAspectRatio(1.0f)
 		, mNear(1.0f)
 		, mFar(1000.0f)
-		, mSize(5.0f)
+		, mSize(1.0f)
+		, bTarget(false)
+		, mTargets{}
+		, mActiveTarget(nullptr)
 		, mLayerMask{}
 		, mOpaqueGameObjects{}
 		, mCutOutGameObjects{}
@@ -107,7 +110,7 @@ namespace hj
 
 		if (type == eProjectionType::OrthoGraphic)
 		{
-			float OrthorGraphicRatio = mSize / 1000.0f;
+			float OrthorGraphicRatio = mSize * 1; // / 1000.0f;
 			width *= OrthorGraphicRatio;
 			height *= OrthorGraphicRatio;
 
@@ -142,7 +145,7 @@ namespace hj
 		Scene* scene = SceneManager::GetActiveScene();
 		for (size_t i = 0; i < (UINT)eLayerType::End; i++)
 		{
-			if (mLayerMask[i] = true)
+			if (mLayerMask[i] == true)
 			{
 				Layer& layer = scene->GetLayer((eLayerType)i);
 				const std::vector<GameObject*> gameObjs
@@ -228,8 +231,42 @@ namespace hj
 	}
 	void Camera::EnableDepthStencilState()
 	{
+		//Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			//= renderer::depthStencilStates[(UINT)eDSType::Less];
+		//GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 	void Camera::DisableDepthStencilState()
 	{
+		//Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			//= renderer::depthStencilStates[(UINT)eDSType::None];
+		//GetDevice()->BindDepthStencilState(dsState.Get());
+	}
+	void Camera::RegisterTarget(GameObject* target)
+	{
+		mTargets.push_back(target);
+	}
+	void Camera::SetTarget(const std::wstring& name)
+	{
+		for (GameObject* target : mTargets)
+		{
+			if (name == target->GetName())
+			{
+				if (!bTarget)
+				{
+					bTarget = true;
+				}
+				mActiveTarget = target;
+				break;
+			}
+		}
+	}
+	bool Camera::CheckTarget(Vector3& target)
+	{
+		if (bTarget)
+		{
+			target = mActiveTarget->GetComponent<Transform>()->GetPosition();
+			return true;
+		}
+		return false;
 	}
 }

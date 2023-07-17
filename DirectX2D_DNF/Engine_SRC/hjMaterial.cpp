@@ -33,4 +33,21 @@ namespace hj::graphics
 	{
 		mTexture->Clear();
 	}
+	void Material::SetRenderingMode(eRenderingMode mode)
+	{
+		mMode = mode;
+		switch (mode)
+		{
+		case eRenderingMode::Opaque:
+		{
+			mShader->SetDSState(eDSType::Less);
+			break;
+		}
+		case eRenderingMode::Transparent:
+		{
+			mShader->SetDSState(eDSType::None);
+			break;
+		}
+		}
+	}
 }

@@ -153,6 +153,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjGridScript.h" />
+    <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjPlayScene.h" />
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="HjEngine.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
+    <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjPlayScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -25,6 +25,7 @@ namespace hj
 		Update();
 		LateUpdate();
 		Render();
+		Destroy();
 	}
 
 	void Application::Initialize()
@@ -60,6 +61,11 @@ namespace hj
 		renderer::Render();
 
 		graphicDevice->Present();
+	}
+
+	void Application::Destroy()
+	{
+		SceneManager::Destroy();
 	}
 
 	// 윈도우 속성 설정

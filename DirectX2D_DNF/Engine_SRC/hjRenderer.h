@@ -40,7 +40,7 @@ namespace renderer
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
 	extern std::vector<hj::Camera*> cameras;
-
+	 
 	void Initialize();
 	void Render();
 	void Release();

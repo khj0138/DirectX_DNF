@@ -129,7 +129,7 @@ namespace renderer
 
 		//None
 		depthStencilDesc.DepthEnable = false;
-		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
 		depthStencilDesc.StencilEnable = false;
 
@@ -233,11 +233,11 @@ namespace renderer
 		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
 		hj::Resources::Insert(L"SpriteShader", spriteShader);
 
-		//std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
-		spriteShader = std::make_shared<Shader>();
-		spriteShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
-		spriteShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
-		hj::Resources::Insert(L"GridShader", spriteShader);
+		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
+		//girdShader = std::make_shared<Shader>();
+		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
+		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
+		hj::Resources::Insert(L"GridShader", girdShader);
 		
 	}
 
@@ -245,12 +245,14 @@ namespace renderer
 	{
 		std::shared_ptr<Shader> spriteShader
 			= Resources::Find<Shader>(L"SpriteShader");
+
 		std::shared_ptr<Texture> texture
-			= Resources::Load<Texture>(L"SwordMan", L"..\\Resources\\Texture\\SwordMan.png");
+			= Resources::Load<Texture>(L"SwordMan", L"..\\Resources\\Texture\\SwordManAttack3.png");
 
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		material->SetShader(spriteShader);
 		material->SetTexture(texture);
+		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteMaterial", material);
 		
 
@@ -268,6 +270,7 @@ namespace renderer
 		material = std::make_shared<Material>();
 		material->SetShader(gridShader);
 		Resources::Insert(L"GridMaterial", material);
+
 	}
 	void Initialize()
 	{

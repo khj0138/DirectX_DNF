@@ -5,6 +5,8 @@
 #include "hjApplication.h"
 #include "hjGameObject.h"
 #include "hjRenderer.h"
+#include "hjTime.h"
+#include "hjObject.h"
 
 extern hj::Application application;
 

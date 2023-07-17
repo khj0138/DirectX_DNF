@@ -31,6 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResources.h" />

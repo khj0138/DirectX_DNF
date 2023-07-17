@@ -25,6 +25,7 @@
     <ClInclude Include="hjGridScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="hjPlayerScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -37,5 +38,6 @@
     <ClCompile Include="hjGridScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
+    <ClCompile Include="hjPlayerScript.cpp" />
   </ItemGroup>
 </Project>

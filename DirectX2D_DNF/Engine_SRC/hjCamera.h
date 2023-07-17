@@ -4,6 +4,7 @@
 
 namespace hj
 {
+	class Transform;
 	class Camera : public Component
 	{
 	public:
@@ -44,6 +45,10 @@ namespace hj
 		void EnableDepthStencilState();
 		void DisableDepthStencilState();
 
+		void RegisterTarget(GameObject* target);
+		void SetTarget(const std::wstring& name);
+		bool CheckTarget(Vector3& target);
+
 		float GetSize() { return mSize; }
 
 	private:
@@ -58,10 +63,14 @@ namespace hj
 		float mNear;
 		float mFar;
 		float mSize;
+		bool bTarget;
 
 		std::bitset<(UINT)eLayerType::End> mLayerMask;
 		std::vector<GameObject*> mOpaqueGameObjects;
 		std::vector<GameObject*> mCutOutGameObjects;
 		std::vector<GameObject*> mTransparentGameObjects;
+
+		std::vector<GameObject*> mTargets;
+		GameObject* mActiveTarget;
 	};
 }
