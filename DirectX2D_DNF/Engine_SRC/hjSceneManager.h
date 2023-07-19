@@ -25,6 +25,7 @@ namespace hj
 			if (iter != mScenes.end())
 				return false;
 
+			scene->SetName(name);
 			mScenes.insert(std::make_pair(name, scene));
 			mActiveScene = scene;
 			scene->Initialize();

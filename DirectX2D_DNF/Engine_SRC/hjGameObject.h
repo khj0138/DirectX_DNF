@@ -97,5 +97,6 @@ namespace hj
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
+
 	};
 }

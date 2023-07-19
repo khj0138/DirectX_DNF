@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -52,7 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -150,17 +150,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackGroundLoader.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
+    <ClInclude Include="hjDungeon_Skasa.h" />
     <ClInclude Include="hjGridScript.h" />
+    <ClInclude Include="hjImageScript.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjPlayScene.h" />
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjCameraScript.cpp" />
+    <ClCompile Include="hjDungeon_Skasa.cpp" />
     <ClCompile Include="HjEngine.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
+    <ClCompile Include="hjImageScript.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjPlayScene.cpp" />
   </ItemGroup>

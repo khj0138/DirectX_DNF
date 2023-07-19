@@ -10,6 +10,9 @@
     <Filter Include="Script">
       <UniqueIdentifier>{a7647a88-91f6-455b-844e-aab4dc6f2a8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\PlayScenes">
+      <UniqueIdentifier>{92f3a254-1c87-4c9b-b68c-298b7ed06b06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -25,7 +28,18 @@
     <ClInclude Include="hjGridScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="hjPlayerScript.h" />
+    <ClInclude Include="hjDungeon_Skasa.h">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayerScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGroundLoader.h">
+      <Filter>Load</Filter>
+    </ClInclude>
+    <ClInclude Include="hjImageScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -38,6 +52,14 @@
     <ClCompile Include="hjGridScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="hjPlayerScript.cpp" />
+    <ClCompile Include="hjDungeon_Skasa.cpp">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="hjImageScript.cpp">
+      <Filter>Script</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,7 +4,12 @@
 #include "hjCamera.h"
 #include "hjApplication.h"
 
+#include "hjGameObject.h"
+//#include "hjComponent.h"
+#include "hjRenderer.h"
+
 extern hj::Application application;
+//extern hj::Camera* mainCamera;
 
 namespace hj
 {
@@ -14,6 +19,7 @@ namespace hj
 		, mPosition(Vector3::Zero)
 		, mRotation(Vector3::Zero)
 		, mScale(Vector3::One)
+		, mCamMoveRate(1.0f)
 	{
 	}
 
@@ -33,7 +39,8 @@ namespace hj
 	{
 		mWorld = Matrix::Identity;
 
-		float fixedRes = (float)application.GetWidth() / 1280.f;
+		float fixedRes = (float)application.GetWidth() / 800.f;
+		fixedRes = 1.0f;
 		Vector3 fixedScale = mScale * fixedRes;
 		Matrix scale = Matrix::CreateScale(fixedScale);
 
@@ -42,8 +49,17 @@ namespace hj
 		rotation *= Matrix::CreateRotationY(mRotation.y);
 		rotation *= Matrix::CreateRotationZ(mRotation.z);
 
+		Vector3 fixedPosition = mPosition;
+		if (renderer::mainCamera != nullptr)
+		{
+			Vector3 cameraPosition = renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition();
+			fixedPosition.x += (1.0f - mCamMoveRate.x) * cameraPosition.x;
+			fixedPosition.y += (1.0f - mCamMoveRate.y) * cameraPosition.y;
+
+		}
+
 		Matrix position;
-		position.Translation(mPosition);
+		position.Translation(fixedPosition);
 
 		mWorld = scale * rotation * position;
 

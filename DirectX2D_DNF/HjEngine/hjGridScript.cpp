@@ -27,7 +27,7 @@ namespace hj
 		if (mCamera == nullptr)
 			return;
 
-
+		
 		GameObject* gameObj = mCamera->GetOwner();
 
 

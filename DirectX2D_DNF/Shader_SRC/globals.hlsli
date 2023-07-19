@@ -17,9 +17,8 @@ cbuffer Grid : register(b2)
 
 cbuffer Etc : register(b3)
 {
-    float Time;
     float2 Res;
-    float Empty;
+    float2 Expand;
 }
 
 Texture2D albedoTexture : register(t0);

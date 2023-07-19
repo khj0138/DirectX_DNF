@@ -1,6 +1,9 @@
 #include "hjTime.h"
 #include "hjApplication.h"
 #include "hjRenderer.h"
+#include "hjInput.h"
+
+#include "hjGameObject.h"
 
 extern hj::Application application;
 
@@ -48,9 +51,11 @@ namespace hj
 		{
 			HWND hWnd = application.GetHwnd();
 
+			Vector3 a = hj::Input::mMouse->GetComponent<Transform>()->GetPosition();
+
 			wchar_t szFloat[50] = {};
 			float FPS = 1.0f / (float)mDeltaTime;
-			swprintf_s(szFloat, 50, L"FPS : %d", (UINT)FPS);
+			swprintf_s(szFloat, 50, L"FPS : %d, mouse(%f, %f)", (UINT)FPS, a.x, a.y);
 			//int iLen = wcsnlen_s(szFloat, 50);
 			SetWindowText(hWnd, szFloat);
 
@@ -58,16 +63,16 @@ namespace hj
 			mSecond = 0.0f;
 		}
 	}
+	
 	void Time::BindConstantBuffer()
 	{
-		float resolution[2] = { (float)application.GetWidth() / 1280.f, (float)application.GetHeight() / 720.f };
+		/*float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
 		renderer::EtcCB etcCB = {};
-		etcCB.Time = mSecond;
 		etcCB.Res = { resolution[0], resolution[1] };
-		etcCB.Empty = 0.0f;
+		etcCB.Expand = Vector2::One;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];
 		cb->SetData(&etcCB);
-		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::VS);*/
 	}
 }

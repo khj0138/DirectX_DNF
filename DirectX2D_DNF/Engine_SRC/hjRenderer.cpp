@@ -264,25 +264,12 @@ namespace renderer
 			vertexes.push_back(center);
 		}
 
-		//for (UINT i = 0; i < (UINT)iSlice; ++i)
-		//{
-		//	indexes.push_back(0);
-		//	if (i == iSlice - 1)
-		//	{
-		//		indexes.push_back(1);
-		//	}
-		//	else
-		//	{
-		//		indexes.push_back(i + 2);
-		//	}
-		//	indexes.push_back(i + 1);
-		//}
 
 		for (int i = 0; i < vertexes.size() - 2; ++i)
 		{
 			indexes.push_back(i + 1);
 		}
-		//indexes.push_back(1);
+		indexes.push_back(1);
 
 		std::shared_ptr<Mesh> circleDebug = std::make_shared<Mesh>();
 		Resources::Insert(L"DebugCircle", circleDebug);
@@ -305,71 +292,89 @@ namespace renderer
 		constantBuffer[(UINT)eCBType::Etc]->Create(sizeof(EtcCB));
 	}
 
-	void LoadShader()
+	void CreateShader(const std::wstring vsName, const std::wstring psName, const std::wstring sName
+		, D3D11_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+		, eRSType rsType = eRSType::SolidBack
+		, eDSType dsType = eDSType::Less
+		, eBSType bsType = eBSType::AlphaBlend
+		, const std::string funcName = "main")
 	{
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
-		shader->Create(eShaderStage::VS, L"TriangleVS.hlsl", "main");
-		shader->Create(eShaderStage::PS, L"TrianglePS.hlsl", "main");
-		hj::Resources::Insert(L"TriangleShader", shader);
+		shader->Create(eShaderStage::VS, vsName, funcName);
+		shader->Create(eShaderStage::PS, psName, funcName);
+		shader->SetTopology(topology);
+		shader->SetRSState(rsType);
+		shader->SetDSState(dsType);
+		shader->SetBSState(bsType);
 
-		std::shared_ptr<Shader> spriteShader = std::make_shared<Shader>();
-		spriteShader->Create(eShaderStage::VS, L"SpriteVS.hlsl", "main");
-		spriteShader->Create(eShaderStage::PS, L"SpritePS.hlsl", "main");
-		hj::Resources::Insert(L"SpriteShader", spriteShader);
-
-		std::shared_ptr<Shader> girdShader = std::make_shared<Shader>();
-		//girdShader = std::make_shared<Shader>();
-		girdShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
-		girdShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
-		hj::Resources::Insert(L"GridShader", girdShader);
-
-		std::shared_ptr<Shader> debugShader = std::make_shared<Shader>();
-		debugShader->Create(eShaderStage::VS, L"DebugVS.hlsl", "main");
-		debugShader->Create(eShaderStage::PS, L"DebugPS.hlsl", "main");
-		debugShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP);
-		debugShader->SetRSState(eRSType::WireframeNone);
-		//debugShader->SetDSState(eDSType::NoWrite);
-		hj::Resources::Insert(L"DebugShader", debugShader);
+		hj::Resources::Insert(sName, shader);
+	}
+	void LoadShader()
+	{
+		CreateShader(L"TriangleVS.hlsl", L"TrianglePS.hlsl", L"TriangleShader");
+		CreateShader(L"SpriteVS.hlsl", L"SpritePS.hlsl", L"SpriteShader");
+		CreateShader(L"GridVS.hlsl", L"GridPS.hlsl", L"GridShader");
+		CreateShader(L"DebugVS.hlsl", L"DebugPS.hlsl", L"DebugShader"
+		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, eRSType::WireframeNone, eDSType::NoWrite);
 		
+	}
+
+	void CreateMaterial(const std::wstring sName, const std::wstring mName, eRenderingMode rMode, const std::wstring tName = L"", const std::wstring tPath = L"")
+	{
+		std::shared_ptr<Material> material = std::make_shared<Material>();
+		std::shared_ptr<Shader> spriteShader
+			= Resources::Find<Shader>(sName);
+		if(tPath != L"")
+		{ 
+			std::wstring textureName = L"texture";
+			textureName.append(tName);
+			std::shared_ptr<Texture> texture
+			= Resources::Load<Texture>(textureName, tPath);
+			material->SetTexture(texture);
+		}
+
+		material->SetShader(spriteShader);
+		material->SetRenderingMode(rMode);
+		Resources::Insert(mName, material);
 	}
 
 	void LoadMaterial()
 	{
-		std::shared_ptr<Shader> spriteShader
-			= Resources::Find<Shader>(L"SpriteShader");
-
-		std::shared_ptr<Texture> texture
-			= Resources::Load<Texture>(L"SwordMan", L"..\\Resources\\Texture\\SwordManAttack3.png");
-
-		std::shared_ptr<Material> material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
-		material->SetTexture(texture);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"SpriteMaterial", material);
+		CreateMaterial(L"SpriteShader", L"SpriteMaterial", eRenderingMode::Transparent, L"SpriteMaterial", L"..\\Resources\\Texture\\SwordManAttack3.png");
+		CreateMaterial(L"SpriteShader", L"SpriteMaterial02", eRenderingMode::Transparent, L"SpriteMaterial02", L"..\\Resources\\Texture\\SwordManAttack.png");
 		
-
+		CreateMaterial(L"SpriteShader", L"back_far_0", eRenderingMode::Transparent, L"back_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Back_far_0.png");
+		CreateMaterial(L"SpriteShader", L"back_middle_0", eRenderingMode::Transparent, L"back_middle_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Back_middle_0.png");
+		CreateMaterial(L"SpriteShader", L"backgorund_far_0", eRenderingMode::Transparent, L"backgorund_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Backgorund_far_0.png");
+		CreateMaterial(L"SpriteShader", L"background_middle_0", eRenderingMode::Transparent, L"background_middle_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Background_middle_0.png");
+		CreateMaterial(L"SpriteShader", L"object_bigice_0", eRenderingMode::Transparent, L"object_bigice_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bigice_0.png");
+		CreateMaterial(L"SpriteShader", L"object_bigice_1", eRenderingMode::Transparent, L"object_bigice_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bigice_1.png");
+		CreateMaterial(L"SpriteShader", L"object_bottom_0", eRenderingMode::Transparent, L"object_bottom_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bottom_0.png");
+		CreateMaterial(L"SpriteShader", L"object_bottom_1", eRenderingMode::Transparent, L"object_bottom_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bottom_1.png");
+		CreateMaterial(L"SpriteShader", L"object_ice_0", eRenderingMode::Transparent, L"object_ice_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_0.png");
+		CreateMaterial(L"SpriteShader", L"object_ice_1", eRenderingMode::Transparent, L"object_ice_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_1.png");
+		CreateMaterial(L"SpriteShader", L"object_ice_2", eRenderingMode::Transparent, L"object_ice_2", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_2.png");
+		CreateMaterial(L"SpriteShader", L"object_ice_3", eRenderingMode::Transparent, L"object_ice_3", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_3.png");
+		CreateMaterial(L"SpriteShader", L"object_mist_0", eRenderingMode::Transparent, L"object_mist_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_mist_0.png");
+		CreateMaterial(L"SpriteShader", L"object_mist_1", eRenderingMode::Transparent, L"object_mist_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_mist_1.png");
+		CreateMaterial(L"SpriteShader", L"skasa_tile", eRenderingMode::Transparent, L"skasa_tile", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\skasa_tile.png");
 		
-		texture = Resources::Load<Texture>(L"SwordManAttack", L"..\\Resources\\Texture\\SwordManAttack.png");
-		material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
-		material->SetTexture(texture);
-		material->SetRenderingMode(eRenderingMode::Transparent);
-		Resources::Insert(L"SpriteMaterial02", material);
+		/*CreateMaterial(L"SpriteShader", L"tile_0", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_0.png");
+		CreateMaterial(L"SpriteShader", L"tile_1", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_1.png");
+		CreateMaterial(L"SpriteShader", L"tile_2", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_2.png");
+		CreateMaterial(L"SpriteShader", L"tile_ex_0", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex_0.png");
+		CreateMaterial(L"SpriteShader", L"tile_ex_1", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex_1.png");
+		CreateMaterial(L"SpriteShader", L"tile_ex_2", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex_2.png");
+		CreateMaterial(L"SpriteShader", L"tile_ex1_0", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex1_0.png");
+		CreateMaterial(L"SpriteShader", L"tile_ex1_1", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex1_1.png");
+		CreateMaterial(L"SpriteShader", L"tile_ex1_2", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex1_2.png");*/
 		
-		std::shared_ptr<Shader> gridShader
-			= Resources::Find<Shader>(L"GridShader");
-
-		material = std::make_shared<Material>();
-		material->SetShader(gridShader);
-		Resources::Insert(L"GridMaterial", material);
-
-		std::shared_ptr<Shader> debugShader
-			= Resources::Find<Shader>(L"DebugShader");
-
-		material = std::make_shared<Material>();
-		material->SetShader(debugShader);
-		Resources::Insert(L"DebugMaterial", material);
-
+		
+		
+		
+		
+		CreateMaterial(L"GridShader", L"GridMaterial", eRenderingMode::Transparent);
+		CreateMaterial(L"DebugShader", L"DebugMaterial", eRenderingMode::Transparent);
 	}
 	void Initialize()
 	{
@@ -378,6 +383,10 @@ namespace renderer
 		LoadShader();
 		SetupState();
 		LoadMaterial();
+		Resources::test();
+		/*Resources::Find<Material>(L"object_mist_1");
+		std::shared_ptr<Material> a = Resources::Find<Material>(L"object_mist_1");*/
+
 	}
 
 	void PushDebugMeshAttribute(DebugMesh mesh)

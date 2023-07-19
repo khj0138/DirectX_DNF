@@ -1,6 +1,8 @@
 #pragma once
 #include "..\\Engine_SRC\\hjSceneManager.h"
+#include "BackGroundLoader.h"
 #include "hjPlayScene.h"
+#include "hjDungeon_Skasa.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\HjEngine.lib")
@@ -17,10 +19,10 @@ namespace hj
 	void InitializeScenes()
 	{
 		//PlayScene* playScene = new PlayScene();
-		SceneManager::CreateScene<PlayScene>(L"PlayScene");
-		SceneManager::CreateScene<PlayScene>(L"PlayScene2");
+		SceneManager::CreateScene<Dungeon_skasa>(L"Dungeon_skasa");
+		CreateBackGrounds();
 
-		SceneManager::LoadScene(L"PlayScene");
+		//SceneManager::LoadScene(L"PlayScene");
 		//SceneManager::GetActiveScene()->Update();
 	}
 }

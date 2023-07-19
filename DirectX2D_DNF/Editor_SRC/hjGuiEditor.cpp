@@ -33,7 +33,7 @@ namespace gui
 		mr->SetMesh(mesh);
 
 
-		EditorObject* grid = new EditorObject();
+		/*EditorObject* grid = new EditorObject();
 		grid->SetName(L"Grid");
 
 		mr = grid->AddComponent<hj::MeshRenderer>();
@@ -42,7 +42,7 @@ namespace gui
 		hj::GridScript* gridSc = grid->AddComponent<hj::GridScript>();
 		gridSc->SetCamera(renderer::cameras[0]);
 
-		mEditorObjects.push_back(grid);
+		mEditorObjects.push_back(grid);*/
 	}
 
 	void Editor::Run()

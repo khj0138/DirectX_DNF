@@ -97,6 +97,7 @@ namespace hj
 				left->OnCollisionStay(right);
 				right->OnCollisionStay(left);
 			}
+			iter->second = true;
 		}
 		else
 		{
@@ -107,6 +108,7 @@ namespace hj
 				left->OnCollisionExit(right);
 				right->OnCollisionExit(left);
 			}
+			iter->second = false;
 		}
 	}
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)

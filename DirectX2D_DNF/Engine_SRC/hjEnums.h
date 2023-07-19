@@ -16,6 +16,7 @@ namespace hj::enums
 
 	enum class eLayerType
 	{
+		BackGround,
 		Grid,
 		Player,
 		Monster,

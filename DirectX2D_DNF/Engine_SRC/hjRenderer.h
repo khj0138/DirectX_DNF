@@ -33,9 +33,9 @@ namespace renderer
 
 	CBUFFER(EtcCB, CBSLOT_ETC)
 	{
-		float Time;
+		//float Time;
 		Vector2 Res;
-		float Empty;
+		Vector2 Expand;
 	};
 
 	extern hj::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
