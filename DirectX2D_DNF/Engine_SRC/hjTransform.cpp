@@ -2,6 +2,9 @@
 #include "hjRenderer.h"
 #include "hjConstantBuffer.h"
 #include "hjCamera.h"
+#include "hjApplication.h"
+
+extern hj::Application application;
 
 namespace hj
 {
@@ -30,7 +33,9 @@ namespace hj
 	{
 		mWorld = Matrix::Identity;
 
-		Matrix scale = Matrix::CreateScale(mScale);
+		float fixedRes = (float)application.GetWidth() / 1280.f;
+		Vector3 fixedScale = mScale * fixedRes;
+		Matrix scale = Matrix::CreateScale(fixedScale);
 
 		Matrix rotation;
 		rotation = Matrix::CreateRotationX(mRotation.x);
@@ -61,8 +66,8 @@ namespace hj
 	{
 		renderer::TransformCB trCB = {};
 		trCB.mWorld = mWorld;
-		trCB.mView = Camera::GetViewMatrix();
-		trCB.mProjection = Camera::GetProjectionMatrix();
+		trCB.mView = Camera::GetGPUViewMatrix();
+		trCB.mProjection = Camera::GetGPUProjectionMatrix();
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Transform];
 		cb->SetData(&trCB);

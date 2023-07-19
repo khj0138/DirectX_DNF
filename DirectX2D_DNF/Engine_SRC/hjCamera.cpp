@@ -203,6 +203,9 @@ namespace hj
 		{
 			if (gameObj == nullptr)
 				continue;
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
 
 			gameObj->Render();
 		}
@@ -214,7 +217,9 @@ namespace hj
 		{
 			if (gameObj == nullptr)
 				continue;
-
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
 			gameObj->Render();
 		}
 	}
@@ -225,21 +230,23 @@ namespace hj
 		{
 			if (gameObj == nullptr)
 				continue;
-
+			if (gameObj->GetState()
+				!= GameObject::eState::Active)
+				continue;
 			gameObj->Render();
 		}
 	}
 	void Camera::EnableDepthStencilState()
 	{
-		//Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
-			//= renderer::depthStencilStates[(UINT)eDSType::Less];
-		//GetDevice()->BindDepthStencilState(dsState.Get());
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			= renderer::depthStencilStates[(UINT)eDSType::Less];
+		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 	void Camera::DisableDepthStencilState()
 	{
-		//Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
-			//= renderer::depthStencilStates[(UINT)eDSType::None];
-		//GetDevice()->BindDepthStencilState(dsState.Get());
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> dsState
+			= renderer::depthStencilStates[(UINT)eDSType::None];
+		GetDevice()->BindDepthStencilState(dsState.Get());
 	}
 	void Camera::RegisterTarget(GameObject* target)
 	{

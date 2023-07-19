@@ -1,3 +1,4 @@
+#include "hjMath.h"
 //-------------------------------------------------------------------------------------
 // SimpleMath.inl -- Simplified C++ Math wrapper for DirectXMath
 //
@@ -718,6 +719,16 @@ inline void Vector2::TransformNormal(const Vector2* varray, size_t count, const 
     using namespace DirectX;
     const XMMATRIX M = XMLoadFloat4x4(&m);
     XMVector2TransformNormalStream(resultArray, sizeof(XMFLOAT2), varray, sizeof(XMFLOAT2), count, M);
+}
+
+inline float hj::math::degreeToRadian(float degree)
+{
+    return degree * pi / 180.0f;
+}
+
+inline float hj::math::radianToDegree(float radian)
+{
+    return radian / pi * 180.0f;
 }
 
 

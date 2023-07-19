@@ -26,6 +26,10 @@ namespace hj::math
     struct Quaternion;
     struct Plane;
 
+    const float pi = 3.141592f;
+    static float degreeToRadian(float degree);
+    static float radianToDegree(float radian);
+
     //------------------------------------------------------------------------------
     // 2D rectangle
     struct Rectangle
@@ -187,7 +191,16 @@ namespace hj::math
         static void TransformNormal(const Vector2& v, const Matrix& m, Vector2& result) noexcept;
         static Vector2 TransformNormal(const Vector2& v, const Matrix& m) noexcept;
         static void TransformNormal(_In_reads_(count) const Vector2* varray, size_t count, const Matrix& m, _Out_writes_(count) Vector2* resultArray) noexcept;
-
+        
+        
+        static void rotation(Vector2& vect, float radian)
+        {
+            Vector2 temp = vect;
+            //float degree = radianToDegree(radian);
+            //float radian = degreeToRadian(degree);
+            vect.x = cos(radian) * temp.x - sin(radian) * temp.y;
+            vect.y = sin(radian) * temp.x + cos(radian) * temp.y;
+        }
         // Constants
         static const Vector2 Zero;
         static const Vector2 One;
@@ -529,6 +542,8 @@ namespace hj::math
 
         Vector3 Translation() const  noexcept { return Vector3(_41, _42, _43); }
         void Translation(const Vector3& v) noexcept { _41 = v.x; _42 = v.y; _43 = v.z; }
+
+        //Vector3 Rotation()
 
         // Matrix operations
         bool Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation) noexcept;

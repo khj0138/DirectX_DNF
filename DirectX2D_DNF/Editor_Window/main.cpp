@@ -6,6 +6,7 @@
 #include "..\\Engine_SRC\\hjResources.h"
 
 #include "SceneLoader.h"
+#include "hjGuiEditor.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\HjEngine.lib")
@@ -68,11 +69,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             // 게임 로직 실행
             application.Run();
+            gui::Editor::Run();
+            application.Present();
         }
     }
 
     renderer::Release();
     hj::SceneManager::Release();
+    gui::Editor::Release();
 
     return (int) msg.wParam;
 }
@@ -118,6 +122,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    application.Initialize();
    hj::InitializeScenes();
+   gui::Editor::Initialize();
 
    return TRUE;
 }

@@ -15,6 +15,12 @@ cbuffer Grid : register(b2)
     float2 Resolution;
 }
 
+cbuffer Etc : register(b3)
+{
+    float Time;
+    float2 Res;
+    float Empty;
+}
 
 Texture2D albedoTexture : register(t0);
 

@@ -4,6 +4,7 @@
 namespace hj
 {
 	using namespace hj::math;
+	class GameObject;
 	enum class eKeyCode
 	{
 		Q, W, E, R, T, Y, U, I, O, P,
@@ -61,10 +62,11 @@ namespace hj
 			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::Up;
 		}
 
-		static __forceinline Vector2 GetMousePos() { return mMousePos; }
+		//static __forceinline Vector2 GetMousePos() { return mMouse->GetComponent<Transform>()->GetPosition(); }
+		static __forceinline GameObject* GetMousePos() { return mMouse; }
 
+		static GameObject* mMouse;
 	private:
 		static std::vector<Key> mKeys;
-		static Vector2 mMousePos;
 	};
 }

@@ -19,6 +19,7 @@ namespace hj
 		void SetPosition(Vector3 position) { mPosition = position; }
 		void SetRotation(Vector3 rotation) { mRotation = rotation; }
 		void SetScale(Vector3 scale) { mScale = scale; }
+		void SetRotation2D(float rotation) { mRotation = Vector3{ 0.0f, 0.0f, math::degreeToRadian(rotation) }; }
 
 		void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
 		void SetRotation(float x, float y, float z) { mRotation = Vector3(x, y, z); }

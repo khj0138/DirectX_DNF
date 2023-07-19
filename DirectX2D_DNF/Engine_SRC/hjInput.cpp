@@ -1,5 +1,15 @@
 #include "hjInput.h"
 #include "hjApplication.h"
+#include "hjRenderer.h"
+#include "hjmath.h"
+
+#include "hjGameObject.h"
+#include "hjTransform.h"
+#include "hjSceneManager.h"
+#include "hjMeshRenderer.h"
+#include "hjResources.h";
+#include "hjMesh.h";
+#include "hjMaterial.h";
 
 extern hj::Application application;
 
@@ -16,7 +26,7 @@ namespace hj
 	};
 
 	std::vector<Input::Key> Input::mKeys;
-	Vector2 Input::mMousePos = Vector2::Zero;
+	GameObject* Input::mMouse = new GameObject();
 
 	void Input::Initialize()
 	{
@@ -28,6 +38,14 @@ namespace hj
 			keyInfo.bPressed = false;
 
 			mKeys.push_back(keyInfo);
+		}
+		{
+			mMouse->SetName(L"Mouse");
+			/*SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, mMouse);
+			MeshRenderer* mr = mMouse->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
+			mMouse->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));*/
 		}
 	}
 
@@ -64,8 +82,38 @@ namespace hj
 			GetCursorPos(&mousePos);
 
 			ScreenToClient(application.GetHwnd(), &mousePos);
-			mMousePos.x = mousePos.x;
-			mMousePos.y = mousePos.y;
+
+			const Vector3 winMouse = Vector3{ (float)mousePos.x,(float)mousePos.y, 1.0f };
+
+			Vector3 UIMouse = Vector3::Zero;
+			Vector3 worldMouse = Vector3::Zero;
+			const Matrix projectionMatrix = Camera::GetGPUProjectionMatrix();
+			const Matrix viewMatrix = Camera::GetGPUViewMatrix();
+			const Matrix UIMatrix = Matrix::Identity;
+			if (renderer::mainCamera != nullptr)
+			{
+				Matrix WorldMatrix; 
+				WorldMatrix.Translation(renderer::mainCamera->GetOwner()->GetComponent<Transform>()->GetPosition());
+
+				Viewport viewport;
+				viewport.width = 1600.0f;
+				viewport.height = 900.0f;
+				viewport.x = 0;
+				viewport.y = 0;
+				viewport.minDepth = 0.0f;
+				viewport.maxDepth = 1.0f;
+
+
+				UIMouse = viewport.Unproject(winMouse, projectionMatrix, viewMatrix, WorldMatrix);
+			
+				worldMouse = viewport.Unproject(winMouse, projectionMatrix, viewMatrix, UIMatrix );
+			if (GetKey(eKeyCode::A))
+			{
+				int a = 0;
+			}
+			mMouse->GetComponent<Transform>()->SetPosition(worldMouse);
+			
+			}
 		}
 		else
 		{

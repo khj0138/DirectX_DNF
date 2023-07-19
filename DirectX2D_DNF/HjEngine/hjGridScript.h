@@ -1,6 +1,6 @@
 #pragma once
-#include <hjScript.h>
-#include "hjCamera.h"
+#include "..\\Engine_SRC\\hjScript.h"
+#include "..\\Engine_SRC\\hjCamera.h"
 
 namespace hj
 {

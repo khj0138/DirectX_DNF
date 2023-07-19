@@ -9,6 +9,8 @@ namespace hj
 		static void Initiailize();
 		static void Update();
 		static void Render();
+		static void BindConstantBuffer();
+
 
 		__forceinline static double DeltaTime() { return mDeltaTime; }
 

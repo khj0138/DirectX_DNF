@@ -45,6 +45,29 @@ namespace hj
 		}
 
 		template <typename T>
+		const std::vector<T*> GetComponents()
+		{
+			std::vector<T*> comps;
+
+			T* component;
+			for (Component* comp : mComponents)
+			{
+				component = dynamic_cast<T*>(comp);
+				if (component != nullptr)
+					comps.push_back(component);
+			}
+
+			for (Script* script : mScripts)
+			{
+				component = dynamic_cast<T*>(script);
+				if (component != nullptr)
+					comps.push_back(component);
+			}
+
+			return comps;
+		}
+
+		template <typename T>
 		T* AddComponent()
 		{
 			T* comp = new T();

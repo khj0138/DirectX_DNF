@@ -3,6 +3,7 @@
 #include "hjTime.h"
 #include "hjRenderer.h"
 #include "hjSceneManager.h"
+#include "hjCollisionManager.h"
 
 namespace hj
 {
@@ -24,6 +25,7 @@ namespace hj
 	{
 		Update();
 		LateUpdate();
+		CollisionManager::Update();
 		Render();
 		Destroy();
 	}
@@ -35,6 +37,7 @@ namespace hj
 
 		renderer::Initialize();
 		SceneManager::Initialize();
+		CollisionManager::Initialize();
 	}
 
 	void Application::Update()
@@ -60,12 +63,16 @@ namespace hj
 		
 		renderer::Render();
 
-		graphicDevice->Present();
 	}
 
 	void Application::Destroy()
 	{
 		SceneManager::Destroy();
+	}
+
+	void Application::Present()
+	{
+		graphicDevice->Present();
 	}
 
 	// 윈도우 속성 설정

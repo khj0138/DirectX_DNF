@@ -17,6 +17,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjCollider2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjCollisionManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjConstantBuffer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEngine.h" />
@@ -31,6 +33,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMath.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMesh.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMeshRenderer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjMouse.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResource.h" />
@@ -46,6 +49,8 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCamera.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjCollider2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjCollisionManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjComponent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjEntity.cpp" />
@@ -57,6 +62,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMath.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMesh.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMeshRenderer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjMouse.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp" />

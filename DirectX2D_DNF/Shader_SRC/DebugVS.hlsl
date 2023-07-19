@@ -18,19 +18,16 @@ struct VSOut
 
 VSOut main(VSIn In)
 {
-    
-    VSOut Out = (VSOut)0.0f;
+    VSOut Out = (VSOut) 0.0f;
     
     float4 world = mul(float4(In.Pos, 1.0f), WorldMatrix);
     float4 view = mul(world, ViewMatrix);
     float4 proj = mul(view, ProjectionMatrix);
-    
+
     
     Out.Pos = proj;
     Out.Color = In.Color;
-    Out.UV = float2(In.UV.x, In.UV.y);
-    //Out.UV = float2(In.UV.x / Res.x, In.UV.y / Res.y);
-    //Out.UV = In.UV;
+    Out.UV = In.UV;
     
     return Out;
 }

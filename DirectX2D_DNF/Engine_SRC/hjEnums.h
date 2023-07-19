@@ -6,6 +6,7 @@ namespace hj::enums
 		None,
 		Transform,
 		Mesh,
+		Collider2D,
 		Particle,
 		MeshRenderer,
 		Script,
@@ -19,7 +20,7 @@ namespace hj::enums
 		Player,
 		Monster,
 		UI,
-		End,
+		End = 16,
 	};
 
 	enum class eResourceType
@@ -28,6 +29,15 @@ namespace hj::enums
 		Shader,
 		Material,
 		Mesh,
+		End,
+	};
+
+	enum class eColliderType
+	{
+		Rect,
+		Circle,
+		Sphere,
+		Cube,
 		End,
 	};
 }

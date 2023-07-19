@@ -18,5 +18,9 @@ namespace hj
 	{
 		//PlayScene* playScene = new PlayScene();
 		SceneManager::CreateScene<PlayScene>(L"PlayScene");
+		SceneManager::CreateScene<PlayScene>(L"PlayScene2");
+
+		SceneManager::LoadScene(L"PlayScene");
+		//SceneManager::GetActiveScene()->Update();
 	}
 }

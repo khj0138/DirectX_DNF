@@ -1,7 +1,10 @@
 #include "hjTime.h"
 #include "hjApplication.h"
+#include "hjRenderer.h"
 
 extern hj::Application application;
+
+
 
 namespace hj
 {
@@ -32,6 +35,8 @@ namespace hj
 		mDeltaTime = differnceFrequency / mCpuFrequency.QuadPart;
 
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
+
+		Time::BindConstantBuffer();
 	}
 
 	void Time::Render()
@@ -52,5 +57,17 @@ namespace hj
 			//TextOut(hdc, 0, 0, szFloat, 20);
 			mSecond = 0.0f;
 		}
+	}
+	void Time::BindConstantBuffer()
+	{
+		float resolution[2] = { (float)application.GetWidth() / 1280.f, (float)application.GetHeight() / 720.f };
+		renderer::EtcCB etcCB = {};
+		etcCB.Time = mSecond;
+		etcCB.Res = { resolution[0], resolution[1] };
+		etcCB.Empty = 0.0f;
+
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];
+		cb->SetData(&etcCB);
+		cb->Bind(eShaderStage::VS);
 	}
 }

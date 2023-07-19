@@ -7,8 +7,13 @@
 #include "hjCamera.h"
 #include "hjGridScript.h"
 #include "hjPlayerScript.h"
-
+#include "hjRenderer.h"
 //#include "hjObject.h"
+#include "hjCollider2D.h"
+#include "hjCollisionManager.h"
+
+#include "hjInput.h"
+
 
 namespace hj
 {
@@ -33,9 +38,9 @@ namespace hj
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.000f));
-
-
+			player->GetComponent<Transform>()->SetPosition(Vector3(700.0f, 0.0f, 1.000f));
+			Collider2D* cd = player->AddComponent<Collider2D>();
+			player->GetComponent<Transform>()->SetRotation2D(60.0f);
 			/*GameObject* child = new GameObject();
 			child->SetName(L"ZeldaChild");
 			AddGameObject(eLayerType::Player, child);
@@ -64,6 +69,7 @@ namespace hj
 		//	player->GetComponent<Transform>()->SetPosition(Vector3(0.5f, 0.0f,0.0f));
 		//}
 			GameObject* player = new GameObject();
+			test = (GameObject*)player;
 		{
 			player->GetComponent<Transform>()->SetScale(Vector3{500.0f, 500.0f, 2.0f});
 			player->SetName(L"SwordMan2");
@@ -73,6 +79,7 @@ namespace hj
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
 			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.000f));
 			player->AddComponent<PlayerScript>();
+			Collider2D* cd = player->AddComponent<Collider2D>();
 		}
 
 		//// Main Camera
@@ -98,12 +105,14 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 			camera->GetComponent<Camera>()->RegisterTarget(player);
-			//camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
+			renderer:: cameras.push_back(cameraComp);
+			//renderer::mainCamera = cameraComp;
 			
 		}
-		
+		//CollisionManager::LayerCollision(eLayerType::Player, eLayerType::Monster);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		// UI Camera
-		/*{
+		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
@@ -111,7 +120,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 
 		}
-
+		/*
 		{
 			GameObject* grid = new GameObject();
 			grid->SetName(L"Grid");
@@ -122,10 +131,24 @@ namespace hj
 			GridScript* gridSc = grid->AddComponent<GridScript>();
 			gridSc->SetCamera(cameraComp);
 		}*/
+		{
+			GameObject* mouse = hj::Input::mMouse;
+			AddGameObject(eLayerType::UI, mouse);
+			MeshRenderer* mr = mouse->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
+			mouse->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+			mouse->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
+			Collider2D* cd = mouse->AddComponent<Collider2D>();
+		}
 	}
 
 	void PlayScene::Update()
 	{
+		if (GetKeyState(Input::GetKeyDown(eKeyCode::X)))
+		{
+			int a = 0;
+		}
 		Scene::Update();
 	}
 

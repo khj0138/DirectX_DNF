@@ -15,8 +15,10 @@ namespace hj
 			None,
 		};
 
-		static Matrix GetViewMatrix() { return View; }
-		static Matrix GetProjectionMatrix() { return Projection; }
+		static Matrix& GetGPUViewMatrix() { return View; }
+		static void SetGPUViewMatrix(Matrix view) { View = view; }
+		static Matrix& GetGPUProjectionMatrix() { return Projection; }
+		static void SetGPUProjectionMatrix(Matrix projection) { Projection = projection; }
 
 		Camera();
 		~Camera();
@@ -50,6 +52,8 @@ namespace hj
 		bool CheckTarget(Vector3& target);
 
 		float GetSize() { return mSize; }
+		Matrix& GetViewMatrix() { return mView; }
+		Matrix& GetProjectionMatrix() { return mProjection; }
 
 	private:
 		static Matrix View;

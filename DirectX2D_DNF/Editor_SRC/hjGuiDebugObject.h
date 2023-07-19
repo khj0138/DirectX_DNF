@@ -1,21 +1,19 @@
 #pragma once
-#include "..\\Engine_SRC\\hjScene.h"
+#include "..\\Engine_SRC\\hjGameObject.h"
 
-
-namespace hj
+namespace gui
 {
-	class PlayScene : public Scene
+	class DebugObject : public hj::GameObject
 	{
 	public:
-		PlayScene();
-		virtual ~PlayScene();
-
+		DebugObject();
+		~DebugObject();
+		
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
 		virtual void Render() override;
-
 	private:
-		GameObject* test;
 	};
 }
+
