@@ -94,6 +94,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjMouse.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimation.h">
+      <Filter>Resource\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimator.h">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -183,6 +189,12 @@
     <Filter Include="GameObject\Component\Collider">
       <UniqueIdentifier>{c4ded838-bb95-4ed7-954d-63e4c8122a44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameObject\Component\Animator">
+      <UniqueIdentifier>{9549b314-2c98-4480-857a-24bf53bc7436}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Animation">
+      <UniqueIdentifier>{38d39af6-a717-4623-a8aa-2eafa729d56d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp">
@@ -262,6 +274,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjMouse.cpp">
       <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimation.cpp">
+      <Filter>Resource\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimator.cpp">
+      <Filter>GameObject\Component\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

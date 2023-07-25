@@ -19,16 +19,20 @@ namespace hj
 		void SetMesh(std::shared_ptr<Mesh> mesh) { mMesh = mesh; }
 		void SetMaterial(std::shared_ptr<Material> material) {
 			mMaterial = material;
-			int b = 0;
 		}
 		std::shared_ptr<Material> GetMaterial() { return mMaterial; }
 
 		void SetUVScale(Vector2 scale) { mScale = scale; }
+		void SetUVMove(Vector2 scale) { mMove = scale; }
+		void SetUVFlip(bool flip) { mFlip = flip; }
 		void BindUVBuffer();
 
 	private:
 		std::shared_ptr<Mesh> mMesh;
 		std::shared_ptr<Material> mMaterial;
 		Vector2 mScale;
+		Vector2 mMove;
+		Vector2 mTime;
+		bool mFlip;
 	};
 }

@@ -25,7 +25,7 @@ namespace hj
 		float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
 		renderer::EtcCB etcCB = {};
 		//etcCB.Time = 0.0f;
-		etcCB.Res = { resolution[0], resolution[1] };
+		etcCB.Move = { resolution[0], resolution[1] };
 		etcCB.Expand = mScale;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];
@@ -37,7 +37,7 @@ namespace hj
 		float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
 		renderer::EtcCB etcCB = {};
 		//etcCB.Time = 0.0f;
-		etcCB.Res = { resolution[0], resolution[1] };
+		etcCB.Move = { resolution[0], resolution[1] };
 		etcCB.Expand = Vector2::One;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];

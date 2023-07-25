@@ -56,12 +56,22 @@ namespace renderer
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
+		shader = hj::Resources::Find<Shader>(L"MoveShader");
+		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
 		shader = hj::Resources::Find<Shader>(L"GridShader");
 		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
 
 		shader = hj::Resources::Find<Shader>(L"DebugShader");
+		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = hj::Resources::Find<Shader>(L"SpriteAnimShader");
 		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -287,9 +297,17 @@ namespace renderer
 		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
 		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(TransformCB));
 
-		// Time Buffer
+		// Animation Buffer
+		constantBuffer[(UINT)eCBType::Animator] = new ConstantBuffer(eCBType::Animator);
+		constantBuffer[(UINT)eCBType::Animator]->Create(sizeof(AnimatorCB));
+
+		// Etc Buffer
 		constantBuffer[(UINT)eCBType::Etc] = new ConstantBuffer(eCBType::Etc);
 		constantBuffer[(UINT)eCBType::Etc]->Create(sizeof(EtcCB));
+
+		// Time Buffer
+		constantBuffer[(UINT)eCBType::Time] = new ConstantBuffer(eCBType::Time);
+		constantBuffer[(UINT)eCBType::Time]->Create(sizeof(TimeCB));
 	}
 
 	void CreateShader(const std::wstring vsName, const std::wstring psName, const std::wstring sName
@@ -313,7 +331,9 @@ namespace renderer
 	{
 		CreateShader(L"TriangleVS.hlsl", L"TrianglePS.hlsl", L"TriangleShader");
 		CreateShader(L"SpriteVS.hlsl", L"SpritePS.hlsl", L"SpriteShader");
+		CreateShader(L"MoveVS.hlsl", L"MovePS.hlsl", L"MoveShader");
 		CreateShader(L"GridVS.hlsl", L"GridPS.hlsl", L"GridShader");
+		CreateShader(L"SpriteAnimationVS.hlsl", L"SpriteAnimationPS.hlsl", L"SpriteAnimShader");
 		CreateShader(L"DebugVS.hlsl", L"DebugPS.hlsl", L"DebugShader"
 		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, eRSType::WireframeNone, eDSType::NoWrite);
 		
@@ -343,36 +363,81 @@ namespace renderer
 		CreateMaterial(L"SpriteShader", L"SpriteMaterial", eRenderingMode::Transparent, L"SpriteMaterial", L"..\\Resources\\Texture\\SwordManAttack3.png");
 		CreateMaterial(L"SpriteShader", L"SpriteMaterial02", eRenderingMode::Transparent, L"SpriteMaterial02", L"..\\Resources\\Texture\\SwordManAttack.png");
 		
-		CreateMaterial(L"SpriteShader", L"back_far_0", eRenderingMode::Transparent, L"back_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Back_far_0.png");
-		CreateMaterial(L"SpriteShader", L"back_middle_0", eRenderingMode::Transparent, L"back_middle_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Back_middle_0.png");
-		CreateMaterial(L"SpriteShader", L"backgorund_far_0", eRenderingMode::Transparent, L"backgorund_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Backgorund_far_0.png");
-		CreateMaterial(L"SpriteShader", L"background_middle_0", eRenderingMode::Transparent, L"background_middle_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Background_middle_0.png");
-		CreateMaterial(L"SpriteShader", L"object_bigice_0", eRenderingMode::Transparent, L"object_bigice_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bigice_0.png");
-		CreateMaterial(L"SpriteShader", L"object_bigice_1", eRenderingMode::Transparent, L"object_bigice_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bigice_1.png");
-		CreateMaterial(L"SpriteShader", L"object_bottom_0", eRenderingMode::Transparent, L"object_bottom_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bottom_0.png");
-		CreateMaterial(L"SpriteShader", L"object_bottom_1", eRenderingMode::Transparent, L"object_bottom_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bottom_1.png");
-		CreateMaterial(L"SpriteShader", L"object_ice_0", eRenderingMode::Transparent, L"object_ice_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_0.png");
-		CreateMaterial(L"SpriteShader", L"object_ice_1", eRenderingMode::Transparent, L"object_ice_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_1.png");
-		CreateMaterial(L"SpriteShader", L"object_ice_2", eRenderingMode::Transparent, L"object_ice_2", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_2.png");
-		CreateMaterial(L"SpriteShader", L"object_ice_3", eRenderingMode::Transparent, L"object_ice_3", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_3.png");
-		CreateMaterial(L"SpriteShader", L"object_mist_0", eRenderingMode::Transparent, L"object_mist_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_mist_0.png");
-		CreateMaterial(L"SpriteShader", L"object_mist_1", eRenderingMode::Transparent, L"object_mist_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_mist_1.png");
-		CreateMaterial(L"SpriteShader", L"skasa_tile", eRenderingMode::Transparent, L"skasa_tile", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\skasa_tile.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_back_far_0", eRenderingMode::Transparent, L"Skasa_back_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Back_far_0.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_back_far_1", eRenderingMode::Transparent, L"Skasa_back_far_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\back_far_1.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_back_middle_0", eRenderingMode::Transparent, L"Skasa_back_middle_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Back_middle_0.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_backgorund_far_0", eRenderingMode::Transparent, L"Skasa_backgorund_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Backgorund_far_0.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_background_middle_0", eRenderingMode::Transparent, L"Skasa_background_middle_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Background_middle_0.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_bigice_0", eRenderingMode::Transparent, L"Skasa_object_bigice_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bigice_0.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_bigice_1", eRenderingMode::Transparent, L"Skasa_object_bigice_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bigice_1.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_bottom_0", eRenderingMode::Transparent, L"Skasa_object_bottom_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bottom_0.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_bottom_1", eRenderingMode::Transparent, L"Skasa_object_bottom_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_bottom_1.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_ice_0", eRenderingMode::Transparent, L"Skasa_object_ice_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_0.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_ice_1", eRenderingMode::Transparent, L"Skasa_object_ice_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_1.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_ice_2", eRenderingMode::Transparent, L"Skasa_object_ice_2", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_2.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_object_ice_3", eRenderingMode::Transparent, L"Skasa_object_ice_3", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_ice_3.png");
+		//CreateMaterial(L"SpriteShader", L"Skasa_tile", eRenderingMode::Transparent, L"Skasa_tile", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Skasa_tile.png");
+		CreateMaterial(L"SpriteShader", L"Skasa_tile1", eRenderingMode::Transparent, L"Skasa_tile1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Skasa_tile1.png");
+
+		CreateMaterial(L"MoveShader", L"Skasa_object_mist_0", eRenderingMode::Transparent, L"Skasa_object_mist_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_mist_0.png");
+		CreateMaterial(L"MoveShader", L"Skasa_object_mist_1", eRenderingMode::Transparent, L"Skasa_object_mist_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\object_mist_1.png");
 		
-		/*CreateMaterial(L"SpriteShader", L"tile_0", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_0.png");
-		CreateMaterial(L"SpriteShader", L"tile_1", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_1.png");
-		CreateMaterial(L"SpriteShader", L"tile_2", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_2.png");
-		CreateMaterial(L"SpriteShader", L"tile_ex_0", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex_0.png");
-		CreateMaterial(L"SpriteShader", L"tile_ex_1", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex_1.png");
-		CreateMaterial(L"SpriteShader", L"tile_ex_2", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex_2.png");
-		CreateMaterial(L"SpriteShader", L"tile_ex1_0", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex1_0.png");
-		CreateMaterial(L"SpriteShader", L"tile_ex1_1", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex1_1.png");
-		CreateMaterial(L"SpriteShader", L"tile_ex1_2", eRenderingMode::Transparent, L"SwordManAttack", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\tile_ex1_2.png");*/
+
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_far_0", eRenderingMode::Transparent, L"Sparazzi_back_far_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\Back_far_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_far_1", eRenderingMode::Transparent, L"Sparazzi_back_far_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_far_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_far_2", eRenderingMode::Transparent, L"Sparazzi_back_far_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_far_2.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_0", eRenderingMode::Transparent, L"Sparazzi_back_middle_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_1", eRenderingMode::Transparent, L"Sparazzi_back_middle_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_2", eRenderingMode::Transparent, L"Sparazzi_back_middle_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_2.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_3", eRenderingMode::Transparent, L"Sparazzi_back_middle_3", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_3.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_4", eRenderingMode::Transparent, L"Sparazzi_back_middle_4", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_4.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_5", eRenderingMode::Transparent, L"Sparazzi_back_middle_5", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_5.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_6", eRenderingMode::Transparent, L"Sparazzi_back_middle_6", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_6.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_back_middle_7", eRenderingMode::Transparent, L"Sparazzi_back_middle_7", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\back_middle_7.png");
+
+		CreateMaterial(L"SpriteShader", L"Sparazzi_tile1", eRenderingMode::Transparent, L"Sparazzi_tile1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\Sparazzi_tile1.png");
+		//CreateMaterial(L"SpriteShader", L"Skasa_tile", eRenderingMode::Transparent, L"Skasa_tile", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\Skasa_tile.png");
+		//CreateMaterial(L"SpriteShader", L"Skasa_tile1", eRenderingMode::Transparent, L"Skasa_tile1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\Skasa_tile1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_0", eRenderingMode::Transparent, L"Sparazzi_fog_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_1", eRenderingMode::Transparent, L"Sparazzi_fog_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_2", eRenderingMode::Transparent, L"Sparazzi_fog_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_2.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_3", eRenderingMode::Transparent, L"Sparazzi_fog_3", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_3.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_4", eRenderingMode::Transparent, L"Sparazzi_fog_4", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_4.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_normal_0", eRenderingMode::Transparent, L"Sparazzi_fog_normal_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_normal_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_normal_1", eRenderingMode::Transparent, L"Sparazzi_fog_normal_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_normal_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_fog_normal_2", eRenderingMode::Transparent, L"Sparazzi_fog_normal_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\fog_normal_2.png");
+
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_0", eRenderingMode::Transparent, L"Sparazzi_object_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_1", eRenderingMode::Transparent, L"Sparazzi_object_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_2", eRenderingMode::Transparent, L"Sparazzi_object_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_2.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_3", eRenderingMode::Transparent, L"Sparazzi_object_3", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_3.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_4", eRenderingMode::Transparent, L"Sparazzi_object_4", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_4.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_5", eRenderingMode::Transparent, L"Sparazzi_object_5", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_5.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_6", eRenderingMode::Transparent, L"Sparazzi_object_6", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_6.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_object_7", eRenderingMode::Transparent, L"Sparazzi_object_7", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\object_7.png");
+
+		CreateMaterial(L"SpriteShader", L"Sparazzi_nest_0", eRenderingMode::Transparent, L"Sparazzi_nest_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\nest_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_nest_1", eRenderingMode::Transparent, L"Sparazzi_nest_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\nest_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_nest_2", eRenderingMode::Transparent, L"Sparazzi_nest_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\nest_2.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_nest_3", eRenderingMode::Transparent, L"Sparazzi_nest_3", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\nest_3.png");
+
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_0", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_1", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_2", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_2.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_3", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_3", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_3.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_4", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_4", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_4.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_5", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_5", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_5.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_6", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_6", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_6.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_bottom_obj_7", eRenderingMode::Transparent, L"Sparazzi_bottom_obj_7", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\bottom_obj_7.png");
 		
+		CreateMaterial(L"SpriteShader", L"Sparazzi_border_0", eRenderingMode::Transparent, L"Sparazzi_border_0", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\border_0.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_border_1", eRenderingMode::Transparent, L"Sparazzi_border_1", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\border_1.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_border_2", eRenderingMode::Transparent, L"Sparazzi_border_2", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\border_2.png");
+		CreateMaterial(L"SpriteShader", L"Sparazzi_border_3", eRenderingMode::Transparent, L"Sparazzi_border_3", L"..\\Resources\\Texture\\Dungeon\\Sparazzi\\BackGround\\border_3.png");
 		
-		
-		
-		
+		CreateMaterial(L"SpriteAnimShader", L"SpriteAnimationMaterial", eRenderingMode::Transparent);
+
+
 		CreateMaterial(L"GridShader", L"GridMaterial", eRenderingMode::Transparent);
 		CreateMaterial(L"DebugShader", L"DebugMaterial", eRenderingMode::Transparent);
 	}
@@ -383,7 +448,7 @@ namespace renderer
 		LoadShader();
 		SetupState();
 		LoadMaterial();
-		Resources::test();
+		//Resources::test();
 		/*Resources::Find<Material>(L"object_mist_1");
 		std::shared_ptr<Material> a = Resources::Find<Material>(L"object_mist_1");*/
 

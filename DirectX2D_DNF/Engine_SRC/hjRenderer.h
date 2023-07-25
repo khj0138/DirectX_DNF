@@ -31,11 +31,28 @@ namespace renderer
 		Vector2 Resolution;
 	};
 
+	CBUFFER(AnimatorCB, CBSLOT_ANIMATION2D)
+	{
+		Vector2 spriteLeftTop;
+		Vector2 spriteSize;
+		Vector2 spriteOffset;
+		Vector2 atlasSize;
+		UINT animationType;
+		UINT flip;
+	};
+
 	CBUFFER(EtcCB, CBSLOT_ETC)
 	{
 		//float Time;
-		Vector2 Res;
+		Vector2 Move;
 		Vector2 Expand;
+		UINT Flip;
+	};
+
+	CBUFFER(TimeCB, CBSLOT_TIME)
+	{
+		float Time;
+		Vector3 Empty;
 	};
 
 	extern hj::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];

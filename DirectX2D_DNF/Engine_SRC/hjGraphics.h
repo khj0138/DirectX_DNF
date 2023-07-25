@@ -15,7 +15,9 @@
 #define CBSLOT_TRANSFORM		0
 //#define CBSLOT_PARTICLE			1
 #define CBSLOT_GRID		2
-#define CBSLOT_ETC		3
+#define CBSLOT_ANIMATION2D	3
+#define CBSLOT_ETC		4
+#define CBSLOT_TIME 5
 
 
 namespace hj::graphics
@@ -34,9 +36,11 @@ namespace hj::graphics
 	enum class eCBType
 	{
 		Transform,
-		Material,
+		Particle,
 		Grid,
+		Animator,
 		Etc,
+		Time,
 		End,
 	};
 

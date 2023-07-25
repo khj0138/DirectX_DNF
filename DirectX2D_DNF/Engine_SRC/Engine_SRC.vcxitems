@@ -15,6 +15,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimation.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCollider2D.h" />
@@ -47,6 +49,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTransform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimation.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCollider2D.cpp" />

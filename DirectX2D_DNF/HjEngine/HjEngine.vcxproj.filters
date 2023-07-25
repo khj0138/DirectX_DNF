@@ -40,6 +40,9 @@
     <ClInclude Include="hjImageScript.h">
       <Filter>Script</Filter>
     </ClInclude>
+    <ClInclude Include="hjDungeon_Spirazzi.h">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -60,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="hjImageScript.cpp">
       <Filter>Script</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Spirazzi.cpp">
+      <Filter>Scene\PlayScenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

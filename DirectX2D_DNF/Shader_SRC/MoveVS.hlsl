@@ -28,8 +28,10 @@ VSOut main(VSIn In)
     
     Out.Pos = proj;
     Out.Color = In.Color;
-    Out.UV = float2(In.UV.x, In.UV.y);
-    //Out.UV = float2(In.UV.x / Res.x, In.UV.y / Res.y);
+    // Out.UV = float2(In.UV.x, In.UV.y);
+    //if Time 
+    Out.UV = float2(In.UV.x * Expand.x + Move.x, In.UV.y * Expand.y + Move.y);
+    //Out.UV = float2(In.UV.x / Expand.x, In.UV.y * Expand.y);
     //Out.UV = In.UV;
     
     return Out;

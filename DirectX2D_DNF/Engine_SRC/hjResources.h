@@ -54,11 +54,6 @@ namespace hj
 		{
 			mResources.insert(std::make_pair(key, resource));
 		}
-
-		static void test()
-		{
-			int a = 0;
-		}
 	private:
 		static std::map<std::wstring, std::shared_ptr<Resource>> mResources;
 	};

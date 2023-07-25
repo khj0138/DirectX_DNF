@@ -34,8 +34,9 @@ namespace hj::graphics
 		}
 		else // WIC (png, jpg, jpeg, bmp )
 		{
-			if (FAILED(LoadFromWICFile(path.c_str(), WIC_FLAGS::WIC_FLAGS_NONE, nullptr, mImage)))
+			if (FAILED(LoadFromWICFile(path.c_str(), DirectX::WIC_FLAGS_IGNORE_SRGB, nullptr, mImage)))
 				return S_FALSE;
+			//if (FAILED(LoadFromWICFile(path.c_str(), DirectX::WIC_FLAGS_NONE, nullptr, mImage)))
 		}
 
 		CreateShaderResourceView
@@ -67,4 +68,105 @@ namespace hj::graphics
 		GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
 		GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
 	}
+    HRESULT Texture::CreateTex(const std::wstring& path, UINT filecnt, size_t imageMaxWidth, size_t imageMaxHeight)
+    {
+        ScratchImage atlasImage;
+        HRESULT hr = S_OK;
+
+        wchar_t ext[_MAX_EXT] = {};
+        _wsplitpath_s(path.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, ext, _MAX_EXT);
+        ScratchImage image;
+        int idx = 0;
+        std::filesystem::path fs(path);
+
+        bool isMake = false;
+        for (const auto& p : std::filesystem::recursive_directory_iterator(path))
+        {
+            std::wstring fileName = p.path().filename();
+            std::wstring fullName = p.path().wstring(); // Use the full path from the iterator
+            if (_wcsicmp(ext, L".dds") == 0)
+            {
+                hr = LoadFromDDSFile(fullName.c_str(), DDS_FLAGS_NONE, nullptr, image);
+            }
+            else if (_wcsicmp(ext, L".tga") == 0)
+            {
+                hr = LoadFromTGAFile(fullName.c_str(), nullptr, image);
+            }
+            else if (_wcsicmp(ext, L".hdr") == 0)
+            {
+                hr = LoadFromHDRFile(fullName.c_str(), nullptr, image);
+            }
+            else
+            {
+                hr = LoadFromWICFile(fullName.c_str(), WIC_FLAGS_NONE, nullptr, image);
+            }
+
+            if (SUCCEEDED(hr))
+            {
+                // Convert the image to a different format if needed (e.g., to DXGI_FORMAT_R8G8B8A8_UNORM)
+                ScratchImage convertedImage;
+                hr = Convert(image.GetImages(), image.GetImageCount(), image.GetMetadata(), DXGI_FORMAT_R8G8B8A8_UNORM, TEX_FILTER_DEFAULT, TEX_THRESHOLD_DEFAULT, convertedImage);
+                if (FAILED(hr))
+                {
+                    // Handle the conversion error if necessary
+                    return hr;
+                }
+                if (isMake == false)
+                {
+                    hr = atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, imageMaxWidth * filecnt, imageMaxHeight * 2, 1, 1);
+                    isMake = true;
+                }
+                if (FAILED(hr))
+                {
+                    // Handle the atlas image initialization error if necessary
+                    return hr;
+                }
+
+                // Copy the converted image data to the atlas image
+                hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, convertedImage.GetMetadata().width, convertedImage.GetMetadata().height),
+                    *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, (imageMaxWidth)*idx, 0);
+                if (FAILED(hr))
+                {
+                    // Handle the copy rectangle error if necessary
+                    return hr;
+                }
+            }
+            idx++;
+        }
+        if (FAILED(hr))
+        {
+            // Error handling if image loading, conversion, or copy rectangle fails
+            return hr;
+        }
+
+        if (FAILED(hr))
+        {
+            // Error handling if the texture creation failed
+            return hr;
+        }
+
+        CreateShaderResourceView
+        (
+            GetDevice()->GetID3D11Device()
+            , atlasImage.GetImages()
+            , atlasImage.GetImageCount()
+            , atlasImage.GetMetadata()
+            , mSRV.GetAddressOf()
+        );
+        mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
+
+        // Create an atlas texture object
+        // Assign the DirectX 11 texture and SRV to the atlasTexture
+
+        // Copy the image data from atlasImage to atlasTexture->mImage
+        this->mImage.Initialize2D(
+            atlasImage.GetMetadata().format,
+            atlasImage.GetMetadata().width,
+            atlasImage.GetMetadata().height,
+            atlasImage.GetMetadata().arraySize,
+            atlasImage.GetMetadata().mipLevels
+        );
+
+        return S_OK;
+    }
 }

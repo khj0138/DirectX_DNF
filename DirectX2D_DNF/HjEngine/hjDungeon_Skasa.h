@@ -4,11 +4,11 @@
 
 namespace hj
 {
-	class Dungeon_skasa : public PlayScene
+	class Dungeon_Skasa : public PlayScene
 	{
 	public:
-		Dungeon_skasa();
-		virtual ~Dungeon_skasa();
+		Dungeon_Skasa();
+		virtual ~Dungeon_Skasa();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

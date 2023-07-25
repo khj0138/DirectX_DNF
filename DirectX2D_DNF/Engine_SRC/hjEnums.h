@@ -9,6 +9,7 @@ namespace hj::enums
 		Collider2D,
 		Particle,
 		MeshRenderer,
+		Animator,
 		Script,
 		Camera,
 		End,
@@ -30,6 +31,7 @@ namespace hj::enums
 		Shader,
 		Material,
 		Mesh,
+		Animation,
 		End,
 	};
 

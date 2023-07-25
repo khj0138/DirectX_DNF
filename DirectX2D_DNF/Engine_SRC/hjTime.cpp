@@ -66,13 +66,13 @@ namespace hj
 	
 	void Time::BindConstantBuffer()
 	{
-		/*float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
-		renderer::EtcCB etcCB = {};
-		etcCB.Res = { resolution[0], resolution[1] };
-		etcCB.Expand = Vector2::One;
+		float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
+		renderer::TimeCB timeCB = {};
+		timeCB.Time = mDeltaTime;
+		timeCB.Empty = Vector3::One;
 
-		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];
-		cb->SetData(&etcCB);
-		cb->Bind(eShaderStage::VS);*/
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Time];
+		cb->SetData(&timeCB);
+		cb->Bind(eShaderStage::VS);
 	}
 }

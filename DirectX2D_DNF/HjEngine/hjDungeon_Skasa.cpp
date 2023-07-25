@@ -18,15 +18,15 @@
 
 namespace hj
 {
-	Dungeon_skasa::Dungeon_skasa()
+	Dungeon_Skasa::Dungeon_Skasa()
 	{
 
 	}
-	Dungeon_skasa::~Dungeon_skasa()
+	Dungeon_Skasa::~Dungeon_Skasa()
 	{
 
 	}
-	void Dungeon_skasa::Initialize()
+	void Dungeon_Skasa::Initialize()
 	{
 		//{
 		//	GameObject* player = new GameObject();
@@ -106,18 +106,18 @@ namespace hj
 		}
 	}
 
-	void Dungeon_skasa::Update()
+	void Dungeon_Skasa::Update()
 	{
 		
 		Scene::Update();
 	}
 
-	void Dungeon_skasa::LateUpdate()
+	void Dungeon_Skasa::LateUpdate()
 	{
 		Scene::LateUpdate();
 	}
 
-	void Dungeon_skasa::Render()
+	void Dungeon_Skasa::Render()
 	{
 		Scene::Render();
 	}

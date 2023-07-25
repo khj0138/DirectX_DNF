@@ -3,6 +3,7 @@
 #include "BackGroundLoader.h"
 #include "hjPlayScene.h"
 #include "hjDungeon_Skasa.h"
+#include "hjDungeon_Spirazzi.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\HjEngine.lib")
@@ -19,7 +20,9 @@ namespace hj
 	void InitializeScenes()
 	{
 		//PlayScene* playScene = new PlayScene();
-		SceneManager::CreateScene<Dungeon_skasa>(L"Dungeon_skasa");
+		SceneManager::CreateScene<Dungeon_Skasa>(L"Dungeon_Skasa");
+		CreateBackGrounds();
+		SceneManager::CreateScene<Dungeon_Spirazzi>(L"Dungeon_Spirazzi");
 		CreateBackGrounds();
 
 		//SceneManager::LoadScene(L"PlayScene");

@@ -2,13 +2,16 @@
 #include "hjGameObject.h"
 #include "hjTransform.h"
 #include "hjRenderer.h"
-
+#include "hjTime.h"
+#include "hjAnimator.h"
 
 namespace hj
 {
 	MeshRenderer::MeshRenderer()
 		: Component(eComponentType::MeshRenderer)
 		, mScale(Vector2::One)
+		, mMove(Vector2::Zero)
+		, mTime(Vector2::Zero)
 	{
 	}
 	MeshRenderer::~MeshRenderer()
@@ -31,21 +34,40 @@ namespace hj
 
 		mMesh->BindBuffer();
 		mMaterial->Binds();
+
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		if (animator)
+		{
+			animator->Binds();
+		}
 		mMesh->Render();
 
 		mMaterial->Clear();
 	}
 	void MeshRenderer::BindUVBuffer()
 	{
-		//float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
-		float resolution[2] = { 1.0f, 1.0f };
+		mTime.x += Time::DeltaTime();
+		if (mTime.x > abs(mMove.x))
+			mTime.x = 0.0f;
+		mTime.y += Time::DeltaTime();
+		if (mTime.y > abs(mMove.y))
+			mTime.y = 0.0f;
+		Vector2 moveCB = Vector2::Zero;
+		if (mMove.x != 0.0f)
+			moveCB.x = mTime.x / mMove.x;
+		if(mMove.y != 0.0f)
+			moveCB.y = mTime.y / mMove.y;
+
 		renderer::EtcCB etcCB = {};
 		//etcCB.Time = 0.0f;
-		etcCB.Res = { resolution[0], resolution[1] };
+		etcCB.Move = moveCB;
 		etcCB.Expand = mScale;
+		etcCB.Flip = (UINT)mFlip;
+
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];
 		cb->SetData(&etcCB);
 		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::PS);
 	}
 }

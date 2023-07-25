@@ -154,6 +154,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjDungeon_Skasa.h" />
+    <ClInclude Include="hjDungeon_Spirazzi.h" />
     <ClInclude Include="hjGridScript.h" />
     <ClInclude Include="hjImageScript.h" />
     <ClInclude Include="hjPlayerScript.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjDungeon_Skasa.cpp" />
+    <ClCompile Include="hjDungeon_Spirazzi.cpp" />
     <ClCompile Include="HjEngine.cpp" />
     <ClCompile Include="hjGridScript.cpp" />
     <ClCompile Include="hjImageScript.cpp" />
