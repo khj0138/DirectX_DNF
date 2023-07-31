@@ -23,6 +23,7 @@ cbuffer Animator : register(b3)
     float2 AtlasSize;
     uint animationType;
     uint AnimFlip;
+    float2 padding;
 }
 
 cbuffer Etc : register(b4)

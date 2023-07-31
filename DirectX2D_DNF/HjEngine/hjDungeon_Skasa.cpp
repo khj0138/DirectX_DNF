@@ -12,7 +12,7 @@
 //#include "hjObject.h"
 #include "hjCollider2D.h"
 #include "hjCollisionManager.h"
-
+#include "hjAnimator.h"
 #include "hjInput.h"
 
 
@@ -44,16 +44,29 @@ namespace hj
 		//}
 
 		GameObject* player = new GameObject();
-		test = (GameObject*)player;
+		//test = (GameObject*)player;
 		{
 			player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
 			player->SetName(L"SwordMan2");
 			AddGameObject(eLayerType::Player, player);
 			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.000f));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+			// mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 500.0f, 1.000f));
+
+			//std::shared_ptr<Texture> atlas
+			//	= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\linkSprites.png");
+			Animator* at = player->AddComponent<Animator>();
+			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Idle", 0.1f);
+			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Walk", 0.1f);
+			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f);
+			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Jump", 0.2f);
+			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack", 0.1f);
+			//at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\", 0.1f);
+			at->PlayAnimation(L"SwordManIdle", true);
 			player->AddComponent<PlayerScript>();
+
 			Collider2D* cd = player->AddComponent<Collider2D>();
 		}
 		
@@ -63,18 +76,18 @@ namespace hj
 		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
-			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 420.0f) * 2.0f, ( - 450.0f + 850.0f) * 2.0f, -10.0f));
+			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 			camera->GetComponent<Camera>()->RegisterTarget(player);
-			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
+			//camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
 		}
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		// UI Camera
+		// UI Camera 
 		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);

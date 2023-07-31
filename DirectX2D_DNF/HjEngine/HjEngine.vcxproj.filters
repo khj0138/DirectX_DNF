@@ -43,6 +43,15 @@
     <ClInclude Include="hjDungeon_Spirazzi.h">
       <Filter>Scene\PlayScenes</Filter>
     </ClInclude>
+    <ClInclude Include="hjDungeon_Hysmar.h">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTown_GunHwaMun.h">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTown_MainCamp.h">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -65,6 +74,15 @@
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="hjDungeon_Spirazzi.cpp">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Hysmar.cpp">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTown_GunHwaMun.cpp">
+      <Filter>Scene\PlayScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTown_MainCamp.cpp">
       <Filter>Scene\PlayScenes</Filter>
     </ClCompile>
   </ItemGroup>

@@ -63,7 +63,7 @@ namespace hj
 		etcCB.Move = moveCB;
 		etcCB.Expand = mScale;
 		etcCB.Flip = (UINT)mFlip;
-
+		Vector3 a = GetOwner()->GetComponent<Transform>()->GetPosition();
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];
 		cb->SetData(&etcCB);
