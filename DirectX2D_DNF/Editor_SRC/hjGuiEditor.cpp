@@ -23,7 +23,7 @@ namespace gui
 		std::shared_ptr<hj::Mesh> mesh
 			= hj::Resources::Find<hj::Mesh>(L"DebugRect");
 		std::shared_ptr<hj::Material> material
-			= hj::Resources::Find<hj::Material>(L"DebugMaterial");
+			= hj::Resources::Find<hj::Material>(L"DebugRectMaterial");
 
 		mDebugObjects[(UINT)eColliderType::Rect] = new DebugObject();
 		mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<hj::Transform>();
@@ -32,6 +32,16 @@ namespace gui
 		mr->SetMaterial(material);
 		mr->SetMesh(mesh);
 
+		mesh
+			= hj::Resources::Find<hj::Mesh>(L"DebugCircle");
+		material
+			= hj::Resources::Find<hj::Material>(L"DebugCircleMaterial");
+		mDebugObjects[(UINT)eColliderType::Circle] = new DebugObject();
+		mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<hj::Transform>();
+		mr
+			= mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<hj::MeshRenderer>();
+		mr->SetMaterial(material);
+		mr->SetMesh(mesh);
 
 		/*EditorObject* grid = new EditorObject();
 		grid->SetName(L"Grid");
@@ -75,7 +85,7 @@ namespace gui
 			obj->Render();
 		}
 
-		for (const hj::graphics::DebugMesh& mesh
+		for (const hj::graphics::DebugMesh* mesh
 			: renderer::debugMeshs)
 		{
 			DebugRender(mesh);
@@ -103,21 +113,21 @@ namespace gui
 		}
 	}
 
-	void Editor::DebugRender(const hj::graphics::DebugMesh& mesh)
+	void Editor::DebugRender(const hj::graphics::DebugMesh* mesh)
 	{
-		DebugObject* debugObj = mDebugObjects[(UINT)mesh.type];
+		DebugObject* debugObj = mDebugObjects[(UINT)mesh->type];
 
 		
 		// 위치 크기 회전 정보를 받아와서
 		// 해당 게임오브젝트위에 그려주면된다.
 		hj::Transform* tr = debugObj->GetComponent<hj::Transform>();
 
-		Vector3 pos = mesh.position;
+		Vector3 pos = mesh->position;
 		pos.z -= 0.01f;
 
 		tr->SetPosition(pos);
-		tr->SetScale(mesh.scale);
-		tr->SetRotation(mesh.rotation);
+		tr->SetScale(mesh->scale);
+		tr->SetRotation(mesh->rotation);
 
 		tr->LateUpdate();
 
@@ -131,6 +141,17 @@ namespace gui
 
 		debugObj->Render();
 		renderer::debugMeshs.clear();
+
+		renderer::CollisionCB colObj = {};
+		if (mesh->bCollision == true)
+			int a = 0;
+		colObj.bCollision = (UINT)(mesh->bCollision);
+		colObj.Empty = Vector3::Zero;
+		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Collision];
+		cb->SetData(&colObj);
+		cb->Bind(eShaderStage::PS);
+
+		debugObj->Render();
 	}
 
 }

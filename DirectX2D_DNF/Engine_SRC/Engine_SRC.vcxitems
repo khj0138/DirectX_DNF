@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjBehaviorTree.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCollider2D.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCollisionManager.h" />
@@ -40,6 +41,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjRenderer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjResources.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjRigidbody.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjScene.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjSceneManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjScript.h" />
@@ -47,11 +49,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTexture.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTime.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjTransform.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjBehaviorTree.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCollider2D.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCollisionManager.cpp" />
@@ -70,6 +74,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjRenderer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjRigidbody.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjScene.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjSceneManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjScript.cpp" />

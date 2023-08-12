@@ -3,7 +3,9 @@
 #include "hjAnimator.h"
 #include "hjRenderer.h"
 #include "hjConstantBuffer.h"
+#include "hjApplication.h"
 
+extern hj::Application application;
 namespace hj
 {
 	Animation::Animation()
@@ -14,6 +16,7 @@ namespace hj
 		, mIndex(-1)
 		, mTime(0.0f)
 		, mbComplete(false)
+		, isBack(false)
 	{
 
 	}
@@ -68,9 +71,9 @@ namespace hj
 			sprite.leftTop.y = leftTop.y / height;
 			sprite.size.x = size.x / width;
 			sprite.size.y = size.y / height;
-			sprite.offset = offset;
-			sprite.atlasSize = Vector2(200.0f / width, 200.0f / height);
-			//sprite.atlasSize = Vector2::One;
+			sprite.offset.x = offset.x / width;
+			sprite.offset.y = offset.y / height;
+			sprite.atlasSize = Vector2(size.x / width, size.y / height);
 			sprite.duration = duration;
 
 			mSprites.push_back(sprite);
@@ -80,6 +83,7 @@ namespace hj
 
 	void Animation::Binds()
 	{
+		float fixedRes = (float)application.GetFixedWidth() / 800.f;
 		// texture bind
 		mAtlas->BindShader(graphics::eShaderStage::PS, 12);
 
@@ -88,10 +92,12 @@ namespace hj
 
 		data.spriteLeftTop = mSprites[mIndex].leftTop;
 		data.spriteSize = mSprites[mIndex].size;
-		data.spriteOffset = mSprites[mIndex].offset;
+		data.spriteOffset = mSprites[mIndex].offset * fixedRes;
 		data.atlasSize = mSprites[mIndex].atlasSize;
 		data.animationType = 1;
 		data.flip = (UINT)isFlip;
+		data.back = (UINT)isBack;
+		//data.spriteLeftTop.y += mSprites[mIndex].size.y / 2.0f;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Animator];
 		cb->SetData(&data);

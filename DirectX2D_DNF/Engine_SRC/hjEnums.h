@@ -5,6 +5,7 @@ namespace hj::enums
 	{
 		None,
 		Transform,
+		Rigidbody,
 		Mesh,
 		Collider2D,
 		Particle,

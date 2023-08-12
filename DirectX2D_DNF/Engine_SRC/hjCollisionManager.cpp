@@ -49,7 +49,9 @@ namespace hj
 			if (leftObj->GetState()
 				!= GameObject::eState::Active)
 				continue;
-
+			/*if (!(leftCol->GetCollision()))
+				continue;*/
+			
 			for (GameObject* rightObj : rights)
 			{
 				Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
@@ -60,7 +62,8 @@ namespace hj
 				if (rightObj->GetState()
 					!= GameObject::eState::Active)
 					continue;
-
+				/*if (!(rightCol->GetCollision()))
+					continue;*/
 				ColliderCollision(leftCol, rightCol);
 			}
 		}
@@ -79,47 +82,70 @@ namespace hj
 		if (iter == mCollisionMap.end())
 		{
 			mCollisionMap.insert(std::make_pair(id.id, false));
+
 			iter = mCollisionMap.find(id.id);
 		}
 
-		if (Intersect(left, right))
+		if (!(left->GetCollision()) || !(right->GetCollision()))
 		{
-			// 충돌
-			if (iter->second == false)
+			if (iter->second)
 			{
-				//최초 충돌
-				left->OnCollisionEnter(right);
-				right->OnCollisionEnter(left);
+				iter->second = false;
+
+				left->CollisionMesh(false);
+				right->CollisionMesh(false);
 			}
 			else
-			{
-				// 충돌 중
-				left->OnCollisionStay(right);
-				right->OnCollisionStay(left);
-			}
-			iter->second = true;
+				return;
 		}
 		else
 		{
-			// 충돌 X
-			if (iter->second == true)
+			if (Intersect(left, right))
 			{
-				// 충돌하고 있다가 나갈떄
-				left->OnCollisionExit(right);
-				right->OnCollisionExit(left);
+				// 충돌
+				if (iter->second == false)
+				{
+					//최초 충돌
+					left->OnCollisionEnter(right);
+					right->OnCollisionEnter(left);
+				}
+				else
+				{
+					// 충돌 중
+					left->OnCollisionStay(right);
+					right->OnCollisionStay(left);
+				}
+				iter->second = true;
+
+				left->CollisionMesh(true);
+				right->CollisionMesh(true);
 			}
-			iter->second = false;
+			else
+			{
+				// 충돌 X
+				if (iter->second == true)
+				{
+					// 충돌하고 있다가 나갈떄
+					left->OnCollisionExit(right);
+					right->OnCollisionExit(left);
+
+					left->CollisionMesh(false);
+					right->CollisionMesh(false);
+				}
+				iter->second = false;
+
+			}
 		}
 	}
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)
 	{
-		if (left->GetType() == eColliderType::Rect)
+		if (left->GetType() == right->GetType())
 		{
-			if (right->GetType() == eColliderType::Rect)
+			if (left->GetType() == eColliderType::Rect)
 			{
-				Vector3 leftScale = left->GetTransform()->GetScale();
+				Vector3 leftScale = left->GetSize();
 				float leftRotation = left->GetTransform()->GetRotation().z;
-				Vector3 rightScale = right->GetTransform()->GetScale();
+				Vector3 rightScale = right->GetSize();
 				float rightRotation = right->GetTransform()->GetRotation().z;
 
 				/*std::vector<Vector3> axis3D;
@@ -141,30 +167,89 @@ namespace hj
 					math::Vector2::rotation(axis2D[i + 2], rightRotation);
 				}
 
-				Vector3 temp = left->GetTransform()->GetPosition() - right->GetTransform()->GetPosition();
+				Vector3 temp = left->GetPosition() - right->GetPosition();
 				axis2D.push_back(Vector2{temp.x, temp.y});
 
 				for (int i = 0; i < 4; i++)
 				{
-					Vector2 length = axis2D[4];
 					Vector2 axis = axis2D[i];
 					axis.Normalize();
+					float length = abs(axis.Dot(axis2D[4]));
 
 					float sum = 0.0f;
 					for (int j = 0; j < 4; j++)
 					{
 						sum += abs(axis.Dot(axis2D[j]));
 					}
-					if (sum < (length.Length() * 2))
+					if (sum < (length * 2))
 						return false;
 				}
-				return true;
+				return HeightCheck(left, right);
 			}
-			else if (right->GetType() == eColliderType::Circle)
+			else if (left->GetType() == eColliderType::Circle)
 			{
+				float leftRadius = left->GetSize().x;
+				float rightRadius = right->GetSize().x;
 
+				Vector3 temp = left->GetPosition() - right->GetPosition();
+				//Vector2 temp2D = Vector2{ temp.x,temp.y / cos(45.0f)};
+				Vector2 temp2D = Vector2{ temp.x,temp.y};
+				float length = temp2D.Length() * 2.0f;
+
+
+				if (length > (leftRadius + rightRadius))
+					return false;
+				return HeightCheck(left, right);
 			}
 		}
+		else
+		{
+			if (right->GetType() == eColliderType::Circle)
+			{
+				Collider2D* temp = left;
+				left = right;
+				right = temp;
+			}
+			
+			Vector3 leftScale = left->GetSize();
+			float leftRotation = left->GetTransform()->GetRotation().z;
+
+			std::vector<Vector2> axis2D;
+			axis2D.push_back((Vector2{ 0.0f, 1.0f } *Vector2(leftScale.x, leftScale.y)));
+			axis2D.push_back((Vector2{ 1.0f, 0.0f } *Vector2(leftScale.x, leftScale.y)));
+
+			for (int i = 0; i < 2; i++)
+			{
+				math::Vector2::rotation(axis2D[i], leftRotation);
+			}
+
+			Vector3 temp = left->GetPosition() - right->GetPosition();
+			axis2D.push_back(Vector2{ temp.x, temp.y });
+				
+			for (int i = 0; i < 2; i++)
+			{
+				Vector2 axis = axis2D[i];
+				axis.Normalize();
+				float length = abs(axis.Dot(axis2D[2]));
+
+				float sum = 0.0f;
+				for (int j = 0; j < 2; j++)
+				{
+					sum += abs(axis.Dot(axis2D[j]));
+				}
+				if (sum < (length * 2))
+					return false;
+			}
+			return HeightCheck(left, right);
+		}
+	}
+	bool CollisionManager::HeightCheck(Collider2D* left, Collider2D* right)
+	{
+		if (left->GetCollisionHeight().x <= right->GetCollisionHeight().y &&
+			right->GetCollisionHeight().x <= left->GetCollisionHeight().y)
+			return true;
+		else
+			return false;
 	}
 	void CollisionManager::SetLayer(eLayerType left, eLayerType right, bool enable)
 	{

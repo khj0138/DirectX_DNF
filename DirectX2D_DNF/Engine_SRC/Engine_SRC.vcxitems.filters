@@ -100,6 +100,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimator.h">
       <Filter>GameObject\Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjBehaviorTree.h">
+      <Filter>Common\BehaviorTree</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjNode.h">
+      <Filter>Common\BehaviorTree\Node\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjRigidbody.h">
+      <Filter>GameObject\Component\Rigidbody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -195,6 +204,18 @@
     <Filter Include="Resource\Animation">
       <UniqueIdentifier>{38d39af6-a717-4623-a8aa-2eafa729d56d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\BehaviorTree">
+      <UniqueIdentifier>{5b43b3cc-7a25-4876-906b-e52bcdd12ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\BehaviorTree\Node">
+      <UniqueIdentifier>{15168e0e-31f0-44d1-96a8-f3efdcabed7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\BehaviorTree\Node\Base">
+      <UniqueIdentifier>{40e773d4-e383-4b3e-829e-1cf94d541bde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Rigidbody">
+      <UniqueIdentifier>{6e4e04bb-3023-427a-802e-755f1dbe6984}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp">
@@ -280,6 +301,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimator.cpp">
       <Filter>GameObject\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjBehaviorTree.cpp">
+      <Filter>Common\BehaviorTree</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjRigidbody.cpp">
+      <Filter>GameObject\Component\Rigidbody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,7 +20,7 @@ namespace gui
 		static void Render();
 		static void Release();
 
-		static void DebugRender(const hj::graphics::DebugMesh& mesh);
+		static void DebugRender(const hj::graphics::DebugMesh* mesh);
 	private:
 		static std::vector<Widget*> mWidgets;
 		static std::vector<EditorObject*> mEditorObjects;

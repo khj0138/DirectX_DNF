@@ -39,6 +39,7 @@ namespace renderer
 		Vector2 atlasSize;
 		UINT animationType;
 		UINT flip;
+		UINT back;
 	};
 
 	CBUFFER(EtcCB, CBSLOT_ETC)
@@ -47,11 +48,18 @@ namespace renderer
 		Vector2 Move;
 		Vector2 Expand;
 		UINT Flip;
+		UINT Repeat;
 	};
 
 	CBUFFER(TimeCB, CBSLOT_TIME)
 	{
 		float Time;
+		Vector3 Empty;
+	};
+
+	CBUFFER(CollisionCB, CBSLOT_COLLISION)
+	{
+		UINT bCollision;
 		Vector3 Empty;
 	};
 
@@ -64,12 +72,12 @@ namespace renderer
 
 	extern hj::Camera* mainCamera;
 	extern std::vector<hj::Camera*> cameras;
-	extern std::vector<DebugMesh> debugMeshs;
+	extern std::vector<DebugMesh*> debugMeshs;
 
 	void Initialize();
 	void Render();
 	void Release();
 
-	void PushDebugMeshAttribute(DebugMesh mesh);
+	void PushDebugMeshAttribute(DebugMesh* mesh);
 }
 

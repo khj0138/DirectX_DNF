@@ -98,7 +98,7 @@ namespace hj::graphics
             }
             else
             {
-                hr = LoadFromWICFile(fullName.c_str(), WIC_FLAGS_NONE, nullptr, image);
+                hr = LoadFromWICFile(fullName.c_str(), WIC_FLAGS_IGNORE_SRGB, nullptr, image);
             }
 
             if (SUCCEEDED(hr))
@@ -123,6 +123,8 @@ namespace hj::graphics
                 }
 
                 // Copy the converted image data to the atlas image
+
+
                 hr = CopyRectangle(*convertedImage.GetImage(0, 0, 0), Rect(0, 0, convertedImage.GetMetadata().width, convertedImage.GetMetadata().height),
                     *atlasImage.GetImage(0, 0, 0), TEX_FILTER_DEFAULT, (imageMaxWidth)*idx, 0);
                 if (FAILED(hr))

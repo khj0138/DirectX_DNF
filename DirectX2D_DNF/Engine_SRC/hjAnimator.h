@@ -43,13 +43,32 @@ namespace hj
 			, Vector2 size
 			, UINT columnLength
 			, Vector2 offset = Vector2::Zero
-			, float duration = 0.1f);
-		Animation* CreateAnimations(const std::wstring& path, float duration);
+			, float duration = 0.1f
+			, bool back = false);
+		Animation* CreateAnimations(const std::wstring& path, float duration, Vector2 offset = Vector2::Zero, bool back = false);
 		Animation* FindAnimation(const std::wstring& name);
 		Events* FindEvents(const std::wstring& name);
-		void PlayAnimation(const std::wstring& name, bool loop);
+		void PlayAnimation(const std::wstring& name, bool loop, bool back = false);
+		void CloseAnimation() { mActiveAnimation = nullptr; }
+		bool isAnimatorClose() { return (mActiveAnimation == nullptr); }
+
 		void Binds();
-		void SetFlip(bool flip) { mActiveAnimation->SetFlip(flip); }
+		void SetFlip(bool flip) 
+		{
+			isFlip = flip;
+			mActiveAnimation->SetFlip(flip);
+			if (isFlip)
+			{
+				animatorOffset.x = -1.0f * abs(animatorOffset.x);
+			}
+			else
+			{
+				animatorOffset.x = abs(animatorOffset.x);
+			}
+		}
+
+		Vector2 GetAnimatorOffset() { return animatorOffset; }
+		void SetAnimatorOffset(Vector2 offset) { animatorOffset = offset; }
 
 		std::function<void()>& StartEvent(const std::wstring key);
 		std::function<void()>& CompleteEvent(const std::wstring key);
@@ -61,5 +80,8 @@ namespace hj
 		Animation* mActiveAnimation;
 		std::shared_ptr<graphics::Texture> mImageAtlas;
 		bool mbLoop;
+		bool isFlip;
+		Vector2 animatorOffset;
+		//bool isBack;
 	};
 }

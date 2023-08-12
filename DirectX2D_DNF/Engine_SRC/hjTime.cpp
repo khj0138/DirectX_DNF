@@ -66,7 +66,7 @@ namespace hj
 	
 	void Time::BindConstantBuffer()
 	{
-		float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
+		float resolution[2] = { (float)application.GetFixedWidth() / 800.f, (float)application.GetFixedHeight() / 450.f };
 		renderer::TimeCB timeCB = {};
 		timeCB.Time = mDeltaTime;
 		timeCB.Empty = Vector3::One;

@@ -8,6 +8,9 @@
 #include "SceneLoader.h"
 #include "hjGuiEditor.h"
 
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\HjEngine.lib")
 #else
@@ -27,6 +30,11 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+//#if _DEBUG
+//#define new new(_NORMAL_BLOCK,__FILE__,__LINE__)
+//#define malloc(s) _malloc_dbg(s,_NORMAL_BLOCK,__FILE__,__LINE__)
+//#endif
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -35,8 +43,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(371);
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
+    _CrtSetBreakAlloc(224);
+    
 
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
@@ -73,11 +82,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Present();
         }
     }
-
+    //_CrtDumpMemoryLeaks();
     renderer::Release();
     hj::SceneManager::Release();
     gui::Editor::Release();
 
+ //   _CrtDumpMemoryLeaks();
     return (int) msg.wParam;
 }
 
@@ -115,7 +125,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
-
+   
    application.SetWindow(hWnd, 1600, 900);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
@@ -155,8 +165,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_DESTROY:
+    {
+
         PostQuitMessage(0);
+
         break;
+    }
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

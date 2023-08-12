@@ -18,6 +18,7 @@
 #define CBSLOT_ANIMATION2D	3
 #define CBSLOT_ETC		4
 #define CBSLOT_TIME 5
+#define CBSLOT_COLLISION 6
 
 
 namespace hj::graphics
@@ -41,6 +42,7 @@ namespace hj::graphics
 		Animator,
 		Etc,
 		Time,
+		Collision,
 		End,
 	};
 
@@ -109,5 +111,10 @@ namespace hj::graphics
 		float radius;
 		float duration;
 		float time;
+
+		bool bCollision;
+	public:
+		void CollisionMesh(bool collision) { bCollision = collision; }
+		bool isCollision() { return bCollision; }
 	};
 }

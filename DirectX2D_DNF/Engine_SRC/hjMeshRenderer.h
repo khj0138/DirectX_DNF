@@ -25,6 +25,7 @@ namespace hj
 		void SetUVScale(Vector2 scale) { mScale = scale; }
 		void SetUVMove(Vector2 scale) { mMove = scale; }
 		void SetUVFlip(bool flip) { mFlip = flip; }
+		void SetUVRepeat(bool repeat) { mRepeat = repeat; }
 		void BindUVBuffer();
 
 	private:
@@ -34,5 +35,6 @@ namespace hj
 		Vector2 mMove;
 		Vector2 mTime;
 		bool mFlip;
+		bool mRepeat;
 	};
 }

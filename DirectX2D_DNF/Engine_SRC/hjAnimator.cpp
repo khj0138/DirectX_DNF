@@ -5,6 +5,7 @@ namespace hj
 {
 	Animator::Animator()
 		: Component(eComponentType::Animator)
+		, isFlip(false)
 	{
 	}
 	Animator::~Animator()
@@ -29,21 +30,23 @@ namespace hj
 	{
 		if (mActiveAnimation == nullptr)
 			return;
-
-		if (mActiveAnimation->IsComplete() && mbLoop)
+		if (mActiveAnimation->IsComplete())
 		{
 			Events* events
 				= FindEvents(mActiveAnimation->GetKey());
 			if (events)
-				events->completeEvent();
-
-			mActiveAnimation->Reset();
+				events->completeEvent() ;
+			if (mbLoop == true)
+				mActiveAnimation->Reset();
 		}
 
+		if (mActiveAnimation == nullptr)
+			return;
 		mActiveAnimation->LateUpdate();
 	}
 	void Animator::LateUpdate()
 	{
+		
 	}
 	void Animator::Render()
 	{
@@ -56,7 +59,8 @@ namespace hj
 		, Vector2 size
 		, UINT columnLength
 		, Vector2 offset
-		, float duration)
+		, float duration
+		, bool back)
 	{
 		Animation* animation = FindAnimation(name);
 		if (nullptr != animation)
@@ -64,6 +68,7 @@ namespace hj
 
 		animation = new Animation();
 		animation->SetKey(name);
+		animation->SetBack(back);
 
 		animation->Create(name
 			, atlas
@@ -82,7 +87,7 @@ namespace hj
 		events = new Events();
 		mEvents.insert(std::make_pair(name, events));
 	}
-	Animation* Animator::CreateAnimations(const std::wstring& path, float duration)
+	Animation* Animator::CreateAnimations(const std::wstring& path, float duration, Vector2 offset, bool back)
 	{
 		size_t maxWidth = 0;
 		size_t maxHeight = 0;
@@ -118,7 +123,12 @@ namespace hj
 
 		mImageAtlas = std::make_shared<graphics::Texture>();
 		mImageAtlas->CreateTex(path, fileCount, maxWidth, maxHeight);
-		Create(key, mImageAtlas, Vector2(0.0), Vector2(maxWidth, maxHeight), fileCount, Vector2::Zero, duration);
+		if (back)
+		{
+			std::wstring addingWord = L"Back";
+			key.append(addingWord);
+		}
+		Create(key, mImageAtlas, Vector2(0.0), Vector2(maxWidth, maxHeight), fileCount, offset, duration, back);
 
 		return nullptr;
 	}
@@ -142,8 +152,12 @@ namespace hj
 
 		return iter->second;
 	}
-	void Animator::PlayAnimation(const std::wstring& name, bool loop)
+	void Animator::PlayAnimation(const std::wstring& name, bool loop, bool back)
 	{
+
+
+
+
 		Animation* prevAnimation = mActiveAnimation;
 
 		Events* events;
@@ -155,18 +169,27 @@ namespace hj
 				events->endEvent();
 		}
 
-		Animation* animation = FindAnimation(name);
+		std::wstring fixedName = name;
+		if (back)
+		{
+			std::wstring addingWord = L"Back";
+			fixedName.append(addingWord);
+		}
+		Animation* animation = FindAnimation(fixedName);
 		if (animation)
 		{
 			mActiveAnimation = animation;
 		}
 
-		/*events = FindEvents(mActiveAnimation->GetKey());
+		events = FindEvents(mActiveAnimation->GetKey());
 		if (events)
-			events->startEvent();*/
+			events->startEvent();
 
 		mbLoop = loop;
 		mActiveAnimation->Reset();
+		mActiveAnimation->SetFlip(isFlip);
+		mActiveAnimation->SetBack(back);
+		
 	}
 	void Animator::Binds()
 	{

@@ -1,6 +1,10 @@
 #include "hjCollider2D.h"
 #include "hjGameObject.h"
 #include "hjRenderer.h"
+#include "hjAnimator.h"
+#include "hjApplication.h"
+
+extern hj::Application application;
 
 namespace hj
 {
@@ -10,16 +14,33 @@ namespace hj
 		, mTransform(nullptr)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
+		, mType(eColliderType::Circle)
+		, bCollision(true)
 	{
 		mColliderNumber++;
 		mColliderID = mColliderNumber;
 	}
 	Collider2D::~Collider2D()
 	{
+		delete mMesh;
 	}
 	void Collider2D::Initialize()
 	{
 		mTransform = GetOwner()->GetComponent<Transform>();
+		Vector3 trScale = mTransform->GetScale();
+		mSize = Vector3{ trScale.x, trScale.y, trScale.y };
+		/*if (mType == eColliderType::Rect)
+		{
+			mSize = mTransform->GetScale();
+		}
+		else if (mType == eColliderType::Circle)
+		{
+			mSize = mTransform->GetScale();
+			mSize.y = mSize.x;
+		}*/
+
+		mMesh = new DebugMesh();
+		mMesh->bCollision = false;
 	}
 	void Collider2D::Update()
 	{
@@ -28,25 +49,46 @@ namespace hj
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
-	
-		Vector3 scale = tr->GetScale();
-		scale.x *= mSize.x;
-		scale.y *= mSize.y;
+		fixedRes = (float)application.GetFixedWidth() / 800.f;
 
-		Vector3 pos = tr->GetPosition();
+		Vector3 size = mSize * fixedRes;
+		Vector3 scale = Vector3(size.x, size.y, 1.0f);
+		
+		//scale.x *= size.x;
+		//scale.y *= size.y;
+
+		Vector3 pos = Vector3::Zero;
+		Vector3 trPos = tr->GetPosition();
+
+		Vector2 center = mCenter;
+		center *= fixedRes;
+
+		pos.y = tr->GetVirtualZ();
+
 		pos.x += mCenter.x;
-		pos.y += mCenter.x;
+		pos.y += mCenter.y;
+
+		pos.x += trPos.x; // transform 별도 적용
+		pos.z = 1.0f;
 
 		mPosition = pos;
+		if (mMesh != nullptr)
+		{
+			mMesh->position = pos;
 
-		graphics::DebugMesh mesh = {};
-		mesh.position = pos;
-		mesh.scale = scale;
-		mesh.rotation = tr->GetRotation();
-		mesh.type = eColliderType::Rect;
+			mMesh->position.y *= cos(45.0f);
+			mMesh->position.y -= scale.y / 2.0f;
+			mMesh->scale = scale;
 
-		renderer::PushDebugMeshAttribute(mesh);
+			mMesh->rotation = tr->GetRotation();
+			mMesh->type = mType;
+			//mMesh->bCollision = false;
+		}
+
+		renderer::PushDebugMeshAttribute(mMesh);
 		mTransform = tr;
+		SetCollisionHeight(Vector2(trPos.y, trPos.y + size.z ));
+		int a = 0;
 	}
 	void Collider2D::Render()
 	{

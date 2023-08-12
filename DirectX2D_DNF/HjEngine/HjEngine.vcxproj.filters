@@ -13,6 +13,66 @@
     <Filter Include="Scene\PlayScenes">
       <UniqueIdentifier>{92f3a254-1c87-4c9b-b68c-298b7ed06b06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Behavior">
+      <UniqueIdentifier>{c9023a21-8559-4e2d-9732-19a9498af00a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScenes\Town">
+      <UniqueIdentifier>{8d9cc58a-0508-4d4a-b71b-3ff521f0a42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScenes\Dungeon">
+      <UniqueIdentifier>{9d19abc9-c0ef-4c19-8ee2-19ad6d73806b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScenes\Dungeon\Entrance">
+      <UniqueIdentifier>{97b04173-e2eb-4a2b-8bf4-456453a136b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScenes\Dungeon\Hysmar">
+      <UniqueIdentifier>{92cb675e-ccbb-4bbe-ae9e-f20be7013b75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScenes\Dungeon\Skasa">
+      <UniqueIdentifier>{ebdfa943-73bb-41e1-861c-1339368fa8c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\PlayScenes\Dungeon\Spirazzi">
+      <UniqueIdentifier>{152cef3e-56f5-434c-9668-fe5854165c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\AnimScenes">
+      <UniqueIdentifier>{003affae-4327-41a0-85ce-c8c8415647c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Attack">
+      <UniqueIdentifier>{8d365c30-d123-4ee5-b350-823f50edda25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Attack\Skill">
+      <UniqueIdentifier>{3f0caa6d-d6ae-4e4d-9b15-59a49b28980e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Attack\Base">
+      <UniqueIdentifier>{b009ec71-78c4-4b53-be8b-bb9e0464eb7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Attack\AttackScriptManager">
+      <UniqueIdentifier>{4453bc2b-de3e-494b-aa43-933795f08ffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object">
+      <UniqueIdentifier>{92b7bdd4-7606-496f-a41f-a7d072b1deca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object\AttackObject">
+      <UniqueIdentifier>{f5d655de-a6bb-40a9-a07c-b203d2fb8588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object\AttackObject\Base">
+      <UniqueIdentifier>{de6a7b2c-8d89-45dd-8fb2-eb11c056328e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object\EffectObject">
+      <UniqueIdentifier>{2ed3d5c7-9979-4eb3-9d05-d971231a5238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object\EffectObject\Base">
+      <UniqueIdentifier>{7179b6e9-5d33-4007-9ff0-20a3909fa1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object\AttackObject\Basic">
+      <UniqueIdentifier>{fd520e41-cf74-4f37-aab6-e3963ca13775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object\Monster">
+      <UniqueIdentifier>{4cf70e86-b30b-4264-931c-ac8370305f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Object\Player">
+      <UniqueIdentifier>{5b6bc5e2-3baa-41fe-b45d-f41cf84f9306}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -28,9 +88,6 @@
     <ClInclude Include="hjGridScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="hjDungeon_Skasa.h">
-      <Filter>Scene\PlayScenes</Filter>
-    </ClInclude>
     <ClInclude Include="hjPlayerScript.h">
       <Filter>Script</Filter>
     </ClInclude>
@@ -40,17 +97,68 @@
     <ClInclude Include="hjImageScript.h">
       <Filter>Script</Filter>
     </ClInclude>
-    <ClInclude Include="hjDungeon_Spirazzi.h">
-      <Filter>Scene\PlayScenes</Filter>
+    <ClInclude Include="PlayerBehavior.h">
+      <Filter>Behavior</Filter>
     </ClInclude>
-    <ClInclude Include="hjDungeon_Hysmar.h">
-      <Filter>Scene\PlayScenes</Filter>
+    <ClInclude Include="hjSeriaRoomGateScript.h">
+      <Filter>Script</Filter>
+    </ClInclude>
+    <ClInclude Include="hjNPCScript.h">
+      <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="hjTown_GunHwaMun.h">
-      <Filter>Scene\PlayScenes</Filter>
+      <Filter>Scene\PlayScenes\Town</Filter>
     </ClInclude>
     <ClInclude Include="hjTown_MainCamp.h">
-      <Filter>Scene\PlayScenes</Filter>
+      <Filter>Scene\PlayScenes\Town</Filter>
+    </ClInclude>
+    <ClInclude Include="hjTown_SeriaRoom.h">
+      <Filter>Scene\PlayScenes\Town</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Entrance_1.h">
+      <Filter>Scene\PlayScenes\Dungeon\Entrance</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Entrance_2.h">
+      <Filter>Scene\PlayScenes\Dungeon\Entrance</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Hysmar.h">
+      <Filter>Scene\PlayScenes\Dungeon\Hysmar</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Hysmar_Entrance.h">
+      <Filter>Scene\PlayScenes\Dungeon\Hysmar</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Skasa.h">
+      <Filter>Scene\PlayScenes\Dungeon\Skasa</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Skasa_Entrance.h">
+      <Filter>Scene\PlayScenes\Dungeon\Skasa</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Spirazzi.h">
+      <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDungeon_Spirazzi_Entrance.h">
+      <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAttackScript.h">
+      <Filter>Script\Attack\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAttackObject.h">
+      <Filter>Scene\Object\AttackObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjEffectObject.h">
+      <Filter>Scene\Object\EffectObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackScript.h">
+      <Filter>Script\Attack\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject.h">
+      <Filter>Scene\Object\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAttackScriptManager.h">
+      <Filter>Script\Attack\AttackScriptManager</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayer.h">
+      <Filter>Scene\Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,26 +172,71 @@
     <ClCompile Include="hjGridScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="hjDungeon_Skasa.cpp">
-      <Filter>Scene\PlayScenes</Filter>
-    </ClCompile>
     <ClCompile Include="hjPlayerScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="hjImageScript.cpp">
       <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="hjDungeon_Spirazzi.cpp">
-      <Filter>Scene\PlayScenes</Filter>
+    <ClCompile Include="hjSeriaRoomGateScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
-    <ClCompile Include="hjDungeon_Hysmar.cpp">
-      <Filter>Scene\PlayScenes</Filter>
+    <ClCompile Include="hjNPCScript.cpp">
+      <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="hjTown_GunHwaMun.cpp">
-      <Filter>Scene\PlayScenes</Filter>
+      <Filter>Scene\PlayScenes\Town</Filter>
     </ClCompile>
     <ClCompile Include="hjTown_MainCamp.cpp">
-      <Filter>Scene\PlayScenes</Filter>
+      <Filter>Scene\PlayScenes\Town</Filter>
+    </ClCompile>
+    <ClCompile Include="hjTown_SeriaRoom.cpp">
+      <Filter>Scene\PlayScenes\Town</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Entrance_1.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Entrance</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Entrance_2.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Entrance</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Hysmar.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Hysmar</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Hysmar_Entrance.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Hysmar</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Skasa.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Skasa</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Skasa_Entrance.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Skasa</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Spirazzi.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDungeon_Spirazzi_Entrance.cpp">
+      <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAttackScript.cpp">
+      <Filter>Script\Attack\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAttackObject.cpp">
+      <Filter>Scene\Object\AttackObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjEffectObject.cpp">
+      <Filter>Scene\Object\EffectObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackScript.cpp">
+      <Filter>Script\Attack\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject.cpp">
+      <Filter>Scene\Object\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAttackScriptManager.cpp">
+      <Filter>Script\Attack\AttackScriptManager</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayer.cpp">
+      <Filter>Scene\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

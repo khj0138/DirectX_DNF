@@ -30,7 +30,21 @@ VSOut main(VSIn In)
     Out.Color = In.Color;
     // Out.UV = float2(In.UV.x, In.UV.y);
     //if Time 
-    Out.UV = float2(In.UV.x * Expand.x + Move.x, In.UV.y * Expand.y + Move.y);
+    if (ImageRepeat == 0)
+    {
+       //Out.UV = float2((In.UV.x + Move.x) * (Expand.x), (In.UV.y + Move.y) * Expand.y);
+       //Out.UV = float2((In.UV.x + Move.x) * (Expand.x), (In.UV.y + Move.y) * Expand.y);
+        Out.UV = float2((In.UV.x + Move.x) * (Expand.x), (In.UV.y + Move.y) * Expand.y);
+       // Out.UV = float2(In.UV.x * Expand.x + Move.x, In.UV.y * Expand.y + Move.y);
+        
+    }
+    else
+    {
+        Out.UV = float2(In.UV.x * Expand.x + Move.x, In.UV.y * Expand.y + Move.y);
+    }
+    //Out.UV = float2(In.UV.x * Expand.x + Move.x, In.UV.y * Expand.y + Move.y);
+        //Out.UV = float2(In.UV.x * Expand.x , In.UV.y * Expand.y);
+    
     //Out.UV = float2(In.UV.x / Expand.x, In.UV.y * Expand.y);
     //Out.UV = In.UV;
     

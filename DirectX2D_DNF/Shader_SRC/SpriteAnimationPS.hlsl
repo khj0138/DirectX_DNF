@@ -27,6 +27,8 @@ float4 main(VSOut In) : SV_TARGET
                 + (AtlasSize * In.UV);
     
         float centerX = (2.0f * SpriteLeftTop.x + SpriteSize.x) / 2.0f;
+        //if (UV.x < SpriteLeftTop.x - SpriteOffset.x / 2.0f || UV.x > SpriteLeftTop.x + SpriteSize.x - SpriteOffset.x / 2.0f
+        //    || UV.y < SpriteLeftTop.y - SpriteOffset.y / 2.0f || UV.y > SpriteLeftTop.y - SpriteOffset.y / 2.0f + SpriteSize.y)
         if (UV.x < SpriteLeftTop.x || UV.x > SpriteLeftTop.x + SpriteSize.x
             || UV.y < SpriteLeftTop.y || UV.y > SpriteLeftTop.y + SpriteSize.y)
             discard;
@@ -34,8 +36,13 @@ float4 main(VSOut In) : SV_TARGET
         {
             UV.x = centerX + (centerX - UV.x);
         }
+        else if (AnimBack == 1)
+        {
+            UV.x = centerX + (centerX - UV.x);
+            UV.x = (1 - UV.x);
+        }
         color = atlasTexture.Sample(anisotropicSampler, UV);
     }
-    discard;
+    //discard;
     return color;
 }

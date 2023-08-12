@@ -94,6 +94,9 @@ namespace hj
 		SetWindowPos(mHwnd, nullptr, 0, 0, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, 0);
 		ShowWindow(mHwnd, true);
 		UpdateWindow(mHwnd);
+
+		fixedRes = (1600.0f / (float)width);
+		//float fixedRes = 2.0f;
 	}
 
 }

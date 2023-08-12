@@ -22,8 +22,11 @@ namespace hj
 
 		void SetWindow(HWND hwnd, UINT width, UINT height);
 
+
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
+		UINT GetFixedWidth() { return (UINT)((float)(mWidth) * fixedRes); }
+		UINT GetFixedHeight() { return (UINT)((float)(mHeight) * fixedRes); }
 		HWND GetHwnd() { return mHwnd; }
 
 	private:
@@ -35,6 +38,7 @@ namespace hj
 		HWND mHwnd;
 		UINT mWidth;
 		UINT mHeight;
+		float fixedRes;
 
 		Scene* mScene;
 	};

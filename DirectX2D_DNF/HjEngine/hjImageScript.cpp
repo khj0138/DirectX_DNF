@@ -22,7 +22,7 @@ namespace hj
 	
 	void ImageScript::LateUpdate()
 	{
-		float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
+		float resolution[2] = { (float)application.GetFixedWidth() / 800.f, (float)application.GetFixedHeight() / 450.f };
 		renderer::EtcCB etcCB = {};
 		//etcCB.Time = 0.0f;
 		etcCB.Move = { resolution[0], resolution[1] };
@@ -34,7 +34,7 @@ namespace hj
 	}
 	void ImageScript::Render()
 	{
-		float resolution[2] = { (float)application.GetWidth() / 800.f, (float)application.GetHeight() / 450.f };
+		float resolution[2] = { (float)application.GetFixedWidth() / 800.f, (float)application.GetFixedHeight() / 450.f };
 		renderer::EtcCB etcCB = {};
 		//etcCB.Time = 0.0f;
 		etcCB.Move = { resolution[0], resolution[1] };

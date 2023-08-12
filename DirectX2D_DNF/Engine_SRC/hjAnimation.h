@@ -50,6 +50,7 @@ namespace hj
 		void Binds();
 		void Reset();
 		void SetFlip(bool flip) { isFlip = flip; }
+		void SetBack(bool back) { isBack = back; }
 
 		bool IsComplete() { return mbComplete; }
 
@@ -61,5 +62,6 @@ namespace hj
 		float mTime;
 		bool mbComplete;
 		bool isFlip;
+		bool isBack;
 	};
 }

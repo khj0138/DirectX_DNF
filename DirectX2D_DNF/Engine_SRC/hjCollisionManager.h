@@ -25,6 +25,7 @@ namespace hj
 		static void LayerCollision(eLayerType left, eLayerType right);
 		static void ColliderCollision(Collider2D* left, Collider2D* right);
 		static bool Intersect(Collider2D* left, Collider2D* right);
+		static bool HeightCheck(Collider2D* left, Collider2D* right);
 
 		static void SetLayer(eLayerType left, eLayerType right, bool enable);
 		static void Clear();
@@ -33,6 +34,7 @@ namespace hj
 
 		static std::bitset<LAYER_MAX> mMatrix[LAYER_MAX];
 		static std::map<UINT64, bool> mCollisionMap;
+		//static std::map<UINT64, bool> bCollisionMap;
 		static bool start;
 	};
 }

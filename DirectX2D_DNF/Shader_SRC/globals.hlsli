@@ -23,7 +23,8 @@ cbuffer Animator : register(b3)
     float2 AtlasSize;
     uint animationType;
     uint AnimFlip;
-    float2 padding;
+    uint AnimBack;
+    float1 AnimPadding;
 }
 
 cbuffer Etc : register(b4)
@@ -31,12 +32,17 @@ cbuffer Etc : register(b4)
     float2 Move;
     float2 Expand;
     uint ImageFlip;
+    uint ImageRepeat;
 }
 
 cbuffer Time : register(b5)
 {
     float1 Time;
     float3 Empty;
+}
+cbuffer Collision : register(b6)
+{
+    uint bCollision;
 }
 
 Texture2D albedoTexture : register(t0);

@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -52,7 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -151,8 +151,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundLoader.h" />
+    <ClInclude Include="hjAttackObject.h" />
+    <ClInclude Include="hjAttackScript.h" />
+    <ClInclude Include="hjAttackScriptManager.h" />
+    <ClInclude Include="hjBasicAttackObject.h" />
+    <ClInclude Include="hjBasicAttackScript.h" />
+    <ClInclude Include="hjDungeon_Entrance_1.h" />
+    <ClInclude Include="hjDungeon_Entrance_2.h" />
+    <ClInclude Include="hjDungeon_Hysmar_Entrance.h" />
+    <ClInclude Include="hjDungeon_Skasa_Entrance.h" />
+    <ClInclude Include="hjDungeon_Spirazzi_Entrance.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
+    <ClInclude Include="hjEffectObject.h" />
+    <ClInclude Include="hjNPCScript.h" />
+    <ClInclude Include="hjPlayer.h" />
+    <ClInclude Include="hjSeriaRoomGateScript.h" />
     <ClInclude Include="hjTown_GunHwaMun.h" />
     <ClInclude Include="hjDungeon_Hysmar.h" />
     <ClInclude Include="hjDungeon_Skasa.h" />
@@ -162,10 +176,26 @@
     <ClInclude Include="hjImageScript.h" />
     <ClInclude Include="hjPlayerScript.h" />
     <ClInclude Include="hjPlayScene.h" />
+    <ClInclude Include="hjTown_SeriaRoom.h" />
+    <ClInclude Include="PlayerBehavior.h" />
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjAttackObject.cpp" />
+    <ClCompile Include="hjAttackScript.cpp" />
+    <ClCompile Include="hjAttackScriptManager.cpp" />
+    <ClCompile Include="hjBasicAttackObject.cpp" />
+    <ClCompile Include="hjBasicAttackScript.cpp" />
+    <ClCompile Include="hjDungeon_Entrance_1.cpp" />
+    <ClCompile Include="hjDungeon_Entrance_2.cpp" />
+    <ClCompile Include="hjDungeon_Hysmar_Entrance.cpp" />
+    <ClCompile Include="hjDungeon_Skasa_Entrance.cpp" />
+    <ClCompile Include="hjDungeon_Spirazzi_Entrance.cpp" />
     <ClCompile Include="hjCameraScript.cpp" />
+    <ClCompile Include="hjEffectObject.cpp" />
+    <ClCompile Include="hjNPCScript.cpp" />
+    <ClCompile Include="hjPlayer.cpp" />
+    <ClCompile Include="hjSeriaRoomGateScript.cpp" />
     <ClCompile Include="hjTown_GunHwaMun.cpp" />
     <ClCompile Include="hjDungeon_Hysmar.cpp" />
     <ClCompile Include="hjDungeon_Skasa.cpp" />
@@ -176,6 +206,7 @@
     <ClCompile Include="hjImageScript.cpp" />
     <ClCompile Include="hjPlayerScript.cpp" />
     <ClCompile Include="hjPlayScene.cpp" />
+    <ClCompile Include="hjTown_SeriaRoom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

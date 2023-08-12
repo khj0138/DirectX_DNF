@@ -14,6 +14,7 @@
 #include "hjCollisionManager.h"
 #include "hjAnimator.h"
 #include "hjInput.h"
+#include "hjRigidbody.h"
 
 
 namespace hj
@@ -53,21 +54,25 @@ namespace hj
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 			// mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 500.0f, 1.000f));
+			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
 
 			//std::shared_ptr<Texture> atlas
 			//	= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\linkSprites.png");
 			Animator* at = player->AddComponent<Animator>();
-			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Idle", 0.1f);
+			/*at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Idle", 0.1f);
 			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Walk", 0.1f);
 			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f);
 			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Jump", 0.2f);
-			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack", 0.1f);
-			//at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\", 0.1f);
-			at->PlayAnimation(L"SwordManIdle", true);
-			player->AddComponent<PlayerScript>();
+			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack", 0.1f);*/
 
+
+			//at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\", 0.1f);
+			//at->PlayAnimation(L"SwordManIdle", true);
 			Collider2D* cd = player->AddComponent<Collider2D>();
+			player->AddComponent<PlayerScript>();
+			player->AddComponent<Rigidbody>();
+
+
 		}
 
 
@@ -94,6 +99,7 @@ namespace hj
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
+			cameraComp->TurnLayerMask(eLayerType::BackGround, false);	
 
 		}
 		/*
@@ -107,7 +113,7 @@ namespace hj
 			GridScript* gridSc = grid->AddComponent<GridScript>();
 			gridSc->SetCamera(cameraComp);
 		}*/
-		{
+		/*{
 			GameObject* mouse = hj::Input::mMouse;
 			AddGameObject(eLayerType::Player, mouse);
 			MeshRenderer* mr = mouse->AddComponent<MeshRenderer>();
@@ -116,7 +122,7 @@ namespace hj
 			mouse->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
 			mouse->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
 			Collider2D* cd = mouse->AddComponent<Collider2D>();
-		}
+		}*/
 	}
 
 	void Dungeon_Hysmar::Update()

@@ -192,12 +192,10 @@ namespace hj::math
         static Vector2 TransformNormal(const Vector2& v, const Matrix& m) noexcept;
         static void TransformNormal(_In_reads_(count) const Vector2* varray, size_t count, const Matrix& m, _Out_writes_(count) Vector2* resultArray) noexcept;
         
-        
+       
         static void rotation(Vector2& vect, float radian)
         {
             Vector2 temp = vect;
-            //float degree = radianToDegree(radian);
-            //float radian = degreeToRadian(degree);
             vect.x = cos(radian) * temp.x - sin(radian) * temp.y;
             vect.y = sin(radian) * temp.x + cos(radian) * temp.y;
         }
@@ -259,6 +257,7 @@ namespace hj::math
         float Length() const noexcept;
         float LengthSquared() const noexcept;
 
+
         float Dot(const Vector3& V) const noexcept;
         void Cross(const Vector3& V, Vector3& result) const noexcept;
         Vector3 Cross(const Vector3& V) const noexcept;
@@ -269,6 +268,11 @@ namespace hj::math
         void Clamp(const Vector3& vmin, const Vector3& vmax) noexcept;
         void Clamp(const Vector3& vmin, const Vector3& vmax, Vector3& result) const noexcept;
 
+
+        static float Dot3D(Vector3& v1, Vector3& v2)
+        {
+            return v1.x * v2.x + v1.y * v2.y;
+        }
         // Static functions
         static float Distance(const Vector3& v1, const Vector3& v2) noexcept;
         static float DistanceSquared(const Vector3& v1, const Vector3& v2) noexcept;
