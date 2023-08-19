@@ -26,6 +26,9 @@
 #include "hjPaintShader.h"
 #include "hjParticleSystem.h"
 
+#include "hjAudioListener.h"
+#include "hjAudioClip.h"
+#include "hjAudioSource.h"
 namespace hj
 {
 	Town_SeriaRoom::Town_SeriaRoom()
@@ -52,13 +55,13 @@ namespace hj
 		mr->SetMaterial(Resources::Find<Material>(L"PaintMaterial"));
 		smile->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 500.0f, 2.0f));
 		*/
-
-		GameObject* particle = new GameObject();
+		/*GameObject* particle = new GameObject();
 		particle->SetName(L"Particle");
 		AddGameObject(eLayerType::Monster, particle);
 		ParticleSystem* particleSys = particle->AddComponent<ParticleSystem>();
 		particle->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 500.0f, 2.0f));
-		particle->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
+		particle->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));*/
+
 		//particle->GetComponent<Transform>()->SetPosition(Vector3(00.0f,0.0f, 1.0f));
 		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 0.2f));
 		//{
@@ -101,7 +104,10 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<SeriaRoomGateScript>();
 
-
+			AudioSource* as = gate->AddComponent<AudioSource>();
+			//as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\bakal_basecamp.OGG"));
+			as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\0.mp3"));
+			as->Play();
 		}
 		DragonSoldier* dragon = new DragonSoldier();
 		AddGameObject(eLayerType::Monster, dragon);
@@ -138,7 +144,8 @@ namespace hj
 		{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
-			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
+			//camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
+			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (+ 0.0f) * 1.0f, -10.0f));
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			cameraComp->TurnLayerMask(eLayerType::PlayerAttack, true);
@@ -147,7 +154,7 @@ namespace hj
 			//camera->GetComponent<Camera>()->RegisterTarget(player);
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
-
+			camera->AddComponent<AudioListener>();
 
 		}
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BackGround, true);

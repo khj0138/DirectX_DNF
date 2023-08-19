@@ -4,6 +4,7 @@
 #include "hjRenderer.h"
 #include "hjSceneManager.h"
 #include "hjCollisionManager.h"
+#include "hjFmod.h"
 
 namespace hj
 {
@@ -34,6 +35,7 @@ namespace hj
 	{
 		Time::Initiailize();
 		Input::Initialize();
+		Fmod::Initialize();
 
 		renderer::Initialize();
 		SceneManager::Initialize();

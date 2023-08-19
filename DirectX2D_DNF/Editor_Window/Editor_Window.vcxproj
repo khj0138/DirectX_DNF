@@ -114,6 +114,14 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "..\\fmod.dll" "..\\x64\\Debug"
+copy "..\\fmodL.dll" "..\\x64\\Debug"
+copy "..\\fmodstudio.dll" "..\\x64\\Debug"
+copy "..\\fmodstudioL.dll" "..\\x64\\Debug"
+copy "..\\FW1FontWrapper.dll" "..\\x64\\Debug"
+copy "..\\FW1FontWrapperL.dll" "..\\x64\\Debug"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -132,6 +140,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "..\\fmod.dll" "..\\x64\\Debug"
+copy "..\\fmodL.dll" "..\\x64\\Debug"
+copy "..\\fmodstudio.dll" "..\\x64\\Debug"
+copy "..\\fmodstudioL.dll" "..\\x64\\Debug"
+copy "..\\FW1FontWrapper.dll" "..\\x64\\Debug"
+copy "..\\FW1FontWrapperL.dll" "..\\x64\\Debug"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Editor_Window.h" />

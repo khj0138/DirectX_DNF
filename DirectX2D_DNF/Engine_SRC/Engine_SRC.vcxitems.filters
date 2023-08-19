@@ -112,7 +112,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjStructedBuffer.h">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)hjLight.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjComputeShader.h">
       <Filter>Resource\Shader\CS</Filter>
     </ClInclude>
@@ -124,6 +123,24 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)hjParticleSystem.h">
       <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjLight.h">
+      <Filter>Resource\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjFontWrapper.h">
+      <Filter>Resource\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAudioClip.h">
+      <Filter>Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAudioListener.h">
+      <Filter>Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAudioSource.h">
+      <Filter>Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjFmod.h">
+      <Filter>Resource\Fmod</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +258,18 @@
     <Filter Include="GameObject\Component\ParticleSystem">
       <UniqueIdentifier>{dd3f617b-8e72-4183-9799-132fa5549fde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource\Audio">
+      <UniqueIdentifier>{10af16ad-2a51-4ba9-863e-15a85bf092b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Font">
+      <UniqueIdentifier>{b24306bf-34ee-467c-a93e-d84ba42f01da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Light">
+      <UniqueIdentifier>{b15cdb40-f5d6-4348-ac53-6c1cbf73218c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Fmod">
+      <UniqueIdentifier>{5ec09899-c7a7-427e-a802-d33fa428ef23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp">
@@ -336,7 +365,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjStructedBuffer.cpp">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)hjLight.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjComputeShader.cpp">
       <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
@@ -348,6 +376,24 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjParticleSystem.cpp">
       <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjLight.cpp">
+      <Filter>Resource\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjFontWrapper.cpp">
+      <Filter>Resource\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAudioClip.cpp">
+      <Filter>Resource\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAudioListener.cpp">
+      <Filter>Resource\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAudioSource.cpp">
+      <Filter>Resource\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjFmod.cpp">
+      <Filter>Resource\Fmod</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

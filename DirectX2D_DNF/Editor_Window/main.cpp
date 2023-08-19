@@ -4,6 +4,7 @@
 #include "..\\Engine_SRC\\hjApplication.h"
 #include "..\\Engine_SRC\\hjRenderer.h"
 #include "..\\Engine_SRC\\hjResources.h"
+#include "..\\Engine_SRC\\hjFmod.h"
 
 #include "SceneLoader.h"
 #include "hjGuiEditor.h"
@@ -85,6 +86,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //_CrtDumpMemoryLeaks();
     renderer::Release();
     hj::SceneManager::Release();
+    hj::Fmod::Release();
     gui::Editor::Release();
 
  //   _CrtDumpMemoryLeaks();

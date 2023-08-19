@@ -18,6 +18,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimation.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjAnimator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAudioClip.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAudioListener.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjAudioSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjBehaviorTree.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCamera.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjCollider2D.h" />
@@ -28,6 +31,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEngine.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEntity.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjEnums.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjFmod.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjGameObject.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)hjGraphics.h" />
@@ -61,6 +66,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimation.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjAnimator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjApplication.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAudioClip.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAudioListener.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjAudioSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjBehaviorTree.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCamera.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjCollider2D.cpp" />
@@ -69,6 +77,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)hjComputeShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjConstantBuffer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjEntity.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjFmod.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjGameObject.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjGraphicDevice_Dx11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)hjInput.cpp" />

@@ -67,12 +67,12 @@ namespace hj
 
 
 			//at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\", 0.1f);
-			//at->PlayAnimation(L"SwordManIdle", true);
+			//at->Plahjnimation(L"SwordManIdle", true);
 			Collider2D* cd = player->AddComponent<Collider2D>();
 			player->AddComponent<PlayerScript>();
 			player->AddComponent<Rigidbody>();
 
-
+			
 		}
 
 
@@ -89,6 +89,7 @@ namespace hj
 			camera->GetComponent<Camera>()->RegisterTarget(player);
 			//camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
+			
 
 		}
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
