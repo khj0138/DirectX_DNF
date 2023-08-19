@@ -3,6 +3,7 @@
 
 namespace hj
 {
+	class Player;
 	class SceneManager
 	{
 	public:
@@ -33,8 +34,11 @@ namespace hj
 		}
 		static Scene* LoadScene(std::wstring name);
 		static Scene* GetActiveScene() { return mActiveScene; }
+		static void SetPlayer(Player* player) { mPlayer = player; }
+		static Player* GetPlayer() { return mPlayer; }
 	private:
 		static Scene* mActiveScene;
 		static std::map<std::wstring, Scene*> mScenes;
+		static Player* mPlayer;
 	};
 }

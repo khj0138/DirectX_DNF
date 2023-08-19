@@ -1,13 +1,18 @@
 #include "hjSceneManager.h"
 
+#include "hjPlayer.h"
+
 namespace hj
 {
 	Scene* SceneManager::mActiveScene = nullptr;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
+	Player* SceneManager::mPlayer = nullptr;
 
 	void SceneManager::Initialize()
 	{
-		
+		mPlayer = new Player();
+		mPlayer->Initialize();
+
 	}
 	void SceneManager::Update()
 	{

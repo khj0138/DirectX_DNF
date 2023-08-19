@@ -37,8 +37,11 @@ namespace hj
 		void SetCollision(bool collision) { bCollision = collision; }
 		bool GetCollision() { return bCollision; }
 
-		void SetCollisionHeight(Vector2 collisionHeight) { mCollisionHeight = collisionHeight; }
-		Vector2 GetCollisionHeight() { return mCollisionHeight; }
+		void SetCollisionHeight(float collisionHeight) { mCollisionHeight = collisionHeight; }
+		float GetCollisionHeight() { return mCollisionHeight; }
+
+		void SetCollisionRange(Vector2 collisionRange) { mCollisionRange = collisionRange; }
+		Vector2 GetCollisionRange() { return mCollisionRange; }
 
 		void CollisionMesh(bool collision) { mMesh->CollisionMesh(collision); }
 
@@ -48,7 +51,8 @@ namespace hj
 		eColliderType mType;
 		Transform* mTransform;
 
-		Vector2 mCollisionHeight;
+		Vector2 mCollisionRange;
+		float mCollisionHeight;
 		Vector3 mPosition;
 		Vector3 mSize;
 		Vector2 mCenter;

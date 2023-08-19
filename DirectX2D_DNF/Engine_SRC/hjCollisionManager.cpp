@@ -245,8 +245,8 @@ namespace hj
 	}
 	bool CollisionManager::HeightCheck(Collider2D* left, Collider2D* right)
 	{
-		if (left->GetCollisionHeight().x <= right->GetCollisionHeight().y &&
-			right->GetCollisionHeight().x <= left->GetCollisionHeight().y)
+		if (left->GetCollisionRange().x <= right->GetCollisionRange().y &&
+			right->GetCollisionRange().x <= left->GetCollisionRange().y)
 			return true;
 		else
 			return false;

@@ -87,7 +87,7 @@ namespace hj
 
 		renderer::PushDebugMeshAttribute(mMesh);
 		mTransform = tr;
-		SetCollisionHeight(Vector2(trPos.y, trPos.y + size.z ));
+		SetCollisionRange(Vector2(mCollisionHeight + trPos.y, mCollisionHeight + trPos.y + size.z));
 		int a = 0;
 	}
 	void Collider2D::Render()

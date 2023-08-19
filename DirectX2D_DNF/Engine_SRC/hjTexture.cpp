@@ -16,6 +16,74 @@ namespace hj::graphics
 	{
 	}
 
+    bool Texture::Create(UINT width, UINT height, DXGI_FORMAT format, UINT bindFlag)
+    {
+		if (mTexture == nullptr)
+		{
+			mDesc.BindFlags = bindFlag;
+			mDesc.Usage = D3D11_USAGE_DEFAULT;
+			mDesc.CPUAccessFlags = 0;
+			mDesc.Format = format;
+			mDesc.Width = width;
+			mDesc.Height = height;
+			mDesc.ArraySize = 1;
+
+			mDesc.SampleDesc.Count = 1;
+			mDesc.SampleDesc.Quality = 0;
+
+			mDesc.MipLevels = 0;
+			mDesc.MiscFlags = 0;
+
+			mWidth = width;
+			mHeight = height;
+
+			if (!GetDevice()->CreateTexture2D(&mDesc, nullptr, mTexture.GetAddressOf()))
+				return false;
+		}
+
+		if (bindFlag & (UINT)D3D11_BIND_FLAG::D3D11_BIND_DEPTH_STENCIL)
+		{
+			if (!GetDevice()->CraeteDepthStencilView(mTexture.Get(), nullptr, mDSV.GetAddressOf()))
+				return false;
+		}
+		if (bindFlag & (UINT)D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE)
+		{
+			D3D11_SHADER_RESOURCE_VIEW_DESC tSRVDesc = {};
+			tSRVDesc.Format = mDesc.Format;
+			tSRVDesc.Texture2D.MipLevels = 1;
+			tSRVDesc.Texture2D.MostDetailedMip = 0;
+			tSRVDesc.ViewDimension = D3D11_SRV_DIMENSION::D3D11_SRV_DIMENSION_TEXTURE2D;
+
+			if (!GetDevice()->CreateShaderResourceView(mTexture.Get(), &tSRVDesc, mSRV.GetAddressOf()))
+				return false;
+		}
+
+		if (bindFlag & (UINT)D3D11_BIND_FLAG::D3D11_BIND_RENDER_TARGET)
+		{
+			D3D11_RENDER_TARGET_VIEW_DESC tSRVDesc = {};
+			tSRVDesc.Format = mDesc.Format;
+			tSRVDesc.Texture2D.MipSlice = 0;
+			tSRVDesc.ViewDimension = D3D11_RTV_DIMENSION::D3D11_RTV_DIMENSION_TEXTURE2D;
+
+			if (!GetDevice()->CreateRenderTargetView(mTexture.Get(), nullptr, mRTV.GetAddressOf()))
+				return false;
+		}
+
+		if (bindFlag & (UINT)D3D11_BIND_FLAG::D3D11_BIND_UNORDERED_ACCESS)
+		{
+			D3D11_UNORDERED_ACCESS_VIEW_DESC tUAVDesc = {};
+			tUAVDesc.Format = mDesc.Format;
+			tUAVDesc.Texture2D.MipSlice = 0;
+			tUAVDesc.ViewDimension = D3D11_UAV_DIMENSION::D3D11_UAV_DIMENSION_TEXTURE2D;
+
+			if (!GetDevice()->CreateUnordedAccessView(mTexture.Get(), &tUAVDesc, mUAV.GetAddressOf()))
+				return false;
+		}
+
+
+		return true;
+    }
+
 	HRESULT Texture::Load(const std::wstring& path)
 	{
 		wchar_t szExtension[50] = {};
@@ -47,27 +115,31 @@ namespace hj::graphics
 			, mImage.GetMetadata()
 			, mSRV.GetAddressOf()
 		);
+		uint8_t* a = mImage.GetPixels();
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
-
+		mWidth = mImage.GetMetadata().width;
+		mHeight = mImage.GetMetadata().height;
 		return S_OK;
 	}
 
-	void Texture::BindShader(eShaderStage stage, UINT startSlot)
+	void Texture::BindShaderResource(eShaderStage stage, UINT startSlot)
 	{
 		GetDevice()->BindShaderResource(stage, startSlot, mSRV.GetAddressOf());
 	}
 
-	void Texture::Clear()
+	void Texture::BindUnorderedAccessViews(UINT slot)
 	{
-		ID3D11ShaderResourceView* srv = nullptr;
-
-		GetDevice()->BindShaderResource(eShaderStage::VS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::DS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::GS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::HS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
-		GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
+		UINT i = -1;
+		GetDevice()->BindUnorderedAccess(slot, mUAV.GetAddressOf(), &i);
 	}
+
+	void Texture::ClearUnorderedAccessViews(UINT slot)
+	{
+		ID3D11UnorderedAccessView* p = nullptr;
+		UINT i = -1;
+		GetDevice()->BindUnorderedAccess(slot, &p, &i);
+	}
+	
     HRESULT Texture::CreateTex(const std::wstring& path, UINT filecnt, size_t imageMaxWidth, size_t imageMaxHeight)
     {
         ScratchImage atlasImage;
@@ -113,7 +185,7 @@ namespace hj::graphics
                 }
                 if (isMake == false)
                 {
-                    hr = atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, imageMaxWidth * filecnt, imageMaxHeight * 2, 1, 1);
+                    hr = atlasImage.Initialize2D(DXGI_FORMAT_R8G8B8A8_UNORM, imageMaxWidth * filecnt, imageMaxHeight, 1, 1);
                     isMake = true;
                 }
                 if (FAILED(hr))
@@ -168,7 +240,19 @@ namespace hj::graphics
             atlasImage.GetMetadata().arraySize,
             atlasImage.GetMetadata().mipLevels
         );
-
+		mWidth = mImage.GetMetadata().width;
+		mHeight = mImage.GetMetadata().height;
         return S_OK;
+    }
+    void Texture::Clear()
+    {
+        ID3D11ShaderResourceView* srv = nullptr;
+
+        GetDevice()->BindShaderResource(eShaderStage::VS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::DS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::GS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::HS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::CS, 0, &srv);
+        GetDevice()->BindShaderResource(eShaderStage::PS, 0, &srv);
     }
 }

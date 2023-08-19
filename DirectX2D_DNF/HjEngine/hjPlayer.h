@@ -3,6 +3,7 @@
 
 namespace hj
 {
+	class AttackScriptManager;
 	class Animator;
 	class Player : public GameObject
 	{
@@ -15,13 +16,18 @@ namespace hj
 		virtual void LateUpdate() override;
 		virtual void Render() override;
 
-		virtual void OnCollisionEnter(Collider2D* other);
-		virtual void OnCollisionStay(Collider2D* other);
-		virtual void OnCollisionExit(Collider2D* other);
+		//virtual void OnCollisionEnter(Collider2D* other);
+		//virtual void OnCollisionStay(Collider2D* other);
+		//virtual void OnCollisionExit(Collider2D* other);
+
+		void EnterScene();
+		
+		void ExitScene();
+		
+		AttackScriptManager* GetAtkManager() { return AtkManager; }
 	private:
 		bool mActivate;
 		bool bAttack;
-		float coolTime;
-		std::map<UINT32, float> targets;
+		AttackScriptManager* AtkManager;
 	};
 }

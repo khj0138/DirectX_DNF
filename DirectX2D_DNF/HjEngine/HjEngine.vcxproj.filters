@@ -37,41 +37,92 @@
     <Filter Include="Scene\AnimScenes">
       <UniqueIdentifier>{003affae-4327-41a0-85ce-c8c8415647c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\Attack">
-      <UniqueIdentifier>{8d365c30-d123-4ee5-b350-823f50edda25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\Attack\Skill">
-      <UniqueIdentifier>{3f0caa6d-d6ae-4e4d-9b15-59a49b28980e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\Attack\Base">
-      <UniqueIdentifier>{b009ec71-78c4-4b53-be8b-bb9e0464eb7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\Attack\AttackScriptManager">
-      <UniqueIdentifier>{4453bc2b-de3e-494b-aa43-933795f08ffb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Object">
+    <Filter Include="Object">
       <UniqueIdentifier>{92b7bdd4-7606-496f-a41f-a7d072b1deca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Object\AttackObject">
+    <Filter Include="Object\AttackObject">
       <UniqueIdentifier>{f5d655de-a6bb-40a9-a07c-b203d2fb8588}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Object\AttackObject\Base">
+    <Filter Include="Object\AttackObject\Base">
       <UniqueIdentifier>{de6a7b2c-8d89-45dd-8fb2-eb11c056328e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Object\EffectObject">
-      <UniqueIdentifier>{2ed3d5c7-9979-4eb3-9d05-d971231a5238}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Object\EffectObject\Base">
-      <UniqueIdentifier>{7179b6e9-5d33-4007-9ff0-20a3909fa1d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\Object\AttackObject\Basic">
+    <Filter Include="Object\AttackObject\Basic">
       <UniqueIdentifier>{fd520e41-cf74-4f37-aab6-e3963ca13775}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Object\Monster">
+    <Filter Include="Object\EffectObject">
+      <UniqueIdentifier>{2ed3d5c7-9979-4eb3-9d05-d971231a5238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\EffectObject\Base">
+      <UniqueIdentifier>{7179b6e9-5d33-4007-9ff0-20a3909fa1d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Monster">
       <UniqueIdentifier>{4cf70e86-b30b-4264-931c-ac8370305f63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\Object\Player">
+    <Filter Include="Object\Player">
       <UniqueIdentifier>{5b6bc5e2-3baa-41fe-b45d-f41cf84f9306}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Camera">
+      <UniqueIdentifier>{97544e80-0c3e-46b7-a33f-37a5c4beb5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Grid">
+      <UniqueIdentifier>{fa75a6b5-6f11-44c2-9199-482e0bcfbb32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player">
+      <UniqueIdentifier>{9ce5d6db-b816-4871-bf1d-7b7b23690357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Image">
+      <UniqueIdentifier>{fb731024-fe29-49c2-aa75-1f4b0baeb772}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\SeriaRoomGate">
+      <UniqueIdentifier>{1f65b44c-6360-4f79-9ba8-337c3e76c7c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\NPC">
+      <UniqueIdentifier>{12996ae7-8d7f-4261-8975-05d5058acc81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster">
+      <UniqueIdentifier>{a2d02227-5ee1-4e6b-9c08-2f1c0e948fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DragonSoldier">
+      <UniqueIdentifier>{c264d88b-96c7-4445-906e-12c9deec4039}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Monster\Base">
+      <UniqueIdentifier>{9d686aab-8f09-4e61-a1c0-b37d5a09634b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Detect">
+      <UniqueIdentifier>{9b7bd5bd-3e9b-458d-9522-d2d24070e0d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\DetectObject">
+      <UniqueIdentifier>{0ad5a524-9974-4171-968c-8c1bd2b13219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DragonSoldier\Attack">
+      <UniqueIdentifier>{d1f7c789-e3bd-490e-9ac8-76fd57e3f4f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack">
+      <UniqueIdentifier>{8d365c30-d123-4ee5-b350-823f50edda25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\Skill">
+      <UniqueIdentifier>{3f0caa6d-d6ae-4e4d-9b15-59a49b28980e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\Skill\BasicAttack">
+      <UniqueIdentifier>{e9c0c09c-8fe4-4576-afec-75d949248f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\Base">
+      <UniqueIdentifier>{b009ec71-78c4-4b53-be8b-bb9e0464eb7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\AttackScriptManager">
+      <UniqueIdentifier>{4453bc2b-de3e-494b-aa43-933795f08ffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\AttackObject">
+      <UniqueIdentifier>{1a8bedba-779f-46fc-8d51-f81a6b00a438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\AttackObject\Base">
+      <UniqueIdentifier>{ee7a80af-ff44-48b8-843c-8750e64df358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\AttackObject\Basic">
+      <UniqueIdentifier>{24ed9ae7-816f-4178-befd-1c73dc7c9bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\CharAttack\AttackObject\DetectObject">
+      <UniqueIdentifier>{b75f0a5a-b877-4cd6-957e-eebdd87eeb6e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,32 +130,14 @@
     <ClInclude Include="SceneLoader.h">
       <Filter>Load</Filter>
     </ClInclude>
-    <ClInclude Include="hjCameraScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
     <ClInclude Include="hjPlayScene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="hjGridScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="hjPlayerScript.h">
-      <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="BackGroundLoader.h">
       <Filter>Load</Filter>
     </ClInclude>
-    <ClInclude Include="hjImageScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerBehavior.h">
       <Filter>Behavior</Filter>
-    </ClInclude>
-    <ClInclude Include="hjSeriaRoomGateScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
-    <ClInclude Include="hjNPCScript.h">
-      <Filter>Script</Filter>
     </ClInclude>
     <ClInclude Include="hjTown_GunHwaMun.h">
       <Filter>Scene\PlayScenes\Town</Filter>
@@ -140,49 +173,97 @@
       <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
     </ClInclude>
     <ClInclude Include="hjAttackScript.h">
-      <Filter>Script\Attack\Base</Filter>
+      <Filter>Script\CharAttack\Base</Filter>
     </ClInclude>
     <ClInclude Include="hjAttackObject.h">
-      <Filter>Scene\Object\AttackObject\Base</Filter>
+      <Filter>Object\AttackObject\Base</Filter>
     </ClInclude>
     <ClInclude Include="hjEffectObject.h">
-      <Filter>Scene\Object\EffectObject\Base</Filter>
+      <Filter>Object\EffectObject\Base</Filter>
     </ClInclude>
-    <ClInclude Include="hjBasicAttackScript.h">
-      <Filter>Script\Attack\Skill</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackObject.h">
-      <Filter>Scene\Object\AttackObject\Basic</Filter>
+    <ClInclude Include="hjBasicAttackObject1.h">
+      <Filter>Object\AttackObject\Basic</Filter>
     </ClInclude>
     <ClInclude Include="hjAttackScriptManager.h">
-      <Filter>Script\Attack\AttackScriptManager</Filter>
+      <Filter>Script\CharAttack\AttackScriptManager</Filter>
     </ClInclude>
     <ClInclude Include="hjPlayer.h">
-      <Filter>Scene\Object\Player</Filter>
+      <Filter>Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackScript3.h">
+      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackScript1.h">
+      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackScript2.h">
+      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject2.h">
+      <Filter>Object\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject3.h">
+      <Filter>Object\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDragonSoldier.h">
+      <Filter>Object\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCameraScript.h">
+      <Filter>Script\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="hjGridScript.h">
+      <Filter>Script\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="hjImageScript.h">
+      <Filter>Script\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPlayerScript.h">
+      <Filter>Script\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="hjSeriaRoomGateScript.h">
+      <Filter>Script\SeriaRoomGate</Filter>
+    </ClInclude>
+    <ClInclude Include="hjNPCScript.h">
+      <Filter>Script\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDragonSoldierScript.h">
+      <Filter>Script\Monster\DragonSoldier</Filter>
+    </ClInclude>
+    <ClInclude Include="hjMonster.h">
+      <Filter>Object\Monster\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDetectScript.h">
+      <Filter>Script\Detect</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDetectObject.h">
+      <Filter>Object\DetectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAttackObjectScript.h">
+      <Filter>Script\CharAttack\AttackObject\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject1Script.h">
+      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject2Script.h">
+      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject3Script.h">
+      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDetectObjectScript.h">
+      <Filter>Script\CharAttack\AttackObject\DetectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDragonSoldierAttack1Script.h">
+      <Filter>Script\Monster\DragonSoldier\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDragonSoldierAttack2Script.h">
+      <Filter>Script\Monster\DragonSoldier\Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
-    <ClCompile Include="hjCameraScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
     <ClCompile Include="hjPlayScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="hjGridScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="hjPlayerScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="hjImageScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="hjSeriaRoomGateScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
-    <ClCompile Include="hjNPCScript.cpp">
-      <Filter>Script</Filter>
     </ClCompile>
     <ClCompile Include="hjTown_GunHwaMun.cpp">
       <Filter>Scene\PlayScenes\Town</Filter>
@@ -218,25 +299,91 @@
       <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
     </ClCompile>
     <ClCompile Include="hjAttackScript.cpp">
-      <Filter>Script\Attack\Base</Filter>
+      <Filter>Script\CharAttack\Base</Filter>
     </ClCompile>
     <ClCompile Include="hjAttackObject.cpp">
-      <Filter>Scene\Object\AttackObject\Base</Filter>
+      <Filter>Object\AttackObject\Base</Filter>
     </ClCompile>
     <ClCompile Include="hjEffectObject.cpp">
-      <Filter>Scene\Object\EffectObject\Base</Filter>
+      <Filter>Object\EffectObject\Base</Filter>
     </ClCompile>
-    <ClCompile Include="hjBasicAttackScript.cpp">
-      <Filter>Script\Attack\Skill</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackObject.cpp">
-      <Filter>Scene\Object\AttackObject\Basic</Filter>
+    <ClCompile Include="hjBasicAttackObject1.cpp">
+      <Filter>Object\AttackObject\Basic</Filter>
     </ClCompile>
     <ClCompile Include="hjAttackScriptManager.cpp">
-      <Filter>Script\Attack\AttackScriptManager</Filter>
+      <Filter>Script\CharAttack\AttackScriptManager</Filter>
     </ClCompile>
     <ClCompile Include="hjPlayer.cpp">
-      <Filter>Scene\Object\Player</Filter>
+      <Filter>Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackScript1.cpp">
+      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackScript2.cpp">
+      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackScript3.cpp">
+      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject2.cpp">
+      <Filter>Object\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject3.cpp">
+      <Filter>Object\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDragonSoldier.cpp">
+      <Filter>Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="hjCameraScript.cpp">
+      <Filter>Script\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="hjGridScript.cpp">
+      <Filter>Script\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="hjImageScript.cpp">
+      <Filter>Script\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPlayerScript.cpp">
+      <Filter>Script\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="hjSeriaRoomGateScript.cpp">
+      <Filter>Script\SeriaRoomGate</Filter>
+    </ClCompile>
+    <ClCompile Include="hjNPCScript.cpp">
+      <Filter>Script\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDragonSoldierScript.cpp">
+      <Filter>Script\Monster\DragonSoldier</Filter>
+    </ClCompile>
+    <ClCompile Include="hjMonster.cpp">
+      <Filter>Object\Monster\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDetectScript.cpp">
+      <Filter>Script\Detect</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDetectObject.cpp">
+      <Filter>Object\DetectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAttackObjectScript.cpp">
+      <Filter>Script\CharAttack\AttackObject\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject1Script.cpp">
+      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject2Script.cpp">
+      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject3Script.cpp">
+      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDetectObjectScript.cpp">
+      <Filter>Script\CharAttack\AttackObject\DetectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDragonSoldierAttack1Script.cpp">
+      <Filter>Script\Monster\DragonSoldier\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDragonSoldierAttack2Script.cpp">
+      <Filter>Script\Monster\DragonSoldier\Attack</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

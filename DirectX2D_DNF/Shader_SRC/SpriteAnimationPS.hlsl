@@ -10,6 +10,7 @@ struct VSIn
 struct VSOut
 {
     float4 Pos : SV_Position;
+    float3 WorldPos : POSITION;
     float4 Color : COLOR;
     float2 UV : TEXCOORD;
 };
@@ -20,7 +21,8 @@ float4 main(VSOut In) : SV_TARGET
     float4 color = (float4) 0.0f;
     
     color = albedoTexture.Sample(anisotropicSampler, In.UV);
-    if (animationType == 1)
+    //if (animationType == 1)
+    if (true)
     {
         float2 diff = (AtlasSize - SpriteSize) / 2.0f;
         float2 UV = (SpriteLeftTop - diff - SpriteOffset)
@@ -43,6 +45,19 @@ float4 main(VSOut In) : SV_TARGET
         }
         color = atlasTexture.Sample(anisotropicSampler, UV);
     }
-    //discard;
+    
+    //float4 lightColor = float4(0.2f, 0.2f, 0.2f, 1.0f);
+    
+    
+    //for (int i = 0; i < 2; i++)
+    //{
+    //    CalculateLight2D(lightColor, In.WorldPos, i);
+    //}
+    
+    //color *= lightColor;
+    
+    //if (Out.a <= 0.0f)
+        //discard;
+    //color= float4(1.0f, 1.0f, 0.2f, 1.0f);
     return color;
 }

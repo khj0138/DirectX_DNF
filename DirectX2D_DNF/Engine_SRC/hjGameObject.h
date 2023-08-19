@@ -90,7 +90,13 @@ namespace hj
 
 			return comp;
 		}
-
+		void AddScript(Script* script)
+		{
+			if (script != nullptr)
+				mScripts.push_back(script);
+			script->SetOwner(this);
+			script->Initialize();
+		}
 		void SetState(eState state) { mState = state; }
 		eState GetState() { return mState; }
 

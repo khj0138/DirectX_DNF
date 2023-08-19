@@ -2,7 +2,9 @@
 #include "hjResources.h"
 #include "hjTexture.h"
 #include "hjMaterial.h"
-
+#include "hjStructedBuffer.h"
+#include "hjPaintShader.h"
+#include "hjParticleShader.h"
 
 namespace renderer
 {
@@ -15,6 +17,12 @@ namespace renderer
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[(UINT)eDSType::End] = {};
 	Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[(UINT)eBSType::End] = {};
 
+
+	// light
+	std::vector<Light*> lights = {};
+	StructedBuffer* lightsBuffer = nullptr;
+
+	// mainCamera in Scene
 	hj::Camera* mainCamera = nullptr;
 	std::vector<hj::Camera*> cameras = {};
 	std::vector<DebugMesh*> debugMeshs = {};
@@ -77,6 +85,11 @@ namespace renderer
 			, shader->GetInputLayoutAddressOf());
 
 		shader = hj::Resources::Find<Shader>(L"SpriteAnimShader");
+		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = hj::Resources::Find<Shader>(L"ParticleShader");
 		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
@@ -199,6 +212,22 @@ namespace renderer
 		std::vector<Vertex> vertexes = {};
 		std::vector<UINT> indexes = {};
 
+
+		// PointMesh
+		Vertex v = {};
+		v.pos = Vector3(0.0f, 0.0f, 0.0f);
+		vertexes.push_back(v);
+		indexes.push_back(0);
+		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
+		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
+		Resources::Insert(L"PointMesh", mesh);
+
+
+		vertexes.clear();
+		indexes.clear();
+
+		//RECT
 		vertexes.resize(4);
 		vertexes[0].pos = Vector3(-0.5f, 0.5f, 0.0f);
 		vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
@@ -216,29 +245,12 @@ namespace renderer
 		vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 		vertexes[3].uv = Vector2(0.0f, 1.0f);
 
-		//vertexes.resize(4);
-		//vertexes[0].pos = Vector3(-1.0f, 1.0f, 0.0f);
-		//vertexes[0].color = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-		//vertexes[0].uv = Vector2(0.0f, 0.0f);
 
-		//vertexes[1].pos = Vector3(1.0f, 1.0f, 0.0f);
-		//vertexes[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-		//vertexes[1].uv = Vector2(1.0f, 0.0f);
-
-		//vertexes[2].pos = Vector3(1.0f, -1.0f, 0.0f);
-		//vertexes[2].color = Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-		//vertexes[2].uv = Vector2(1.0f, 1.0f);
-
-		//vertexes[3].pos = Vector3(-1.0f, -1.0f, 0.0f);
-		//vertexes[3].color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		//vertexes[3].uv = Vector2(0.0f, 1.0f);
 		// Create Mesh
-		std::shared_ptr<Mesh> mesh = std::make_shared<Mesh>();
+		mesh = std::make_shared<Mesh>();
 		Resources::Insert(L"RectMesh", mesh);
 
 		mesh->CreateVertexBuffer(vertexes.data(), vertexes.size());
-
-		// Data Vector for Index Buffer 
 
 		indexes.push_back(0);
 		indexes.push_back(1);
@@ -280,7 +292,6 @@ namespace renderer
 			vertexes.push_back(center);
 		}
 
-
 		for (int i = 0; i < vertexes.size() - 2; ++i)
 		{
 			indexes.push_back(i + 1);
@@ -301,11 +312,23 @@ namespace renderer
 
 		// Grid Buffer
 		constantBuffer[(UINT)eCBType::Grid] = new ConstantBuffer(eCBType::Grid);
-		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(TransformCB));
+		constantBuffer[(UINT)eCBType::Grid]->Create(sizeof(GridCB));
 
 		// Animation Buffer
 		constantBuffer[(UINT)eCBType::Animator] = new ConstantBuffer(eCBType::Animator);
 		constantBuffer[(UINT)eCBType::Animator]->Create(sizeof(AnimatorCB));
+
+		//ParticleCB
+		constantBuffer[(UINT)eCBType::Particle] = new ConstantBuffer(eCBType::Particle);
+		constantBuffer[(UINT)eCBType::Particle]->Create(sizeof(ParticleCB));
+
+		//NoiseCB
+		constantBuffer[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
+		constantBuffer[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
+
+		// light structed buffer
+		lightsBuffer = new StructedBuffer();
+		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);
 
 		// Etc Buffer
 		constantBuffer[(UINT)eCBType::Etc] = new ConstantBuffer(eCBType::Etc);
@@ -321,6 +344,7 @@ namespace renderer
 	}
 
 	void CreateShader(const std::wstring vsName, const std::wstring psName, const std::wstring sName
+		, const std::wstring gsName = L""
 		, D3D11_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST
 		, eRSType rsType = eRSType::SolidBack
 		, eDSType dsType = eDSType::Less
@@ -329,6 +353,10 @@ namespace renderer
 	{
 		std::shared_ptr<Shader> shader = std::make_shared<Shader>();
 		shader->Create(eShaderStage::VS, vsName, funcName);
+		if (gsName != L"")
+		{
+			shader->Create(eShaderStage::GS, gsName, funcName);
+		}
 		shader->Create(eShaderStage::PS, psName, funcName);
 		shader->SetTopology(topology);
 		shader->SetRSState(rsType);
@@ -337,6 +365,7 @@ namespace renderer
 
 		hj::Resources::Insert(sName, shader);
 	}
+	
 	void LoadShader()
 	{
 		CreateShader(L"TriangleVS.hlsl", L"TrianglePS.hlsl", L"TriangleShader");
@@ -344,11 +373,22 @@ namespace renderer
 		CreateShader(L"MoveVS.hlsl", L"MovePS.hlsl", L"MoveShader");
 		CreateShader(L"GridVS.hlsl", L"GridPS.hlsl", L"GridShader");
 		CreateShader(L"SpriteAnimationVS.hlsl", L"SpriteAnimationPS.hlsl", L"SpriteAnimShader");
-		CreateShader(L"DebugVS.hlsl", L"DebugPS.hlsl", L"DebugRectShader"
+		CreateShader(L"DebugVS.hlsl", L"DebugPS.hlsl", L"DebugRectShader",L""
 			, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST, eRSType::WireframeNone, eDSType::NoWrite);
-		CreateShader(L"DebugVS.hlsl", L"DebugPS.hlsl", L"DebugCircleShader"
+		CreateShader(L"DebugVS.hlsl", L"DebugPS.hlsl", L"DebugCircleShader", L""
 		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, eRSType::WireframeNone, eDSType::NoWrite);
 		
+		
+		CreateShader(L"ParticleVS.hlsl", L"ParticlePS.hlsl", L"ParticleShader", L"ParticleGS.hlsl"
+		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST, eRSType::SolidNone, eDSType::NoWrite, eBSType::AlphaBlend);
+		
+		std::shared_ptr<PaintShader> paintShader = std::make_shared<PaintShader>();
+		paintShader->Create(L"PaintCS.hlsl", "main");
+		hj::Resources::Insert(L"PaintShader", paintShader);
+
+		std::shared_ptr<ParticleShader> psSystemShader = std::make_shared<ParticleShader>();
+		psSystemShader->Create(L"ParticleCS.hlsl", "main");
+		hj::Resources::Insert(L"ParticleSystemShader", psSystemShader);
 	}
 
 	void CreateMaterial(const std::wstring sName, const std::wstring mName, eRenderingMode rMode, const std::wstring tName = L"", const std::wstring tPath = L"")
@@ -356,7 +396,7 @@ namespace renderer
 		std::shared_ptr<Material> material = std::make_shared<Material>();
 		std::shared_ptr<Shader> spriteShader
 			= Resources::Find<Shader>(sName);
-		if(tPath != L"")
+		if(tName != L"")
 		{ 
 			std::wstring textureName = L"texture";
 			textureName.append(tName);
@@ -370,9 +410,49 @@ namespace renderer
 		Resources::Insert(mName, material);
 	}
 
+	void LoadTexture()
+	{
+		//paint texture
+		/*std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		hj::Resources::Insert(L"PaintTexuture", uavTexture);
+
+
+		std::shared_ptr<Texture> particle = std::make_shared<Texture>();
+		Resources::Load<Texture>(L"CartoonSmoke", L"..\\Resources\\particle\\CartoonSmoke.png");
+	
+		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\noise\\noise_01.png");
+		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\noise\\noise_02.png");
+		Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");*/
+	}
+
 	void LoadMaterial()
 	{
-		CreateMaterial(L"SpriteShader", L"SpriteMaterial", eRenderingMode::Transparent, L"SpriteMaterial", L"..\\Resources\\Texture\\SwordManAttack3.png");
+		std::shared_ptr<Texture> uavTexture = std::make_shared<Texture>();
+		uavTexture->Create(1024, 1024, DXGI_FORMAT_R8G8B8A8_UNORM, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS);
+		hj::Resources::Insert(L"PaintTexuture", uavTexture);
+		//std::shared_ptr<Texture> particle = std::make_shared<Texture>();
+
+		Resources::Load<Texture>(L"textureCartoonSmoke", L"..\\Resources\\Particle\\CartoonSmoke.png");
+		Resources::Load<Texture>(L"Noise01", L"..\\Resources\\Noise\\noise_01.png");
+		Resources::Load<Texture>(L"Noise02", L"..\\Resources\\Noise\\noise_02.png");
+		//Resources::Load<Texture>(L"Noise03", L"..\\Resources\\noise\\noise_03.png");
+
+		CreateMaterial(L"SpriteShader", L"PaintMaterial", eRenderingMode::Transparent, L"PaintTexuture");
+		CreateMaterial(L"ParticleShader", L"ParticleMaterial", eRenderingMode::Transparent, L"CartoonSmoke", L"..\\Resources\\Particle\\CartoonSmoke.png");
+
+
+		//CreateMaterial(L"SpriteShader", L"SpriteMaterial", eRenderingMode::Transparent, L"SpriteMaterial", L"");
+		CreateMaterial(L"SpriteShader", L"SpriteMaterial", eRenderingMode::Transparent);
+		CreateMaterial(L"SpriteAnimShader", L"SpriteAnimationMaterial", eRenderingMode::Transparent);
+
+
+		CreateMaterial(L"GridShader", L"GridMaterial", eRenderingMode::Transparent);
+		CreateMaterial(L"DebugRectShader", L"DebugRectMaterial", eRenderingMode::Transparent);
+		CreateMaterial(L"DebugCircleShader", L"DebugCircleMaterial", eRenderingMode::Transparent);
+		
+		
+		
 		CreateMaterial(L"SpriteShader", L"SpriteMaterial02", eRenderingMode::Transparent, L"SpriteMaterial02", L"..\\Resources\\Texture\\SwordManAttack.png");
 		
 		CreateMaterial(L"SpriteShader", L"Skasa_back_far_0", eRenderingMode::Transparent, L"Skasa_back_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\back_far_0.png");
@@ -769,12 +849,6 @@ namespace renderer
 		//CreateMaterial(L"SpriteShader", L"H", eRenderingMode::Transparent, L"H", L"..\\Resources\\Texture\\Town\\GeonHwaMun\\south_tile.png");
 		//CreateMaterial(L"SpriteShader", L"H", eRenderingMode::Transparent, L"H", L"..\\Resources\\Texture\\Town\\GeonHwaMun\\p.png");
 		
-		CreateMaterial(L"SpriteAnimShader", L"SpriteAnimationMaterial", eRenderingMode::Transparent);
-
-
-		CreateMaterial(L"GridShader", L"GridMaterial", eRenderingMode::Transparent);
-		CreateMaterial(L"DebugRectShader", L"DebugRectMaterial", eRenderingMode::Transparent);
-		CreateMaterial(L"DebugCircleShader", L"DebugCircleMaterial", eRenderingMode::Transparent);
 	}
 	void Initialize()
 	{
@@ -794,9 +868,51 @@ namespace renderer
 		debugMeshs.push_back(mesh);
 	}
 
+	void BindLights()
+	{
+		std::vector<LightAttribute> lightsAttributes = {};
+		for (Light* light : lights)
+		{
+			LightAttribute attribute = light->GetAttribute();
+			lightsAttributes.push_back(attribute);
+		}
+
+		lightsBuffer->SetData(lightsAttributes.data(), lightsAttributes.size());
+		lightsBuffer->BindSRV(eShaderStage::VS, 13);
+		lightsBuffer->BindSRV(eShaderStage::PS, 13);
+	}
+
+	void BindNoiseTexture()
+	{
+		std::shared_ptr<Texture> texture
+			= Resources::Find<Texture>(L"Noise01");
+
+		texture->BindShaderResource(eShaderStage::VS, 15);
+		texture->BindShaderResource(eShaderStage::HS, 15);
+		texture->BindShaderResource(eShaderStage::DS, 15);
+		texture->BindShaderResource(eShaderStage::GS, 15);
+		texture->BindShaderResource(eShaderStage::PS, 15);
+		texture->BindShaderResource(eShaderStage::CS, 15);
+
+		ConstantBuffer* cb = constantBuffer[(UINT)eCBType::Noise];
+		NoiseCB data = {};
+		data.size.x = texture->GetWidth();
+		data.size.y = texture->GetHeight();
+		
+
+		cb->SetData(&data);
+		cb->Bind(eShaderStage::VS);
+		cb->Bind(eShaderStage::GS);
+		cb->Bind(eShaderStage::PS);
+		cb->Bind(eShaderStage::CS);
+	}
+
 	void Render()
 	{
 		mainCamera = cameras[0];
+		BindNoiseTexture();
+		BindLights();
+
 
 		for (Camera* cam : cameras)
 		{
@@ -819,5 +935,7 @@ namespace renderer
 			delete buff;
 			buff = nullptr;
 		}
+		delete lightsBuffer;
+		lightsBuffer = nullptr;
 	}
 }

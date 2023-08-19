@@ -7,6 +7,8 @@ namespace hj
 	class BehaviorTree;
 	class Animator;
 	class Collider2D;
+	class AttackScriptManager;
+	class Player;
 	class PlayerScript : public Script
 	{
 	public:
@@ -59,6 +61,9 @@ namespace hj
 		void Attack1CompleteEvent();
 		void Attack2CompleteEvent();
 		void Attack3CompleteEvent();
+
+		void EnterScene();
+		void ExitScene();
 	private:
 		ePlayerState mPlayerState;
 		ePlayerState mPrevPlayerState;
@@ -82,6 +87,9 @@ namespace hj
 
 		bool bRun;
 		bool jumpDown;
+
+		Player* mOwner;
+		AttackScriptManager* AtkManager;
 	};
 
 

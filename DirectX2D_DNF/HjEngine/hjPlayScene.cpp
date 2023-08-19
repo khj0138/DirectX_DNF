@@ -145,15 +145,24 @@ namespace hj
 
 	void PlayScene::Update()
 	{
-		/*if (GetKeyState(Input::GetKeyDown(eKeyCode::X)))
-		{
-			int a = 0;
-		}*/
 		Scene::Update();
 	}
 
 	void PlayScene::LateUpdate()
 	{
+		/*Vector3 pos(800, 450, 0.0f);
+		Vector3 pos2(800, 450, 1000.0f);
+		Viewport viewport;
+		viewport.width = 1600.0f;
+		viewport.height = 900.0f;
+		viewport.x = 0;
+		viewport.y = 0;
+		viewport.minDepth = 0.0f;
+		viewport.maxDepth = 1.0f;
+
+		pos = viewport.Unproject(pos, Camera::GetGPUProjectionMatrix(), Camera::GetGPUViewMatrix(), Matrix::Identity);
+		pos2 = viewport.Unproject(pos2, Camera::GetGPUProjectionMatrix(), Camera::GetGPUViewMatrix(), Matrix::Identity);*/
+
 		Scene::LateUpdate();
 	}
 

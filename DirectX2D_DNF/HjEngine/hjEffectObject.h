@@ -15,6 +15,10 @@ namespace hj
 
 		void SetActivate(bool activate) { mActivate = activate; }
 
+		template <typename T>
+		void Reset()
+		{
+		}
 	private:
 		Animator* mAnimator;
 		bool mActivate;

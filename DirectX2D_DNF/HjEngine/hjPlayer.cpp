@@ -10,6 +10,8 @@
 #include "hjPlayerScript.h"
 #include "hjMeshRenderer.h"
 #include "hjResources.h"
+
+#include "hjAttackScriptManager.h"
 //#include "hjBehaviorTree.h"
 
 namespace hj
@@ -17,7 +19,7 @@ namespace hj
 
 	Player::Player()
 		: mActivate(false)
-		, coolTime(0.0f)
+		, AtkManager(nullptr)
 	{
 	}
 	Player::~Player()
@@ -45,9 +47,14 @@ namespace hj
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack2", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack3", 0.03f, Vector2(0.0f, 00.0f));
 
-		AddComponent<PlayerScript>();
 
 		AddComponent<Rigidbody>();
+
+		AtkManager = new AttackScriptManager();
+
+		AddComponent<PlayerScript>();
+		AtkManager->SetType(eLayerType::PlayerAttack);
+		
 		GameObject::Initialize();
 	}
 	void Player::Update()
@@ -67,7 +74,7 @@ namespace hj
 
 	}
 
-	void Player::OnCollisionEnter(Collider2D* other)
+	/*void Player::OnCollisionEnter(Collider2D* other)
 	{
 
 		
@@ -80,6 +87,16 @@ namespace hj
 
 	void Player::OnCollisionExit(Collider2D* other)
 	{
+	}*/
+
+	void Player::EnterScene()
+	{
+		AtkManager->EnterScene();
+	}
+
+	void Player::ExitScene()
+	{
+		AtkManager->ExitScene();
 	}
 
 	

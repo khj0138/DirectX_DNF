@@ -12,6 +12,7 @@ namespace hj::enums
 		MeshRenderer,
 		Animator,
 		Script,
+		Light,
 		Camera,
 		End,
 	};
@@ -22,6 +23,10 @@ namespace hj::enums
 		Grid,
 		Player,
 		Monster,
+		MonsterAttack,
+		PlayerAttack,
+		Effect,
+		Light,
 		UI,
 		End = 16,
 	};
@@ -33,6 +38,7 @@ namespace hj::enums
 		Material,
 		Mesh,
 		Animation,
+		ComputeShader,
 		End,
 	};
 
@@ -42,6 +48,14 @@ namespace hj::enums
 		Circle,
 		Sphere,
 		Cube,
+		End,
+	};
+
+	enum class eLightType
+	{
+		Directional,
+		Point,
+		Spot,
 		End,
 	};
 }

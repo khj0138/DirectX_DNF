@@ -1,11 +1,13 @@
 #pragma once
 #include <hjScript.h>
+#include "hjAttackObject.h"
+#include "hjEffectObject.h"
 
 namespace hj
 {
 	//class Animator;
-	class AttackObject;
-	class EffectObject;
+	//class AttackObject;
+	//class EffectObject;
 	class AttackScript : public Script
 	{
 	public:
@@ -14,8 +16,13 @@ namespace hj
 
 		virtual void Initialize() override;
 		virtual void Update() override;
-	public:
 
+		virtual void Reset() = 0;
+
+		virtual void OnCollisionEnter(Collider2D* other);
+		virtual void OnCollisionStay(Collider2D* other);
+		virtual void OnCollisionExit(Collider2D* other);
+	public:
 
 		void SetCoolTime(float coolTime) { mCoolTime = coolTime; }
 
@@ -40,9 +47,10 @@ namespace hj
 		template <typename T>
 		bool RegisterAttackObject(const std::wstring name)
 		{
-			// 키값으로 탐색
-			//T* attackObject = mAttackObjectsFind<T>(key);
-			T* attackObject = new T();
+			AttackObject* attackObject = new AttackObject();
+
+			T* attackObjectScript = new T();
+			attackObject->AddScript((Script*)attackObjectScript);
 
 			std::map<std::wstring, AttackObject*>::iterator iter
 				= mAttackObjects.find(name);
@@ -53,6 +61,7 @@ namespace hj
 			attackObject->SetName(name);
 			mAttackObjects.insert(std::make_pair(name, attackObject));
 			attackObject->Initialize();
+			attackObject->SetOwnerScript(this);
 			return true;
 
 		}
@@ -69,9 +78,10 @@ namespace hj
 		template <typename T>
 		bool RegisterEffectObject(const std::wstring name)
 		{
-			// 키값으로 탐색
-			//T* EffectObject = mEffectObjectsFind<T>(key);
-			T* effectObject = new T();
+			EffectObject* effectObject = new EffectObject();
+
+			T* effectObjectScript = new T();
+			effectObject->AddScript((Script*)effectObjectScript);
 
 			std::map<std::wstring, EffectObject*>::iterator iter
 				= mEffectObjects.find(name);
@@ -94,13 +104,27 @@ namespace hj
 			return iter->second;
 		}
 
+		void SetPos(Vector2 pos, float posVZ) 
+		{
+			mPosition = pos;
+			mPositionVZ = posVZ;
+		}
+		Vector2 GetPos() { return mPosition; }
+		float GetPosVZ() { return mPositionVZ; }
+
+		std::map<std::wstring, AttackObject*>::iterator GetAttackObjectsBegin() { return mAttackObjects.begin(); }
+		std::map<std::wstring, AttackObject*>::iterator GetAttackObjectsEnd() { return mAttackObjects.end(); }
+		std::map<std::wstring, EffectObject*>::iterator GetEffectObjectsBegin() { return mEffectObjects.begin(); }
+		std::map<std::wstring, EffectObject*>::iterator GetEffectObjectsEnd() { return mEffectObjects.end(); }
 	private:
 		std::map<std::wstring, AttackObject*> mAttackObjects;
 		std::map<std::wstring, EffectObject*> mEffectObjects;
 		bool mActivate;
 		float mCoolTime;
 		float curTime;
-
+		bool flip;
+		Vector2 mPosition;
+		float mPositionVZ;
 	};
 
 

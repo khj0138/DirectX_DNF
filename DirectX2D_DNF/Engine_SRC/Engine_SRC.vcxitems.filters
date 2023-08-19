@@ -109,6 +109,22 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)hjRigidbody.h">
       <Filter>GameObject\Component\Rigidbody</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjStructedBuffer.h">
+      <Filter>Graphics\StructedBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjLight.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjComputeShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjPaintShader.h">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjParticleShader.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)hjParticleSystem.h">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Common">
@@ -216,6 +232,15 @@
     <Filter Include="GameObject\Component\Rigidbody">
       <UniqueIdentifier>{6e4e04bb-3023-427a-802e-755f1dbe6984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics\StructedBuffer">
+      <UniqueIdentifier>{3cc74d3a-aea1-4a28-bdd2-2f821983d9d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Shader\CS">
+      <UniqueIdentifier>{458bf5a5-c3f4-410f-8149-91a1678497de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\ParticleSystem">
+      <UniqueIdentifier>{dd3f617b-8e72-4183-9799-132fa5549fde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjResources.cpp">
@@ -307,6 +332,22 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)hjRigidbody.cpp">
       <Filter>GameObject\Component\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjStructedBuffer.cpp">
+      <Filter>Graphics\StructedBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjLight.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjComputeShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjPaintShader.cpp">
+      <Filter>Resource\Shader\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjParticleShader.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)hjParticleSystem.cpp">
+      <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

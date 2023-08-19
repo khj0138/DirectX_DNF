@@ -26,7 +26,7 @@ namespace gui
 			= hj::Resources::Find<hj::Material>(L"DebugRectMaterial");
 
 		mDebugObjects[(UINT)eColliderType::Rect] = new DebugObject();
-		mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<hj::Transform>();
+		//mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<hj::Transform>();
 		hj::MeshRenderer* mr
 			= mDebugObjects[(UINT)eColliderType::Rect]->AddComponent<hj::MeshRenderer>();
 		mr->SetMaterial(material);
@@ -37,7 +37,7 @@ namespace gui
 		material
 			= hj::Resources::Find<hj::Material>(L"DebugCircleMaterial");
 		mDebugObjects[(UINT)eColliderType::Circle] = new DebugObject();
-		mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<hj::Transform>();
+		//mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<hj::Transform>();
 		mr
 			= mDebugObjects[(UINT)eColliderType::Circle]->AddComponent<hj::MeshRenderer>();
 		mr->SetMaterial(material);
@@ -90,6 +90,7 @@ namespace gui
 		{
 			DebugRender(mesh);
 		}
+		renderer::debugMeshs.clear();
 	}
 
 	void Editor::Release()
@@ -117,7 +118,7 @@ namespace gui
 	{
 		DebugObject* debugObj = mDebugObjects[(UINT)mesh->type];
 
-		
+
 		// 위치 크기 회전 정보를 받아와서
 		// 해당 게임오브젝트위에 그려주면된다.
 		hj::Transform* tr = debugObj->GetComponent<hj::Transform>();
@@ -139,8 +140,7 @@ namespace gui
 		hj::Camera::SetGPUViewMatrix(mainCamara->GetViewMatrix());
 		hj::Camera::SetGPUProjectionMatrix(mainCamara->GetProjectionMatrix());
 
-		debugObj->Render();
-		renderer::debugMeshs.clear();
+
 
 		renderer::CollisionCB colObj = {};
 		if (mesh->bCollision == true)

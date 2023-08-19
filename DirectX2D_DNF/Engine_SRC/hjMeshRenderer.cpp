@@ -34,14 +34,15 @@ namespace hj
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		mMesh->BindBuffer();
-		mMaterial->Binds();
-
 		if (animator)
 		{
 			animator->Binds();
 			if (animator->isAnimatorClose())
 				return;
 		}
+		mMaterial->Binds();
+
+		
 		mMesh->Render();
 
 		mMaterial->Clear();
@@ -73,24 +74,16 @@ namespace hj
 		etcCB.Expand = mScale;
 		etcCB.Flip = (UINT)mFlip;
 		etcCB.Repeat = (UINT)mRepeat;
-		Vector3 a = GetOwner()->GetComponent<Transform>()->GetPosition();
+		etcCB.padding = Vector2::Zero;
 
 		/*if (UV.x < (-1.0f * Move.x) || UV.x >(-1.0f * Move.x + 0.25f))
 			Out.UV = float2((In.UV.x + Move.x) * (Expand.x), (In.UV.y + Move.y) * Expand.y);*/
-		if (mMove.x != 0.0f)
-		{
-
-		float a = -1.0f * moveCB.x;
-		float b = moveCB.x * (mScale.x);
-		float c = 1.0f / (mScale.x);
-
-
-		int ca = 0;
-		}
+		
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Etc];
 		cb->SetData(&etcCB);
 		cb->Bind(eShaderStage::VS);
 		cb->Bind(eShaderStage::PS);
+
 	}
 }

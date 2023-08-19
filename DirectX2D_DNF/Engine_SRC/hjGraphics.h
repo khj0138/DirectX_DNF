@@ -13,12 +13,14 @@
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name 
 
 #define CBSLOT_TRANSFORM		0
-//#define CBSLOT_PARTICLE			1
-#define CBSLOT_GRID		2
-#define CBSLOT_ANIMATION2D	3
-#define CBSLOT_ETC		4
-#define CBSLOT_TIME 5
-#define CBSLOT_COLLISION 6
+#define CBSLOT_GRID		1
+#define CBSLOT_ANIMATION2D	2
+#define CBSLOT_PARTICLE			3
+#define CBSLOT_NOISE			4
+
+#define CBSLOT_ETC		5
+#define CBSLOT_TIME 6
+#define CBSLOT_COLLISION 7
 
 
 namespace hj::graphics
@@ -37,12 +39,14 @@ namespace hj::graphics
 	enum class eCBType
 	{
 		Transform,
-		Particle,
 		Grid,
 		Animator,
+		Particle,
+		Noise,
 		Etc,
 		Time,
 		Collision,
+		Material,
 		End,
 	};
 
@@ -87,6 +91,15 @@ namespace hj::graphics
 		End,
 	};
 
+	enum class eViewType
+	{
+		None,
+		SRV,
+		UAV,
+		End,
+	};
+	
+
 	struct GpuBuffer
 	{
 		Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
@@ -116,5 +129,32 @@ namespace hj::graphics
 	public:
 		void CollisionMesh(bool collision) { bCollision = collision; }
 		bool isCollision() { return bCollision; }
+	};
+
+	struct LightAttribute
+	{
+		math::Vector4 color;
+		math::Vector4 position;
+		math::Vector4 direction;
+
+		enums::eLightType type;
+		float radius;
+		float angle;
+		int pad;
+	};
+	struct Particle
+	{
+		math::Vector4 position;
+		math::Vector4 direction;
+
+		float endTime;
+		float time;
+		float speed;
+		UINT active;
+	};
+
+	struct ParticleShared
+	{
+		UINT sharedActiveCount;
 	};
 }

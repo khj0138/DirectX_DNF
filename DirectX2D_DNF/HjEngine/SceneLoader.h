@@ -52,9 +52,9 @@ namespace hj
 		//SceneManager::CreateScene<Dungeon_Entrance_1>(L"Dungeon_Entrance_1");
 		//CreateBackGrounds();
 		//SceneManager::CreateScene<Dungeon_Entrance_2>(L"Dungeon_Entrance_2");
-		CreateBackGrounds();
+		//CreateBackGrounds();
 
-		//SceneManager::LoadScene(L"PlayScene");
+		SceneManager::LoadScene(L"Town_SeriaRoom");
 		//SceneManager::GetActiveScene()->Update();
 	}
 }

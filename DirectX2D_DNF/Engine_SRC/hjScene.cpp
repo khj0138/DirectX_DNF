@@ -56,4 +56,8 @@ namespace hj
 	{
 		mLayers[(int)type].AddGameObject(gameObj);
 	}
+	void Scene::EraseGameObject(eLayerType type, GameObject* gameObj)
+	{
+		mLayers[(int)type].EraseGameObject(gameObj);
+	}
 }

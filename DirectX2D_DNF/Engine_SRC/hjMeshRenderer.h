@@ -17,10 +17,9 @@ namespace hj
 		virtual void Render() override;
 
 		void SetMesh(std::shared_ptr<Mesh> mesh) { mMesh = mesh; }
-		void SetMaterial(std::shared_ptr<Material> material) {
-			mMaterial = material;
-		}
+		void SetMaterial(std::shared_ptr<Material> material) { mMaterial = material; }
 		std::shared_ptr<Material> GetMaterial() { return mMaterial; }
+		std::shared_ptr<Mesh> GetMesh() { return mMesh; }
 
 		void SetUVScale(Vector2 scale) { mScale = scale; }
 		void SetUVMove(Vector2 scale) { mMove = scale; }

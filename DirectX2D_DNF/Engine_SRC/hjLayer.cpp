@@ -97,4 +97,12 @@ namespace hj
 	{
 		mGameObjects.push_back(gameObj);
 	}
+	void Layer::EraseGameObject(GameObject* gameObj)
+	{
+		std::vector<GameObject*>::iterator gameObject = find(mGameObjects.begin(), mGameObjects.end(), gameObj);
+		if (gameObject != mGameObjects.end())
+		{
+			mGameObjects.erase(gameObject);
+		}
+	}
 }

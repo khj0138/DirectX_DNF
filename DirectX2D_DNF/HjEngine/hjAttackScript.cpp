@@ -24,6 +24,26 @@ namespace hj
 	void AttackScript::Update()
 	{
 		curTime += Time::DeltaTime();
+		/*for (auto iter = mAttackObjects.begin(); iter != mAttackObjects.end(); iter++)
+		{
+			iter->second->Update();
+		}
+		for (auto iter = mEffectObjects.begin(); iter != mEffectObjects.end(); iter++)
+		{
+			iter->second->Update();
+		}*/
+	}
+
+	void AttackScript::OnCollisionEnter(Collider2D* other)
+	{
+	}
+
+	void AttackScript::OnCollisionStay(Collider2D* other)
+	{
+	}
+
+	void AttackScript::OnCollisionExit(Collider2D* other)
+	{
 	}
 
 }

@@ -5,6 +5,8 @@
 #include "hjShader.h"
 #include "hjConstantBuffer.h"
 #include "hjCamera.h"
+#include "hjLight.h"
+
 
 using namespace hj::math;
 using namespace hj::graphics;
@@ -40,8 +42,22 @@ namespace renderer
 		UINT animationType;
 		UINT flip;
 		UINT back;
+		float padding;
 	};
 
+	CBUFFER(ParticleCB, CBSLOT_PARTICLE)
+	{
+		UINT elementCount;
+		float elpasedTime;
+		float deltaTime;
+		int padding;
+	};
+
+
+	CBUFFER(NoiseCB, CBSLOT_NOISE)
+	{
+		Vector4 size;
+	};
 	CBUFFER(EtcCB, CBSLOT_ETC)
 	{
 		//float Time;
@@ -49,6 +65,7 @@ namespace renderer
 		Vector2 Expand;
 		UINT Flip;
 		UINT Repeat;
+		Vector2 padding;
 	};
 
 	CBUFFER(TimeCB, CBSLOT_TIME)
@@ -62,7 +79,8 @@ namespace renderer
 		UINT bCollision;
 		Vector3 Empty;
 	};
-
+	
+	
 	extern hj::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];
 
 	extern Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState[];
@@ -70,11 +88,13 @@ namespace renderer
 	extern Microsoft::WRL::ComPtr<ID3D11DepthStencilState> depthStencilStates[];
 	extern Microsoft::WRL::ComPtr<ID3D11BlendState> blendStates[];
 
+	extern std::vector<hj::Light*> lights;
 	extern hj::Camera* mainCamera;
 	extern std::vector<hj::Camera*> cameras;
 	extern std::vector<DebugMesh*> debugMeshs;
 
 	void Initialize();
+	void BindLights();
 	void Render();
 	void Release();
 

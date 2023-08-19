@@ -16,6 +16,7 @@ namespace hj
 		virtual void Destroy();
 
 		void AddGameObject(GameObject* gameObj);
+		void EraseGameObject(GameObject* gameObj);
 		const std::vector<GameObject*> GetGameObjects()
 		{
 			return mGameObjects;

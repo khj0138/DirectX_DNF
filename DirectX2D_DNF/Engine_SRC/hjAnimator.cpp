@@ -97,7 +97,9 @@ namespace hj
 		std::vector<std::shared_ptr<Texture>> textures = {};
 		for (const auto& p : std::filesystem::recursive_directory_iterator(path))
 		{
-			std::wstring fileName = p.path().filename();
+			std::wstring fileName = fs.parent_path().filename();
+			fileName += fs.filename();
+			fileName += p.path().filename();
 			std::wstring fullName = p.path().wstring();
 
 			const std::wstring ext = p.path().extension();
@@ -122,6 +124,7 @@ namespace hj
 		key += fs.filename();
 
 		mImageAtlas = std::make_shared<graphics::Texture>();
+		
 		mImageAtlas->CreateTex(path, fileCount, maxWidth, maxHeight);
 		if (back)
 		{
@@ -170,11 +173,11 @@ namespace hj
 		}
 
 		std::wstring fixedName = name;
-		if (back)
+		/*if (back)
 		{
 			std::wstring addingWord = L"Back";
 			fixedName.append(addingWord);
-		}
+		}*/
 		Animation* animation = FindAnimation(fixedName);
 		if (animation)
 		{

@@ -82,6 +82,6 @@ namespace hj
 		bool mbLoop;
 		bool isFlip;
 		Vector2 animatorOffset;
-		//bool isBack;
+		bool isBack;
 	};
 }

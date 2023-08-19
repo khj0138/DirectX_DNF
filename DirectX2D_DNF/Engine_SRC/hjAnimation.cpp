@@ -85,7 +85,7 @@ namespace hj
 	{
 		float fixedRes = (float)application.GetFixedWidth() / 800.f;
 		// texture bind
-		mAtlas->BindShader(graphics::eShaderStage::PS, 12);
+		mAtlas->BindShaderResource(graphics::eShaderStage::PS, 12);
 
 		// AnimationCB
 		renderer::AnimatorCB data = {};
@@ -97,7 +97,7 @@ namespace hj
 		data.animationType = 1;
 		data.flip = (UINT)isFlip;
 		data.back = (UINT)isBack;
-		//data.spriteLeftTop.y += mSprites[mIndex].size.y / 2.0f;
+		data.padding = 0.0f;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Animator];
 		cb->SetData(&data);

@@ -95,7 +95,7 @@ namespace hj
 		ShowWindow(mHwnd, true);
 		UpdateWindow(mHwnd);
 
-		fixedRes = (1600.0f / (float)width);
+		fixedRes = (800.0f / (float)width);
 		//float fixedRes = 2.0f;
 	}
 
