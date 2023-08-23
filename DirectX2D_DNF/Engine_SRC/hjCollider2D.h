@@ -30,9 +30,16 @@ namespace hj
 				mSize = Vector3{ size.x, size.y, height };
 		}
 		void SetCenter(Vector2 size) { mCenter = size; }
+		Vector2 GetCenter() { return mCenter; }
 		UINT GetColliderID() { return mColliderID; }
 		Vector3 GetSize() { return mSize * fixedRes; }
 		Vector3 GetPosition() { return mPosition; }
+		Vector3 GetPrevPosition() { return mPrevPosition; }
+
+		void SetRotation(float rotation) { mRotation = rotation; }
+		void SetPosition(Vector3 position) { mPosition = position; }
+		float GetRotation() { return mRotation; }
+
 		Transform* GetTransform() { return mTransform; }
 		void SetCollision(bool collision) { bCollision = collision; }
 		bool GetCollision() { return bCollision; }
@@ -54,6 +61,9 @@ namespace hj
 		Vector2 mCollisionRange;
 		float mCollisionHeight;
 		Vector3 mPosition;
+		Vector3 mPrevPosition;
+		float mRotation;
+
 		Vector3 mSize;
 		Vector2 mCenter;
 		graphics::DebugMesh* mMesh;

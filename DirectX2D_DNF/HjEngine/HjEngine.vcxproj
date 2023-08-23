@@ -179,6 +179,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjEffectObject.h" />
+    <ClInclude Include="hjGroundObjectScript.h" />
     <ClInclude Include="hjNPCScript.h" />
     <ClInclude Include="hjPlayer.h" />
     <ClInclude Include="hjSeriaRoomGateScript.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="hjDungeon_Spirazzi_Entrance.cpp" />
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjEffectObject.cpp" />
+    <ClCompile Include="hjGroundObjectScript.cpp" />
     <ClCompile Include="hjNPCScript.cpp" />
     <ClCompile Include="hjPlayer.cpp" />
     <ClCompile Include="hjSeriaRoomGateScript.cpp" />

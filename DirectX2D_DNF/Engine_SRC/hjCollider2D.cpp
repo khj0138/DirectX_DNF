@@ -47,6 +47,7 @@ namespace hj
 	}
 	void Collider2D::LateUpdate()
 	{
+		mPrevPosition = mPosition;
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 
 		fixedRes = (float)application.GetFixedWidth() / 800.f;
@@ -72,16 +73,27 @@ namespace hj
 		pos.z = 1.0f;
 
 		mPosition = pos;
+		//float sec45 = 1.0f / cosf(math::degreeToRadian(45.0f));
+		float sec45 = 1.4f;
 		if (mMesh != nullptr)
 		{
 			mMesh->position = pos;
 
-			mMesh->position.y *= cos(45.0f);
-			mMesh->position.y -= scale.y / 2.0f;
+			//mMesh->position.y *= cosf(math::degreeToRadian(45.0f));
+			//scale.y *= cosf(math::degreeToRadian(45.0f));
 			mMesh->scale = scale;
 
 			mMesh->rotation = tr->GetRotation();
+			mMesh->rotation.z += mRotation;
 			mMesh->type = mType;
+
+			/*Vector2 vect2VZ = Vector2(0, pos.y);
+			math::Vector2::rotation(vect2VZ, math::degreeToRadian(mMesh->rotation.z));
+			pos.y = vect2VZ.y;*/
+			
+			//mMesh->position.y = vect2VZ.y;// *cosf(math::degreeToRadian(45.0f));
+			//mMesh->position.y -= scale.y / 2.0f;// *sec45;
+			mMesh->position.y -= scale.y / 2.0f *sec45;
 			//mMesh->bCollision = false;
 		}
 

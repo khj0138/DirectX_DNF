@@ -124,6 +124,9 @@
     <Filter Include="Script\CharAttack\AttackObject\DetectObject">
       <UniqueIdentifier>{b75f0a5a-b877-4cd6-957e-eebdd87eeb6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script\GroundObject">
+      <UniqueIdentifier>{f279b8b9-3813-4a01-9b71-b3245188f015}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -259,6 +262,9 @@
     <ClInclude Include="hjDragonSoldierAttack2Script.h">
       <Filter>Script\Monster\DragonSoldier\Attack</Filter>
     </ClInclude>
+    <ClInclude Include="hjGroundObjectScript.h">
+      <Filter>Script\GroundObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -384,6 +390,9 @@
     </ClCompile>
     <ClCompile Include="hjDragonSoldierAttack2Script.cpp">
       <Filter>Script\Monster\DragonSoldier\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="hjGroundObjectScript.cpp">
+      <Filter>Script\GroundObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

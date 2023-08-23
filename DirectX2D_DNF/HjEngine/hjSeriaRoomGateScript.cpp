@@ -32,8 +32,12 @@ namespace hj
 		mAnimator->CompleteEvent(L"BackGroundgate_new_eff") = std::bind(&SeriaRoomGateScript::BackGroundgate_new_effCompleteEvent, this);
 		
 		Collider2D* mCollider = GetOwner()->GetComponent<Collider2D>();
-		mCollider->SetSize(Vector2{ 400.0f, 400.0f }, 1.0f);
+		mCollider->SetType(eColliderType::Rect);
+		mCollider->SetSize(Vector2{ 1000.0f, 200.0f }, 1.0f);
+		mCollider->SetRotation(math::degreeToRadian(60.0f));
+		//GetOwner()->GetComponent<Transform>()->SetRotation2D(60.0f);
 		mCollider->SetCenter(Vector2{ -80.0f, 0.0f });
+		//mCollider->SetCenter(Vector2{ -200.0f, 0.0f });
 	}
 	void SeriaRoomGateScript::Update()
 	{

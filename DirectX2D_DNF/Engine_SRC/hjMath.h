@@ -140,6 +140,10 @@ namespace hj::math
         float Dot(const Vector2& V) const noexcept;
         void Cross(const Vector2& V, Vector2& result) const noexcept;
         Vector2 Cross(const Vector2& V) const noexcept;
+        float CCW(const Vector2& p1, const Vector2& p2) const noexcept;
+        static bool Line_Collision(const Vector2& Line1_p1, const Vector2& Line1_p2, const Vector2& Line2_p1, const Vector2& Line2_p2) noexcept;
+        static bool Intersection_Lines(const Vector2& Line1_p1, const Vector2& Line1_p2, const Vector2& Line2_p1, const Vector2& Line2_p2, Vector2& target) noexcept;
+
 
         void Normalize() noexcept;
         void Normalize(Vector2& result) const noexcept;

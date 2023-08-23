@@ -26,7 +26,6 @@ namespace hj
 	{
 		Update();
 		LateUpdate();
-		CollisionManager::Update();
 		Render();
 		Destroy();
 	}
@@ -36,18 +35,17 @@ namespace hj
 		Time::Initiailize();
 		Input::Initialize();
 		Fmod::Initialize();
+		//FontWrapper::Initialize();
 
 		renderer::Initialize();
 		SceneManager::Initialize();
-		CollisionManager::Initialize();
 	}
 
 	void Application::Update()
 	{
 		Time::Update();
 		Input::Update();
-
-		
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 
@@ -58,10 +56,10 @@ namespace hj
 
 	void Application::Render()
 	{
-		Time::Render();
 
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
+		Time::Render();
 		
 		renderer::Render();
 

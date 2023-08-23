@@ -280,7 +280,8 @@ namespace renderer
 
 		int iSlice = 40;
 		float fRadiusX = 0.5f;
-		float fRadiusY = 0.5f * cos(45.0f);
+		float fRadiusY = 0.5f;
+		//float fRadiusY = 0.5f * cosf(math::degreeToRadian(45.0f));
 		float fTheta = XM_2PI / (float)iSlice;
 
 		for (int i = 0; i < iSlice; ++i)

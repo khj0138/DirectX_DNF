@@ -123,15 +123,20 @@ namespace gui
 		// 해당 게임오브젝트위에 그려주면된다.
 		hj::Transform* tr = debugObj->GetComponent<hj::Transform>();
 
-		Vector3 pos = mesh->position;
-		pos.z -= 0.01f;
+		Vector3 pos = Vector3(mesh->position.x, 0.0f,-0.01f);
+		//pos.z -= 0.01f;
 
 		tr->SetPosition(pos);
+		tr->SetVirtualZ(mesh->position.y);// / cosf(hj::math::degreeToRadian(45.0f)));
 		tr->SetScale(mesh->scale);
 		tr->SetRotation(mesh->rotation);
 
 		tr->LateUpdate();
-
+		Matrix world = tr->GetMatrix();
+		//world._12 = world._12 * cosf(math::degreeToRadian(45.0f));
+		//world._22 = world._22 * cosf(math::degreeToRadian(45.0f));
+		//world._32 = world._32 * cosf(math::degreeToRadian(45.0f));
+		//world._42 = world._42 / cosf(math::degreeToRadian(45.0f));
 		/*hj::MeshRenderer * mr
 			= debugObj->GetComponent<hj::MeshRenderer>();*/
 			// main camera

@@ -25,12 +25,12 @@ namespace hj
 		void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
 		void YtoVirtualZ()
 		{
-			mVirtualZ += mPosition.y / cos(45.0f);
+			mVirtualZ += mPosition.y / cosf(math::degreeToRadian(45.0f));
 			mPosition.y = 0.0f;
 		}
 		void VirtualZtoY()
 		{
-			mPosition.y += mVirtualZ * cos(45.0f);
+			mPosition.y += mVirtualZ * cosf(math::degreeToRadian(45.0f));
 			mVirtualZ = 0.0f;
 		}
 
@@ -39,6 +39,7 @@ namespace hj
 		void SetVirtualZ(float z) { mVirtualZ = z; }
 
 		Vector3 GetPosition() { return mPosition; }
+		Vector3 GetPrevPosition() { return mPrevPosition; }
 		Vector3 GetRotation() { return mRotation; }
 		Vector3 GetScale() { return mScale; }
 		float GetVirtualZ() { return mVirtualZ; }
@@ -50,7 +51,11 @@ namespace hj
 		void SetParent(Transform* transform) { mParent = transform; }
 		Transform* GetParent() { return mParent; }
 
+
+		Matrix GetMatrix() { return mWorld; }
+		void SetMatrix(Matrix mat) { mWorld = mat; }
 	private:
+		Vector3 mPrevPosition;
 		Vector3 mPosition;
 		float mVirtualZ;
 		Vector3 mRotation;

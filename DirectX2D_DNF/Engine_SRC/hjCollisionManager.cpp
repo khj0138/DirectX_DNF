@@ -192,7 +192,7 @@ namespace hj
 				float rightRadius = right->GetSize().x;
 
 				Vector3 temp = left->GetPosition() - right->GetPosition();
-				//Vector2 temp2D = Vector2{ temp.x,temp.y / cos(45.0f)};
+				//Vector2 temp2D = Vector2{ temp.x,temp.y / cosf(math::degreeToRadian(45.0f))};
 				Vector2 temp2D = Vector2{ temp.x,temp.y};
 				float length = temp2D.Length() * 2.0f;
 
@@ -204,7 +204,7 @@ namespace hj
 		}
 		else
 		{
-			if (right->GetType() == eColliderType::Circle)
+			if (left->GetType() == eColliderType::Circle)
 			{
 				Collider2D* temp = left;
 				left = right;
@@ -212,7 +212,7 @@ namespace hj
 			}
 			
 			Vector3 leftScale = left->GetSize();
-			float leftRotation = left->GetTransform()->GetRotation().z;
+			float leftRotation = left->GetTransform()->GetRotation().z + left->GetRotation();
 
 			std::vector<Vector2> axis2D;
 			axis2D.push_back((Vector2{ 0.0f, 1.0f } *Vector2(leftScale.x, leftScale.y)));
@@ -237,6 +237,7 @@ namespace hj
 				{
 					sum += abs(axis.Dot(axis2D[j]));
 				}
+				sum += right->GetSize().x * 2;
 				if (sum < (length * 2))
 					return false;
 			}

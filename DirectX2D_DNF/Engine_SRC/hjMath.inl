@@ -341,6 +341,7 @@ inline float Vector2::Dot(const Vector2& V) const noexcept
     return XMVectorGetX(X);
 }
 
+
 inline void Vector2::Cross(const Vector2& V, Vector2& result) const noexcept
 {
     using namespace DirectX;
@@ -362,6 +363,122 @@ inline Vector2 Vector2::Cross(const Vector2& V) const noexcept
     return result;
 }
 
+inline float Vector2::CCW(const Vector2& p1, const Vector2& p2) const noexcept
+{
+    using namespace DirectX;
+    Vector2 V1 = p1 - *this;
+    Vector2 V2 = p2 - *this;
+    const XMVECTOR vP1 = XMLoadFloat2(&V1);
+    const XMVECTOR vP2 = XMLoadFloat2(&V2);
+    const XMVECTOR R = XMVector2Cross(vP1, vP2);
+    Vector2 result;
+    XMStoreFloat2(&result, R);
+    return result.x;
+}
+inline bool Vector2::Line_Collision(const Vector2& Line1_p1, const Vector2& Line1_p2, const Vector2& Line2_p1, const Vector2& Line2_p2) noexcept
+{
+    float Line1 = Line2_p1.CCW(Line1_p1, Line1_p2) * Line2_p2.CCW(Line1_p1, Line1_p2);
+    float Line2 = Line1_p1.CCW(Line2_p1, Line2_p2) * Line1_p2.CCW(Line2_p1, Line2_p2);
+
+    if (Line1 == 0.0f && Line2 == 0.0f)
+    {
+        Vector2 L1P1 = Line1_p1;
+        Vector2 L1P2 = Line1_p2;
+        Vector2 L2P1 = Line2_p1;
+        Vector2 L2P2 = Line2_p2;
+        if (L1P1.x > L1P2.x)
+        {
+            Vector2 temp = L1P1;
+            L1P1 = L1P2;
+            L1P2 = temp;
+        }
+        else if (L1P1.x == L1P2.x)
+        {
+            if (L1P1.y > L1P2.y)
+            {
+                Vector2 temp = L2P1;
+                L2P1 = L2P2;
+                L2P2 = temp;
+            }
+        }
+        if (L2P1.x > L2P2.x)
+        {
+            Vector2 temp = L2P1;
+            L2P1 = L2P2;
+            L2P2 = temp;
+        }
+        else if (L2P1.x == L2P2.x)
+        {
+            if (L2P1.y > L2P2.y)
+            {
+                Vector2 temp = L2P1;
+                L2P1 = L2P2;
+                L2P2 = temp;
+            }
+        }
+        return !(L2P2.x < L1P1.x ||
+            L2P1.x < L1P2.x ||
+            (L2P2.x == L1P1.x && L2P2.y < L1P1.y) ||
+            (L2P1.x == L1P2.x && L1P2.y < L2P1.y));
+    }
+    return (Line1 <= 0.0f && Line2 <= 0.0f);
+}
+inline bool Vector2::Intersection_Lines(const Vector2& Line1_p1, const Vector2& Line1_p2, const Vector2& Line2_p1, const Vector2& Line2_p2, Vector2& target) noexcept
+{
+    if (Line_Collision(Line1_p1, Line1_p2, Line2_p1, Line2_p2))
+    {
+        Vector2 LVector1 = (Line1_p2 - Line1_p1);
+        Vector2 LVector2 = (Line2_p2 - Line2_p1);
+        float det = LVector1.Cross(LVector2).x;
+        if (fabs(det) < 0.0001f)
+        {
+            Vector2 L1P1 = Line1_p1;
+            Vector2 L1P2 = Line1_p2;
+            Vector2 L2P1 = Line2_p1;
+            Vector2 L2P2 = Line2_p2;
+            if (L1P1.x > L1P2.x)
+            {
+                Vector2 temp = L1P1;
+                L1P1 = L1P2;
+                L1P2 = temp;
+            }
+            else if (L1P1.x == L1P2.x)
+            {
+                if (L1P1.y > L1P2.y)
+                {
+                    Vector2 temp = L2P1;
+                    L2P1 = L2P2;
+                    L2P2 = temp;
+                }
+            }
+            if (L2P1.x > L2P2.x)
+            {
+                Vector2 temp = L2P1;
+                L2P1 = L2P2;
+                L2P2 = temp;
+            }
+            else if (L2P1.x == L2P2.x)
+            {
+                if (L2P1.y > L2P2.y)
+                {
+                    Vector2 temp = L2P1;
+                    L2P1 = L2P2;
+                    L2P2 = temp;
+                }
+            }
+            else
+                target = L1P1;
+            return true;
+        }
+        else
+        {
+            Vector2 temp = (Line2_p1 - Line1_p1);
+            target = Line1_p1 + (Line1_p2 - Line1_p1) * (temp.Cross(LVector2).x / det);
+            return true;
+        }
+    }
+    return false;
+}
 inline void Vector2::Normalize() noexcept
 {
     using namespace DirectX;
@@ -421,6 +538,8 @@ inline float Vector2::DistanceSquared(const Vector2& v1, const Vector2& v2) noex
     const XMVECTOR X = XMVector2LengthSq(V);
     return XMVectorGetX(X);
 }
+
+
 
 inline void Vector2::Min(const Vector2& v1, const Vector2& v2, Vector2& result) noexcept
 {
