@@ -4,6 +4,10 @@
 #include "hjBasicAttackObject2Script.h"
 #include "hjAttackObject.h"
 #include "hjTransform.h"
+
+#include "hjAnimator.h"
+#include "hjMonster.h"
+#include "hjPlayer.h"
 namespace hj
 {
 
@@ -15,22 +19,53 @@ namespace hj
 	}
 	void DragonSoldierAttack2Script::Initialize()
 	{
-
-		RegisterAttackObject<BasicAttackObject2Script>(L"BasicAttack2");
-		LoadAttackObject(L"BasicAttack2")->GetComponent<Transform>()->SetPosition(Vector3(100.0f, 0.0f, 1.0f));
+		SetCoolTime(5.0f);
+		RegisterAttackObject<BasicAttackObject2Script>(L"DragonSoldierAttack2");
+		LoadAttackObject(L"DragonSoldierAttack2")->GetComponent<Transform>()->SetPosition(Vector3(200.0f, 0.0f, 2.0f));
 
 	}
 	void DragonSoldierAttack2Script::Update()
 	{
-		AttackScript::Update();
+		if (GetActivate())
+		{
+			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
+			{
+				AttackObject* DragonSoldierAttack2 = LoadAttackObject(L"DragonSoldierAttack2");
+				DragonSoldierAttack2->SetActivate(false);
+				DragonSoldierAttack2->GetComponent<Collider2D>()->SetCollision(false);
+				DragonSoldierAttack2->SetAttack(false);
+				SetActivate(false);
+			}
+			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 3)
+			{
+				AttackObject* DragonSoldierAttack2 = LoadAttackObject(L"DragonSoldierAttack2");
+				DragonSoldierAttack2->SetAttack(true);
+			}
+		}
+		AttackScript::Update();	
 	}
 	void DragonSoldierAttack2Script::Reset()
 	{
-		Vector2 pos = GetPos();
-		float posVZ = GetPosVZ();
-
-		AttackObject* BasicAttack2 = LoadAttackObject(L"BasicAttack2");
-		BasicAttack2->SetPos(Vector3{ pos.x, pos.y, 1.0f });
-		BasicAttack2->SetPosVZ(posVZ);
+		Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+		float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
+		Monster* monster = dynamic_cast<Monster*>(GetOwner());
+		if (monster != nullptr)
+		{
+			Player* player = monster->GetTarget();
+			if (player == nullptr)
+			{
+				SetActivate(false);
+				return;
+			}
+			Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+			float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
+			AttackObject* DragonSoldierAttack2 = LoadAttackObject(L"DragonSoldierAttack2");
+			DragonSoldierAttack2->SetPos(ownerPos);
+			DragonSoldierAttack2->SetFlip(GetOwner()->GetFlip());
+			DragonSoldierAttack2->SetPosVZ(ownerPosVZ);
+			DragonSoldierAttack2->SetActivate(true);
+			DragonSoldierAttack2->GetComponent<Collider2D>()->SetCollision(true);
+			DragonSoldierAttack2->clearTargets();
+		}
 	}
 }

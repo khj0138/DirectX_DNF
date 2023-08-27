@@ -82,7 +82,7 @@ namespace hj
 
 		Animator* mAnimator;
 		Collider2D* mCollider;
-		bool isFlip;
+		//bool isFlip;
 		BehaviorTree* mBehaviors;
 
 		bool bRun;

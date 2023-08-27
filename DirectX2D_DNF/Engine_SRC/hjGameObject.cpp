@@ -6,7 +6,9 @@
 namespace hj
 {
 	GameObject::GameObject()
-		: mState(eState::Active)	{
+		: mState(eState::Active)
+		, isFlip(false)
+	{
 		AddComponent<Transform>();
 	}
 

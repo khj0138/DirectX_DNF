@@ -63,11 +63,15 @@ namespace hj
 
 		Vector2 center = mCenter;
 		center *= fixedRes;
-
+		if (GetOwner()->GetFlip())
+		{
+			center.x = abs(center.x) * -1.0f;
+		}
 		pos.y = tr->GetVirtualZ();
 
-		pos.x += mCenter.x;
-		pos.y += mCenter.y;
+		
+		pos.x += center.x;
+		pos.y += center.y;
 
 		pos.x += trPos.x; // transform 별도 적용
 		pos.z = 1.0f;

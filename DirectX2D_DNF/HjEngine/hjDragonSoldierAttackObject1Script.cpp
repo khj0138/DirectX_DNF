@@ -1,21 +1,21 @@
-#include "hjBasicAttackObject1Script.h"
+#include "hjDragonSoldierAttackObject1Script.h"
 #include "hjAttackObject.h"
 #include "hjTime.h"
 
 #include "hjTransform.h"
 #include "hjCollider2D.h"
-#include "hjMonster.h"
+#include "hjPlayer.h"
 namespace hj
 {
 
-	BasicAttackObject1Script::BasicAttackObject1Script()
+	DragonSoldierAttackObject1Script::DragonSoldierAttackObject1Script()
 	{
-		
+
 	}
-	BasicAttackObject1Script::~BasicAttackObject1Script()
+	DragonSoldierAttackObject1Script::~DragonSoldierAttackObject1Script()
 	{
 	}
-	void BasicAttackObject1Script::Initialize()
+	void DragonSoldierAttackObject1Script::Initialize()
 	{
 		AttackObjectScript::Initialize();
 
@@ -23,7 +23,7 @@ namespace hj
 		mOwner->SetActivate(false);
 		mOwner->SetAttack(false);
 		mOwner->SetVelocity(Vector2::Zero);
-		mOwner->SetStatus(10, 5);
+		mOwner->SetStatus(5, 2);
 
 		Transform* tr = mOwner->GetComponent<Transform>();
 		tr->SetScale(Vector3(150.0f, 150.0f, 1.0f));
@@ -33,16 +33,16 @@ namespace hj
 		col->SetCollisionHeight(30.0f);
 
 	}
-	void BasicAttackObject1Script::Update()
+	void DragonSoldierAttackObject1Script::Update()
 	{
 		AttackObjectScript::Update();
 	}
 
 
 
-	void BasicAttackObject1Script::OnCollisionEnter(Collider2D* other)
+	void DragonSoldierAttackObject1Script::OnCollisionEnter(Collider2D* other)
 	{
-		Monster* target = dynamic_cast<Monster*>(other->GetOwner());
+		Player* target = dynamic_cast<Player*>(other->GetOwner());
 		if (target != nullptr)
 		{
 			if (mOwner->GetAttack())
@@ -66,9 +66,9 @@ namespace hj
 		}
 	}
 
-	void BasicAttackObject1Script::OnCollisionStay(Collider2D* other)
+	void DragonSoldierAttackObject1Script::OnCollisionStay(Collider2D* other)
 	{
-		Monster* target = dynamic_cast<Monster*>(other->GetOwner());
+		Player* target = dynamic_cast<Player*>(other->GetOwner());
 		if (target != nullptr)
 		{
 			if (mOwner->GetAttack())
@@ -92,11 +92,11 @@ namespace hj
 		}
 	}
 
-	void BasicAttackObject1Script::OnCollisionExit(Collider2D* other)
+	void DragonSoldierAttackObject1Script::OnCollisionExit(Collider2D* other)
 	{
 	}
 
-	void BasicAttackObject1Script::Attack(Monster* target)
+	void DragonSoldierAttackObject1Script::Attack(Player* target)
 	{
 		AttackObjectScript::Attack(target);
 	}

@@ -20,10 +20,12 @@ namespace hj
 	Player::Player()
 		: mActivate(false)
 		, AtkManager(nullptr)
+		, mStatus(status(100, 100))
 	{
 	}
 	Player::~Player()
 	{
+		delete AtkManager;
 	}
 	void Player::Initialize()
 	{
@@ -51,9 +53,10 @@ namespace hj
 		AddComponent<Rigidbody>();
 
 		AtkManager = new AttackScriptManager();
+		AtkManager->SetManagerOwner(this);
+		AtkManager->SetType(eLayerType::PlayerAttack);
 
 		AddComponent<PlayerScript>();
-		AtkManager->SetType(eLayerType::PlayerAttack);
 		
 		GameObject::Initialize();
 	}
@@ -73,21 +76,6 @@ namespace hj
 		GameObject::Render();
 
 	}
-
-	/*void Player::OnCollisionEnter(Collider2D* other)
-	{
-
-		
-	}
-
-	void Player::OnCollisionStay(Collider2D* other)
-	{
-		
-	}
-
-	void Player::OnCollisionExit(Collider2D* other)
-	{
-	}*/
 
 	void Player::EnterScene()
 	{

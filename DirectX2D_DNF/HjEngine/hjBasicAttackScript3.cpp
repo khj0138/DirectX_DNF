@@ -4,6 +4,10 @@
 #include "hjBasicAttackObject3Script.h"
 #include "hjAttackObject.h"
 #include "hjTransform.h"
+
+#include "hjGameObject.h"
+#include "hjAnimator.h"
+#include "hjAnimation.h"
 namespace hj
 {
 
@@ -21,16 +25,33 @@ namespace hj
 	}
 	void BasicAttackScript3::Update()
 	{
+		if (GetActivate())
+		{
+			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
+			{
+				AttackObject* BasicAttack3 = LoadAttackObject(L"BasicAttack3");
+				BasicAttack3->SetActivate(false);
+				BasicAttack3->GetComponent<Collider2D>()->SetCollision(false);
+				SetActivate(false);
+				BasicAttack3->SetAttack(false);
+
+			}
+		}
 		AttackScript::Update();
 	}
 	void BasicAttackScript3::Reset()
 	{
-		Vector2 pos = GetPos();
-		float posVZ = GetPosVZ();
-
+		Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+		float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 		AttackObject* BasicAttack3 = LoadAttackObject(L"BasicAttack3");
-		BasicAttack3->SetPos(Vector3{ pos.x, pos.y, 1.0f });
-		BasicAttack3->SetPosVZ(posVZ);
+		BasicAttack3->SetPos(ownerPos);
+		BasicAttack3->SetFlip(GetOwner()->GetFlip());
+		BasicAttack3->SetPosVZ(ownerPosVZ);
+		BasicAttack3->SetActivate(true);
+		BasicAttack3->GetComponent<Collider2D>()->SetCollision(true);
+		BasicAttack3->SetAttack(true);
+		BasicAttack3->clearTargets();
+
 	}
 
 }

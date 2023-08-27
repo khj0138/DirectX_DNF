@@ -9,6 +9,8 @@
 #include "hjMeshRenderer.h"
 #include "hjCollider2D.h"
 #include "hjAnimator.h"
+#include "hjMonster.h"
+#include "hjPlayer.h"
 namespace hj
 {
 
@@ -21,7 +23,7 @@ namespace hj
 	}
 	void AttackObjectScript::Initialize()
 	{
-		mOwner = dynamic_cast<AttackObject*>(GetOwner());
+		mOwner = dynamic_cast<AttackObject*>(Component::GetOwner());
 		mOwner->AddComponent<Collider2D>();
 		if (mOwner->GetComponent<Animator>() == nullptr)
 		{
@@ -60,4 +62,34 @@ namespace hj
 	{
 	}
 
+	void AttackObjectScript::Attack(Player* target)
+	{
+		AttackObject::status damageStat = mOwner->GetStatus();
+		UINT damage = damageStat.Damage;
+		float time = Time::DeltaTime();
+		while (time < 1.0f)
+		{
+			time *= 10.0f;
+		}
+		time = time - ((UINT)time % 10);
+		float randomDamage = time * (float)(damageStat.DamageRange);
+		damage += (UINT)randomDamage;
+
+		target->Attack(damage);
+	}
+	void AttackObjectScript::Attack(Monster* target)
+	{
+		AttackObject::status damageStat = mOwner->GetStatus();
+		UINT damage = damageStat.Damage;
+		float time = Time::DeltaTime();
+		while (time < 1.0f)
+		{
+			time *= 10.0f;
+		}
+		time = time - ((UINT)time % 10);
+		float randomDamage = time * (float)(damageStat.DamageRange);
+		damage += (UINT)randomDamage;
+
+		target->Attack(damage);
+	}
 }

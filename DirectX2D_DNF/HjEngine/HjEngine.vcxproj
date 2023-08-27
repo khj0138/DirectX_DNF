@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundLoader.h" />
+    <ClInclude Include="hjDragonSoldierAttackObject1Script.h" />
     <ClInclude Include="hjAttackObjectScript.h" />
     <ClInclude Include="hjBasicAttackObject1Script.h" />
     <ClInclude Include="hjBasicAttackObject2Script.h" />
@@ -159,9 +160,6 @@
     <ClInclude Include="hjAttackObject.h" />
     <ClInclude Include="hjAttackScript.h" />
     <ClInclude Include="hjAttackScriptManager.h" />
-    <ClInclude Include="hjBasicAttackObject1.h" />
-    <ClInclude Include="hjBasicAttackObject2.h" />
-    <ClInclude Include="hjBasicAttackObject3.h" />
     <ClInclude Include="hjBasicAttackScript1.h" />
     <ClInclude Include="hjBasicAttackScript2.h" />
     <ClInclude Include="hjBasicAttackScript3.h" />
@@ -170,6 +168,7 @@
     <ClInclude Include="hjDragonSoldier.h" />
     <ClInclude Include="hjDragonSoldierAttack1Script.h" />
     <ClInclude Include="hjDragonSoldierAttack2Script.h" />
+    <ClInclude Include="hjDragonSoldierAttackObject2Script.h" />
     <ClInclude Include="hjDragonSoldierScript.h" />
     <ClInclude Include="hjDungeon_Entrance_1.h" />
     <ClInclude Include="hjDungeon_Entrance_2.h" />
@@ -198,6 +197,7 @@
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjDragonSoldierAttackObject1Script.cpp" />
     <ClCompile Include="hjAttackObjectScript.cpp" />
     <ClCompile Include="hjBasicAttackObject1Script.cpp" />
     <ClCompile Include="hjBasicAttackObject2Script.cpp" />
@@ -206,9 +206,6 @@
     <ClCompile Include="hjAttackObject.cpp" />
     <ClCompile Include="hjAttackScript.cpp" />
     <ClCompile Include="hjAttackScriptManager.cpp" />
-    <ClCompile Include="hjBasicAttackObject1.cpp" />
-    <ClCompile Include="hjBasicAttackObject2.cpp" />
-    <ClCompile Include="hjBasicAttackObject3.cpp" />
     <ClCompile Include="hjBasicAttackScript1.cpp" />
     <ClCompile Include="hjBasicAttackScript2.cpp" />
     <ClCompile Include="hjBasicAttackScript3.cpp" />
@@ -217,6 +214,7 @@
     <ClCompile Include="hjDragonSoldier.cpp" />
     <ClCompile Include="hjDragonSoldierAttack1Script.cpp" />
     <ClCompile Include="hjDragonSoldierAttack2Script.cpp" />
+    <ClCompile Include="hjDragonSoldierAttackObject2Script.cpp" />
     <ClCompile Include="hjDragonSoldierScript.cpp" />
     <ClCompile Include="hjDungeon_Entrance_1.cpp" />
     <ClCompile Include="hjDungeon_Entrance_2.cpp" />

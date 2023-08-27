@@ -37,6 +37,7 @@ namespace hj
 
 		//behavior
 		bool IsWalk();
+		bool IsAttack();
 
 	public:
 		void Idle();
@@ -62,9 +63,11 @@ namespace hj
 		Vector3 mVelocity;
 		Animator* mAnimator;
 		Collider2D* mCollider;
-		bool isFlip;
+		//bool isFlip;
 		
 		AttackScriptManager* AtkManager;
+		std::wstring attackName;
+		float curTime;
 	};
 
 

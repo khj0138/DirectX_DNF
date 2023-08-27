@@ -66,7 +66,9 @@ namespace hj
 				animatorOffset.x = abs(animatorOffset.x);
 			}
 		}
+		bool GetFlip() { return isFlip; }
 
+		Animation* GetActiveAnimation() { return mActiveAnimation; }
 		Vector2 GetAnimatorOffset() { return animatorOffset; }
 		void SetAnimatorOffset(Vector2 offset) { animatorOffset = offset; }
 

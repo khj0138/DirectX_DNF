@@ -19,11 +19,11 @@ namespace hj
 {
 	Monster::Monster()
 		: mActivate(false)
-		, mStatus({ 0,0 })
 	{
 	}
 	Monster::~Monster()
 	{
+		delete AtkManager;
 	}
 	void Monster::Initialize()
 	{
@@ -35,6 +35,7 @@ namespace hj
 		AddComponent<Rigidbody>();
 
 		AtkManager = new AttackScriptManager();
+		AtkManager->SetManagerOwner(this);
 		AtkManager->SetType(eLayerType::MonsterAttack);
 		AtkManager->RegisterAttackScript<DetectScript>(L"Detect");
 		GameObject::Initialize();

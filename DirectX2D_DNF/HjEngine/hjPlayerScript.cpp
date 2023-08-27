@@ -69,7 +69,7 @@ namespace hj
 		{
 			mOwner = player;
 			AtkManager = player->GetAtkManager();
-			
+			//AtkManager->SetManagerOwner(mOwner);
 			AtkManager->RegisterAttackScript<BasicAttackScript1>(L"Attack1");
 			AtkManager->RegisterAttackScript<BasicAttackScript2>(L"Attack2");
 			AtkManager->RegisterAttackScript<BasicAttackScript3>(L"Attack3");
@@ -128,13 +128,13 @@ namespace hj
 	{
 		if (Input::GetKey(eKeyCode::RIGHT))
 		{
-			isFlip = false;
+			GetOwner()->SetFlip(false);
 			moveVector[0] = (UINT)(eKeyCode::RIGHT);
 			return true;
 		}
 		else if (Input::GetKey(eKeyCode::LEFT))
 		{
-			isFlip = true;
+			GetOwner()->SetFlip(true);
 			moveVector[0] = (UINT)(eKeyCode::LEFT);
 			return true;
 		}
@@ -204,11 +204,11 @@ namespace hj
 		}
 		if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
 		{
-			isFlip = false;
+			GetOwner()->SetFlip(false);
 		}
 		else
 		{
-			isFlip = true;
+			GetOwner()->SetFlip(true);
 		}
 		Vector3 velocity = rb->GetVelocity();
 		velocity.x = 0.0f;
@@ -260,13 +260,13 @@ namespace hj
 				if (Input::GetKeyDown(eKeyCode::LEFT))
 				{
 					bRun = true;
-					isFlip = true;
+					GetOwner()->SetFlip(true);
 					moveVector[0] = (UINT)eKeyCode::LEFT;
 				}
 				else if (Input::GetKeyDown(eKeyCode::RIGHT))
 				{
 					bRun = true;
-					isFlip = false;
+					GetOwner()->SetFlip(false);
 					moveVector[0] = (UINT)eKeyCode::RIGHT;
 				}
 
@@ -278,7 +278,7 @@ namespace hj
 						if (Input::GetKey(eKeyCode::LEFT))
 						{
 
-							isFlip = true;
+							GetOwner()->SetFlip(true);
 							moveVector[0] = (UINT)eKeyCode::LEFT;
 						}
 					}
@@ -290,7 +290,7 @@ namespace hj
 						velocity.x = 0.0f;
 						if (Input::GetKey(eKeyCode::RIGHT))
 						{
-							isFlip = false;
+							GetOwner()->SetFlip(false);
 							moveVector[0] = (UINT)eKeyCode::RIGHT;
 						}
 					}
@@ -300,13 +300,13 @@ namespace hj
 					if (Input::GetKeyDown(eKeyCode::LEFT))
 					{
 						bRun = true;
-						isFlip = true;
+						GetOwner()->SetFlip(true);
 						moveVector[0] = (UINT)eKeyCode::LEFT;
 					}
 					else if (Input::GetKeyDown(eKeyCode::RIGHT))
 					{
 						bRun = true;
-						isFlip = false;
+						GetOwner()->SetFlip(false);
 						moveVector[0] = (UINT)eKeyCode::RIGHT;
 					}
 				}
@@ -393,12 +393,12 @@ namespace hj
 
 			if (Input::GetKeyDown(eKeyCode::LEFT))
 			{
-				isFlip = true;
+				GetOwner()->SetFlip(true);
 				moveVector[0] = (UINT)eKeyCode::LEFT;
 			}
 			else if (Input::GetKeyDown(eKeyCode::RIGHT))
 			{
-				isFlip = false;
+				GetOwner()->SetFlip(false);
 				moveVector[0] = (UINT)eKeyCode::RIGHT;
 			}
 
@@ -409,7 +409,7 @@ namespace hj
 					velocity.x = 0.0f;
 					if (Input::GetKey(eKeyCode::LEFT))
 					{
-						isFlip = true;
+						GetOwner()->SetFlip(true);
 						moveVector[0] = (UINT)eKeyCode::LEFT;
 					}
 				}
@@ -421,7 +421,7 @@ namespace hj
 					velocity.x = 0.0f;
 					if (Input::GetKey(eKeyCode::RIGHT))
 					{
-						isFlip = false;
+						GetOwner()->SetFlip(false);
 						moveVector[0] = (UINT)eKeyCode::RIGHT;
 					}
 				}
@@ -430,12 +430,12 @@ namespace hj
 			{
 				if (Input::GetKeyDown(eKeyCode::LEFT))
 				{
-					isFlip = true;
+					GetOwner()->SetFlip(true);
 					moveVector[0] = (UINT)eKeyCode::LEFT;
 				}
 				else if (Input::GetKeyDown(eKeyCode::RIGHT))
 				{
-					isFlip = false;
+					GetOwner()->SetFlip(false);
 					moveVector[0] = (UINT)eKeyCode::RIGHT;
 				}
 			}
@@ -446,7 +446,7 @@ namespace hj
 		{
 			if (Input::GetKey(eKeyCode::RIGHT))
 			{
-				isFlip = false;
+				GetOwner()->SetFlip(false);
 				velocity.x = 510.0f;
 				//pos.x += 510.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
@@ -456,7 +456,7 @@ namespace hj
 		{
 			if (Input::GetKey(eKeyCode::LEFT))
 			{
-				isFlip = true;
+				GetOwner()->SetFlip(true);
 				velocity.x = -510.0f;
 				//pos.x -= 510.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
@@ -509,7 +509,7 @@ namespace hj
 		}
 		if (Input::GetKey(eKeyCode::LEFT))
 		{
-			isFlip = true;
+			GetOwner()->SetFlip(true);
 			velocity.x = -1.0f * abs(velocity.x);
 
 			//pos.x -= 255.0f * Time::DeltaTime();
@@ -517,7 +517,7 @@ namespace hj
 		}
 		else if (Input::GetKey(eKeyCode::RIGHT))
 		{
-			isFlip = false;
+			GetOwner()->SetFlip(false);
 			velocity.x = abs(velocity.x);
 
 			//pos.x += 255.0f * Time::DeltaTime();
@@ -559,7 +559,7 @@ namespace hj
 			{
 				if (commandVector[i] != (UINT)eKeyCode::X)
 				{
-					commandVector[i] = (UINT)eKeyCode::X;
+				commandVector[i] = (UINT)eKeyCode::X;
 					break;
 				}
 				else
@@ -596,12 +596,12 @@ namespace hj
 			{
 				if (Input::GetKey(eKeyCode::LEFT))
 				{
-					isFlip = true;
+					GetOwner()->SetFlip(true);
 					//mVelocity.x = -600.0f;
 				}
 				else if (Input::GetKey(eKeyCode::RIGHT))
 				{
-					isFlip = false;
+					GetOwner()->SetFlip(false);
 					//mVelocity.x = 600.0f;
 				}
 				/*else if (isFlip)
@@ -640,7 +640,7 @@ namespace hj
 		if (bMove && moveTime <= 0.2f)
 		{
 			velocity.x = mVelocity.x;
-			if (isFlip)
+			if (GetOwner()->GetFlip())
 				velocity.x = -1.0f * abs(velocity.x);
 		}
 		else
@@ -653,7 +653,7 @@ namespace hj
 	}
 	void PlayerScript::Anim()
 	{
-		mAnimator->SetFlip(isFlip);
+		mAnimator->SetFlip(GetOwner()->GetFlip());
 		switch (mPlayerState)
 		{
 		case ePlayerState::Idle:
@@ -690,26 +690,22 @@ namespace hj
 	}
 	void PlayerScript::Attack1StartEvent()
 	{
-		/*bAttackVector[(UINT)eAttackType::Attack1] = true;
-		commandVector[0] = (UINT)eKeyCode::X;*/
 		moveTime = 0.0f;
 		bMove = true;
-
+		AtkManager->LoadAttackScript(L"Attack1");
 
 	}
 	void PlayerScript::Attack2StartEvent()
 	{
-		/*bAttackVector[(UINT)eAttackType::Attack1] = true;
-		commandVector[0] = (UINT)eKeyCode::X;*/
 		moveTime = 0.0f;
 		bMove = true;
+		AtkManager->LoadAttackScript(L"Attack2");
 	}
 	void PlayerScript::Attack3StartEvent()
 	{
-		/*bAttackVector[(UINT)eAttackType::Attack1] = true;
-		commandVector[0] = (UINT)eKeyCode::X;*/
 		moveTime = 0.0f;
 		bMove = true;
+		AtkManager->LoadAttackScript(L"Attack3");
 	}
 	void PlayerScript::Attack1CompleteEvent()
 	{

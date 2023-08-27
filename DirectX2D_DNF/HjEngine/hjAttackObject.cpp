@@ -29,53 +29,27 @@ namespace hj
 	}
 	void AttackObject::Initialize()
 	{
-		
-		/*AddComponent<Collider2D>();
-		if (GetComponent<Animator>() == nullptr)
-		{
-			MeshRenderer* mr = AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		}
-		else
-		{
-			MeshRenderer* mr = AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-		}
-		GameObject::Initialize();*/
+	
 	}
 	void AttackObject::Update()
 	{
-		
+		if (!bActivate)
+			return;
 		GameObject::Update();
 	}
 	void AttackObject::LateUpdate()
 	{
+		if (!bActivate)
+			return;
 		GameObject::LateUpdate();
 	}
 	void AttackObject::Render()
 	{
+		if (!bActivate)
+			return;
 		GameObject::Render();
 	}
-	/*void AttackObject::OnCollisionEnter(Collider2D* other)
-	{
-		
-	}
-
-	void AttackObject::OnCollisionStay(Collider2D* other)
-	{
-		
-	}
-
-	void AttackObject::OnCollisionExit(Collider2D* other)
-	{
-	}*/
-
-	void AttackObject::SetActivate(bool activate)
-	{
-		
-	}
+	
 
 
 

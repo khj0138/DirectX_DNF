@@ -4,11 +4,11 @@
 namespace hj
 {
 	//class Animator;
-	class BasicAttackObject1Script : public AttackObjectScript
+	class DragonSoldierAttackObject1Script : public AttackObjectScript
 	{
 	public:
-		BasicAttackObject1Script();
-		~BasicAttackObject1Script();
+		DragonSoldierAttackObject1Script();
+		~DragonSoldierAttackObject1Script();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -17,7 +17,7 @@ namespace hj
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		virtual void Attack(Monster* target);
+		virtual void Attack(Player* target);
 
 	public:
 

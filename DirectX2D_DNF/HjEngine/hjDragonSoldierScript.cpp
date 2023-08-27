@@ -1,5 +1,6 @@
 #include "hjDragonSoldierScript.h"
 #include "hjTransform.h"
+#include "hjPlayer.h"
 #include "hjGameObject.h"
 #include "hjTime.h"
 #include "hjInput.h"
@@ -10,6 +11,9 @@
 //#include "hjBehaviorTree.h"
 
 #include "hjDragonSoldier.h"
+#include "hjDragonSoldierAttack1Script.h";
+#include "hjDragonSoldierAttack2Script.h";
+
 #include "hjAttackScriptManager.h"
 namespace hj
 {
@@ -18,6 +22,7 @@ namespace hj
 		: mDragonSoldierState(eDragonSoldierState::Idle)
 		, mPrevDragonSoldierState(eDragonSoldierState::Idle)
 		, mVelocity(Vector3::Zero)
+		, attackName(L"")
 	{
 		
 
@@ -33,7 +38,9 @@ namespace hj
 		mAnimator->SetAnimatorOffset(Vector2{ 0.0f, -50.0f });
 
 		mAnimator->PlayAnimation(L"dragon_soldierIdle", true);
-		
+		mAnimator->CompleteEvent(L"dragon_soldierAttack1") = std::bind(&DragonSoldierScript::Attack1CompleteEvent, this);
+		mAnimator->CompleteEvent(L"dragon_soldierAttack2") = std::bind(&DragonSoldierScript::Attack2CompleteEvent, this);
+
 		mCollider = GetOwner()->GetComponent<Collider2D>();
 		mCollider->SetSize(Vector2{ 75.0f, 75.0f }, 150.0f);
 
@@ -42,10 +49,13 @@ namespace hj
 		{
 			mOwner = dynamic_cast<DragonSoldier*>(monster);
 			AtkManager = monster->GetAtkManager();
+			AtkManager->RegisterAttackScript<DragonSoldierAttack1Script>(L"dragon_soldierAttack1");
+			AtkManager->RegisterAttackScript<DragonSoldierAttack2Script>(L"dragon_soldierAttack2");
 		}
 	}
 	void DragonSoldierScript::Update()
 	{
+		curTime += Time::DeltaTime();
 		switch (mDragonSoldierState)
 		{
 		case eDragonSoldierState::Idle:
@@ -62,17 +72,7 @@ namespace hj
 		}
 
 		Anim();
-		if (Input::GetKeyDown(eKeyCode::P))
-		{
-			if (GetOwner()->GetComponent<Collider2D>()->GetCollision())
-			{
-				GetOwner()->GetComponent<Collider2D>()->SetCollision(false);
-			}
-			else
-			{
-				GetOwner()->GetComponent<Collider2D>()->SetCollision(true);
-			}
-		}
+		
 		mPrevDragonSoldierState = mDragonSoldierState;
 
 		Vector3 pos = GetOwner()->GetComponent<Transform>()->GetPosition();
@@ -86,15 +86,67 @@ namespace hj
 		Player* target = mOwner->GetTarget();
 		if (target != nullptr)
 		{
-			return true;
+			Vector3 playerPos = target->GetComponent<Transform>()->GetPosition();
+			float playerVZ = target->GetComponent<Transform>()->GetVirtualZ();
+			Vector2 playerPos2D = Vector2(playerPos.x, playerVZ);
+			Vector3 monPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+			float monPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
+			Vector2 monPos2D = Vector2(monPos.x, monPosVZ);
+
+			if(math::Vector2::Distance(playerPos2D, monPos2D) > 100.0f
+				|| abs(playerPos2D.y - monPos2D.y) > 5.0f)
+				return true;
+		}
+		return false;
+	}
+	bool DragonSoldierScript::IsAttack()
+	{
+		if (curTime < mOwner->GetCoolTime())
+		{
+			return false;
+		}
+		else
+		{
+			for (auto iter = AtkManager->mAttackScripts.begin(); iter != AtkManager->mAttackScripts.end(); iter++)
+			{
+				if (iter->first == L"Detect")
+					continue;
+				if (AtkManager->LoadAttackScript(iter->first) != nullptr)
+				{
+					attackName = iter->first;
+					curTime = 0.0f;
+					return true;
+				}
+			}
+			return false;
 		}
 	}
-	
 	void DragonSoldierScript::Idle()
 	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 velocity = rb->GetVelocity();
+		rb->SetVelocity(Vector3(0.0f, velocity.y,0.0f));
+
+		Player* target = mOwner->GetTarget();
+		if (target != nullptr)
+		{
+			Vector3 playerPos = target->GetComponent<Transform>()->GetPosition();
+			if (playerPos.x < pos.x)
+				GetOwner()->SetFlip(true);
+			else
+				GetOwner()->SetFlip(false);
+		}
+
+		
 		if (IsWalk())
 		{
-
+			mDragonSoldierState = eDragonSoldierState::Walk;
+		}
+		if (IsAttack())
+		{
+			mDragonSoldierState = eDragonSoldierState::Attack;
 		}
 	}
 	void DragonSoldierScript::Walk()
@@ -104,242 +156,63 @@ namespace hj
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
 
-		
-		//{
+		Player* target = mOwner->GetTarget();
+		Vector2 moveVector = Vector2::Zero;
+		if (target != nullptr)
+		{
+			Vector3 playerPos = target->GetComponent<Transform>()->GetPosition();
+			float playerVZ = target->GetComponent<Transform>()->GetVirtualZ();
+			Vector2 playerPos2D = Vector2(playerPos.x, playerVZ);
+			Vector3 monPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+			float monPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
+			Vector2 monPos2D = Vector2(monPos.x, monPosVZ);
 
-		//	if (Input::GetKeyNone(eKeyCode::RIGHT)
-		//		&& Input::GetKeyNone(eKeyCode::LEFT)
-		//		&& Input::GetKeyNone(eKeyCode::UP)
-		//		&& Input::GetKeyNone(eKeyCode::DOWN))
-		//	{
-		//		moveTime += Time::DeltaTime();
-		//		if (moveTime > 0.05f)
-		//		{
-		//			moveTime = 0.0f;
-		//			velocity.x = 0.0f;
-		//			mDragonSoldierState = eDragonSoldierState::Idle;
-		//		}
-		//	}
-		//	else
-		//	{
-		//		moveTime = 0.0f;
+			if (playerPos2D.x <= monPos2D.x)
+			{
+				GetOwner()->SetFlip(true);
+				if(abs(playerPos2D.x - monPos2D.x) > GetOwner()->GetComponent<Collider2D>()->GetSize().x / 2.0f)
+					moveVector.x = -1.f;
+			}
+			else if (playerPos2D.x > monPos2D.x)
+			{
+				GetOwner()->SetFlip(false);
+				if (abs(playerPos2D.x - monPos2D.x) > GetOwner()->GetComponent<Collider2D>()->GetSize().x / 2.0f)
+					moveVector.x = 1.f;
+			}
+			
+			if(playerPos2D.y > monPos2D.y)
+			{
+				moveVector.y = 1.f;
+			}
+			else
+			{
+				moveVector.y = -1.f;
+			}
+		}
 
-
-		//		if (Input::GetKeyDown(eKeyCode::LEFT))
-		//		{
-		//			bRun = true;
-		//			isFlip = true;
-		//			moveVector[0] = (UINT)eKeyCode::LEFT;
-		//		}
-		//		else if (Input::GetKeyDown(eKeyCode::RIGHT))
-		//		{
-		//			bRun = true;
-		//			isFlip = false;
-		//			moveVector[0] = (UINT)eKeyCode::RIGHT;
-		//		}
-
-		//		if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
-		//		{
-		//			if (Input::GetKeyUp(eKeyCode::RIGHT))
-		//			{
-		//				velocity.x = 0.0f;
-		//				if (Input::GetKey(eKeyCode::LEFT))
-		//				{
-
-		//					isFlip = true;
-		//					moveVector[0] = (UINT)eKeyCode::LEFT;
-		//				}
-		//			}
-		//		}
-		//		else if ((eKeyCode)moveVector[0] == eKeyCode::LEFT)
-		//		{
-		//			if (Input::GetKeyUp(eKeyCode::LEFT))
-		//			{
-		//				velocity.x = 0.0f;
-		//				if (Input::GetKey(eKeyCode::RIGHT))
-		//				{
-		//					isFlip = false;
-		//					moveVector[0] = (UINT)eKeyCode::RIGHT;
-		//				}
-		//			}
-		//		}
-		//		else
-		//		{
-		//			if (Input::GetKeyDown(eKeyCode::LEFT))
-		//			{
-		//				bRun = true;
-		//				isFlip = true;
-		//				moveVector[0] = (UINT)eKeyCode::LEFT;
-		//			}
-		//			else if (Input::GetKeyDown(eKeyCode::RIGHT))
-		//			{
-		//				bRun = true;
-		//				isFlip = false;
-		//				moveVector[0] = (UINT)eKeyCode::RIGHT;
-		//			}
-		//		}
-		//	}
-		//}
-
-		//if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
-		//{
-		//	if (Input::GetKey(eKeyCode::RIGHT))
-		//	{
-		//		velocity.x = 255.0f;
-		//		//pos.x += 255.0f * Time::DeltaTime();
-		//		tr->SetPosition(pos);
-		//	}
-		//}
-		//else if ((eKeyCode)moveVector[0] == eKeyCode::LEFT)
-		//{
-		//	if (Input::GetKey(eKeyCode::LEFT))
-		//	{
-		//		velocity.x = -255.0f;
-		//		//	pos.x -= 255.0f * Time::DeltaTime();
-		//		tr->SetPosition(pos);
-		//	}
-		//}
-		//if (Input::GetKey(eKeyCode::DOWN))
-		//{
-		//	//float virtualZ = tr->GetVirtualZ();
-		//	velocity.z = -255.0f;
-		//	//tr->SetVirtualZ(virtualZ - 255.0f * Time::DeltaTime());
-		//}
-		//else if (Input::GetKey(eKeyCode::UP))
-		//{
-		//	//float virtualZ = tr->GetVirtualZ();
-		//	velocity.z = 255.0f;
-
-		//	//tr->SetVirtualZ(virtualZ + 255.0f * Time::DeltaTime());
-		//}
-		//else if (Input::GetKeyNone(eKeyCode::UP) && Input::GetKeyNone(eKeyCode::DOWN))
-		//{
-		//	//float virtualZ = tr->GetVirtualZ();
-		//	velocity.z = 0.0f;
-		//	//tr->SetVirtualZ(virtualZ + 255.0f * Time::DeltaTime());
-		//}
-		//rb->SetVelocity(velocity);
-
-		//if (Input::GetKey(eKeyCode::X))
-		//{
-		//	bAttackVector[(UINT)eAttackType::Attack1] = true;
-		//	bMove = false;
-		//	commandVector[0] = (UINT)eKeyCode::X;
-		//	mDragonSoldierState = eDragonSoldierState::Attack;
-		//	mVelocity.x = 400.0f;
-		//}
+		moveVector.Normalize();
+		moveVector *= 100.0f;
+		if (!IsWalk())
+		{
+			mDragonSoldierState = eDragonSoldierState::Idle;
+			moveVector = Vector2::Zero;
+		}
+		else
+		{
+			moveVector.Normalize();
+			moveVector *= 100.0f;
+		}
+		velocity.x = moveVector.x;
+		velocity.z = moveVector.y;
+		rb->SetVelocity(velocity);
 	}
 	
 	void DragonSoldierScript::Attack()
 	{
-
-		//Transform* tr = GetOwner()->GetComponent<Transform>();
-		//Vector3 pos = tr->GetPosition();
-		//Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
-		//Vector3 velocity = rb->GetVelocity();
-
-
-		//if (Input::GetKeyDown(eKeyCode::X))
-		//{
-		//	for (UINT i = 0; i < (UINT)eAttackType::End; i++)
-		//	{
-		//		if (commandVector[i] != (UINT)eKeyCode::X)
-		//		{
-		//			commandVector[i] = (UINT)eKeyCode::X;
-		//			break;
-		//		}
-		//		else
-		//		{
-		//			continue;
-		//		}
-		//	}
-		//}
-
-		//if (commandTime > 0.2f)
-		//{
-		//	commandTime = 0.0f;
-		//	bCommand = false;
-		//	mDragonSoldierState = eDragonSoldierState::Idle;
-		//	moveTime = 0.0f;
-		//	bMove = false;
-		//	for (UINT i = 0; i < (UINT)eAttackType::End; i++)
-		//	{
-		//		commandVector[i] = 0;
-		//		bAttackVector[i] = false;
-		//	}
-		//}
-
-
-
-		//if (bCommand)
-		//	commandTime += Time::DeltaTime();
-		//else
-		//	commandTime = 0.0f;
-
-		//for (UINT i = 0; i < (UINT)eAttackType::End; i++)
-		//{
-		//	if (bAttackVector[i] && (commandVector[i] == (UINT)eKeyCode::X))
-		//	{
-		//		if (Input::GetKey(eKeyCode::LEFT))
-		//		{
-		//			isFlip = true;
-		//			//mVelocity.x = -600.0f;
-		//		}
-		//		else if (Input::GetKey(eKeyCode::RIGHT))
-		//		{
-		//			isFlip = false;
-		//			//mVelocity.x = 600.0f;
-		//		}
-		//		/*else if (isFlip)
-		//		{
-		//			mVelocity.x = -150.0f;
-		//		}
-		//		else if (!isFlip)
-		//		{
-		//			mVelocity.x = 150.0f;
-		//		}*/
-
-
-		//		bAttackVector[i] = false;
-		//		bCommand = false;
-		//		commandTime = 0.0f;
-		//		mAnimator->PlayAnimation(mAttackVector[i], false);
-		//		moveTime = 0.0f;
-		//		bMove = true;
-		//		break;
-		//	}
-		//	else
-		//	{
-		//		continue;
-		//	}
-		//}
-
-
-		//if (bMove)
-		//{
-		//	moveTime += Time::DeltaTime();
-		//}
-		//else
-		//	moveTime = 0.0f;
-
-		////velocity.x = mVelocity.x;
-		//if (bMove && moveTime <= 0.2f)
-		//{
-		//	velocity.x = mVelocity.x;
-		//	if (isFlip)
-		//		velocity.x = -1.0f * abs(velocity.x);
-		//}
-		//else
-		//{
-		//	bMove = false;
-		//	velocity.x = 0.0f;
-		//}
-
-		//rb->SetVelocity(velocity);
 	}
 	void DragonSoldierScript::Anim()
 	{
-		mAnimator->SetFlip(isFlip);
+		mAnimator->SetFlip(GetOwner()->GetFlip());
 		switch (mDragonSoldierState)
 		{
 		case eDragonSoldierState::Idle:
@@ -351,9 +224,11 @@ namespace hj
 				mAnimator->PlayAnimation(L"dragon_soldierWalk", true);
 			break;
 		case eDragonSoldierState::Attack:
-			//if (mPrevDragonSoldierState != mDragonSoldierState)
-				//mAnimator->PlayAnimation(L"SwordManAttack1", false);
+		{
+			if (mPrevDragonSoldierState != mDragonSoldierState)
+				mAnimator->PlayAnimation(attackName, true);
 			break;
+		}
 		default:
 			break;
 		}
@@ -370,10 +245,10 @@ namespace hj
 	}
 	void DragonSoldierScript::Attack1CompleteEvent()
 	{
-		
+		mDragonSoldierState = eDragonSoldierState::Idle;
 	}
 	void DragonSoldierScript::Attack2CompleteEvent()
 	{
-	
+		mDragonSoldierState = eDragonSoldierState::Idle;
 	}
 }

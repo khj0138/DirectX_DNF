@@ -157,10 +157,6 @@ namespace hj
 	}
 	void Animator::PlayAnimation(const std::wstring& name, bool loop, bool back)
 	{
-
-
-
-
 		Animation* prevAnimation = mActiveAnimation;
 
 		Events* events;

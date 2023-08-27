@@ -22,11 +22,14 @@ namespace hj
 		mOwner->SetActivate(false);
 		mOwner->SetAttack(false);
 		mOwner->SetVelocity(Vector2::Zero);
+		mOwner->SetStatus(10, 5);
+
 
 		Transform* tr = mOwner->GetComponent<Transform>();
 		tr->SetScale(Vector3(150.0f, 150.0f, 1.0f));
 		Collider2D* col = mOwner->GetComponent<Collider2D>();
 		col->SetSize(Vector2(150.0f, 150.0f), 70.0f);
+		col->SetCenter(Vector2(75.0f, 0.0f));
 		col->SetCollisionHeight(30.0f);
 
 	}
@@ -77,6 +80,11 @@ namespace hj
 
 	void BasicAttackObject2Script::OnCollisionExit(Collider2D* other)
 	{
+	}
+
+	void BasicAttackObject2Script::Attack(Monster* target)
+	{
+		AttackObjectScript::Attack(target);
 	}
 
 }

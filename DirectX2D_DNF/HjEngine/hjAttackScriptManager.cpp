@@ -1,8 +1,8 @@
 #include "hjAttackScriptManager.h"
 
-#include "hjAttackScript.h"
 
 #include "hjSceneManager.h"
+#include "hjGameObject.h"
 namespace hj
 {
 	AttackScriptManager::AttackScriptManager()
@@ -10,6 +10,10 @@ namespace hj
 	}
 	AttackScriptManager::~AttackScriptManager()
 	{
+		for (auto attackScript = mAttackScripts.begin(); attackScript != mAttackScripts.end(); attackScript++)
+		{
+			delete attackScript->second;
+		}
 	}
 	void AttackScriptManager::Update()
 	{
@@ -19,6 +23,7 @@ namespace hj
 			AttackScriptiter->second->Update();
 		}
 	}
+	
 	void AttackScriptManager::EnterScene()
 	{
 		Scene* scene = SceneManager::GetActiveScene();

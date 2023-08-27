@@ -20,8 +20,10 @@ namespace hj
 	}
 	void DetectScript::Initialize()
 	{
+		SetActivate(true);
 		RegisterAttackObject<DetectObjectScript>(L"DetectObject");
 		LoadAttackObject(L"DetectObject")->GetComponent<Collider2D>()->SetSize(Vector2(1000.0f, 1000.0f), 1000.0f);
+		LoadAttackObject(L"DetectObject")->SetActivate(true);
 	}
 	void DetectScript::Update()
 	{

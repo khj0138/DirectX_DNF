@@ -11,7 +11,11 @@ namespace hj
 		AttackObject();
 		~AttackObject();
 		//virtual bool Reset() = 0;
-
+		struct status
+		{
+			UINT Damage;
+			UINT DamageRange;
+		};
 		virtual void Initialize() override;
 		virtual void Update() override;
 		virtual void LateUpdate() override;
@@ -22,7 +26,7 @@ namespace hj
 		virtual void OnCollisionStay(Collider2D* other);
 		virtual void OnCollisionExit(Collider2D* other);*/
 
-		void SetActivate(bool activate);
+		void SetActivate(bool activate) { bActivate = activate;}
 		void SetAttack(bool attack) { bAttack = attack; }
 		//void SetAttackHeight(Vector2 height) { attackHeight = height; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
@@ -33,6 +37,8 @@ namespace hj
 		void SetPosVZ(float posVZ) { GetComponent<Transform>()->SetVirtualZ(posVZ); }
 		void SetOwnerScript(AttackScript* script) { mOwner = script; }
 
+		void SetStatus(UINT damage, UINT damageRange) { mStatus.Damage = damage; mStatus.DamageRange = damageRange; }
+		status GetStatus() { return mStatus; }
 		bool GetActivate() { return bActivate; }
 		bool GetAttack() { return bAttack; }
 		//float GetAttackHeight() { return attackHeight; }
@@ -61,6 +67,10 @@ namespace hj
 		{
 			targets.find(id)->second = 0.0f;
 		}
+		void clearTargets()
+		{
+			targets.clear();
+		}
 		
 	private:
 		Animator* mAnimator;
@@ -75,5 +85,7 @@ namespace hj
 		std::map<UINT32, float> targets;
 
 		AttackScript* mOwner;
+
+		status mStatus;
 	};
 }

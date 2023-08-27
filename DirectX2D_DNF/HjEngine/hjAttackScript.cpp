@@ -3,6 +3,8 @@
 #include "hjTime.h"
 #include "hjAttackObject.h"
 #include "hjEffectObject.h"
+#include "hjAttackScriptManager.h"
+#include "hjGameObject.h"
 //#include "hjBehaviorTree.h"
 
 namespace hj
@@ -16,6 +18,7 @@ namespace hj
 	}
 	AttackScript::~AttackScript()
 	{
+		Release();
 	}
 	void AttackScript::Initialize()
 	{
@@ -23,15 +26,7 @@ namespace hj
 	}
 	void AttackScript::Update()
 	{
-		curTime += Time::DeltaTime();
-		/*for (auto iter = mAttackObjects.begin(); iter != mAttackObjects.end(); iter++)
-		{
-			iter->second->Update();
-		}
-		for (auto iter = mEffectObjects.begin(); iter != mEffectObjects.end(); iter++)
-		{
-			iter->second->Update();
-		}*/
+		curTime >= mCoolTime ? curTime = mCoolTime : curTime += Time::DeltaTime();
 	}
 
 	void AttackScript::OnCollisionEnter(Collider2D* other)

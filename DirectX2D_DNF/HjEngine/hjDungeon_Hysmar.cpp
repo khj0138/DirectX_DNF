@@ -93,7 +93,7 @@ namespace hj
 		}
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		// UI Camera 
-		{
+		/*{
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
@@ -101,7 +101,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
 			cameraComp->TurnLayerMask(eLayerType::BackGround, false);	
 
-		}
+		}*/
 		/*
 		{
 			GameObject* grid = new GameObject();

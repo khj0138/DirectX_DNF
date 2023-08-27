@@ -1,9 +1,9 @@
 #pragma once
 #include "hjEntity.h"
-
+#include "hjAttackScript.h"
 namespace hj
 {
-	class AttackScript;
+	class GameObject;
 	class AttackScriptManager : public Entity
 	{
 	public:
@@ -20,6 +20,7 @@ namespace hj
 		{
 			T* newAttack = new T();
 			newAttack->Initialize();
+			newAttack->SetOwner(mManagerOwner);
 			//std::pair<std::wstring, AttackScript*> a = std::make_pair(name, (AttackScript*)newAttack);
 			AttackScript* attack = (AttackScript*)newAttack;
 			if(attack != nullptr)
@@ -30,15 +31,24 @@ namespace hj
 			std::map<std::wstring, AttackScript*>::iterator iter = mAttackScripts.find(name);
 			if (iter == mAttackScripts.end())
 				return nullptr;
+			iter->second->SetActivate(true);
+			if (iter->second->GetActivate())
+				iter->second->Reset();
+			else
+				return nullptr;
 			return iter->second;
 		}
 		void EnterScene();
 		void ExitScene();
 		std::map<std::wstring, AttackScript*> mAttackScripts;
+
+		GameObject* GetManagerOwner() { return mManagerOwner; }
+		void SetManagerOwner(GameObject* owner) { mManagerOwner = owner; }
 	private:
 		hj::enums::eLayerType mType;
 		hj::math::Vector2 mPosition;
 		float mPositionVZ;
+		GameObject* mManagerOwner;
 	};
 }
 

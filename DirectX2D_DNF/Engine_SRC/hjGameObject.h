@@ -99,11 +99,12 @@ namespace hj
 		}
 		void SetState(eState state) { mState = state; }
 		eState GetState() { return mState; }
-
+		void SetFlip(bool flip) { isFlip = flip; }
+		bool GetFlip() { return isFlip; }
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
-
+		bool isFlip;
 	};
 }

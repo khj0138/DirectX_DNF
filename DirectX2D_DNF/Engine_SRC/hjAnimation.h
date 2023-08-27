@@ -53,7 +53,7 @@ namespace hj
 		void SetBack(bool back) { isBack = back; }
 
 		bool IsComplete() { return mbComplete; }
-
+		int GetIndex() { return mIndex; }
 	private:
 		std::shared_ptr<graphics::Texture> mAtlas;
 		Animator* mAnimator;

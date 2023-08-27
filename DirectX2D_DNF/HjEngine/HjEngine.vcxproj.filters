@@ -127,6 +127,9 @@
     <Filter Include="Script\GroundObject">
       <UniqueIdentifier>{f279b8b9-3813-4a01-9b71-b3245188f015}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script\CharAttack\AttackObject\DragonSoldierAtkObj">
+      <UniqueIdentifier>{31ac5c7f-18eb-4e28-b4c3-4bc765363869}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -265,6 +268,12 @@
     <ClInclude Include="hjGroundObjectScript.h">
       <Filter>Script\GroundObject</Filter>
     </ClInclude>
+    <ClInclude Include="hjDragonSoldierAttackObject2Script.h">
+      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDragonSoldierAttackObject1Script.h">
+      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -393,6 +402,12 @@
     </ClCompile>
     <ClCompile Include="hjGroundObjectScript.cpp">
       <Filter>Script\GroundObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDragonSoldierAttackObject2Script.cpp">
+      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDragonSoldierAttackObject1Script.cpp">
+      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
