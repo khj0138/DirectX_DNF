@@ -54,6 +54,8 @@ namespace hj
 
 		bool IsComplete() { return mbComplete; }
 		int GetIndex() { return mIndex; }
+		void SetPause(bool pause) { mPause = pause; }
+		bool GetPause() { return mPause; }
 	private:
 		std::shared_ptr<graphics::Texture> mAtlas;
 		Animator* mAnimator;
@@ -63,5 +65,6 @@ namespace hj
 		bool mbComplete;
 		bool isFlip;
 		bool isBack;
+		bool mPause;
 	};
 }

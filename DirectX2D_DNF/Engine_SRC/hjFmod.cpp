@@ -75,7 +75,6 @@ namespace hj
 	{
 		//mCoreSystem->release();
 		//mCoreSystem = nullptr;
-
 		mSystem->release();
 		mSystem = nullptr;
 	}

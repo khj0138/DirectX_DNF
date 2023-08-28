@@ -138,4 +138,9 @@ namespace hj
 	{
 
 	}
+	void Input::Release()
+	{
+		delete mMouse;
+		mMouse = nullptr;
+	}
 }

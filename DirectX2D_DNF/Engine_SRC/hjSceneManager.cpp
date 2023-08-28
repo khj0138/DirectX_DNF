@@ -1,11 +1,16 @@
 #include "hjSceneManager.h"
 
 #include "hjPlayer.h"
+//#include "hjApplication.h"
+//
+//extern hj::Application application;
 
 namespace hj
 {
 	Scene* SceneManager::mActiveScene = nullptr;
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
+	std::map<std::wstring, std::wstring>  SceneManager::mPortalsScene;
+	std::map<std::wstring, Vector2>  SceneManager::mPortals;
 	Player* SceneManager::mPlayer = nullptr;
 
 	void SceneManager::Initialize()
@@ -53,5 +58,38 @@ namespace hj
 		mActiveScene->OnEnter();
 
 		return iter->second;
+	}
+	void SceneManager::RegisterPortal(std::wstring portalName, Vector2 portalPos)
+	{
+		mPortals.insert(std::make_pair(portalName, portalPos));
+		for (auto iter = mScenes.begin(); iter != mScenes.end(); iter++)
+		{
+			if (iter->second == mActiveScene)
+			{
+				SetPortalScene(portalName, iter->first);
+				return;
+			}
+		}
+	}
+	void SceneManager::SetPortalScene(std::wstring portalName, std::wstring sceneName)
+	{
+		mPortalsScene.insert(std::make_pair(portalName, sceneName));
+	}
+	void SceneManager::PortalTeleport(std::wstring portalName)
+	{
+		std::map<std::wstring, std::wstring>::iterator PortalScene = mPortalsScene.find(portalName);
+		if (PortalScene != mPortalsScene.end())
+		{
+			LoadScene(PortalScene->second);
+			std::map<std::wstring, Vector2>::iterator PortalPos = mPortals.find(portalName);
+			if (PortalPos != mPortals.end())
+			{
+				Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
+				mPlayer->GetComponent<Transform>()->SetPosition(Vector3(PortalPos->second.x, 0.0f,playerPos.z));
+				mPlayer->GetComponent<Transform>()->SetVirtualZ(PortalPos->second.y);
+			}
+		}
+		
+
 	}
 }

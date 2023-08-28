@@ -15,6 +15,9 @@
 #include "hjDragonSoldierAttack2Script.h";
 
 #include "hjAttackScriptManager.h"
+#include "hjApplication.h"
+
+extern hj::Application application;
 namespace hj
 {
 
@@ -42,7 +45,7 @@ namespace hj
 		mAnimator->CompleteEvent(L"dragon_soldierAttack2") = std::bind(&DragonSoldierScript::Attack2CompleteEvent, this);
 
 		mCollider = GetOwner()->GetComponent<Collider2D>();
-		mCollider->SetSize(Vector2{ 75.0f, 75.0f }, 150.0f);
+		mCollider->SetSize(Vector2{50.0f, 50.0f }, 150.0f);
 
 		Monster* monster = dynamic_cast<Monster*>(GetOwner());
 		if (monster != nullptr)
@@ -83,6 +86,8 @@ namespace hj
 	
 	bool DragonSoldierScript::IsWalk()
 	{
+		float fixedRes = (float)application.GetFixedWidth() / 800.f;
+
 		Player* target = mOwner->GetTarget();
 		if (target != nullptr)
 		{
@@ -93,8 +98,8 @@ namespace hj
 			float monPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 			Vector2 monPos2D = Vector2(monPos.x, monPosVZ);
 
-			if(math::Vector2::Distance(playerPos2D, monPos2D) > 100.0f
-				|| abs(playerPos2D.y - monPos2D.y) > 5.0f)
+			if(math::Vector2::Distance(playerPos2D, monPos2D) > GetOwner()->GetComponent<Collider2D>()->GetSize().x / 2.0f * fixedRes
+				|| abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f * fixedRes)
 				return true;
 		}
 		return false;
@@ -182,11 +187,13 @@ namespace hj
 			
 			if(playerPos2D.y > monPos2D.y)
 			{
+				if (abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f)
 				moveVector.y = 1.f;
 			}
 			else
 			{
-				moveVector.y = -1.f;
+				if (abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f)
+					moveVector.y = -1.f;
 			}
 		}
 
@@ -209,6 +216,31 @@ namespace hj
 	
 	void DragonSoldierScript::Attack()
 	{
+		Animation* animation = mAnimator->GetActiveAnimation();
+		if (attackName == L"dragon_soldierAttack1")
+		{
+			if (animation->GetIndex() == 1 && !(animation->GetPause()))
+			{
+				animation->SetPause(true);
+				curTime = 0.0f;
+			}
+			else if (curTime >= 0.1f)
+			{
+				animation->SetPause(false);
+			}
+		}
+		else if (attackName == L"dragon_soldierAttack2")
+		{
+			if (animation->GetIndex() == 0 && !(animation->GetPause()))
+			{
+				animation->SetPause(true);
+				curTime = 0.0f;
+			}
+			else if (curTime >= 0.1f)
+			{
+				animation->SetPause(false);
+			}
+		}
 	}
 	void DragonSoldierScript::Anim()
 	{
@@ -246,9 +278,11 @@ namespace hj
 	void DragonSoldierScript::Attack1CompleteEvent()
 	{
 		mDragonSoldierState = eDragonSoldierState::Idle;
+		curTime = 0.0f;
 	}
 	void DragonSoldierScript::Attack2CompleteEvent()
 	{
 		mDragonSoldierState = eDragonSoldierState::Idle;
+		curTime = 0.0f;
 	}
 }

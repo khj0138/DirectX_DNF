@@ -24,7 +24,7 @@ namespace hj
 		status GetStatus() { return mStatus; }
 		void Attack(UINT damage)
 		{
-			mStatus.HP > damage ? mStatus.HP - damage : 0;
+			mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
 		}
 		//virtual void OnCollisionEnter(Collider2D* other);
 		//virtual void OnCollisionStay(Collider2D* other);

@@ -5,22 +5,29 @@
 #include "hjInput.h"
 #include "hjCamera.h"
 
+#include "hjApplication.h"
+extern hj::Application application;
 namespace hj
 {
+	
 	void CameraScript::Update()
 	{
+		float fixedRes = (float)(application.GetWidth()) / 800.0f;
 		Vector3 pos = Vector3::Zero;
+		float virtualZ = 0.0f;
 		Camera* cam = GetOwner()->GetComponent<Camera>();
 
-		if (cam->CheckTarget(pos))
+		if (cam->CheckTarget(pos, virtualZ))
 		{
 			GetOwner()->GetComponent<Transform>()->SetPosition(
 				Vector3{
 					pos.x,
-					pos.y,
-					GetOwner()->GetComponent<Transform>()->GetPosition().z
+					pos.y + virtualZ * cos(math::degreeToRadian(45.0f)),
+					GetOwner()->GetComponent<Transform>()->GetPosition().z /fixedRes
 				}
+				*fixedRes
 			);
+			GetOwner()->GetComponent<Transform>()->SetVirtualZ(virtualZ);
 		}
 
 		else
@@ -59,5 +66,21 @@ namespace hj
 			}
 		}
 
+		pos = GetOwner()->GetComponent<Transform>()->GetPosition();
+		Vector2 minXY = (cam->getMinXY() + Vector2(800.0f, 450.0f));// / fixedRes;
+		Vector2 maxXY = (cam->getMaxXY() - Vector2(800.0f, 450.0f));// / fixedRes;
+
+		if (pos.x < minXY.x)
+			pos.x = minXY.x;
+		else if (pos.x > maxXY.x)
+			pos.x = maxXY.x;
+
+
+		if (pos.y < minXY.y)
+			pos.y = minXY.y;
+		else if (pos.y > maxXY.y)
+			pos.y = maxXY.y;
+
+		GetOwner()->GetComponent<Transform>()->SetPosition(pos);
 	}
 }

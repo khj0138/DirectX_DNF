@@ -16,6 +16,5 @@ namespace hj
 		virtual void Render() override;
 
 	private:
-		GameObject* test;
 	};
 }

@@ -39,6 +39,8 @@ namespace hj
 		, mTransparentGameObjects{}
 		, mView(Matrix::Identity)
 		, mProjection(Matrix::Identity)
+		, minXY(Vector2::Zero)
+		, maxXY(Vector2::Zero)
 	{
 		EnableLayerMasks();
 	}
@@ -267,11 +269,12 @@ namespace hj
 			}
 		}
 	}
-	bool Camera::CheckTarget(Vector3& target)
+	bool Camera::CheckTarget(Vector3& pos, float& virtualZ)
 	{
 		if (bTarget)
 		{
-			target = mActiveTarget->GetComponent<Transform>()->GetPosition();
+			pos = mActiveTarget->GetComponent<Transform>()->GetPosition();
+			virtualZ = mActiveTarget->GetComponent<Transform>()->GetVirtualZ();
 			return true;
 		}
 		return false;

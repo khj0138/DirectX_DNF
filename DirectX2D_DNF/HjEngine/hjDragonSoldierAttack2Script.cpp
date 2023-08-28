@@ -1,7 +1,7 @@
 #include "hjDragonSoldierAttack2Script.h"
 #include "hjTime.h"
 
-#include "hjBasicAttackObject2Script.h"
+#include "hjDragonSoldierAttackObject2Script.h"
 #include "hjAttackObject.h"
 #include "hjTransform.h"
 
@@ -20,23 +20,24 @@ namespace hj
 	void DragonSoldierAttack2Script::Initialize()
 	{
 		SetCoolTime(5.0f);
-		RegisterAttackObject<BasicAttackObject2Script>(L"DragonSoldierAttack2");
+		RegisterAttackObject<DragonSoldierAttackObject2Script>(L"DragonSoldierAttack2");
 		LoadAttackObject(L"DragonSoldierAttack2")->GetComponent<Transform>()->SetPosition(Vector3(200.0f, 0.0f, 2.0f));
 
 	}
 	void DragonSoldierAttack2Script::Update()
 	{
+		//if (GetActivate())
 		if (GetActivate())
 		{
 			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
 			{
 				AttackObject* DragonSoldierAttack2 = LoadAttackObject(L"DragonSoldierAttack2");
-				DragonSoldierAttack2->SetActivate(false);
+				DragonSoldierAttack2->SetState(GameObject::eState::Paused);
 				DragonSoldierAttack2->GetComponent<Collider2D>()->SetCollision(false);
 				DragonSoldierAttack2->SetAttack(false);
 				SetActivate(false);
 			}
-			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 3)
+			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 1)
 			{
 				AttackObject* DragonSoldierAttack2 = LoadAttackObject(L"DragonSoldierAttack2");
 				DragonSoldierAttack2->SetAttack(true);
@@ -63,7 +64,7 @@ namespace hj
 			DragonSoldierAttack2->SetPos(ownerPos);
 			DragonSoldierAttack2->SetFlip(GetOwner()->GetFlip());
 			DragonSoldierAttack2->SetPosVZ(ownerPosVZ);
-			DragonSoldierAttack2->SetActivate(true);
+			DragonSoldierAttack2->SetState(GameObject::eState::Active);
 			DragonSoldierAttack2->GetComponent<Collider2D>()->SetCollision(true);
 			DragonSoldierAttack2->clearTargets();
 		}

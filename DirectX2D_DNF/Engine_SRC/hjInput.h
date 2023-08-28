@@ -67,6 +67,7 @@ namespace hj
 			return mKeys[static_cast<UINT>(keyCode)].state == eKeyState::None;
 		}
 
+		static void Release();
 		//static __forceinline Vector2 GetMousePos() { return mMouse->GetComponent<Transform>()->GetPosition(); }
 		static __forceinline GameObject* GetMousePos() { return mMouse; }
 

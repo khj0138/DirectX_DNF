@@ -156,7 +156,6 @@
     <ClInclude Include="hjBasicAttackObject1Script.h" />
     <ClInclude Include="hjBasicAttackObject2Script.h" />
     <ClInclude Include="hjBasicAttackObject3Script.h" />
-    <ClInclude Include="hjDetectObject.h" />
     <ClInclude Include="hjAttackObject.h" />
     <ClInclude Include="hjAttackScript.h" />
     <ClInclude Include="hjAttackScriptManager.h" />
@@ -179,8 +178,10 @@
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjEffectObject.h" />
     <ClInclude Include="hjGroundObjectScript.h" />
+    <ClInclude Include="hjLoadingScene.h" />
     <ClInclude Include="hjNPCScript.h" />
     <ClInclude Include="hjPlayer.h" />
+    <ClInclude Include="hjPortalScript.h" />
     <ClInclude Include="hjSeriaRoomGateScript.h" />
     <ClInclude Include="hjTown_GunHwaMun.h" />
     <ClInclude Include="hjDungeon_Hysmar.h" />
@@ -202,7 +203,6 @@
     <ClCompile Include="hjBasicAttackObject1Script.cpp" />
     <ClCompile Include="hjBasicAttackObject2Script.cpp" />
     <ClCompile Include="hjBasicAttackObject3Script.cpp" />
-    <ClCompile Include="hjDetectObject.cpp" />
     <ClCompile Include="hjAttackObject.cpp" />
     <ClCompile Include="hjAttackScript.cpp" />
     <ClCompile Include="hjAttackScriptManager.cpp" />
@@ -224,8 +224,10 @@
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjEffectObject.cpp" />
     <ClCompile Include="hjGroundObjectScript.cpp" />
+    <ClCompile Include="hjLoadingScene.cpp" />
     <ClCompile Include="hjNPCScript.cpp" />
     <ClCompile Include="hjPlayer.cpp" />
+    <ClCompile Include="hjPortalScript.cpp" />
     <ClCompile Include="hjSeriaRoomGateScript.cpp" />
     <ClCompile Include="hjTown_GunHwaMun.cpp" />
     <ClCompile Include="hjDungeon_Hysmar.cpp" />

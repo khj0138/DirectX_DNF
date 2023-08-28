@@ -63,9 +63,14 @@ namespace hj
 	}
 	ParticleSystem::~ParticleSystem()
 	{
+		delete mSharedBuffer;
+		delete mBuffer;
+		mBuffer = nullptr;
+		mSharedBuffer = nullptr;
 	}
 	void ParticleSystem::Initialize()
 	{
+
 	}
 	void ParticleSystem::Update()
 	{

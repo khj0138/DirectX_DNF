@@ -45,6 +45,7 @@ namespace hj
 		basicImage->GetComponent<Transform>()->SetPosition(position);
 		basicImage->GetComponent<Transform>()->SetCamMoveRate(moveRate);
 		//return basicImage;
+		basicImage->SetName(name);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::BackGround, basicImage);
 	}
 	void CreateRepeatObject(const std::wstring name, Vector3 position, bool flip = false, Vector2 repeatScale = Vector2::One, Vector2 moveRate = Vector2::One)
@@ -119,6 +120,43 @@ namespace hj
 	void CreateBackGrounds()
 	{
 		Scene* activeScene = SceneManager::GetActiveScene();
+
+		if (activeScene->GetName() == L"LoadingScene")
+		{
+			float fixedRes = 1.0f / ((float)application.GetFixedWidth() / 800.f);
+
+			CreateBasicObject(L"LoadingSceneBackground", Vector3(-40.0f, -150.0f, 0.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"LoadingSceneCircle", Vector3(693.0f, 0.0f, 0.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"LoadingSceneEffect", Vector3(788.0f, 63.0f, 0.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
+
+			Vector3 fixedScale = Vector3::Zero;
+			Transform* objectTr;
+			objectTr = activeScene->GetLayer(eLayerType::BackGround).FindObject(L"LoadingSceneBackground")->GetComponent<Transform>();
+			objectTr->SetPosition(objectTr->GetPosition()+ Vector3(objectTr->GetScale().x * (fixedRes - 1.0f) / 2.0f, 0.0f, 0.0f));
+			//objectTr->SetPosition(objectTr->GetPosition()+ Vector3(objectTr->GetScale().x * (fixedRes - 1.0f) / 4.0f, 0.0f , 0.0f));
+			fixedScale = Vector3(objectTr->GetScale().x * fixedRes, objectTr->GetScale().y * fixedRes, objectTr->GetScale().z);
+			objectTr->SetScale(fixedScale);
+			
+			
+			objectTr = activeScene->GetLayer(eLayerType::BackGround).FindObject(L"LoadingSceneCircle")->GetComponent<Transform>();
+			objectTr->SetPosition(objectTr->GetPosition() + Vector3(objectTr->GetScale().x * (fixedRes - 1.0f) / 2.0f, 0.0f, 0.0f));
+			//objectTr->SetPosition(objectTr->GetPosition()  + Vector3(objectTr->GetScale().x * (fixedRes - 1.0f) / 4.0f, 0.0f, 0.0f));
+
+			fixedScale = Vector3(objectTr->GetScale().x * fixedRes, objectTr->GetScale().y * fixedRes, objectTr->GetScale().z);
+			objectTr->SetScale(fixedScale);
+			
+			
+			
+			objectTr = activeScene->GetLayer(eLayerType::BackGround).FindObject(L"LoadingSceneEffect")->GetComponent<Transform>();
+			objectTr->SetPosition(objectTr->GetPosition() + Vector3(objectTr->GetScale().x * (fixedRes - 1.0f) / 2.0f, 0.0f, 0.0f));
+			//objectTr->SetPosition(objectTr->GetPosition() + Vector3(objectTr->GetScale().x * (fixedRes - 1.0f) / 4.0f, 0.0f, 0.0f));
+			fixedScale = Vector3(objectTr->GetScale().x * fixedRes, objectTr->GetScale().y * fixedRes, objectTr->GetScale().z);
+			objectTr->SetScale(fixedScale);
+
+
+
+
+		}
 		if (activeScene->GetName() == L"Town_SeriaRoom")
 		{
 			//back_far

@@ -32,7 +32,7 @@ namespace hj
 
 		void Attack(UINT damage)
 		{
-			mStatus.HP > damage ? mStatus.HP - damage : 0;
+			mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
 		}
 
 

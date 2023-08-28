@@ -21,7 +21,7 @@ namespace hj
 
 		void AddGameObject(eLayerType type, GameObject* gameObj);
 		void EraseGameObject(eLayerType type, GameObject* gameObj);
-
+		
 		template <typename T>
 		std::vector<T*> FindObjectsOfType()
 		{

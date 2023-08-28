@@ -49,12 +49,17 @@ namespace hj
 
 		void RegisterTarget(GameObject* target);
 		void SetTarget(const std::wstring& name);
-		bool CheckTarget(Vector3& target);
+		bool CheckTarget(Vector3& pos, float& virtualZ);
 
 		float GetSize() { return mSize; }
 		Matrix& GetViewMatrix() { return mView; }
 		Matrix& GetProjectionMatrix() { return mProjection; }
 
+
+		Vector2 getMinXY() { return minXY; }
+		void setMinXY(Vector2 xy) { minXY = xy; }
+		Vector2 getMaxXY() { return maxXY; }
+		void setMaxXY(Vector2 xy) { maxXY = xy; }
 	private:
 		static Matrix View;
 		static Matrix Projection;
@@ -76,5 +81,8 @@ namespace hj
 
 		std::vector<GameObject*> mTargets;
 		GameObject* mActiveTarget;
+
+		Vector2 minXY;
+		Vector2 maxXY;
 	};
 }

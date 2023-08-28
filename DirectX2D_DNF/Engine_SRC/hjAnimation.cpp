@@ -17,6 +17,7 @@ namespace hj
 		, mTime(0.0f)
 		, mbComplete(false)
 		, isBack(false)
+		, mPause(false)
 	{
 
 	}
@@ -29,9 +30,8 @@ namespace hj
 	}
 	void Animation::LateUpdate()
 	{
-		if (mbComplete)
+		if (mbComplete || mPause)
 			return;
-
 		mTime += Time::DeltaTime();
 
 		if (mSprites[mIndex].duration <= mTime)

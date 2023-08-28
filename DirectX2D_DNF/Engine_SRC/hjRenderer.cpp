@@ -88,12 +88,11 @@ namespace renderer
 		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
-
 		shader = hj::Resources::Find<Shader>(L"ParticleShader");
 		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
-
+		
 #pragma endregion
 #pragma region Sampler State
 		//Sampler State
@@ -456,6 +455,13 @@ namespace renderer
 		
 		CreateMaterial(L"SpriteShader", L"SpriteMaterial02", eRenderingMode::Transparent, L"SpriteMaterial02", L"..\\Resources\\Texture\\SwordManAttack.png");
 		
+		CreateMaterial(L"SpriteShader", L"LoadingSceneBackground", eRenderingMode::Transparent, L"LoadingSceneBackground", L"..\\Resources\\Texture\\CutScene\\machineRevolution.jpg");
+		CreateMaterial(L"SpriteShader", L"LoadingSceneCircle", eRenderingMode::Transparent, L"LoadingSceneCircle", L"..\\Resources\\Texture\\CutScene\\LoadingCircle.png");
+		CreateMaterial(L"SpriteShader", L"LoadingSceneBar", eRenderingMode::Transparent, L"LoadingSceneBar", L"..\\Resources\\Texture\\CutScene\\LoadingBar.png");
+		CreateMaterial(L"SpriteShader", L"LoadingSceneEffect", eRenderingMode::Transparent, L"LoadingSceneEffect", L"..\\Resources\\Texture\\CutScene\\LoadingEffect.png");
+
+
+
 		CreateMaterial(L"SpriteShader", L"Skasa_back_far_0", eRenderingMode::Transparent, L"Skasa_back_far_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\back_far_0.png");
 		//CreateMaterial(L"SpriteShader", L"Skasa_back_far_1", eRenderingMode::Transparent, L"Skasa_back_far_1", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\back_far_1.png");
 		CreateMaterial(L"SpriteShader", L"Skasa_back_middle_0", eRenderingMode::Transparent, L"Skasa_back_middle_0", L"..\\Resources\\Texture\\Dungeon\\Skasa\\BackGround\\back_middle_0.png");
@@ -885,27 +891,27 @@ namespace renderer
 
 	void BindNoiseTexture()
 	{
-		std::shared_ptr<Texture> texture
-			= Resources::Find<Texture>(L"Noise01");
+	/*	std::shared_ptr<Texture> texture
+			= Resources::Find<Texture>(L"Noise01");*/
 
-		texture->BindShaderResource(eShaderStage::VS, 15);
+		/*texture->BindShaderResource(eShaderStage::VS, 15);
 		texture->BindShaderResource(eShaderStage::HS, 15);
 		texture->BindShaderResource(eShaderStage::DS, 15);
 		texture->BindShaderResource(eShaderStage::GS, 15);
 		texture->BindShaderResource(eShaderStage::PS, 15);
-		texture->BindShaderResource(eShaderStage::CS, 15);
+		texture->BindShaderResource(eShaderStage::CS, 15);*/
 
-		ConstantBuffer* cb = constantBuffer[(UINT)eCBType::Noise];
+		/*ConstantBuffer* cb = constantBuffer[(UINT)eCBType::Noise];
 		NoiseCB data = {};
 		data.size.x = texture->GetWidth();
-		data.size.y = texture->GetHeight();
+		data.size.y = texture->GetHeight();*/
 		
 
-		cb->SetData(&data);
+		/*cb->SetData(&data);
 		cb->Bind(eShaderStage::VS);
 		cb->Bind(eShaderStage::GS);
 		cb->Bind(eShaderStage::PS);
-		cb->Bind(eShaderStage::CS);
+		cb->Bind(eShaderStage::CS);*/
 	}
 
 	void Render()

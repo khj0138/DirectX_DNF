@@ -43,17 +43,8 @@
     <Filter Include="Object\AttackObject">
       <UniqueIdentifier>{f5d655de-a6bb-40a9-a07c-b203d2fb8588}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\AttackObject\Base">
-      <UniqueIdentifier>{de6a7b2c-8d89-45dd-8fb2-eb11c056328e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\AttackObject\Basic">
-      <UniqueIdentifier>{fd520e41-cf74-4f37-aab6-e3963ca13775}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\EffectObject">
       <UniqueIdentifier>{2ed3d5c7-9979-4eb3-9d05-d971231a5238}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Object\EffectObject\Base">
-      <UniqueIdentifier>{7179b6e9-5d33-4007-9ff0-20a3909fa1d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object\Monster">
       <UniqueIdentifier>{4cf70e86-b30b-4264-931c-ac8370305f63}</UniqueIdentifier>
@@ -91,44 +82,47 @@
     <Filter Include="Script\Detect">
       <UniqueIdentifier>{9b7bd5bd-3e9b-458d-9522-d2d24070e0d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\DetectObject">
-      <UniqueIdentifier>{0ad5a524-9974-4171-968c-8c1bd2b13219}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\Monster\DragonSoldier\Attack">
       <UniqueIdentifier>{d1f7c789-e3bd-490e-9ac8-76fd57e3f4f3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Script\CharAttack">
       <UniqueIdentifier>{8d365c30-d123-4ee5-b350-823f50edda25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\CharAttack\Skill">
-      <UniqueIdentifier>{3f0caa6d-d6ae-4e4d-9b15-59a49b28980e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\CharAttack\Skill\BasicAttack">
-      <UniqueIdentifier>{e9c0c09c-8fe4-4576-afec-75d949248f3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\CharAttack\Base">
-      <UniqueIdentifier>{b009ec71-78c4-4b53-be8b-bb9e0464eb7c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\CharAttack\AttackScriptManager">
       <UniqueIdentifier>{4453bc2b-de3e-494b-aa43-933795f08ffb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\CharAttack\AttackObject">
-      <UniqueIdentifier>{1a8bedba-779f-46fc-8d51-f81a6b00a438}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\CharAttack\AttackObject\Base">
-      <UniqueIdentifier>{ee7a80af-ff44-48b8-843c-8750e64df358}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\CharAttack\AttackObject\Basic">
-      <UniqueIdentifier>{24ed9ae7-816f-4178-befd-1c73dc7c9bdf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Script\CharAttack\AttackObject\DetectObject">
-      <UniqueIdentifier>{b75f0a5a-b877-4cd6-957e-eebdd87eeb6e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Script\GroundObject">
       <UniqueIdentifier>{f279b8b9-3813-4a01-9b71-b3245188f015}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\CharAttack\AttackObject\DragonSoldierAtkObj">
-      <UniqueIdentifier>{31ac5c7f-18eb-4e28-b4c3-4bc765363869}</UniqueIdentifier>
+    <Filter Include="Scene\AnimScenes\LoadingScene">
+      <UniqueIdentifier>{7a36fe07-7252-4ac8-9af3-c1720a0fb9ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DragonSoldier\AttackObjectScript">
+      <UniqueIdentifier>{004e72df-32a6-49de-b589-cd80a65ae80f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\AttackScript">
+      <UniqueIdentifier>{b009ec71-78c4-4b53-be8b-bb9e0464eb7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\AttackObjectScript">
+      <UniqueIdentifier>{1a8bedba-779f-46fc-8d51-f81a6b00a438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Detect\DetectObjectScript">
+      <UniqueIdentifier>{b75f0a5a-b877-4cd6-957e-eebdd87eeb6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack">
+      <UniqueIdentifier>{3f0caa6d-d6ae-4e4d-9b15-59a49b28980e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\BasicAttackScript">
+      <UniqueIdentifier>{e9c0c09c-8fe4-4576-afec-75d949248f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript">
+      <UniqueIdentifier>{dd65c5b2-5daa-4e3d-aa83-ab67650d8699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\Skill">
+      <UniqueIdentifier>{89be7034-ce46-478a-9bd8-8ca79c11fc2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\PortalScript">
+      <UniqueIdentifier>{9a5265ad-6d21-483c-8aed-0f0f33490e03}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -179,16 +173,7 @@
       <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
     </ClInclude>
     <ClInclude Include="hjAttackScript.h">
-      <Filter>Script\CharAttack\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="hjAttackObject.h">
-      <Filter>Object\AttackObject\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="hjEffectObject.h">
-      <Filter>Object\EffectObject\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackObject1.h">
-      <Filter>Object\AttackObject\Basic</Filter>
+      <Filter>Script\AttackScript</Filter>
     </ClInclude>
     <ClInclude Include="hjAttackScriptManager.h">
       <Filter>Script\CharAttack\AttackScriptManager</Filter>
@@ -197,19 +182,13 @@
       <Filter>Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="hjBasicAttackScript3.h">
-      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClInclude>
     <ClInclude Include="hjBasicAttackScript1.h">
-      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClInclude>
     <ClInclude Include="hjBasicAttackScript2.h">
-      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackObject2.h">
-      <Filter>Object\AttackObject\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackObject3.h">
-      <Filter>Object\AttackObject\Basic</Filter>
+      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClInclude>
     <ClInclude Include="hjDragonSoldier.h">
       <Filter>Object\Monster</Filter>
@@ -241,24 +220,6 @@
     <ClInclude Include="hjDetectScript.h">
       <Filter>Script\Detect</Filter>
     </ClInclude>
-    <ClInclude Include="hjDetectObject.h">
-      <Filter>Object\DetectObject</Filter>
-    </ClInclude>
-    <ClInclude Include="hjAttackObjectScript.h">
-      <Filter>Script\CharAttack\AttackObject\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackObject1Script.h">
-      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackObject2Script.h">
-      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackObject3Script.h">
-      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
-    </ClInclude>
-    <ClInclude Include="hjDetectObjectScript.h">
-      <Filter>Script\CharAttack\AttackObject\DetectObject</Filter>
-    </ClInclude>
     <ClInclude Include="hjDragonSoldierAttack1Script.h">
       <Filter>Script\Monster\DragonSoldier\Attack</Filter>
     </ClInclude>
@@ -268,11 +229,38 @@
     <ClInclude Include="hjGroundObjectScript.h">
       <Filter>Script\GroundObject</Filter>
     </ClInclude>
-    <ClInclude Include="hjDragonSoldierAttackObject2Script.h">
-      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
+    <ClInclude Include="hjLoadingScene.h">
+      <Filter>Scene\AnimScenes\LoadingScene</Filter>
     </ClInclude>
     <ClInclude Include="hjDragonSoldierAttackObject1Script.h">
-      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
+      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDragonSoldierAttackObject2Script.h">
+      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject1Script.h">
+      <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject2Script.h">
+      <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAttackObject3Script.h">
+      <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAttackObject.h">
+      <Filter>Object\AttackObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjEffectObject.h">
+      <Filter>Object\EffectObject</Filter>
+    </ClInclude>
+    <ClInclude Include="hjAttackObjectScript.h">
+      <Filter>Script\AttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDetectObjectScript.h">
+      <Filter>Script\Detect\DetectObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjPortalScript.h">
+      <Filter>Script\PortalScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -314,16 +302,7 @@
       <Filter>Scene\PlayScenes\Dungeon\Spirazzi</Filter>
     </ClCompile>
     <ClCompile Include="hjAttackScript.cpp">
-      <Filter>Script\CharAttack\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="hjAttackObject.cpp">
-      <Filter>Object\AttackObject\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="hjEffectObject.cpp">
-      <Filter>Object\EffectObject\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackObject1.cpp">
-      <Filter>Object\AttackObject\Basic</Filter>
+      <Filter>Script\AttackScript</Filter>
     </ClCompile>
     <ClCompile Include="hjAttackScriptManager.cpp">
       <Filter>Script\CharAttack\AttackScriptManager</Filter>
@@ -332,19 +311,13 @@
       <Filter>Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="hjBasicAttackScript1.cpp">
-      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClCompile>
     <ClCompile Include="hjBasicAttackScript2.cpp">
-      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
+      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClCompile>
     <ClCompile Include="hjBasicAttackScript3.cpp">
-      <Filter>Script\CharAttack\Skill\BasicAttack</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackObject2.cpp">
-      <Filter>Object\AttackObject\Basic</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackObject3.cpp">
-      <Filter>Object\AttackObject\Basic</Filter>
+      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClCompile>
     <ClCompile Include="hjDragonSoldier.cpp">
       <Filter>Object\Monster</Filter>
@@ -376,24 +349,6 @@
     <ClCompile Include="hjDetectScript.cpp">
       <Filter>Script\Detect</Filter>
     </ClCompile>
-    <ClCompile Include="hjDetectObject.cpp">
-      <Filter>Object\DetectObject</Filter>
-    </ClCompile>
-    <ClCompile Include="hjAttackObjectScript.cpp">
-      <Filter>Script\CharAttack\AttackObject\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackObject1Script.cpp">
-      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackObject2Script.cpp">
-      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackObject3Script.cpp">
-      <Filter>Script\CharAttack\AttackObject\Basic</Filter>
-    </ClCompile>
-    <ClCompile Include="hjDetectObjectScript.cpp">
-      <Filter>Script\CharAttack\AttackObject\DetectObject</Filter>
-    </ClCompile>
     <ClCompile Include="hjDragonSoldierAttack1Script.cpp">
       <Filter>Script\Monster\DragonSoldier\Attack</Filter>
     </ClCompile>
@@ -403,11 +358,38 @@
     <ClCompile Include="hjGroundObjectScript.cpp">
       <Filter>Script\GroundObject</Filter>
     </ClCompile>
-    <ClCompile Include="hjDragonSoldierAttackObject2Script.cpp">
-      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
+    <ClCompile Include="hjLoadingScene.cpp">
+      <Filter>Scene\AnimScenes\LoadingScene</Filter>
     </ClCompile>
     <ClCompile Include="hjDragonSoldierAttackObject1Script.cpp">
-      <Filter>Script\CharAttack\AttackObject\DragonSoldierAtkObj</Filter>
+      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDragonSoldierAttackObject2Script.cpp">
+      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject1Script.cpp">
+      <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject2Script.cpp">
+      <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAttackObject3Script.cpp">
+      <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAttackObject.cpp">
+      <Filter>Object\AttackObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjEffectObject.cpp">
+      <Filter>Object\EffectObject</Filter>
+    </ClCompile>
+    <ClCompile Include="hjAttackObjectScript.cpp">
+      <Filter>Script\AttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDetectObjectScript.cpp">
+      <Filter>Script\Detect\DetectObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjPortalScript.cpp">
+      <Filter>Script\PortalScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

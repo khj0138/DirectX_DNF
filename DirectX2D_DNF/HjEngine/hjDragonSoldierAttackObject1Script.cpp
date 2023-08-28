@@ -18,18 +18,18 @@ namespace hj
 	void DragonSoldierAttackObject1Script::Initialize()
 	{
 		AttackObjectScript::Initialize();
+		mOwner->SetState(GameObject::eState::Paused);
 
 		mOwner->SetAnimate(false);
-		mOwner->SetActivate(false);
 		mOwner->SetAttack(false);
 		mOwner->SetVelocity(Vector2::Zero);
 		mOwner->SetStatus(5, 2);
 
 		Transform* tr = mOwner->GetComponent<Transform>();
-		tr->SetScale(Vector3(150.0f, 150.0f, 1.0f));
+		tr->SetScale(Vector3(100.0f, 100.0f, 1.0f));
 		Collider2D* col = mOwner->GetComponent<Collider2D>();
-		col->SetSize(Vector2(150.0f, 150.0f), 70.0f);
-		col->SetCenter(Vector2(75.0f, 0.0f));
+		col->SetSize(Vector2(100.0f, 100.0f), 70.0f);
+		col->SetCenter(Vector2(50.0f, 0.0f));
 		col->SetCollisionHeight(30.0f);
 
 	}

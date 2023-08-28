@@ -99,7 +99,7 @@ namespace hj
 		vel.x *= Time::DeltaTime();*/
 		Vector3 velocity = mVelocity;
 		velocity.z = 0.0f;
-		velocity *= fixedRes;
+		velocity;// *= fixedRes;
 		pos = pos + velocity * Time::DeltaTime();
 		tr->SetVirtualZ(tr->GetVirtualZ() + mVelocity.z * fixedRes * Time::DeltaTime());
 		if (pos.y < -2.0f)

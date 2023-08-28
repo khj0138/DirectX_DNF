@@ -139,6 +139,7 @@ namespace hj
 			resultColPos.y = result.y;
 			other->SetPosition(resultColPos);
 			Vector3 otherPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
+
 			Vector3 resultPos = Vector3(result.x, result.y, otherPos.z);
 			Vector2 otherCenter = other->GetCenter();
 			resultPos.x -= otherCenter.x;

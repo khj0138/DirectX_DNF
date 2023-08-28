@@ -30,6 +30,7 @@
 #include "hjAudioClip.h"
 #include "hjAudioSource.h"
 #include "hjGroundObjectScript.h"
+#include "hjPortalScript.h"
 namespace hj
 {
 	Town_SeriaRoom::Town_SeriaRoom()
@@ -42,53 +43,6 @@ namespace hj
 	}
 	void Town_SeriaRoom::Initialize()
 	{
-		//std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
-		//std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
-		//paintShader->SetTarget(paintTexture);
-		//paintShader->OnExcute();
-
-
-		/*GameObject* smile = new GameObject();
-		smile->SetName(L"smile");
-		AddGameObject(eLayerType::Monster, smile);
-		MeshRenderer* mr = smile->AddComponent<MeshRenderer>();
-		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		mr->SetMaterial(Resources::Find<Material>(L"PaintMaterial"));
-		smile->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 500.0f, 2.0f));
-		*/
-		/*GameObject* particle = new GameObject();
-		particle->SetName(L"Particle");
-		AddGameObject(eLayerType::Monster, particle);
-		ParticleSystem* particleSys = particle->AddComponent<ParticleSystem>();
-		particle->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 500.0f, 2.0f));
-		particle->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));*/
-
-		//particle->GetComponent<Transform>()->SetPosition(Vector3(00.0f,0.0f, 1.0f));
-		//particle->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 0.2f));
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"SwordMan");
-		//	player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(700.0f, 0.0f, 1.000f));
-		//	player->GetComponent<Transform>()->SetCamMoveRate(0.5f);
-		//	//player->GetComponent<Transform>()->SetRotation2D(60.0f);
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	Collider2D* cd = player->AddComponent<Collider2D>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		//	
-		//}
-
-		//Player* player = new Player();
-		////test = (GameObject*)player;
-		//{
-		//	player->Initialize();
-		//	//player->GetComponent<Transform>()->SetScale(Vector3{ 320.0f, 320.0f, 2.0f });
-		//	AddGameObject(eLayerType::Player, player);
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-		//}
-
 		GameObject* gate = new GameObject();
 		{
 			gate->GetComponent<Transform>()->SetScale(Vector3{ 278.0f, 254.0f, 2.0f });
@@ -104,7 +58,10 @@ namespace hj
 
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<SeriaRoomGateScript>();
-			gate->AddComponent<GroundObjectScript>();
+			PortalScript* portal = gate->AddComponent<PortalScript>();
+			portal->SetPortal(L"SeriaRoomPortal",Vector2(-100.0f, 200.0f));
+			portal->SetDestination(L"MainCampPortal1");
+			//gate->AddComponent<GroundObjectScript>();
 
 			//AudioSource* as = gate->AddComponent<AudioSource>();
 			////as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\bakal_basecamp.OGG"));
@@ -117,30 +74,8 @@ namespace hj
 		dragon->Initialize();
 		dragon->EnterScene();
 
-		/*DragonSoldier* dragon2 = new DragonSoldier();
-		AddGameObject(eLayerType::Monster, dragon2);
-		dragon2->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
-		dragon2->Initialize();*/
 		
-		/*{
-			GameObject* light = new GameObject();
-			light->SetName(L"Smile");
-			AddGameObject(eLayerType::Light, light);
-			Light* lightComp = light->AddComponent<Light>();
-			lightComp->SetType(eLightType::Directional);
-			lightComp->SetColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-		}
-
-		{
-			GameObject* light = new GameObject();
-			light->SetName(L"Smile");
-			AddGameObject(eLayerType::Light, light);
-			Light* lightComp = light->AddComponent<Light>();
-			lightComp->SetType(eLightType::Point);
-			lightComp->SetColor(Vector4(0.0f, 0.0f, 1.0f, 1.0f));
-			lightComp->SetRadius(3.0f);
-		}*/
-		
+		Player* player = SceneManager::GetPlayer();
 		// MainCamera
 		Camera* cameraComp = nullptr;
 		{
@@ -152,8 +87,11 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			cameraComp->TurnLayerMask(eLayerType::PlayerAttack, true);
 			cameraComp->TurnLayerMask(eLayerType::Monster, true);
+			cameraComp->setMaxXY(Vector2(2230.0f, 1200.0f));
+
 			camera->AddComponent<CameraScript>();
-			//camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			//camera->AddComponent<AudioListener>();
@@ -205,6 +143,7 @@ namespace hj
 
 	void Town_SeriaRoom::LateUpdate()
 	{
+
 		Scene::LateUpdate();
 	}
 
@@ -215,14 +154,22 @@ namespace hj
 	void Town_SeriaRoom::OnEnter()
 	{
 		Player* player = SceneManager::GetPlayer();
-		player->EnterScene();
-		AddGameObject(eLayerType::Player, (GameObject*)player);
-		player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+		if (player != nullptr)
+		{
+
+			player->EnterScene();
+			AddGameObject(eLayerType::Player, (GameObject*)player);
+			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+		}
 	}
 	void Town_SeriaRoom::OnExit()
 	{
 		Player* player = SceneManager::GetPlayer();
-		EraseGameObject(eLayerType::Player, (GameObject*)player);
-		player->ExitScene();
+		if (player != nullptr)
+		{
+			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			player->ExitScene();
+		}
 	}
 }

@@ -33,20 +33,20 @@ namespace hj
 	}
 	void AttackObject::Update()
 	{
-		if (!bActivate)
-			return;
+		/*if (!bActivate)
+			return;*/
 		GameObject::Update();
 	}
 	void AttackObject::LateUpdate()
 	{
-		if (!bActivate)
-			return;
+		/*if (!bActivate)
+			return;*/
 		GameObject::LateUpdate();
 	}
 	void AttackObject::Render()
 	{
-		if (!bActivate)
-			return;
+		/*if (!bActivate)
+			return;*/
 		GameObject::Render();
 	}
 	

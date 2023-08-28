@@ -25,17 +25,18 @@ namespace hj
 	}
 	void DragonSoldierAttack1Script::Update()
 	{
+		//if (GetActivate())
 		if (GetActivate())
 		{
 			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
 			{
 				AttackObject* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
-				DragonSoldierAttack1->SetActivate(false);
+				DragonSoldierAttack1->SetState(GameObject::eState::Paused);
 				DragonSoldierAttack1->GetComponent<Collider2D>()->SetCollision(false);
 				DragonSoldierAttack1->SetAttack(false);
 				SetActivate(false);
 			}
-			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 3)
+			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 2)
 			{
 				AttackObject* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
 				DragonSoldierAttack1->SetAttack(true);
@@ -62,7 +63,8 @@ namespace hj
 			DragonSoldierAttack1->SetPos(ownerPos);
 			DragonSoldierAttack1->SetFlip(GetOwner()->GetFlip());
 			DragonSoldierAttack1->SetPosVZ(ownerPosVZ);
-			DragonSoldierAttack1->SetActivate(true);
+			DragonSoldierAttack1->SetState(GameObject::eState::Active);
+
 			DragonSoldierAttack1->GetComponent<Collider2D>()->SetCollision(true);
 			DragonSoldierAttack1->clearTargets();
 		}

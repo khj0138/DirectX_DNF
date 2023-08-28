@@ -18,6 +18,5 @@ namespace hj
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 	private:
-		GameObject* test;
 	};
 }

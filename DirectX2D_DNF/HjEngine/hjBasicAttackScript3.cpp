@@ -30,7 +30,7 @@ namespace hj
 			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
 			{
 				AttackObject* BasicAttack3 = LoadAttackObject(L"BasicAttack3");
-				BasicAttack3->SetActivate(false);
+				BasicAttack3->SetState(GameObject::eState::Paused);
 				BasicAttack3->GetComponent<Collider2D>()->SetCollision(false);
 				SetActivate(false);
 				BasicAttack3->SetAttack(false);
@@ -47,7 +47,7 @@ namespace hj
 		BasicAttack3->SetPos(ownerPos);
 		BasicAttack3->SetFlip(GetOwner()->GetFlip());
 		BasicAttack3->SetPosVZ(ownerPosVZ);
-		BasicAttack3->SetActivate(true);
+		BasicAttack3->SetState(GameObject::eState::Active);
 		BasicAttack3->GetComponent<Collider2D>()->SetCollision(true);
 		BasicAttack3->SetAttack(true);
 		BasicAttack3->clearTargets();

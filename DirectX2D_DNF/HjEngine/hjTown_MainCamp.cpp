@@ -16,7 +16,10 @@
 #include "hjInput.h"
 #include "hjRigidbody.h"
 
-
+#include "hjSeriaRoomGateScript.h"
+#include "hjPortalScript.h"
+#include "hjSceneManager.h"
+#include "hjPlayer.h"
 namespace hj
 {
 	Town_MainCamp::Town_MainCamp()
@@ -44,39 +47,64 @@ namespace hj
 		//	
 		//}
 
-		GameObject* player = new GameObject();
-		//test = (GameObject*)player;
+		//GameObject* player = new GameObject();
+		////test = (GameObject*)player;
+		//{
+		//	player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
+		//	player->SetName(L"SwordMan2");
+		//	AddGameObject(eLayerType::Player, player);
+		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+		//	// mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+		//	player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+
+		//	//std::shared_ptr<Texture> atlas
+		//	//	= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\linkSprites.png");
+		//	Animator* at = player->AddComponent<Animator>();
+		//	/*at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Idle", 0.1f);
+		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Walk", 0.1f);
+		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f);
+		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Jump", 0.2f);
+		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack", 0.1f);*/
+
+
+		//	//at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\", 0.1f);
+		//	//at->Plahjnimation(L"SwordManIdle", true);
+		//	Collider2D* cd = player->AddComponent<Collider2D>();
+		//	player->AddComponent<PlayerScript>();
+		//	player->AddComponent<Rigidbody>();
+
+		//	
+		//}
+
+		GameObject* gate = new GameObject();
 		{
-			player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
-			player->SetName(L"SwordMan2");
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 278.0f, 254.0f, 2.0f });
+			gate->SetName(L"SeriaRoomGate");
+			AddGameObject(eLayerType::BackGround, gate);
+			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			// mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(638.0f, -23.0f, 450.000f));
+			gate->GetComponent<Transform>()->YtoVirtualZ();
 
-			//std::shared_ptr<Texture> atlas
-			//	= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\linkSprites.png");
-			Animator* at = player->AddComponent<Animator>();
-			/*at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Idle", 0.1f);
-			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Walk", 0.1f);
-			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f);
-			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Jump", 0.2f);
-			at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack", 0.1f);*/
+			Animator* at = gate->AddComponent<Animator>();
 
+			Collider2D* cd = gate->AddComponent<Collider2D>();
+			gate->AddComponent<SeriaRoomGateScript>();
+			PortalScript* portal = gate->AddComponent<PortalScript>();
+			portal->SetPortal(L"MainCampPortal1", Vector2(-100.0f, 200.0f));
+			portal->SetDestination(L"SeriaRoomPortal");
+			//gate->AddComponent<GroundObjectScript>();
 
-			//at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\", 0.1f);
-			//at->Plahjnimation(L"SwordManIdle", true);
-			Collider2D* cd = player->AddComponent<Collider2D>();
-			player->AddComponent<PlayerScript>();
-			player->AddComponent<Rigidbody>();
-
-			
+			//AudioSource* as = gate->AddComponent<AudioSource>();
+			////as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\bakal_basecamp.OGG"));
+			//as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\0.mp3"));
+			//as->Play();
 		}
-
-
 		// MainCamera
+		Player* player = SceneManager::GetPlayer();
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
@@ -85,9 +113,10 @@ namespace hj
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
+			cameraComp->setMaxXY(Vector2(3580.0f, 1340.0f));
 			camera->AddComponent<CameraScript>();
 			camera->GetComponent<Camera>()->RegisterTarget(player);
-			//camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
+			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 			
 
@@ -140,5 +169,25 @@ namespace hj
 	void Town_MainCamp::Render()
 	{
 		Scene::Render();
+	}
+	void Town_MainCamp::OnEnter()
+	{
+		Player* player = SceneManager::GetPlayer();
+		if (player != nullptr)
+		{
+			player->EnterScene();
+			AddGameObject(eLayerType::Player, (GameObject*)player);
+			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+		}
+	}
+	void Town_MainCamp::OnExit()
+	{
+		Player* player = SceneManager::GetPlayer();
+		if (player != nullptr)
+		{
+			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			player->ExitScene();
+		}
 	}
 }

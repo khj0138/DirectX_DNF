@@ -5,6 +5,7 @@
 #include "..\\Engine_SRC\\hjRenderer.h"
 #include "..\\Engine_SRC\\hjResources.h"
 #include "..\\Engine_SRC\\hjFmod.h"
+#include "..\\Engine_SRC\\hjInput.h"
 
 #include "SceneLoader.h"
 #include "hjGuiEditor.h"
@@ -45,7 +46,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
-    _CrtSetBreakAlloc(219);
+    
     
 
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -63,6 +64,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     while (true)
     {
+        
         // 윈도우 메세지 수집 및 처리
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
@@ -83,13 +85,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Present();
         }
     }
-    //_CrtDumpMemoryLeaks();
     renderer::Release();
     hj::SceneManager::Release();
     hj::Fmod::Release();
+    hj::Input::Release();
     gui::Editor::Release();
 
- //   _CrtDumpMemoryLeaks();
     return (int) msg.wParam;
 }
 
@@ -127,11 +128,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
-   
+ 
    application.SetWindow(hWnd, 1600, 900);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
-
    application.Initialize();
    hj::InitializeScenes();
    gui::Editor::Initialize();

@@ -50,7 +50,7 @@ namespace hj
 		mAnimator->PlayAnimation(L"SwordManIdle", true);
 
 		mCollider = GetOwner()->GetComponent<Collider2D>();
-		mCollider->SetSize(Vector2{ 50.0f, 50.0f }, GetOwner()->GetComponent<Transform>()->GetScale().y);
+		mCollider->SetSize(Vector2{ 25.0f, 25.0f }, GetOwner()->GetComponent<Transform>()->GetScale().y);
 
 		//atkManager->RegisterAttackScript<BasicAttackScript1>(L"Attack1");
 		//atkManager->RegisterAttackScript<BasicAttackScript2>(L"Attack2");
