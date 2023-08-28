@@ -75,7 +75,6 @@ namespace hj
 			sprite.offset.y = offset.y / height;
 			sprite.atlasSize = Vector2(size.x / width, size.y / height);
 			sprite.duration = duration;
-
 			mSprites.push_back(sprite);
 		}
 
@@ -97,6 +96,7 @@ namespace hj
 		data.animationType = 1;
 		data.flip = (UINT)isFlip;
 		data.back = (UINT)isBack;
+		
 		data.padding = 0.0f;
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Animator];

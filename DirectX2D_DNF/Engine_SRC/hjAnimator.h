@@ -43,8 +43,8 @@ namespace hj
 			, Vector2 size
 			, UINT columnLength
 			, Vector2 offset = Vector2::Zero
-			, float duration = 0.1f
-			, bool back = false);
+			, float duration = 0.1f);
+			//, bool back = false);
 		Animation* CreateAnimations(const std::wstring& path, float duration, Vector2 offset = Vector2::Zero, bool back = false);
 		Animation* FindAnimation(const std::wstring& name);
 		Events* FindEvents(const std::wstring& name);

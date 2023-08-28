@@ -59,8 +59,8 @@ namespace hj
 		, Vector2 size
 		, UINT columnLength
 		, Vector2 offset
-		, float duration
-		, bool back)
+		, float duration)
+		//, bool back)
 	{
 		Animation* animation = FindAnimation(name);
 		if (nullptr != animation)
@@ -68,7 +68,7 @@ namespace hj
 
 		animation = new Animation();
 		animation->SetKey(name);
-		animation->SetBack(back);
+		animation->SetBack(false);
 
 		animation->Create(name
 			, atlas
@@ -77,7 +77,6 @@ namespace hj
 			, columnLength
 			, offset
 			, duration);
-
 		mAnimations.insert(std::make_pair(name, animation));
 
 		Events* events = FindEvents(name);
@@ -131,7 +130,7 @@ namespace hj
 			std::wstring addingWord = L"Back";
 			key.append(addingWord);
 		}
-		Create(key, mImageAtlas, Vector2(0.0), Vector2(maxWidth, maxHeight), fileCount, offset, duration, back);
+		Create(key, mImageAtlas, Vector2(0.0), Vector2(maxWidth, maxHeight), fileCount, offset, duration);// , back);
 
 		return nullptr;
 	}
