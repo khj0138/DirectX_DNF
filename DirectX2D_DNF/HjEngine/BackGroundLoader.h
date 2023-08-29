@@ -304,6 +304,7 @@ namespace hj
 			//back_middle
 			//CreateBasicObject(L"Dungeon_Entrance_back_middle_0", Vector3(-90.0f, 455.0f, 499.000f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"Dungeon_Entrance_back_middle_1", Vector3(-35.0f, 450.0f, 499.000f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_back_middle_2", Vector3(651.0f, 450.0f, 499.000f), false, Vector2(1.0f, 1.0f));
 			//ground
 			//CreateBasicObject(L"Dungeon_Entrance_object_building_0", Vector3(0.0f, 0.0f, 500.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Dungeon_Entrance_common_tile_1", Vector3(0.0f, 0.0f, 500.0f), false, Vector2(1.0f, 1.0f));

@@ -18,7 +18,10 @@
 #include "hjRigidbody.h"
 
 
-
+#include "hjCommonPortalScript.h"
+#include "hjPortalScript.h"
+#include "hjSceneManager.h"
+#include "hjPlayer.h"
 namespace hj
 {
 	Dungeon_Spirazzi_Entrance::Dungeon_Spirazzi_Entrance()
@@ -31,38 +34,54 @@ namespace hj
 	}
 	void Dungeon_Spirazzi_Entrance::Initialize()
 	{
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"SwordMan");
-		//	player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(700.0f, 0.0f, 1.000f));
-		//	player->GetComponent<Transform>()->SetCamMoveRate(0.5f);
-		//	//player->GetComponent<Transform>()->SetRotation2D(60.0f);
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	Collider2D* cd = player->AddComponent<Collider2D>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		//	
-		//}
-
-		GameObject* player = new GameObject();
-		//test = (GameObject*)player;
+		
+		GameObject* gate = new GameObject();
 		{
-			player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
-			player->SetName(L"SwordMan2");
-			AddGameObject(eLayerType::Player, player);
-			MeshRenderer* mr = player->AddComponent<MeshRenderer>();
+			//gate->GetComponent<Transform>()->SetScale(Vector3{ 300.0f, 300.0f, 2.0f });
+
+
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 108.0f, 180.0f, 2.0f });
+			gate->SetName(L"CommonPortal");
+			AddGameObject(eLayerType::BackGround, gate);
+			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			// mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(600.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(50.0f);
 
+			Animator* at = gate->AddComponent<Animator>();
 
-			player->AddComponent<PlayerScript>();
-
-
+			Collider2D* cd = gate->AddComponent<Collider2D>();
+			gate->AddComponent<CommonPortalScript>();
+			PortalScript* portal = gate->AddComponent<PortalScript>();
+			portal->SetPortal(L"SpirazziEntrancePortal1", Vector2(000.0f, 100.0f));
+			portal->SetDestination(L"Entrance2Portal2");
+			gate->SetState(GameObject::eState::Paused);
 		}
+		gate = new GameObject();
+		{
+			//gate->GetComponent<Transform>()->SetScale(Vector3{ 300.0f, 300.0f, 2.0f });
+
+
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 108.0f, 180.0f, 2.0f });
+			gate->SetName(L"CommonPortal");
+			AddGameObject(eLayerType::BackGround, gate);
+			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(700.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(450.0f);
+
+			Animator* at = gate->AddComponent<Animator>();
+
+			Collider2D* cd = gate->AddComponent<Collider2D>();
+			gate->AddComponent<CommonPortalScript>();
+			PortalScript* portal = gate->AddComponent<PortalScript>();
+			portal->SetPortal(L"SpirazziEntrancePortal2", Vector2(00.0f, -100.0f));
+			portal->SetDestination(L"SpirazziPortal");
+			gate->SetState(GameObject::eState::Paused);
+		}
+		Player* player = SceneManager::GetPlayer();
 
 		// MainCamera
 		Camera* cameraComp = nullptr;
@@ -75,6 +94,8 @@ namespace hj
 			camera->AddComponent<CameraScript>();
 			camera->GetComponent<Camera>()->RegisterTarget(player);
 			renderer::cameras.push_back(cameraComp);
+			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
+			cameraComp->setMaxXY(Vector2(2260.0f, 1200.0f));
 
 		}
 		//CollisionManager::SetLayer(eLayerType::Player, eLayerType::BackGround, true);
@@ -113,7 +134,35 @@ namespace hj
 
 	void Dungeon_Spirazzi_Entrance::Update()
 	{
-
+		std::vector<GameObject*> monsters = GetLayer(eLayerType::Monster).GetGameObjects();
+		bool monsterZero = false;
+		if (monsters.size() == 0)
+		{
+			monsterZero = true;
+		}
+		else
+		{
+			monsterZero = true;
+			for (int i = 0; i < monsters.size(); i++)
+			{
+				if (monsters[i]->GetState() == GameObject::eState::Active)
+				{
+					monsterZero = false;
+					break;
+				}
+			}
+		}
+		if (monsterZero)
+		{
+			std::vector<GameObject*> backgrounds = GetLayer(eLayerType::BackGround).GetGameObjects();
+			for (int i = 0; i < backgrounds.size(); i++)
+			{
+				if (backgrounds[i]->GetName() == L"CommonPortal")
+					backgrounds[i]->SetState(GameObject::eState::Active);
+				if (backgrounds[i]->GetName() == L"GateOutSeriaRoom")
+					backgrounds[i]->SetState(GameObject::eState::Active);
+			}
+		}
 		Scene::Update();
 	}
 
@@ -125,5 +174,26 @@ namespace hj
 	void Dungeon_Spirazzi_Entrance::Render()
 	{
 		Scene::Render();
+	}
+	void Dungeon_Spirazzi_Entrance::OnEnter()
+	{
+		Player* player = SceneManager::GetPlayer();
+		if (player != nullptr)
+		{
+
+			player->EnterScene();
+			AddGameObject(eLayerType::Player, (GameObject*)player);
+			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+		}
+	}
+	void Dungeon_Spirazzi_Entrance::OnExit()
+	{
+		Player* player = SceneManager::GetPlayer();
+		if (player != nullptr)
+		{
+			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			player->ExitScene();
+		}
 	}
 }

@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundLoader.h" />
+    <ClInclude Include="hjCommonPortalScript.h" />
     <ClInclude Include="hjDragonSoldierAttackObject1Script.h" />
     <ClInclude Include="hjAttackObjectScript.h" />
     <ClInclude Include="hjBasicAttackObject1Script.h" />
@@ -177,12 +178,13 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjEffectObject.h" />
+    <ClInclude Include="hjGateOutSeriaRoomScript.h" />
     <ClInclude Include="hjGroundObjectScript.h" />
     <ClInclude Include="hjLoadingScene.h" />
     <ClInclude Include="hjNPCScript.h" />
     <ClInclude Include="hjPlayer.h" />
     <ClInclude Include="hjPortalScript.h" />
-    <ClInclude Include="hjSeriaRoomGateScript.h" />
+    <ClInclude Include="hjGateInSeriaRoomScript.h" />
     <ClInclude Include="hjTown_GunHwaMun.h" />
     <ClInclude Include="hjDungeon_Hysmar.h" />
     <ClInclude Include="hjDungeon_Skasa.h" />
@@ -198,6 +200,7 @@
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjCommonPortalScript.cpp" />
     <ClCompile Include="hjDragonSoldierAttackObject1Script.cpp" />
     <ClCompile Include="hjAttackObjectScript.cpp" />
     <ClCompile Include="hjBasicAttackObject1Script.cpp" />
@@ -223,12 +226,13 @@
     <ClCompile Include="hjDungeon_Spirazzi_Entrance.cpp" />
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjEffectObject.cpp" />
+    <ClCompile Include="hjGateOutSeriaRoomScript.cpp" />
     <ClCompile Include="hjGroundObjectScript.cpp" />
     <ClCompile Include="hjLoadingScene.cpp" />
     <ClCompile Include="hjNPCScript.cpp" />
     <ClCompile Include="hjPlayer.cpp" />
     <ClCompile Include="hjPortalScript.cpp" />
-    <ClCompile Include="hjSeriaRoomGateScript.cpp" />
+    <ClCompile Include="hjGateInSeriaRoomScript.cpp" />
     <ClCompile Include="hjTown_GunHwaMun.cpp" />
     <ClCompile Include="hjDungeon_Hysmar.cpp" />
     <ClCompile Include="hjDungeon_Skasa.cpp" />

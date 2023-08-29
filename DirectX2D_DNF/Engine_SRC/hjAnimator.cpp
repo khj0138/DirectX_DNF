@@ -1,5 +1,6 @@
 #include "hjAnimator.h"
 #include "hjResources.h"
+#include "hjGameObject.h"
 
 namespace hj
 {
@@ -28,8 +29,11 @@ namespace hj
 	}
 	void Animator::Update()
 	{
+		
 		if (mActiveAnimation == nullptr)
 			return;
+		else
+			SetFlip(GetOwner()->GetFlip());
 		if (mActiveAnimation->IsComplete())
 		{
 			Events* events

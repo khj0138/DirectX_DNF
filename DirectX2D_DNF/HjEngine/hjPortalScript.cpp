@@ -56,7 +56,7 @@ namespace hj
 		Vector2 playerColPos2D = Vector2(playerColPos.x, playerColPos.y);
 		if (GetDestination() != L"")
 		{
-			if(Vector2::Distance(colPos2D, playerColPos2D) < 100.0f)
+			if(Vector2::Distance(colPos2D, playerColPos2D) < 50.0f)
 				SceneManager::PortalTeleport(GetDestination());
 		}
 	}

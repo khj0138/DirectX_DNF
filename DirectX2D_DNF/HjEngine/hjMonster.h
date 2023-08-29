@@ -33,6 +33,8 @@ namespace hj
 		void Attack(UINT damage)
 		{
 			mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
+			if (mStatus.HP == 0)
+				SetState(GameObject::eState::Dead);
 		}
 
 

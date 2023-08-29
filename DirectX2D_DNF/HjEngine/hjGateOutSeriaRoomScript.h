@@ -4,11 +4,11 @@
 namespace hj
 {
 	class Animator;
-	class SeriaRoomGateScript : public Script
+	class GateOutSeriaRoomScript : public Script
 	{
 	public:
-		SeriaRoomGateScript();
-		~SeriaRoomGateScript();
+		GateOutSeriaRoomScript();
+		~GateOutSeriaRoomScript();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -18,11 +18,9 @@ namespace hj
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 	public:
-
-
-		void BackGroundgate_new_glow_effCompleteEvent();
-		void BackGroundgate_new_effCompleteEvent();
-		void BackGroundgate_new_glow_eff_backCompleteEvent();
+		void MainCampCreateGateCompleteEvent();
+		void MainCampDestroyGateBackCompleteEvent();
+		void MainCampGateGlowCompleteEvent();
 
 	private:
 		Animator* mAnimator;

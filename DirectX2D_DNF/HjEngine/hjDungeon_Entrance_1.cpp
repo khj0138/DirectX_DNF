@@ -19,7 +19,11 @@
 
 #include "hjPlayer.h"
 
+#include "hjCommonPortalScript.h"
+#include "hjPortalScript.h"
+#include "hjSceneManager.h"
 
+#include "hjPlayer.h"
 
 namespace hj
 {
@@ -33,29 +37,50 @@ namespace hj
 	}
 	void Dungeon_Entrance_1::Initialize()
 	{
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"SwordMan");
-		//	player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(700.0f, 0.0f, 1.000f));
-		//	player->GetComponent<Transform>()->SetCamMoveRate(0.5f);
-		//	//player->GetComponent<Transform>()->SetRotation2D(60.0f);
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	Collider2D* cd = player->AddComponent<Collider2D>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		//	
-		//}
+	
+		
 
-		Player* player = new Player();
-		//test = (GameObject*)player;
+		GameObject* gate = new GameObject();
 		{
-			player->GetComponent<Transform>()->SetScale(Vector3{ 320.0f, 320.0f, 2.0f });
-			AddGameObject(eLayerType::Player, player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-		}
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 108.0f, 180.0f, 2.0f });
+			gate->SetName(L"CommonPortal");
+			AddGameObject(eLayerType::BackGround, gate);
+			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(250.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
 
+			Animator* at = gate->AddComponent<Animator>();
+
+			Collider2D* cd = gate->AddComponent<Collider2D>();
+			gate->AddComponent<CommonPortalScript>();
+			PortalScript* portal = gate->AddComponent<PortalScript>();
+			portal->SetPortal(L"Entrance1Portaltemp", Vector2(200.0f, 0.0f));
+			portal->SetDestination(L"GunHwaMunPortaltemp"); 
+			gate->SetState(GameObject::eState::Paused);
+		}
+		gate = new GameObject();
+		{
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 108.0f, 180.0f, 2.0f });
+			gate->SetName(L"CommonPortal");
+			AddGameObject(eLayerType::BackGround, gate);
+			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(1050.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
+
+			Animator* at = gate->AddComponent<Animator>();
+
+			Collider2D* cd = gate->AddComponent<Collider2D>();
+			gate->AddComponent<CommonPortalScript>();
+			PortalScript* portal = gate->AddComponent<PortalScript>();
+			portal->SetPortal(L"Entrance1Portal", Vector2(-200.0f, 0.0f));
+			portal->SetDestination(L"Entrance2Portal1");
+			gate->SetState(GameObject::eState::Paused);
+		}
+		Player* player = SceneManager::GetPlayer();
 
 		// MainCamera
 		Camera* cameraComp = nullptr;
@@ -70,9 +95,10 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::BackGround, true);
 			camera->AddComponent<CameraScript>();
 			camera->GetComponent<Camera>()->RegisterTarget(player);
-			//camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
+			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
+			cameraComp->setMaxXY(Vector2(2260.0f, 1160.0f));
 		}
 		//CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		//// UI Camera
@@ -109,7 +135,35 @@ namespace hj
 
 	void Dungeon_Entrance_1::Update()
 	{
-
+		std::vector<GameObject*> monsters = GetLayer(eLayerType::Monster).GetGameObjects();
+		bool monsterZero = false;
+		if (monsters.size() == 0)
+		{
+			monsterZero = true;
+		}
+		else
+		{
+			monsterZero = true;
+			for (int i = 0; i < monsters.size(); i++)
+			{
+				if (monsters[i]->GetState() == GameObject::eState::Active)
+				{
+					monsterZero = false;
+					break;
+				}
+			}
+		}
+		if (monsterZero)
+		{
+			std::vector<GameObject*> backgrounds = GetLayer(eLayerType::BackGround).GetGameObjects();
+			for (int i = 0; i < backgrounds.size(); i++)
+			{
+				if (backgrounds[i]->GetName() == L"CommonPortal")
+					backgrounds[i]->SetState(GameObject::eState::Active);
+				if (backgrounds[i]->GetName() == L"GateOutSeriaRoom")
+					backgrounds[i]->SetState(GameObject::eState::Active);
+			}
+		}
 		Scene::Update();
 	}
 
@@ -121,5 +175,26 @@ namespace hj
 	void Dungeon_Entrance_1::Render()
 	{
 		Scene::Render();
+	}
+	void Dungeon_Entrance_1::OnEnter()
+	{
+		Player* player = SceneManager::GetPlayer();
+		if (player != nullptr)
+		{
+
+			player->EnterScene();
+			AddGameObject(eLayerType::Player, (GameObject*)player);
+			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
+			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+		}
+	}
+	void Dungeon_Entrance_1::OnExit()
+	{    
+		Player* player = SceneManager::GetPlayer();
+		if (player != nullptr)
+		{
+			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			player->ExitScene();
+		}
 	}
 }

@@ -124,6 +124,9 @@
     <Filter Include="Script\PortalScript">
       <UniqueIdentifier>{9a5265ad-6d21-483c-8aed-0f0f33490e03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script\CommonPortal">
+      <UniqueIdentifier>{929e8076-ef04-4b42-b3a3-d8155db3c074}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -205,7 +208,7 @@
     <ClInclude Include="hjPlayerScript.h">
       <Filter>Script\Player</Filter>
     </ClInclude>
-    <ClInclude Include="hjSeriaRoomGateScript.h">
+    <ClInclude Include="hjGateInSeriaRoomScript.h">
       <Filter>Script\SeriaRoomGate</Filter>
     </ClInclude>
     <ClInclude Include="hjNPCScript.h">
@@ -261,6 +264,12 @@
     </ClInclude>
     <ClInclude Include="hjPortalScript.h">
       <Filter>Script\PortalScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjGateOutSeriaRoomScript.h">
+      <Filter>Script\SeriaRoomGate</Filter>
+    </ClInclude>
+    <ClInclude Include="hjCommonPortalScript.h">
+      <Filter>Script\CommonPortal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -334,7 +343,7 @@
     <ClCompile Include="hjPlayerScript.cpp">
       <Filter>Script\Player</Filter>
     </ClCompile>
-    <ClCompile Include="hjSeriaRoomGateScript.cpp">
+    <ClCompile Include="hjGateInSeriaRoomScript.cpp">
       <Filter>Script\SeriaRoomGate</Filter>
     </ClCompile>
     <ClCompile Include="hjNPCScript.cpp">
@@ -390,6 +399,12 @@
     </ClCompile>
     <ClCompile Include="hjPortalScript.cpp">
       <Filter>Script\PortalScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjGateOutSeriaRoomScript.cpp">
+      <Filter>Script\SeriaRoomGate</Filter>
+    </ClCompile>
+    <ClCompile Include="hjCommonPortalScript.cpp">
+      <Filter>Script\CommonPortal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

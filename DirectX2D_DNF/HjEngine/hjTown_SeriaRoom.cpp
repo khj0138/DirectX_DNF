@@ -9,7 +9,7 @@
 #include "hjCamera.h"
 #include "hjGridScript.h"
 #include "hjPlayerScript.h"
-#include "hjSeriaRoomGateScript.h"
+#include "hjGateInSeriaRoomScript.h"
 #include "hjRenderer.h"
 //#include "hjObject.h"
 #include "hjCollider2D.h"
@@ -46,21 +46,33 @@ namespace hj
 		GameObject* gate = new GameObject();
 		{
 			gate->GetComponent<Transform>()->SetScale(Vector3{ 278.0f, 254.0f, 2.0f });
-			gate->SetName(L"SeriaRoomGate");
+			gate->SetName(L"GateInSeriaRoom");
 			AddGameObject(eLayerType::BackGround, gate);
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(638.0f, -23.0f, 450.000f));
-			gate->GetComponent<Transform>()->YtoVirtualZ();
-
-			Animator* at = gate->AddComponent<Animator>();
-
-			Collider2D* cd = gate->AddComponent<Collider2D>();
-			gate->AddComponent<SeriaRoomGateScript>();
+			gate->GetComponent<Transform>()->SetPosition(Vector3(638.0f, 0.0f, 450.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(-46.0f);
+			gate->AddComponent<Animator>();
+			gate->AddComponent<Collider2D>();
+			gate->AddComponent<GateInSeriaRoomScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
 			portal->SetPortal(L"SeriaRoomPortal",Vector2(-100.0f, 200.0f));
 			portal->SetDestination(L"MainCampPortal1");
+
+			gate = new GameObject();
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 278.0f, 254.0f, 2.0f });
+			gate->SetName(L"GateInSeriaRoom");
+			AddGameObject(eLayerType::BackGround, gate);
+			mr = gate->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(478.0f, 0.0f, 450.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(-46.0f);
+			gate->AddComponent<Animator>();
+			gate->AddComponent<Collider2D>();
+			gate->SetFlip(true);
+			gate->AddComponent<GateInSeriaRoomScript>();
 			//gate->AddComponent<GroundObjectScript>();
 
 			//AudioSource* as = gate->AddComponent<AudioSource>();
@@ -68,11 +80,11 @@ namespace hj
 			//as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\0.mp3"));
 			//as->Play();
 		}
-		DragonSoldier* dragon = new DragonSoldier();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+		/*DragonSoldier* dragon = new DragonSoldier();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 		AddGameObject(eLayerType::Monster, dragon);
 		dragon->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
 		dragon->Initialize();
-		dragon->EnterScene();
+		dragon->EnterScene();*/
 
 		
 		Player* player = SceneManager::GetPlayer();

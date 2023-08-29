@@ -16,7 +16,8 @@
 #include "hjInput.h"
 #include "hjRigidbody.h"
 
-#include "hjSeriaRoomGateScript.h"
+#include "hjGateOutSeriaRoomScript.h"
+#include "hjCommonPortalScript.h"
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
 #include "hjPlayer.h"
@@ -32,76 +33,52 @@ namespace hj
 	}
 	void Town_MainCamp::Initialize()
 	{
-		//{
-		//	GameObject* player = new GameObject();
-		//	player->SetName(L"SwordMan");
-		//	player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(700.0f, 0.0f, 1.000f));
-		//	player->GetComponent<Transform>()->SetCamMoveRate(0.5f);
-		//	//player->GetComponent<Transform>()->SetRotation2D(60.0f);
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	Collider2D* cd = player->AddComponent<Collider2D>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
-		//	
-		//}
-
-		//GameObject* player = new GameObject();
-		////test = (GameObject*)player;
-		//{
-		//	player->GetComponent<Transform>()->SetScale(Vector3{ 500.0f, 500.0f, 2.0f });
-		//	player->SetName(L"SwordMan2");
-		//	AddGameObject(eLayerType::Player, player);
-		//	MeshRenderer* mr = player->AddComponent<MeshRenderer>();
-		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-		//	mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-		//	// mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
-		//	player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-
-		//	//std::shared_ptr<Texture> atlas
-		//	//	= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\linkSprites.png");
-		//	Animator* at = player->AddComponent<Animator>();
-		//	/*at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Idle", 0.1f);
-		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Walk", 0.1f);
-		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f);
-		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Jump", 0.2f);
-		//	at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack", 0.1f);*/
-
-
-		//	//at->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\", 0.1f);
-		//	//at->Plahjnimation(L"SwordManIdle", true);
-		//	Collider2D* cd = player->AddComponent<Collider2D>();
-		//	player->AddComponent<PlayerScript>();
-		//	player->AddComponent<Rigidbody>();
-
-		//	
-		//}
+		
 
 		GameObject* gate = new GameObject();
 		{
-			gate->GetComponent<Transform>()->SetScale(Vector3{ 278.0f, 254.0f, 2.0f });
-			gate->SetName(L"SeriaRoomGate");
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 300.0f, 300.0f, 2.0f });
+			gate->SetName(L"GateOutSeriaRoom");
 			AddGameObject(eLayerType::BackGround, gate);
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(638.0f, -23.0f, 450.000f));
-			gate->GetComponent<Transform>()->YtoVirtualZ();
+			gate->GetComponent<Transform>()->SetPosition(Vector3(320.0f, 0.0f, 450.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(400.0f);
 
 			Animator* at = gate->AddComponent<Animator>();
 
 			Collider2D* cd = gate->AddComponent<Collider2D>();
-			gate->AddComponent<SeriaRoomGateScript>();
+			gate->AddComponent<GateOutSeriaRoomScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"MainCampPortal1", Vector2(-100.0f, 200.0f));
+			portal->SetPortal(L"MainCampPortal1", Vector2(000.0f, -200.0f));
 			portal->SetDestination(L"SeriaRoomPortal");
-			//gate->AddComponent<GroundObjectScript>();
+			gate->SetState(GameObject::eState::Paused);
 
-			//AudioSource* as = gate->AddComponent<AudioSource>();
-			////as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\bakal_basecamp.OGG"));
-			//as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\0.mp3"));
-			//as->Play();
+			
+		}
+		gate = new GameObject();
+		{
+			//gate->GetComponent<Transform>()->SetScale(Vector3{ 300.0f, 300.0f, 2.0f });
+
+
+			gate->GetComponent<Transform>()->SetScale(Vector3{ 108.0f, 180.0f, 2.0f });
+			gate->SetName(L"CommonPortal");
+			AddGameObject(eLayerType::BackGround, gate);
+			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(1500.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
+
+			Animator* at = gate->AddComponent<Animator>();
+
+			Collider2D* cd = gate->AddComponent<Collider2D>();
+			gate->AddComponent<CommonPortalScript>();
+			PortalScript* portal = gate->AddComponent<PortalScript>();
+			portal->SetPortal(L"MainCampPortal2", Vector2(-200.0f, 0.0f));
+			portal->SetDestination(L"GunHwaMunPortal");
+			gate->SetState(GameObject::eState::Paused);
 		}
 		// MainCamera
 		Player* player = SceneManager::GetPlayer();
@@ -157,7 +134,35 @@ namespace hj
 
 	void Town_MainCamp::Update()
 	{
-
+		std::vector<GameObject*> monsters = GetLayer(eLayerType::Monster).GetGameObjects();
+		bool monsterZero = false;
+		if (monsters.size() == 0)
+		{
+			monsterZero = true;
+		}
+		else
+		{
+			monsterZero = true;
+			for (int i = 0; i < monsters.size(); i++)
+			{
+				if (monsters[i]->GetState() == GameObject::eState::Active)
+				{
+					monsterZero = false;
+					break;
+				}
+			}
+		}
+		if (monsterZero)
+		{
+			std::vector<GameObject*> backgrounds = GetLayer(eLayerType::BackGround).GetGameObjects();
+			for (int i = 0; i < backgrounds.size(); i++)
+			{
+				if (backgrounds[i]->GetName() == L"CommonPortal")
+					backgrounds[i]->SetState(GameObject::eState::Active);
+				if (backgrounds[i]->GetName() == L"GateOutSeriaRoom")
+					backgrounds[i]->SetState(GameObject::eState::Active);
+			}
+		}
 		Scene::Update();
 	}
 

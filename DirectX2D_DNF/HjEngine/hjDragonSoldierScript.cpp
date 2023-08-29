@@ -119,7 +119,7 @@ namespace hj
 				if (AtkManager->LoadAttackScript(iter->first) != nullptr)
 				{
 					attackName = iter->first;
-					curTime = 0.0f;
+					//curTime = 0.0f;
 					return true;
 				}
 			}
@@ -219,26 +219,30 @@ namespace hj
 		Animation* animation = mAnimator->GetActiveAnimation();
 		if (attackName == L"dragon_soldierAttack1")
 		{
-			if (animation->GetIndex() == 1 && !(animation->GetPause()))
+			if (curTime > 1.0f && animation->GetPause())
+			{
+				animation->SetPause(false);
+				curTime = 0.0f;
+
+			}
+			else if (curTime > 0.5f && !(animation->GetPause()) && animation->GetIndex() == 1)
 			{
 				animation->SetPause(true);
 				curTime = 0.0f;
-			}
-			else if (curTime >= 0.1f)
-			{
-				animation->SetPause(false);
 			}
 		}
 		else if (attackName == L"dragon_soldierAttack2")
 		{
-			if (animation->GetIndex() == 0 && !(animation->GetPause()))
+			if (curTime > 1.0f && animation->GetPause())
+			{
+				animation->SetPause(false);
+				curTime = 0.0f;
+
+			}
+			else if (curTime > 0.5f && !(animation->GetPause()) && animation->GetIndex() == 0)
 			{
 				animation->SetPause(true);
 				curTime = 0.0f;
-			}
-			else if (curTime >= 0.1f)
-			{
-				animation->SetPause(false);
 			}
 		}
 	}

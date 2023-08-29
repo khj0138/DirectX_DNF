@@ -65,7 +65,7 @@ namespace hj
 		center *= fixedRes;
 		if (GetOwner()->GetFlip())
 		{
-			center.x = abs(center.x) * -1.0f;
+			center.x = center.x * -1.0f;
 		}
 		pos.y = tr->GetVirtualZ();
 
