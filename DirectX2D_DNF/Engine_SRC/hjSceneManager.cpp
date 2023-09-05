@@ -1,6 +1,6 @@
 #include "hjSceneManager.h"
 
-#include "hjPlayer.h"
+#include "hjPlayerScript.h"
 //#include "hjApplication.h"
 //
 //extern hj::Application application;
@@ -11,11 +11,12 @@ namespace hj
 	std::map<std::wstring, Scene*> SceneManager::mScenes;
 	std::map<std::wstring, std::wstring>  SceneManager::mPortalsScene;
 	std::map<std::wstring, Vector2>  SceneManager::mPortals;
-	Player* SceneManager::mPlayer = nullptr;
+	PlayerScript* SceneManager::mPlayer = nullptr;
 
 	void SceneManager::Initialize()
 	{
-		mPlayer = new Player();
+		GameObject* player = new GameObject();
+		mPlayer = player->AddComponent<PlayerScript>();
 		mPlayer->Initialize();
 
 	}
@@ -84,12 +85,23 @@ namespace hj
 			std::map<std::wstring, Vector2>::iterator PortalPos = mPortals.find(portalName);
 			if (PortalPos != mPortals.end())
 			{
-				Vector3 playerPos = mPlayer->GetComponent<Transform>()->GetPosition();
-				mPlayer->GetComponent<Transform>()->SetPosition(Vector3(PortalPos->second.x, 0.0f,playerPos.z));
-				mPlayer->GetComponent<Transform>()->SetVirtualZ(PortalPos->second.y);
+				Vector3 playerPos = mPlayer->GetOwner()->GetComponent<Transform>()->GetPosition();
+				mPlayer->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(PortalPos->second.x, 0.0f,playerPos.z));
+				mPlayer->GetOwner()->GetComponent<Transform>()->SetVirtualZ(PortalPos->second.y);
 			}
 		}
 		
 
+	}
+	void SceneManager::PortalTeleport(std::wstring sceneName, Vector2 teleportPos)
+	{
+		std::map<std::wstring, Scene*>::iterator PortalScene = mScenes.find(sceneName);
+		if (PortalScene != mScenes.end())
+		{
+			LoadScene(sceneName);
+			Vector3 playerPos = mPlayer->GetOwner()->GetComponent<Transform>()->GetPosition();
+			mPlayer->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(teleportPos.x, 0.0f, playerPos.z));
+			mPlayer->GetOwner()->GetComponent<Transform>()->SetVirtualZ(teleportPos.y);
+		}
 	}
 }

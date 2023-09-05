@@ -17,9 +17,7 @@
 #include "hjAnimator.h"
 #include "hjInput.h"
 #include "hjRigidbody.h"
-#include "hjPlayer.h"
 
-#include "hjDragonSoldier.h"
 
 #include "hjLight.h"
 #include "hjComputeShader.h"
@@ -45,7 +43,7 @@ namespace hj
 	{
 		GameObject* gate = new GameObject();
 		{
-			gate->GetComponent<Transform>()->SetScale(Vector3{ 278.0f, 254.0f, 2.0f });
+			gate->GetComponent<Transform>()->SetScale(Vector3{278.0f, 254.0f, 2.0f});
 			gate->SetName(L"GateInSeriaRoom");
 			AddGameObject(eLayerType::BackGround, gate);
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
@@ -57,13 +55,14 @@ namespace hj
 			gate->AddComponent<Collider2D>();
 			gate->AddComponent<GateInSeriaRoomScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"SeriaRoomPortal",Vector2(-100.0f, 200.0f));
-			portal->SetDestination(L"MainCampPortal1");
+			portal->SetDestination(L"Town_MainCamp", Vector2(320.0f, 200.0f));
 
 			gate = new GameObject();
 			gate->GetComponent<Transform>()->SetScale(Vector3{ 278.0f, 254.0f, 2.0f });
 			gate->SetName(L"GateInSeriaRoom");
 			AddGameObject(eLayerType::BackGround, gate);
+
+			//MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
@@ -87,7 +86,7 @@ namespace hj
 		dragon->EnterScene();*/
 
 		
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		// MainCamera
 		Camera* cameraComp = nullptr;
 		{
@@ -102,7 +101,7 @@ namespace hj
 			cameraComp->setMaxXY(Vector2(2230.0f, 1200.0f));
 
 			camera->AddComponent<CameraScript>();
-			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
@@ -165,22 +164,19 @@ namespace hj
 	}
 	void Town_SeriaRoom::OnEnter()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-
 			player->EnterScene();
-			AddGameObject(eLayerType::Player, (GameObject*)player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+			AddGameObject(eLayerType::Player, player->GetOwner());
 		}
 	}
 	void Town_SeriaRoom::OnExit()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			EraseGameObject(eLayerType::Player, player->GetOwner());
 			player->ExitScene();
 		}
 	}

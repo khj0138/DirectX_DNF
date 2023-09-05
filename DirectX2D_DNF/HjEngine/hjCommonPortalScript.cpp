@@ -8,7 +8,7 @@
 #include "hjRigidbody.h"
 #include "hjCollider2D.h"
 //#include "hjSceneManager.h"
-//#include "hjMonster.h"
+//#include "hjMonsterScript.h"
 //#include "hjComponent.h"
 //#include "hjBehaviorTree.h"
 

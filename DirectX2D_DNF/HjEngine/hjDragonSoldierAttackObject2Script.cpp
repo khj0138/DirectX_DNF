@@ -1,14 +1,15 @@
 #include "hjDragonSoldierAttackObject2Script.h"
-#include "hjAttackObject.h"
+
 #include "hjTime.h"
 
 #include "hjTransform.h"
 #include "hjCollider2D.h"
-#include "hjPlayer.h"
+#include "hjPlayerScript.h"
 namespace hj
 {
 
 	DragonSoldierAttackObject2Script::DragonSoldierAttackObject2Script()
+		: AttackObjectScript(AttackObjectType::Monster)
 	{
 
 	}
@@ -18,16 +19,16 @@ namespace hj
 	void DragonSoldierAttackObject2Script::Initialize()
 	{
 		AttackObjectScript::Initialize();
-		mOwner->SetState(GameObject::eState::Paused);
+		GetOwner()->SetState(GameObject::eState::Paused);
 
-		mOwner->SetAnimate(false);
-		mOwner->SetAttack(false);
-		mOwner->SetVelocity(Vector2::Zero);
-		mOwner->SetStatus(5, 2);
+		SetAnimate(false);
+		SetAttack(false);
+		SetVelocity(Vector2::Zero);
+		SetStatus(5, 2);
 
-		Transform* tr = mOwner->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3(100.0f, 100.0f, 1.0f));
-		Collider2D* col = mOwner->GetComponent<Collider2D>();
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 		col->SetSize(Vector2(100.0f, 100.0f), 70.0f);
 		col->SetCenter(Vector2(50.0f, 0.0f));
 		col->SetCollisionHeight(30.0f);
@@ -42,21 +43,21 @@ namespace hj
 
 	void DragonSoldierAttackObject2Script::OnCollisionEnter(Collider2D* other)
 	{
-		Player* target = dynamic_cast<Player*>(other->GetOwner());
+		PlayerScript* target = other->GetOwner()->FindScript<PlayerScript>();
 		if (target != nullptr)
 		{
-			if (mOwner->GetAttack())
+			if (GetAttack())
 			{
-				std::map<UINT32, float>::iterator iter = mOwner->findTarget(other->GetColliderID());
+				std::map<UINT32, float>::iterator iter = FindTarget(other->GetColliderID());
 				UINT32 targetID = other->GetColliderID();
 				//float coolTime = GetCoolTime();
-				if (!(mOwner->existTarget(targetID)))
+				if (!(existTarget(targetID)))
 				{
-					mOwner->registerTarget(targetID);
+					registerTarget(targetID);
 					// 공격 코드
 					Attack(target);
 				}
-				//if (findTarget(targetID)->second >= coolTime)
+				//if (FindTarget(targetID)->second >= coolTime)
 				//{
 				//	// 공격 코드
 				//	setTargetZero(targetID)
@@ -68,21 +69,21 @@ namespace hj
 
 	void DragonSoldierAttackObject2Script::OnCollisionStay(Collider2D* other)
 	{
-		Player* target = dynamic_cast<Player*>(other->GetOwner());
+		PlayerScript* target = other->GetOwner()->FindScript<PlayerScript>();
 		if (target != nullptr)
 		{
-			if (mOwner->GetAttack())
+			if (GetAttack())
 			{
-				std::map<UINT32, float>::iterator iter = mOwner->findTarget(other->GetColliderID());
+				std::map<UINT32, float>::iterator iter = FindTarget(other->GetColliderID());
 				UINT32 targetID = other->GetColliderID();
 				//float coolTime = GetCoolTime();
-				if (!(mOwner->existTarget(targetID)))
+				if (!(existTarget(targetID)))
 				{
-					mOwner->registerTarget(targetID);
+					registerTarget(targetID);
 					// 공격 코드
 					Attack(target);
 				}
-				//if (findTarget(targetID)->second >= coolTime)
+				//if (FindTarget(targetID)->second >= coolTime)
 				//{
 				//	// 공격 코드
 				//	setTargetZero(targetID)
@@ -94,11 +95,6 @@ namespace hj
 
 	void DragonSoldierAttackObject2Script::OnCollisionExit(Collider2D* other)
 	{
-	}
-
-	void DragonSoldierAttackObject2Script::Attack(Player* target)
-	{
-		AttackObjectScript::Attack(target);
 	}
 
 }

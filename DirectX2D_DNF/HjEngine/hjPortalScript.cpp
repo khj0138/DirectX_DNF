@@ -54,11 +54,10 @@ namespace hj
 		Vector3 playerColPos = other->GetPosition();
 		Vector2 colPos2D = Vector2(colPos.x, colPos.y);
 		Vector2 playerColPos2D = Vector2(playerColPos.x, playerColPos.y);
-		if (GetDestination() != L"")
-		{
-			if(Vector2::Distance(colPos2D, playerColPos2D) < 50.0f)
-				SceneManager::PortalTeleport(GetDestination());
-		}
+
+
+		if(Vector2::Distance(colPos2D, playerColPos2D) < 50.0f)
+			SceneManager::PortalTeleport(destScene, destPos);
 	}
 
 	void PortalScript::OnCollisionExit(Collider2D* other)

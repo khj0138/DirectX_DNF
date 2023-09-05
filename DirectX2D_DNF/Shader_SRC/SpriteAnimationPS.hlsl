@@ -34,11 +34,11 @@ float4 main(VSOut In) : SV_TARGET
         if (UV.x < SpriteLeftTop.x || UV.x > SpriteLeftTop.x + SpriteSize.x
             || UV.y < SpriteLeftTop.y || UV.y > SpriteLeftTop.y + SpriteSize.y)
             discard;
-        else if (AnimFlip == 1)
+        if (AnimFlip == 1)
         {
             UV.x = centerX + (centerX - UV.x);
         }
-        else if (AnimBack == 1)
+        if (AnimBack == 1)
         {
             UV.x = centerX + (centerX - UV.x);
             UV.x = (1 - UV.x);

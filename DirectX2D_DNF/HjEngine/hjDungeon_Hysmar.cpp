@@ -19,7 +19,7 @@
 #include "hjCommonPortalScript.h"
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
-#include "hjPlayer.h"
+
 
 namespace hj
 {
@@ -53,11 +53,10 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"HysmarPortal", Vector2(00.0f, -100));
-			portal->SetDestination(L"HysmarEntrancePortal2");
+			portal->SetDestination(L"Dungeon_Hysmar_Entrance", Vector2(550.0f, 100.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 
 		// MainCamera
 		Camera* cameraComp = nullptr;
@@ -69,7 +68,7 @@ namespace hj
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
-			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
@@ -154,22 +153,19 @@ namespace hj
 	}
 	void Dungeon_Hysmar::OnEnter()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-
 			player->EnterScene();
-			AddGameObject(eLayerType::Player, (GameObject*)player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+			AddGameObject(eLayerType::Player, player->GetOwner());
 		}
 	}
 	void Dungeon_Hysmar::OnExit()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			EraseGameObject(eLayerType::Player, player->GetOwner());
 			player->ExitScene();
 		}
 	}

@@ -21,8 +21,8 @@
 #include "hjCommonPortalScript.h"
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
-#include "hjPlayer.h"
-#include "hjDragonSoldier.h"
+
+#include "hjDragonSoldierScript.h"
 namespace hj
 {
 	Dungeon_Entrance_2::Dungeon_Entrance_2()
@@ -57,8 +57,7 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"Entrance2Portal1", Vector2(200.0f, 0.0f));
-			portal->SetDestination(L"Entrance1Portal");
+			portal->SetDestination(L"Dungeon_Entrance_1", Vector2(850.0f, 250.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
 		gate = new GameObject();
@@ -80,8 +79,7 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"Entrance2Portal2", Vector2(000.0f, -200.0f));
-			portal->SetDestination(L"SpirazziEntrancePortal1");
+			portal->SetDestination(L"Dungeon_Spirazzi_Entrance", Vector2(600.0f, 150.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
 		gate = new GameObject();
@@ -103,8 +101,7 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"Entrance2Portal3", Vector2(-200.0f, 00.0f));
-			portal->SetDestination(L"SkasaEntrancePortal1");
+			portal->SetDestination(L"Dungeon_Skasa_Entrance", Vector2(250.0f, 250.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
 		gate = new GameObject();
@@ -126,18 +123,18 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"Entrance2Portal4", Vector2(00.0f, 100.0f));
-			portal->SetDestination(L"HysmarEntrancePortal1");
+			portal->SetDestination(L"Dungeon_Hysmar_Entrance", Vector2(800.0f, 400.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
 
-		DragonSoldier* dragon = new DragonSoldier();
+		GameObject* dragon = new GameObject();
 		AddGameObject(eLayerType::Monster, dragon);
 		dragon->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
+		dragon->AddComponent<DragonSoldierScript>();
 		dragon->Initialize();
-		dragon->EnterScene();
+		dragon->FindScript<DragonSoldierScript>()->EnterScene();
 
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 
 		// MainCamera
 		Camera* cameraComp = nullptr;
@@ -151,7 +148,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::Player, true);
 			cameraComp->TurnLayerMask(eLayerType::BackGround, true);
 			camera->AddComponent<CameraScript>();
-			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
@@ -235,22 +232,19 @@ namespace hj
 	}
 	void Dungeon_Entrance_2::OnEnter()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-
 			player->EnterScene();
-			AddGameObject(eLayerType::Player, (GameObject*)player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+			AddGameObject(eLayerType::Player, player->GetOwner());
 		}
 	}
 	void Dungeon_Entrance_2::OnExit()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			EraseGameObject(eLayerType::Player, player->GetOwner());
 			player->ExitScene();
 		}
 	}

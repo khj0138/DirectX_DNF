@@ -1,15 +1,15 @@
 #include "hjDetectObjectScript.h"
-#include "hjAttackObject.h"
 #include "hjTime.h"
 
 #include "hjTransform.h"
 #include "hjCollider2D.h"
-#include "hjPlayer.h"
+#include "hjPlayerScript.h"
 #include "hjDetectScript.h"
 namespace hj
 {
 
 	DetectObjectScript::DetectObjectScript()
+		: AttackObjectScript(AttackObjectType::Monster)
 	{
 
 	}
@@ -30,11 +30,10 @@ namespace hj
 	void DetectObjectScript::OnCollisionEnter(Collider2D* other)
 	{
 		
-		Player* player = dynamic_cast<Player*>(other->GetOwner());
+		PlayerScript* player = other->GetOwner()->FindScript<PlayerScript>();
 		if (player != nullptr)
 		{
-			DetectScript* dtScript = dynamic_cast<DetectScript*>(mOwner->GetOwnerScript());
-			dtScript->SetTarget(player);
+			mTarget = player->GetOwner();
 		}
 	}
 

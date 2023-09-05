@@ -2,11 +2,9 @@
 #include "hjTime.h"
 
 #include "hjDragonSoldierAttackObject1Script.h"
-#include "hjAttackObject.h"
 #include "hjTransform.h"
 #include "hjAnimator.h"
-#include "hjMonster.h"
-#include "hjPlayer.h"
+#include "hjMonsterScript.h"
 namespace hj
 {
 
@@ -20,7 +18,7 @@ namespace hj
 	{
 		SetCoolTime(5.0f);
 		RegisterAttackObject<DragonSoldierAttackObject1Script>(L"DragonSoldierAttack1");
-		LoadAttackObject(L"DragonSoldierAttack1")->GetComponent<Transform>()->SetPosition(Vector3(50.0f, 0.0f, 1.0f));
+		LoadAttackObject(L"DragonSoldierAttack1")->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(50.0f, 0.0f, 1.0f));
 
 	}
 	void DragonSoldierAttack1Script::Update()
@@ -30,16 +28,17 @@ namespace hj
 		{
 			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
 			{
-				AttackObject* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
-				DragonSoldierAttack1->SetState(GameObject::eState::Paused);
-				DragonSoldierAttack1->GetComponent<Collider2D>()->SetCollision(false);
+				AttackObjectScript* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
+				DragonSoldierAttack1->GetOwner()->SetState(GameObject::eState::Paused);
+				DragonSoldierAttack1->GetOwner()->GetComponent<Collider2D>()->SetCollision(false);
 				DragonSoldierAttack1->SetAttack(false);
 				SetActivate(false);
 			}
 			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 2)
 			{
-				AttackObject* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
+				AttackObjectScript* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
 				DragonSoldierAttack1->SetAttack(true);
+
 			}
 		}
 		AttackScript::Update();
@@ -49,23 +48,21 @@ namespace hj
 	{
 		Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
 		float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
-		Monster* monster = dynamic_cast<Monster*>(GetOwner());
+		MonsterScript* monster = GetOwner()->FindScript<MonsterScript>();
 		if (monster != nullptr)
 		{
-			Player* player = monster->GetTarget();
+			GameObject* player = monster->GetTarget();
 			if (player == nullptr)
 			{
 				SetActivate(false);
 				return;
 			}
-
-			AttackObject* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
-			DragonSoldierAttack1->SetPos(ownerPos);
-			DragonSoldierAttack1->SetFlip(GetOwner()->GetFlip());
-			DragonSoldierAttack1->SetPosVZ(ownerPosVZ);
-			DragonSoldierAttack1->SetState(GameObject::eState::Active);
-
-			DragonSoldierAttack1->GetComponent<Collider2D>()->SetCollision(true);
+			AttackObjectScript* DragonSoldierAttack1 = LoadAttackObject(L"DragonSoldierAttack1");
+			DragonSoldierAttack1->GetOwner()->GetComponent<Transform>()->SetPosition(ownerPos);
+			DragonSoldierAttack1->GetOwner()->GetComponent<Transform>()->SetVirtualZ(ownerPosVZ);
+			DragonSoldierAttack1->GetOwner()->SetFlip(GetOwner()->GetFlip());
+			DragonSoldierAttack1->GetOwner()->SetState(GameObject::eState::Active);
+			DragonSoldierAttack1->GetOwner()->GetComponent<Collider2D>()->SetCollision(true);
 			DragonSoldierAttack1->clearTargets();
 		}
 	}

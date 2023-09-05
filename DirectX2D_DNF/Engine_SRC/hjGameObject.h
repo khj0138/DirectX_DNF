@@ -97,14 +97,29 @@ namespace hj
 			script->SetOwner(this);
 			script->Initialize();
 		}
+		template <typename T>
+		T* FindScript()
+		{
+			for (Script* script : mScripts)
+			{
+				T* component = dynamic_cast<T*>(script);
+				if (component != nullptr)
+					return component;
+			}
+
+			return nullptr;
+		}
 		void SetState(eState state) { mState = state; }
 		eState GetState() { return mState; }
 		void SetFlip(bool flip) { isFlip = flip; }
 		bool GetFlip() { return isFlip; }
+		UINT GetLayer() { return mLayer; }
+		void SetLayer(UINT layer) { mLayer = layer; }
 	private:
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
+		UINT mLayer;
 		bool isFlip;
 	};
 }

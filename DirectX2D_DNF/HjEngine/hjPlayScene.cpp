@@ -91,7 +91,7 @@ namespace hj
 		////	cameraComp = camera->AddComponent<Camera>();
 		////	cameraComp->TurnLayerMask(eLayerType::Player, false);
 		////	camera->AddComponent<CameraScript>();
-		////	camera->GetComponent<Camera>()->RegisterTarget(player);
+		////	camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 		////	camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 		////	//camera->AddComponent<CameraScript>();
 		////}
@@ -104,7 +104,7 @@ namespace hj
 		//	cameraComp = camera->AddComponent<Camera>();
 		//	cameraComp->TurnLayerMask(eLayerType::UI, false);
 		//	camera->AddComponent<CameraScript>();
-		//	camera->GetComponent<Camera>()->RegisterTarget(player);
+		//	camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 		//	renderer:: cameras.push_back(cameraComp);
 		//	//renderer::mainCamera = cameraComp;
 		//	

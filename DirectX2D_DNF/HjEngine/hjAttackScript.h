@@ -1,6 +1,6 @@
 #pragma once
 #include <hjScript.h>
-#include "hjAttackObject.h"
+#include "hjAttackObjectScript.h"
 #include "hjEffectObject.h"
 
 namespace hj
@@ -49,27 +49,25 @@ namespace hj
 		template <typename T>
 		bool RegisterAttackObject(const std::wstring name)
 		{
-			AttackObject* attackObject = new AttackObject();
+			GameObject* attackObject = new GameObject();
 
 			T* attackObjectScript = new T();
 			attackObject->AddScript((Script*)attackObjectScript);
 
-			std::map<std::wstring, AttackObject*>::iterator iter
+			std::map<std::wstring, AttackObjectScript*>::iterator iter
 				= mAttackObjects.find(name);
 
 			if (iter != mAttackObjects.end())
 				return false;
 
 			attackObject->SetName(name);
-			mAttackObjects.insert(std::make_pair(name, attackObject));
-			attackObject->Initialize();
-			attackObject->SetOwnerScript(this);
+			mAttackObjects.insert(std::make_pair(name, (AttackObjectScript*)attackObjectScript));
 			return true;
 
 		}
-		AttackObject* LoadAttackObject(std::wstring name)
+		AttackObjectScript* LoadAttackObject(std::wstring name)
 		{
-			std::map<std::wstring, AttackObject*>::iterator iter = mAttackObjects.find(name);
+			std::map<std::wstring, AttackObjectScript*>::iterator iter = mAttackObjects.find(name);
 			if (iter == mAttackObjects.end())
 				return nullptr;
 			return iter->second;
@@ -80,27 +78,29 @@ namespace hj
 		template <typename T>
 		bool RegisterEffectObject(const std::wstring name)
 		{
-			EffectObject* effectObject = new EffectObject();
+			GameObject* effectObject = new GameObject();
 
 			T* effectObjectScript = new T();
 			effectObject->AddScript((Script*)effectObjectScript);
 
-			std::map<std::wstring, EffectObject*>::iterator iter
+			std::map<std::wstring, GameObject*>::iterator iter
 				= mEffectObjects.find(name);
 
 			if (iter != mEffectObjects.end())
 				return false;
 
 			effectObject->SetName(name);
-			mEffectObjects.insert(std::make_pair(name, EffectObject));
-			effectObject->Initialize();
+			mEffectObjects.insert(std::make_pair(name, effectObject));
+			effectObjectScript->Initialize();
+			effectObjectScript->SetOwnerScript(this);
+
 			return true;
 
 		}
 
-		EffectObject* LoadEffectObject(std::wstring name)
+		GameObject* LoadEffectObject(std::wstring name)
 		{
-			std::map<std::wstring, EffectObject*>::iterator iter = mEffectObjects.find(name);
+			std::map<std::wstring, GameObject*>::iterator iter = mEffectObjects.find(name);
 			if (iter == mEffectObjects.end())
 				return nullptr;
 			return iter->second;
@@ -115,12 +115,12 @@ namespace hj
 		float GetPosVZ() { return mPositionVZ; }
 		bool checkCoolTime() { return (curTime == mCoolTime); }
 
-		std::map<std::wstring, AttackObject*>::iterator GetAttackObjectsBegin() { return mAttackObjects.begin(); }
-		std::map<std::wstring, AttackObject*>::iterator GetAttackObjectsEnd() { return mAttackObjects.end(); }
-		std::map<std::wstring, EffectObject*>::iterator GetEffectObjectsBegin() { return mEffectObjects.begin(); }
-		std::map<std::wstring, EffectObject*>::iterator GetEffectObjectsEnd() { return mEffectObjects.end(); }
-		std::map<std::wstring, AttackObject*> mAttackObjects;
-		std::map<std::wstring, EffectObject*> mEffectObjects;
+		std::map<std::wstring, AttackObjectScript*>::iterator GetAttackObjectsBegin() { return mAttackObjects.begin(); }
+		std::map<std::wstring, AttackObjectScript*>::iterator GetAttackObjectsEnd() { return mAttackObjects.end(); }
+		std::map<std::wstring, GameObject*>::iterator GetEffectObjectsBegin() { return mEffectObjects.begin(); }
+		std::map<std::wstring, GameObject*>::iterator GetEffectObjectsEnd() { return mEffectObjects.end(); }
+		std::map<std::wstring, AttackObjectScript*> mAttackObjects;
+		std::map<std::wstring, GameObject*> mEffectObjects;
 		void Release()
 		{
 			/*for (auto iter = mAttackObjects.begin(); iter != mAttackObjects.end(); iter++)

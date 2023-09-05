@@ -172,11 +172,11 @@ namespace hj
 			CreateBasicObject(L"SeriaRoom_background_eff_0", Vector3(82.0f, 134.0f, 498.0f), false, Vector2(1.0f, 1.0f));
 
 			// border object
-			CreateBasicObject(L"SeriaRoom_border_tree_0", Vector3(0.0f, 0.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"SeriaRoom_border_tree_1", Vector3(873.0f, 0.0f, 497.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"SeriaRoom_border_tree_0", Vector3(0.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"SeriaRoom_border_tree_1", Vector3(873.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 
 			// light
-			CreateBasicObject(L"SeriaRoom_backgruond_light_reflect_0", Vector3(172.0f, 241.0f, 496.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"SeriaRoom_backgruond_light_reflect_0", Vector3(172.0f, 241.0f, 300.0f), false, Vector2(1.0f, 1.0f));
 
 		}
 		else if (activeScene->GetName() == L"Town_MainCamp")
@@ -214,7 +214,7 @@ namespace hj
 			CreateBasicObject(L"MainCamp_dodge_light_0", Vector3(1177.0f, 396.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_main_6", Vector3(1070.0f, -60.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			// border object
-			CreateBasicObject(L"MainCamp_border_0", Vector3(0.0f, -55.0f, 496.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"MainCamp_border_0", Vector3(0.0f, -55.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 		}
 		else if (activeScene->GetName() == L"Town_GunHwaMun")
 		{
@@ -235,10 +235,10 @@ namespace hj
 			CreateBasicObject(L"GunHwaMun_object_0", Vector3(575.0f, 325.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"GunHwaMun_object_1", Vector3(725.0f, 295.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			// border object
-			CreateBasicObject(L"GunHwaMun_border_2", Vector3(200.0f, 00.0f, 496.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"GunHwaMun_border_0", Vector3(-30.0f, -10.0f, 496.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"GunHwaMun_border_3", Vector3(635.0f, 0.0f, 496.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"GunHwaMun_border_1", Vector3(1000.0f, 0.0f, 496.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_border_2", Vector3(200.0f, 00.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_border_0", Vector3(-30.0f, -10.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_border_3", Vector3(635.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_border_1", Vector3(1000.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 		}
 
 		else if (activeScene->GetName() == L"Dungeon_Entrance_1")
@@ -288,11 +288,11 @@ namespace hj
 			CreateBasicObject(L"Dungeon_Entrance_object_basic_2", Vector3(320.0f, 255.0f, 495.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"Dungeon_Entrance_object_basic_3", Vector3(1095.0f, 255.0f, 495.0f), false, Vector2(1.0f, 1.0f));
 			// border object
-			CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(0.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(257.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_border_4", Vector3(514.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(771.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(1028.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(0.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(257.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_4", Vector3(514.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(771.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(1028.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 
 		}
 		else if (activeScene->GetName() == L"Dungeon_Entrance_2")
@@ -353,10 +353,10 @@ namespace hj
 			CreateBasicObject(L"Dungeon_Entrance_object_bottom_13", Vector3(1000.0f, 265.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Dungeon_Entrance_object_basic_3", Vector3(1095.0f, 255.0f, 496.0f), false, Vector2(1.0f, 1.0f));
 			// border object
-			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(-90.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_border_3", Vector3(167.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_border_4", Vector3(766.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(1023.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(-90.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_3", Vector3(167.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_4", Vector3(766.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(1023.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(0.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Dungeon_Entrance_object_border_4", Vector3(514.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(771.0f, 0.0f, 495.0f), false, Vector2(1.0f, 1.0f));
@@ -416,12 +416,12 @@ namespace hj
 			//CreateBasicObject(L"Spirazzi_object_7", Vector3(764.0f, 401.0f, 497.000f), false, Vector2(1.0f, 1.0f));
 
 			//border object
-			CreateBasicObject(L"Skasa_common_icicle_3", Vector3(0.0f, 540.0f, 496.000f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Skasa_common_icicle_3", Vector3(275.0f, 540.0f, 496.000f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Skasa_common_icicle_3", Vector3(550.0f, 540.0f, 496.000f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_icicle_3", Vector3(0.0f, 540.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_icicle_3", Vector3(275.0f, 540.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_icicle_3", Vector3(550.0f, 540.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Spirazzi_border_1", Vector3(767.0f, 0.0f, 496.000f), false, Vector2(1.0f, 1.0f));
 			//object
-			CreateBasicObject(L"Skasa_common_pillar_fence_9", Vector3(-165.0f, 50.0f, 496.000f), false,  Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_pillar_fence_9", Vector3(-165.0f, 50.0f, 400.0f), false,  Vector2(1.0f, 1.0f));
 			//CreateMoveRepeatObject(L"Spirazzi_fog_normal_0", Vector3(0.0f, 0.0f, 495.000f), false, false, Vector2(3.0f, 1.0f), Vector2(-20.0f, 0.0f), Vector2::One);
 		}
 		else if (activeScene->GetName() == L"Dungeon_Skasa")
@@ -486,10 +486,10 @@ namespace hj
 			CreateBasicObject(L"Spirazzi_object_7", Vector3(764.0f, 401.0f, 497.000f), false, Vector2(1.0f, 1.0f));
 
 			//border object
-			CreateBasicObject(L"Spirazzi_border_0", Vector3(0.0f, 0.0f, 496.000f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Spirazzi_border_1", Vector3(767.0f, 0.0f, 496.000f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_0", Vector3(0.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_1", Vector3(767.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 			//object
-			CreateMoveRepeatObject(L"Spirazzi_fog_normal_0", Vector3(0.0f, 0.0f, 495.000f), false, false, Vector2(3.0f, 1.0f), Vector2(-20.0f, 0.0f), Vector2::One);
+			CreateMoveRepeatObject(L"Spirazzi_fog_normal_0", Vector3(0.0f, 0.0f, 400.0f), false, false, Vector2(3.0f, 1.0f), Vector2(-20.0f, 0.0f), Vector2::One);
 		}
 		else if (activeScene->GetName() == L"Dungeon_Spirazzi")
 		{
@@ -550,12 +550,12 @@ namespace hj
 			CreateBasicObject(L"Spirazzi_object_5", Vector3(460.0f, 215.0f, 496.0f), false, Vector2(1.0f, 1.0f));
 			
 			// border object
-			CreateBasicObject(L"Spirazzi_border_2", Vector3(320.0f,0.0f , 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Spirazzi_border_2", Vector3(1500.0f,0.0f , 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Spirazzi_border_0", Vector3(00.0f,-20.0f , 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Spirazzi_border_1", Vector3(770.0f,-20.0f , 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Spirazzi_border_0", Vector3(1180.0f,-20.0f , 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Spirazzi_border_3", Vector3(1435,0.0f , 495.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_2", Vector3(320.0f,0.0f , 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_2", Vector3(1500.0f,0.0f , 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_0", Vector3(00.0f,-20.0f , 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_1", Vector3(770.0f,-20.0f , 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_0", Vector3(1180.0f,-20.0f , 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Spirazzi_border_3", Vector3(1435,0.0f , 400.0f), false, Vector2(1.0f, 1.0f));
 		}
 		else if (activeScene->GetName() == L"Dungeon_Hysmar_Entrance")
 		{
@@ -603,8 +603,8 @@ namespace hj
 			CreateBasicObject(L"Hysmar_common_object_17", Vector3(362.0f, 382.0f, 497.000f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"Hysmar_common_object_17", Vector3(695.0f, 366.0f, 497.000f), false, Vector2(1.0f, 1.0f));
 			//border object
-			CreateBasicObject(L"Hysmar_common_object_border_0", Vector3(-88.0f, 0.0f, 496.000f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Hysmar_common_object_border_1", Vector3(635.0f, 0.0f, 496.000f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Hysmar_common_object_border_0", Vector3(-88.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Hysmar_common_object_border_1", Vector3(635.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 
 
 		}

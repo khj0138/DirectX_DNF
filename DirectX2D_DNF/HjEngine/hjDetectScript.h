@@ -16,13 +16,12 @@ namespace hj
 
 		virtual void Reset() override;
 
-		Player* GetTarget();
-		void SetTarget(Player* target) { mTarget = target; }
+		GameObject* GetTarget();
 
 	public:
 
 	private:
-		Player* mTarget;
+		GameObject* mTarget;
 
 	};
 

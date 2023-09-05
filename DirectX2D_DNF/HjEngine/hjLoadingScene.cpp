@@ -18,7 +18,7 @@
 #include "hjRigidbody.h"
 
 #include "hjTime.h"
-#include "hjPlayer.h"
+
 #include "hjSceneManager.h"
 
 

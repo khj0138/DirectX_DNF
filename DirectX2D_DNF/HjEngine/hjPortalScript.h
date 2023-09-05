@@ -16,8 +16,10 @@ namespace hj
 
 		std::wstring GetDestination() { return destName; }
 		void SetDestination(std::wstring destination) { destName = destination; }
-
 		void SetPortal(std::wstring name, Vector2 offset);
+		
+		void SetDestination(std::wstring sceneName, Vector2 pos) { destScene = sceneName; destPos = pos; }
+
 		virtual void OnCollisionEnter(Collider2D* other) override;
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
@@ -27,6 +29,8 @@ namespace hj
 	private:
 		std::wstring mName;
 		std::wstring destName;
+		std::wstring destScene;
+		Vector2 destPos;
 	};
 
 

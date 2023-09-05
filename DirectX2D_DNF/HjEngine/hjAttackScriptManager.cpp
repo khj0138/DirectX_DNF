@@ -33,7 +33,7 @@ namespace hj
 			for (auto attackObject = attackScript->second->GetAttackObjectsBegin();
 				attackObject != attackScript->second->GetAttackObjectsEnd();
 				attackObject++)
-			scene->AddGameObject(mType, (GameObject*)(attackObject->second));
+			scene->AddGameObject(mType, (GameObject*)(attackObject->second->GetOwner()));
 		}
 		for (auto attackScript = mAttackScripts.begin(); attackScript != mAttackScripts.end(); attackScript++)
 		{
@@ -52,7 +52,7 @@ namespace hj
 			for (auto attackObject = attackScript->second->GetAttackObjectsBegin();
 				attackObject != attackScript->second->GetAttackObjectsEnd();
 				attackObject++)
-				scene->EraseGameObject(mType, (GameObject*)attackObject->second);
+				scene->EraseGameObject(mType, (GameObject*)attackObject->second->GetOwner());
 		}
 		for (auto attackScript = mAttackScripts.begin(); attackScript != mAttackScripts.end(); attackScript++)
 		{

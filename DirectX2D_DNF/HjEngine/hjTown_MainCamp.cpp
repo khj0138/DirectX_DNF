@@ -20,7 +20,7 @@
 #include "hjCommonPortalScript.h"
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
-#include "hjPlayer.h"
+
 namespace hj
 {
 	Town_MainCamp::Town_MainCamp()
@@ -51,8 +51,7 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<GateOutSeriaRoomScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"MainCampPortal1", Vector2(000.0f, -200.0f));
-			portal->SetDestination(L"SeriaRoomPortal");
+			portal->SetDestination(L"Town_SeriaRoom", Vector2(538.0f, 154.0f));
 			gate->SetState(GameObject::eState::Paused);
 
 			
@@ -76,12 +75,11 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"MainCampPortal2", Vector2(-200.0f, 0.0f));
-			portal->SetDestination(L"GunHwaMunPortal");
+			portal->SetDestination(L"Town_GunHwaMun", Vector2(250.0f, 300.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
 		// MainCamera
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
@@ -92,7 +90,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			cameraComp->setMaxXY(Vector2(3580.0f, 1340.0f));
 			camera->AddComponent<CameraScript>();
-			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 			
@@ -177,21 +175,19 @@ namespace hj
 	}
 	void Town_MainCamp::OnEnter()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
 			player->EnterScene();
-			AddGameObject(eLayerType::Player, (GameObject*)player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+			AddGameObject(eLayerType::Player, player->GetOwner());
 		}
 	}
 	void Town_MainCamp::OnExit()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			EraseGameObject(eLayerType::Player, player->GetOwner());
 			player->ExitScene();
 		}
 	}

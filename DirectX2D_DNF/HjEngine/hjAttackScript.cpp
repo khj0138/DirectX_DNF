@@ -1,7 +1,6 @@
 #include "hjAttackScript.h"
 
 #include "hjTime.h"
-#include "hjAttackObject.h"
 #include "hjEffectObject.h"
 #include "hjAttackScriptManager.h"
 #include "hjGameObject.h"

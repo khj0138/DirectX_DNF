@@ -17,10 +17,13 @@ namespace hj
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
+		GameObject* GetTarget() { return mTarget; }
+		void SetTarget(GameObject* target) { mTarget = target; }
+
 	public:
 
 	private:
-
+		GameObject* mTarget;
 	};
 
 

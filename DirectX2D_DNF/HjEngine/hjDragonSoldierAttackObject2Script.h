@@ -17,8 +17,6 @@ namespace hj
 		virtual void OnCollisionStay(Collider2D* other) override;
 		virtual void OnCollisionExit(Collider2D* other) override;
 
-		virtual void Attack(Player* target);
-
 	public:
 
 	private:

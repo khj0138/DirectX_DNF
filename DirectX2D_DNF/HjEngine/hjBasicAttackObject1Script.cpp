@@ -1,14 +1,14 @@
 #include "hjBasicAttackObject1Script.h"
-#include "hjAttackObject.h"
 #include "hjTime.h"
 
 #include "hjTransform.h"
 #include "hjCollider2D.h"
-#include "hjMonster.h"
+#include "hjMonsterScript.h"
 namespace hj
 {
 
 	BasicAttackObject1Script::BasicAttackObject1Script()
+		: AttackObjectScript(AttackObjectType::Player)
 	{
 		
 	}
@@ -18,16 +18,16 @@ namespace hj
 	void BasicAttackObject1Script::Initialize()
 	{
 		AttackObjectScript::Initialize();
-		mOwner->SetState(GameObject::eState::Paused);
+		GetOwner()->SetState(GameObject::eState::Paused);
 
-		mOwner->SetAnimate(false);
-		mOwner->SetAttack(false);
-		mOwner->SetVelocity(Vector2::Zero);
-		mOwner->SetStatus(10, 5);
+		SetAnimate(false);
+		SetAttack(false);
+		SetVelocity(Vector2::Zero);
+		SetStatus(10, 5);
 
-		Transform* tr = mOwner->GetComponent<Transform>();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3(100.0f, 100.0f, 1.0f));
-		Collider2D* col = mOwner->GetComponent<Collider2D>();
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 		col->SetSize(Vector2(100.0f, 100.0f), 70.0f);
 		col->SetCenter(Vector2(75.0f, 0.0f));
 		col->SetCollisionHeight(30.0f);
@@ -42,21 +42,22 @@ namespace hj
 
 	void BasicAttackObject1Script::OnCollisionEnter(Collider2D* other)
 	{
-		Monster* target = dynamic_cast<Monster*>(other->GetOwner());
+		MonsterScript* target = other->GetOwner()->FindScript<MonsterScript>();
+
 		if (target != nullptr)
 		{
-			if (mOwner->GetAttack())
+			if (GetAttack())
 			{
-				std::map<UINT32, float>::iterator iter = mOwner->findTarget(other->GetColliderID());
+				std::map<UINT32, float>::iterator iter = FindTarget(other->GetColliderID());
 				UINT32 targetID = other->GetColliderID();
 				//float coolTime = GetCoolTime();
-				if (!(mOwner->existTarget(targetID)))
+				if (!(existTarget(targetID)))
 				{
-					mOwner->registerTarget(targetID);
+					registerTarget(targetID);
 					// 공격 코드
 					Attack(target);
 				}
-				//if (findTarget(targetID)->second >= coolTime)
+				//if (FindTarget(targetID)->second >= coolTime)
 				//{
 				//	// 공격 코드
 				//	setTargetZero(targetID)
@@ -68,21 +69,22 @@ namespace hj
 
 	void BasicAttackObject1Script::OnCollisionStay(Collider2D* other)
 	{
-		Monster* target = dynamic_cast<Monster*>(other->GetOwner());
+		MonsterScript* target = other->GetOwner()->FindScript<MonsterScript>();
+
 		if (target != nullptr)
 		{
-			if (mOwner->GetAttack())
+			if (GetAttack())
 			{
-				std::map<UINT32, float>::iterator iter = mOwner->findTarget(other->GetColliderID());
+				std::map<UINT32, float>::iterator iter = FindTarget(other->GetColliderID());
 				UINT32 targetID = other->GetColliderID();
 				//float coolTime = GetCoolTime();
-				if (!(mOwner->existTarget(targetID)))
+				if (!(existTarget(targetID)))
 				{
-					mOwner->registerTarget(targetID);
+					registerTarget(targetID);
 					// 공격 코드
 					Attack(target);
 				}
-				//if (findTarget(targetID)->second >= coolTime)
+				//if (FindTarget(targetID)->second >= coolTime)
 				//{
 				//	// 공격 코드
 				//	setTargetZero(targetID)
@@ -96,9 +98,5 @@ namespace hj
 	{
 	}
 
-	void BasicAttackObject1Script::Attack(Monster* target)
-	{
-		AttackObjectScript::Attack(target);
-	}
 
 }

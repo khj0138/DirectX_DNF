@@ -1,21 +1,35 @@
 #include "hjAttackObjectScript.h"
 
 #include "hjTime.h"
-
-//#include "hjGameObject.h"
-#include "hjAttackObject.h"
-//#include "hjBehaviorTree.h"
+#include "hjInput.h"
+#include "hjCamera.h"
 #include "hjResources.h"
-#include "hjMeshRenderer.h"
-#include "hjCollider2D.h"
+
+#include "hjGameObject.h"
+//#include "hjMonsterScript.h"
+
+
+#include "hjTransform.h"
 #include "hjAnimator.h"
-#include "hjMonster.h"
-#include "hjPlayer.h"
+#include "hjRigidbody.h"
+#include "hjCollider2D.h"
+#include "hjMeshRenderer.h"
+
+#include "hjPlayerScript.h"
+#include "hjMonsterScript.h"
+//#include "hjAttackScript.h"
+
 namespace hj
 {
 
-	AttackObjectScript::AttackObjectScript()
-		: mOwner(nullptr)
+	AttackObjectScript::AttackObjectScript(AttackObjectType attackObjectType)
+		: mType((AttackObjectType)attackObjectType)
+		, bActivate(false)
+		, bAnimate(false)
+		, mCoolTime(0.0f)
+		, mVelocity(Vector2::Zero)
+		, animOffset(Vector2::Zero)
+		, mAnimator(nullptr)
 	{
 	}
 	AttackObjectScript::~AttackObjectScript()
@@ -23,28 +37,32 @@ namespace hj
 	}
 	void AttackObjectScript::Initialize()
 	{
-		mOwner = dynamic_cast<AttackObject*>(Component::GetOwner());
-		mOwner->AddComponent<Collider2D>();
-		if (mOwner->GetComponent<Animator>() == nullptr)
+		GetOwner()->AddComponent<Collider2D>();
+		GetOwner()->AddComponent<Rigidbody>();
+		if (GetOwner()->GetComponent<Animator>() == nullptr)
 		{
-			MeshRenderer* mr = mOwner->AddComponent<MeshRenderer>();
+			MeshRenderer* mr = GetOwner()->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial"));
 		}
 		else
 		{
-			MeshRenderer* mr = mOwner->AddComponent<MeshRenderer>();
+			MeshRenderer* mr = GetOwner()->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 		}
-		mOwner->GameObject::Initialize();
+
+		
 	}
 	void AttackObjectScript::Update()
 	{
-		Vector3 pos = mOwner->GetPos();
-		pos.x += mOwner->GetVelocity().x;
-		mOwner->SetPos(pos);
-		mOwner->SetPosVZ(mOwner->GetPosVZ() + mOwner->GetVelocity().y);
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+		pos.x += vel.x;
+		tr->SetPosition(pos);
+		tr->SetVirtualZ(tr->GetVirtualZ() + rb->GetVelocity().y);
 		Script::Update();
 	}
 
@@ -62,34 +80,37 @@ namespace hj
 	{
 	}
 
-	void AttackObjectScript::Attack(Player* target)
+	
+	void AttackObjectScript::Attack(Script* target)
 	{
-		AttackObject::status damageStat = mOwner->GetStatus();
-		UINT damage = damageStat.Damage;
+		UINT damage = mStatus.Damage;
 		float time = Time::DeltaTime();
 		while (time < 1.0f)
 		{
 			time *= 10.0f;
 		}
 		time = time - ((UINT)time % 10);
-		float randomDamage = time * (float)(damageStat.DamageRange);
+		float randomDamage = time * (float)(mStatus.DamageRange);
 		damage += (UINT)randomDamage;
-
-		target->Attack(damage);
-	}
-	void AttackObjectScript::Attack(Monster* target)
-	{
-		AttackObject::status damageStat = mOwner->GetStatus();
-		UINT damage = damageStat.Damage;
-		float time = Time::DeltaTime();
-		while (time < 1.0f)
+		
+		
+		if (mType == AttackObjectType::Player)
 		{
-			time *= 10.0f;
+			MonsterScript* monster = dynamic_cast<MonsterScript*>(target);
+			if (monster != nullptr)
+			{
+				monster->Hit(damage, GetOwner()->GetFlip());
+				return;
+			}
 		}
-		time = time - ((UINT)time % 10);
-		float randomDamage = time * (float)(damageStat.DamageRange);
-		damage += (UINT)randomDamage;
-
-		target->Attack(damage);
+		else if (mType == AttackObjectType::Monster)
+		{
+			PlayerScript* player = dynamic_cast<PlayerScript*>(target);
+			if (player != nullptr)
+			{
+				player->Hit(damage, GetOwner()->GetFlip());
+				return;
+			}
+		}
 	}
 }

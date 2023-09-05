@@ -1,26 +1,15 @@
 #pragma once
 //#include "hjScript.h"
-#include <hjScript.h>
+#include "hjMonsterScript.h"
 
 namespace hj
 {
-	class DragonSoldier;
 	class Animator;
 	class Collider2D;
 	class AttackScriptManager;
-	class DragonSoldierScript : public Script
+	class DragonSoldierScript : public MonsterScript
 	{
 	public:
-		enum class eDragonSoldierState
-		{
-			Idle,
-			Walk,
-			Attack,
-			Hit,
-			Die,
-			End,
-		};
-
 		enum class eAttackType
 		{
 			Attack1,
@@ -34,12 +23,10 @@ namespace hj
 		virtual void Initialize() override;
 		virtual void Update() override;
 
-
 		//behavior
 		bool IsWalk();
 		bool IsAttack();
 
-	public:
 		void Idle();
 		void Walk();
 		void Attack();
@@ -47,27 +34,25 @@ namespace hj
 		void Die();
 		void Anim();
 		
-		void JumpUpStartEvent();
-		void JumpUpCompleteEvent();
 		void Attack1StartEvent();
 		void Attack2StartEvent();
 		void Attack1CompleteEvent();
 		void Attack2CompleteEvent();
+		void HitCompleteEvent();
+		void DieCompleteEvent();
 	private:
-		eDragonSoldierState mDragonSoldierState;
-		eDragonSoldierState mPrevDragonSoldierState;
-
-
-		DragonSoldier* mOwner;
 		bool bMove;
 		Vector3 mVelocity;
-		Animator* mAnimator;
-		Collider2D* mCollider;
+		//Animator* mAnimator;
+		//Collider2D* mCollider;
 		//bool isFlip;
 		
-		AttackScriptManager* AtkManager;
+		//AttackScriptManager* AtkManager;
 		std::wstring attackName;
 		float curTime;
+
+		bool mActivate;
+		bool bAttack;
 	};
 
 

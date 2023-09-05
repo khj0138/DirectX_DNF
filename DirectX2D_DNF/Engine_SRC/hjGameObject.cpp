@@ -8,6 +8,7 @@ namespace hj
 	GameObject::GameObject()
 		: mState(eState::Active)
 		, isFlip(false)
+		, mLayer((UINT)enums::eLayerType::End)
 	{
 		AddComponent<Transform>();
 	}

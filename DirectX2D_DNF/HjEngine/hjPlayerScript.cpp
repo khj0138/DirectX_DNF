@@ -1,25 +1,31 @@
 #include "hjPlayerScript.h"
-#include "hjTransform.h"
-#include "hjGameObject.h"
-#include "hjTime.h"
+
+#include "hjResources.h"
 #include "hjInput.h"
+#include "hjTime.h"
 #include "hjCamera.h"
+
+#include "hjGameObject.h"
+
+#include "hjTransform.h"
 #include "hjAnimator.h"
 #include "hjRigidbody.h"
 #include "hjCollider2D.h"
-//#include "hjBehaviorTree.h"
+#include "hjMeshRenderer.h"
 
-#include "hjAttackScript.h"
 #include "hjAttackScriptManager.h"
+#include "hjAttackScript.h"
 #include "hjBasicAttackScript1.h"
 #include "hjBasicAttackScript2.h"
 #include "hjBasicAttackScript3.h"
-#include "hjPlayer.h"
 namespace hj
 {
 
 	PlayerScript::PlayerScript()
-		: moveVector({})
+		: mActivate(false)
+		, AtkManager(nullptr)
+		, mStatus(status(100, 100))
+		, moveVector({})
 		, moveTime(0.0f)
 		, mPlayerState(ePlayerState::Idle)
 		, mPrevPlayerState(ePlayerState::Idle)
@@ -27,7 +33,6 @@ namespace hj
 		, jumpDown(false)
 		, bCommand(false)
 		, mVelocity(Vector3::Zero)
-		, AtkManager(nullptr)
 	{
 		moveVector.resize(2);
 		bAttackVector.resize((UINT)eAttackType::End);
@@ -42,20 +47,32 @@ namespace hj
 	}
 	PlayerScript::~PlayerScript()
 	{
+		delete AtkManager;
 	}
 	void PlayerScript::Initialize()
 	{
-		mAnimator = GetOwner()->GetComponent<Animator>();
-		mAnimator->SetAnimatorOffset(Vector2{ 20.0f, -80.0f });
-		mAnimator->PlayAnimation(L"SwordManIdle", true);
+		GetOwner()->SetName(L"SwordMan2");
+		MeshRenderer* mr = GetOwner()->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
 
-		mCollider = GetOwner()->GetComponent<Collider2D>();
+
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		tr->SetScale(Vector3{ 320.0f, 320.0f, 2.0f });
+		tr->SetPosition(Vector3(500.0f, 0.0f, 450.000f));
+		Collider2D* mCollider = GetOwner()->AddComponent<Collider2D>();
 		mCollider->SetSize(Vector2{ 25.0f, 25.0f }, GetOwner()->GetComponent<Transform>()->GetScale().y);
 
-		//atkManager->RegisterAttackScript<BasicAttackScript1>(L"Attack1");
-		//atkManager->RegisterAttackScript<BasicAttackScript2>(L"Attack2");
-		//atkManager->RegisterAttackScript<BasicAttackScript3>(L"Attack3");
-		
+		Animator* mAnimator = GetOwner()->AddComponent<Animator>();
+		mAnimator->SetAnimatorOffset(Vector2{ 20.0f, -80.0f });
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Idle", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Walk", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\JumpUp", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\JumpDown", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack1", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack2", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack3", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CompleteEvent(L"SwordManJumpUp") = std::bind(&PlayerScript::JumpUpCompleteEvent, this);
 		mAnimator->StartEvent(L"SwordManAttack1") = std::bind(&PlayerScript::Attack1StartEvent, this);
 		mAnimator->StartEvent(L"SwordManAttack2") = std::bind(&PlayerScript::Attack2StartEvent, this);
@@ -63,17 +80,18 @@ namespace hj
 		mAnimator->CompleteEvent(L"SwordManAttack1") = std::bind(&PlayerScript::Attack1CompleteEvent, this);
 		mAnimator->CompleteEvent(L"SwordManAttack2") = std::bind(&PlayerScript::Attack2CompleteEvent, this);
 		mAnimator->CompleteEvent(L"SwordManAttack3") = std::bind(&PlayerScript::Attack3CompleteEvent, this);
+		mAnimator->PlayAnimation(L"SwordManIdle", true);
 
-		Player* player = dynamic_cast<Player*>(GetOwner());
-		if (player != nullptr)
-		{
-			mOwner = player;
-			AtkManager = player->GetAtkManager();
-			//AtkManager->SetManagerOwner(mOwner);
-			AtkManager->RegisterAttackScript<BasicAttackScript1>(L"Attack1");
-			AtkManager->RegisterAttackScript<BasicAttackScript2>(L"Attack2");
-			AtkManager->RegisterAttackScript<BasicAttackScript3>(L"Attack3");
-		}
+		GetOwner()->AddComponent<Rigidbody>();
+
+		AtkManager = new AttackScriptManager();
+		AtkManager->SetManagerOwner(GetOwner());
+		AtkManager->SetType(eLayerType::PlayerAttack);
+
+		AtkManager->RegisterAttackScript<BasicAttackScript1>(L"Attack1");
+		AtkManager->RegisterAttackScript<BasicAttackScript2>(L"Attack2");
+		AtkManager->RegisterAttackScript<BasicAttackScript3>(L"Attack3");
+		
 	}
 	void PlayerScript::Update()
 	{
@@ -120,9 +138,6 @@ namespace hj
 		float posVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 		AtkManager->SetPosition(Vector2{pos.x,pos.y}, posVZ);
 		AtkManager->Update();
-	}
-	void PlayerScript::Complete()
-	{
 	}
 	bool PlayerScript::IsWalk()
 	{
@@ -494,10 +509,11 @@ namespace hj
 		Vector3 pos = tr->GetPosition();
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
+		Animator* animator = GetOwner()->GetComponent<Animator>();
 		if (velocity.y < 0.0f && jumpDown == true)
 		{
 			jumpDown = false;
-			mAnimator->PlayAnimation(L"SwordManJumpDown", false);
+			animator->PlayAnimation(L"SwordManJumpDown", false);
 		}
 		if (rb->GetGround())
 		{
@@ -551,7 +567,7 @@ namespace hj
 		Vector3 pos = tr->GetPosition();
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
-
+		Animator* animator = GetOwner()->GetComponent<Animator>();
 
 		if (Input::GetKeyDown(eKeyCode::X))
 		{
@@ -617,7 +633,7 @@ namespace hj
 				bAttackVector[i] = false;
 				bCommand = false;
 				commandTime = 0.0f;
-				mAnimator->PlayAnimation(mAttackVector[i], false);
+				animator->PlayAnimation(mAttackVector[i], false);
 				moveTime = 0.0f;
 				bMove = true;
 				break;
@@ -653,28 +669,28 @@ namespace hj
 	}
 	void PlayerScript::Anim()
 	{
-		mAnimator->SetFlip(GetOwner()->GetFlip());
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+
+		animator->SetFlip(GetOwner()->GetFlip());
 		switch (mPlayerState)
 		{
 		case ePlayerState::Idle:
 			if (mPrevPlayerState != mPlayerState)
-				mAnimator->PlayAnimation(L"SwordManIdle", true);
+				animator->PlayAnimation(L"SwordManIdle", true);
 			break;
 		case ePlayerState::Walk:
 			if (mPrevPlayerState != mPlayerState)
-				mAnimator->PlayAnimation(L"SwordManWalk", true);
+				animator->PlayAnimation(L"SwordManWalk", true);
 			break;
 		case ePlayerState::Run:
 			if (mPrevPlayerState != mPlayerState)
-				mAnimator->PlayAnimation(L"SwordManRun", true);
+				animator->PlayAnimation(L"SwordManRun", true);
 			break;
 		case ePlayerState::Attack:
-			//if (mPrevPlayerState != mPlayerState)
-				//mAnimator->PlayAnimation(L"SwordManAttack1", false);
 			break;
 		case ePlayerState::Jump:
 			if (mPrevPlayerState != mPlayerState)
-				mAnimator->PlayAnimation(L"SwordManJumpUp", false);
+				animator->PlayAnimation(L"SwordManJumpUp", false);
 			break;
 		default:
 			break;
@@ -726,11 +742,11 @@ namespace hj
 
 	void PlayerScript::EnterScene()
 	{
-		//atkManager->EnterScene();
+		AtkManager->EnterScene();
 	}
 
 	void PlayerScript::ExitScene()
 	{
-		//atkManager->ExitScene();
+		AtkManager->ExitScene();
 	}
 }

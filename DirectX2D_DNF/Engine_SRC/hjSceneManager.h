@@ -3,7 +3,7 @@
 
 namespace hj
 {
-	class Player;
+	class PlayerScript;
 	class SceneManager
 	{
 	public:
@@ -34,16 +34,17 @@ namespace hj
 		}
 		static Scene* LoadScene(std::wstring name);
 		static Scene* GetActiveScene() { return mActiveScene; }
-		static void SetPlayer(Player* player) { mPlayer = player; }
-		static Player* GetPlayer() { return mPlayer; }
+		static void SetPlayer(PlayerScript* player) { mPlayer = player; }
+		static PlayerScript* GetPlayer() { return mPlayer; }
 
 		static void RegisterPortal(std::wstring portalName, Vector2 portalPos); 
 		static void SetPortalScene(std::wstring portalName, std::wstring sceneName); 
 		static void PortalTeleport(std::wstring portalName);
+		static void PortalTeleport(std::wstring sceneName, Vector2 teleportPos);
 	private:
 		static Scene* mActiveScene;
 		static std::map<std::wstring, Scene*> mScenes;
-		static Player* mPlayer;
+		static PlayerScript* mPlayer;
 		static std::map<std::wstring, std::wstring> mPortalsScene;
 		static std::map<std::wstring, Vector2> mPortals;
 	};

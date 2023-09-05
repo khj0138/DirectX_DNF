@@ -4,7 +4,7 @@
 #include "hjDetectObjectScript.h"
 #include "hjDetectScript.h"
 #include "hjGameObject.h"
-#include "hjPlayer.h"
+
 #include "hjTransform.h"
 #include "hjCollider2D.h"
 //#include "hjBehaviorTree.h"
@@ -22,23 +22,27 @@ namespace hj
 	{
 		SetActivate(true);
 		RegisterAttackObject<DetectObjectScript>(L"DetectObject");
-		LoadAttackObject(L"DetectObject")->GetComponent<Collider2D>()->SetSize(Vector2(1000.0f, 1000.0f), 1000.0f);
+		LoadAttackObject(L"DetectObject")->GetOwner()->GetComponent<Collider2D>()->SetSize(Vector2(1000.0f, 1000.0f), 1000.0f);
 		LoadAttackObject(L"DetectObject")->SetActivate(true);
 	}
 	void DetectScript::Update()
 	{
 		AttackScript::Update();
-		LoadAttackObject(L"DetectObject")->SetPos(Vector3{ GetPos().x, GetPos().y,1.0f });
-		LoadAttackObject(L"DetectObject")->SetPosVZ(GetPosVZ());
+		LoadAttackObject(L"DetectObject")->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3{ GetPos().x, GetPos().y,1.0f });
+		LoadAttackObject(L"DetectObject")->GetOwner()->GetComponent<Transform>()->SetVirtualZ(GetPosVZ());
 	}
 
 	void DetectScript::Reset()
 	{
 	}
 
-	Player* DetectScript::GetTarget()
+	GameObject* DetectScript::GetTarget()
 	{
-		return mTarget;
+		DetectObjectScript* DetectObject = dynamic_cast<DetectObjectScript*>(LoadAttackObject(L"DetectObject"));
+		if (DetectObject != nullptr)
+		{
+			return DetectObject->GetTarget();
+		}
 	}
 
 }

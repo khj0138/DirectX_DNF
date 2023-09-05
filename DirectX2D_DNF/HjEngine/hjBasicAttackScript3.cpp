@@ -2,7 +2,6 @@
 #include "hjTime.h"
 
 #include "hjBasicAttackObject3Script.h"
-#include "hjAttackObject.h"
 #include "hjTransform.h"
 
 #include "hjGameObject.h"
@@ -20,7 +19,7 @@ namespace hj
 	void BasicAttackScript3::Initialize()
 	{
 		RegisterAttackObject<BasicAttackObject3Script>(L"BasicAttack3");
-		LoadAttackObject(L"BasicAttack3")->GetComponent<Transform>()->SetPosition(Vector3(150.0f, 0.0f, 1.0f));
+		LoadAttackObject(L"BasicAttack3")->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(50.0f, 0.0f, 1.0f));
 
 	}
 	void BasicAttackScript3::Update()
@@ -29,12 +28,11 @@ namespace hj
 		{
 			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
 			{
-				AttackObject* BasicAttack3 = LoadAttackObject(L"BasicAttack3");
-				BasicAttack3->SetState(GameObject::eState::Paused);
-				BasicAttack3->GetComponent<Collider2D>()->SetCollision(false);
-				SetActivate(false);
+				AttackObjectScript* BasicAttack3 = LoadAttackObject(L"BasicAttack3");
+				BasicAttack3->GetOwner()->SetState(GameObject::eState::Paused);
+				BasicAttack3->GetOwner()->GetComponent<Collider2D>()->SetCollision(false);
 				BasicAttack3->SetAttack(false);
-
+				SetActivate(false);
 			}
 		}
 		AttackScript::Update();
@@ -43,15 +41,14 @@ namespace hj
 	{
 		Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
 		float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
-		AttackObject* BasicAttack3 = LoadAttackObject(L"BasicAttack3");
-		BasicAttack3->SetPos(ownerPos);
-		BasicAttack3->SetFlip(GetOwner()->GetFlip());
-		BasicAttack3->SetPosVZ(ownerPosVZ);
-		BasicAttack3->SetState(GameObject::eState::Active);
-		BasicAttack3->GetComponent<Collider2D>()->SetCollision(true);
+		AttackObjectScript* BasicAttack3 = LoadAttackObject(L"BasicAttack3");
+		BasicAttack3->GetOwner()->GetComponent<Transform>()->SetPosition(ownerPos);
+		BasicAttack3->GetOwner()->SetFlip(GetOwner()->GetFlip());
+		BasicAttack3->GetOwner()->GetComponent<Transform>()->SetVirtualZ(ownerPosVZ);
+		BasicAttack3->GetOwner()->SetState(GameObject::eState::Active);
+		BasicAttack3->GetOwner()->GetComponent<Collider2D>()->SetCollision(true);
 		BasicAttack3->SetAttack(true);
 		BasicAttack3->clearTargets();
-
 	}
 
 }

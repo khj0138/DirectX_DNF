@@ -17,13 +17,13 @@
 #include "hjAnimator.h"
 #include "hjRigidbody.h"
 
-#include "hjPlayer.h"
+
 
 #include "hjCommonPortalScript.h"
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
 
-#include "hjPlayer.h"
+
 
 namespace hj
 {
@@ -57,7 +57,7 @@ namespace hj
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
 			portal->SetPortal(L"Entrance1Portaltemp", Vector2(200.0f, 0.0f));
-			portal->SetDestination(L"GunHwaMunPortaltemp"); 
+			portal->SetDestination(L"Town_GunHwaMun", Vector2(1080.0f, 300.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
 		gate = new GameObject();
@@ -76,11 +76,10 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"Entrance1Portal", Vector2(-200.0f, 0.0f));
-			portal->SetDestination(L"Entrance2Portal1");
+			portal->SetDestination(L"Dungeon_Entrance_2", Vector2(250.0f, 250.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 
 		// MainCamera
 		Camera* cameraComp = nullptr;
@@ -94,7 +93,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::Player, true);
 			cameraComp->TurnLayerMask(eLayerType::BackGround, true);
 			camera->AddComponent<CameraScript>();
-			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
@@ -178,22 +177,19 @@ namespace hj
 	}
 	void Dungeon_Entrance_1::OnEnter()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-
 			player->EnterScene();
-			AddGameObject(eLayerType::Player, (GameObject*)player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+			AddGameObject(eLayerType::Player, player->GetOwner());
 		}
 	}
 	void Dungeon_Entrance_1::OnExit()
 	{    
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			EraseGameObject(eLayerType::Player, player->GetOwner());
 			player->ExitScene();
 		}
 	}

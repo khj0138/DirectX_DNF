@@ -1,10 +1,10 @@
 #include "hjGroundObjectScript.h"
-#include "hjAttackObject.h"
+
 #include "hjTime.h"
 
 #include "hjTransform.h"
 #include "hjCollider2D.h"
-#include "hjPlayer.h"
+
 namespace hj
 {
 

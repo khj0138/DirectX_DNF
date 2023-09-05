@@ -21,7 +21,7 @@
 #include "hjCommonPortalScript.h"
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
-#include "hjPlayer.h"
+
 namespace hj
 {
 	Dungeon_Spirazzi::Dungeon_Spirazzi()
@@ -54,11 +54,10 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"SpirazziPortal", Vector2(00.0f, 200.0f));
-			portal->SetDestination(L"SpirazziEntrancePortal2");
+			portal->SetDestination(L"Dungeon_Spirazzi_Entrance", Vector2(700.0f, 350.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 
 		// MainCamera
 		Camera* cameraComp = nullptr;
@@ -72,7 +71,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::Player, true);
 			cameraComp->TurnLayerMask(eLayerType::BackGround, true);
 			camera->AddComponent<CameraScript>();
-			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
@@ -157,22 +156,19 @@ namespace hj
 	}
 	void Dungeon_Spirazzi::OnEnter()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-
 			player->EnterScene();
-			AddGameObject(eLayerType::Player, (GameObject*)player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+			AddGameObject(eLayerType::Player, player->GetOwner());
 		}
 	}
 	void Dungeon_Spirazzi::OnExit()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			EraseGameObject(eLayerType::Player, player->GetOwner());
 			player->ExitScene();
 		}
 	}

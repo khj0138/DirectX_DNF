@@ -77,7 +77,7 @@ namespace hj
 	}
 	void GateInSeriaRoomScript::BackGroundgate_new_effCompleteEvent()
 	{
-		GetOwner()->GetComponent<Collider2D>()->SetCollision(false);
+		//GetOwner()->GetComponent<Collider2D>()->SetCollision(false);
 		//mAnimator->PlayAnimation(L"BackGroundgate_new_glow_eff_1", false, true);
 	}
 }

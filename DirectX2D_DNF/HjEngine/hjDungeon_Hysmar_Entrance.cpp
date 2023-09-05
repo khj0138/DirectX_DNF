@@ -21,7 +21,7 @@
 #include "hjCommonPortalScript.h"
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
-#include "hjPlayer.h"
+
 
 namespace hj
 {
@@ -56,8 +56,7 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"HysmarEntrancePortal1", Vector2(000.0f, -100.0f)); 
-			portal->SetDestination(L"Entrance2Portal4");
+			portal->SetDestination(L"Dungeon_Entrance_2", Vector2(500.0f, 100.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
 		gate = new GameObject();
@@ -79,11 +78,10 @@ namespace hj
 			Collider2D* cd = gate->AddComponent<Collider2D>();
 			gate->AddComponent<CommonPortalScript>();
 			PortalScript* portal = gate->AddComponent<PortalScript>();
-			portal->SetPortal(L"HysmarEntrancePortal2", Vector2(00.0f, 100.0f));
-			portal->SetDestination(L"HysmarPortal");
+			portal->SetDestination(L"Dungeon_Hysmar", Vector2(830.0f, 300.0f));
 			gate->SetState(GameObject::eState::Paused);
 		}
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 
 		// MainCamera
 		Camera* cameraComp = nullptr;
@@ -97,7 +95,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::Player, true);
 			cameraComp->TurnLayerMask(eLayerType::BackGround, true);
 			camera->AddComponent<CameraScript>();
-			camera->GetComponent<Camera>()->RegisterTarget(player);
+			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
@@ -181,22 +179,19 @@ namespace hj
 	}
 	void Dungeon_Hysmar_Entrance::OnEnter()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-
 			player->EnterScene();
-			AddGameObject(eLayerType::Player, (GameObject*)player);
-			player->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 1.000f));
-			player->GetComponent<Transform>()->SetVirtualZ(200.0f);
+			AddGameObject(eLayerType::Player, player->GetOwner());
 		}
 	}
 	void Dungeon_Hysmar_Entrance::OnExit()
 	{
-		Player* player = SceneManager::GetPlayer();
+		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
-			EraseGameObject(eLayerType::Player, (GameObject*)player);
+			EraseGameObject(eLayerType::Player, player->GetOwner());
 			player->ExitScene();
 		}
 	}

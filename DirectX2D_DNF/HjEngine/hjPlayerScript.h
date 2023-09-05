@@ -4,7 +4,7 @@
 
 namespace hj
 {
-	class BehaviorTree;
+	//class BehaviorTree;
 	class Animator;
 	class Collider2D;
 	class AttackScriptManager;
@@ -29,16 +29,30 @@ namespace hj
 			Attack3,
 			End,
 		};
+
+		struct status
+		{
+			UINT maxHP;
+			UINT HP;
+		};
+
 		PlayerScript();
 		~PlayerScript();
 
+		void SetStatus(UINT maxHP, UINT HP) { mStatus.maxHP = maxHP; mStatus.HP = HP; }
+		status GetStatus() { return mStatus; }
 
 		virtual void Initialize() override;
 		virtual void Update() override;
 
-		void Complete();
+		void Hit(UINT damage, bool direction)
+		{
+			GetOwner()->SetFlip(!direction);
+			mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
+		}
+
 		float getMoveTime() { return moveTime; }
-		BehaviorTree* GetBT() { return mBehaviors; }
+		//BehaviorTree* GetBT() { return mBehaviors; }
 
 		//behavior
 		bool IsWalk();
@@ -80,16 +94,20 @@ namespace hj
 		std::vector<bool> bAttackVector;
 		std::vector<std::wstring> mAttackVector;
 
-		Animator* mAnimator;
-		Collider2D* mCollider;
+		//Animator* mAnimator;
+		//Collider2D* mCollider;
 		//bool isFlip;
-		BehaviorTree* mBehaviors;
+		//BehaviorTree* mBehaviors;
 
 		bool bRun;
 		bool jumpDown;
 
-		Player* mOwner;
+		//Player* mOwner;
 		AttackScriptManager* AtkManager;
+
+		bool mActivate;
+		bool bAttack;
+		status mStatus;
 	};
 
 
