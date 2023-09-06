@@ -7,7 +7,7 @@
 #include "hjGameObject.h"
 #include "hjAnimator.h"
 #include "hjAnimation.h"
-
+//#include "hjPlayerScript.h"
 namespace hj
 {
 
@@ -27,7 +27,8 @@ namespace hj
 	{
 		if (GetActivate())
 		{
-			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->IsComplete())
+			Animation* activeAnim = GetOwner()->GetComponent<Animator>()->GetActiveAnimation();
+			if (activeAnim->IsComplete() || activeAnim->GetKey() != L"SwordManAttack1")
 			{
 				AttackObjectScript* BasicAttack1 = LoadAttackObject(L"BasicAttack1");
 				BasicAttack1->GetOwner()->SetState(GameObject::eState::Paused);
@@ -45,13 +46,12 @@ namespace hj
 		float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 		AttackObjectScript* BasicAttack1 = LoadAttackObject(L"BasicAttack1");
 		BasicAttack1->GetOwner()->GetComponent<Transform>()->SetPosition(ownerPos);
-		BasicAttack1->GetOwner()->SetFlip(GetOwner()->GetFlip());
 		BasicAttack1->GetOwner()->GetComponent<Transform>()->SetVirtualZ(ownerPosVZ);
+		BasicAttack1->GetOwner()->SetFlip(GetOwner()->GetFlip());
 		BasicAttack1->GetOwner()->SetState(GameObject::eState::Active);
 		BasicAttack1->GetOwner()->GetComponent<Collider2D>()->SetCollision(true);
 		BasicAttack1->SetAttack(true);
 		BasicAttack1->clearTargets();
-
 	}
 
 }

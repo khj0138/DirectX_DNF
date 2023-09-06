@@ -4,11 +4,11 @@
 namespace hj
 {
 	//class Animator;
-	class DragonSoldierAttack1Script : public AttackScript
+	class DragonSoldierAttackBasic1Script : public AttackScript
 	{
 	public:
-		DragonSoldierAttack1Script();
-		~DragonSoldierAttack1Script();
+		DragonSoldierAttackBasic1Script();
+		~DragonSoldierAttackBasic1Script();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

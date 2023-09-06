@@ -14,8 +14,8 @@
 #include "hjMeshRenderer.h"
 
 
-#include "hjDragonSoldierAttack1Script.h";
-#include "hjDragonSoldierAttack2Script.h";
+#include "hjDragonSoldierAttackBasic1Script.h";
+#include "hjDragonSoldierAttackBasic2Script.h";
 
 #include "hjAttackScriptManager.h"
 
@@ -53,10 +53,10 @@ namespace hj
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Walk", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Die", 0.5f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Hit", 0.2f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Attack1", 0.1f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Attack2", 0.1f, Vector2(0.0f, 00.0f));
-		mAnimator->CompleteEvent(L"dragon_soldierAttack1") = std::bind(&DragonSoldierScript::Attack1CompleteEvent, this);
-		mAnimator->CompleteEvent(L"dragon_soldierAttack2") = std::bind(&DragonSoldierScript::Attack2CompleteEvent, this);
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\AttackBasic1", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\AttackBasic2", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CompleteEvent(L"dragon_soldierAttackBasic1") = std::bind(&DragonSoldierScript::Attack1CompleteEvent, this);
+		mAnimator->CompleteEvent(L"dragon_soldierAttackBasic2") = std::bind(&DragonSoldierScript::Attack2CompleteEvent, this);
 		mAnimator->CompleteEvent(L"dragon_soldierHit") = std::bind(&DragonSoldierScript::HitCompleteEvent, this);
 		mAnimator->CompleteEvent(L"dragon_soldierDie") = std::bind(&DragonSoldierScript::DieCompleteEvent, this);
 		mAnimator->PlayAnimation(L"dragon_soldierIdle", true);
@@ -65,8 +65,8 @@ namespace hj
 		mCollider->SetSize(Vector2{50.0f, 50.0f }, 150.0f);
 
 		AttackScriptManager* AtkManager = GetAtkManager();
-		AtkManager->RegisterAttackScript<DragonSoldierAttack1Script>(L"dragon_soldierAttack1");
-		AtkManager->RegisterAttackScript<DragonSoldierAttack2Script>(L"dragon_soldierAttack2");
+		AtkManager->RegisterAttackScript<DragonSoldierAttackBasic1Script>(L"dragon_soldierAttackBasic1");
+		AtkManager->RegisterAttackScript<DragonSoldierAttackBasic2Script>(L"dragon_soldierAttackBasic2");
 	}
 	void DragonSoldierScript::Update()
 	{
@@ -242,7 +242,7 @@ namespace hj
 	void DragonSoldierScript::Attack()
 	{
 		Animation* animation = GetOwner()->GetComponent<Animator>()->GetActiveAnimation();
-		if (attackName == L"dragon_soldierAttack1")
+		if (attackName == L"dragon_soldierAttackBasic1")
 		{
 			if (curTime > 1.0f && animation->GetPause())
 			{
@@ -256,7 +256,7 @@ namespace hj
 				curTime = 0.0f;
 			}
 		}
-		else if (attackName == L"dragon_soldierAttack2")
+		else if (attackName == L"dragon_soldierAttackBasic2")
 		{
 			if (curTime > 1.0f && animation->GetPause())
 			{

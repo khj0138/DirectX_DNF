@@ -42,7 +42,6 @@ namespace hj
 		void SetAttack(bool attack) { bAttack = attack; }
 		void SetAnimate(bool animate) { bAnimate = animate; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
-		void SetAnimOffset(Vector2 offset) { animOffset = offset; }
 		void SetCoolTime(float coolTime) { mCoolTime = coolTime; }
 		//void SetPos(Vector3 pos) { GetOwner()->GetComponent<Transform>()->SetPosition(pos); }
 		//void SetPosVZ(float posVZ) { GetOwner()->GetComponent<Transform>()->SetVirtualZ(posVZ); }
@@ -53,7 +52,6 @@ namespace hj
 		bool GetActivate() { return bActivate; }
 		bool GetAttack() { return bAttack; }
 		Vector2 GetVelocity() { return mVelocity; }
-		Vector2 GetAnimOffset() { return animOffset; }
 		bool GetAnimate() { return bAnimate; }
 		float GetCoolTime() { return mCoolTime; }
 		//Vector3 GetPos() { return GetOwner()->GetComponent<Transform>()->GetPosition(); }

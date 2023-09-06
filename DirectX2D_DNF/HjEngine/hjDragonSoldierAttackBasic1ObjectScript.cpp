@@ -1,22 +1,23 @@
-#include "hjDragonSoldierAttackObject1Script.h"
+#include "hjDragonSoldierAttackBasic1ObjectScript.h"
 
 #include "hjTime.h"
 
 #include "hjTransform.h"
 #include "hjCollider2D.h"
 #include "hjPlayerScript.h"
+#include "hjGameObject.h"
 namespace hj
 {
 
-	DragonSoldierAttackObject1Script::DragonSoldierAttackObject1Script()
+	DragonSoldierAttackBasic1ObjectScript::DragonSoldierAttackBasic1ObjectScript()
 		: AttackObjectScript(AttackObjectType::Monster)
 	{
 
 	}
-	DragonSoldierAttackObject1Script::~DragonSoldierAttackObject1Script()
+	DragonSoldierAttackBasic1ObjectScript::~DragonSoldierAttackBasic1ObjectScript()
 	{
 	}
-	void DragonSoldierAttackObject1Script::Initialize()
+	void DragonSoldierAttackBasic1ObjectScript::Initialize()
 	{
 		AttackObjectScript::Initialize();
 		GetOwner()->SetState(GameObject::eState::Paused);
@@ -34,14 +35,14 @@ namespace hj
 		col->SetCollisionHeight(30.0f);
 
 	}
-	void DragonSoldierAttackObject1Script::Update()
+	void DragonSoldierAttackBasic1ObjectScript::Update()
 	{
 		AttackObjectScript::Update();
 	}
 
 
 
-	void DragonSoldierAttackObject1Script::OnCollisionEnter(Collider2D* other)
+	void DragonSoldierAttackBasic1ObjectScript::OnCollisionEnter(Collider2D* other)
 	{
 		PlayerScript* target = other->GetOwner()->FindScript<PlayerScript>();
 		if (target != nullptr)
@@ -67,7 +68,7 @@ namespace hj
 		}
 	}
 
-	void DragonSoldierAttackObject1Script::OnCollisionStay(Collider2D* other)
+	void DragonSoldierAttackBasic1ObjectScript::OnCollisionStay(Collider2D* other)
 	{
 		PlayerScript* target = other->GetOwner()->FindScript<PlayerScript>();
 		if (target != nullptr)
@@ -93,7 +94,7 @@ namespace hj
 		}
 	}
 
-	void DragonSoldierAttackObject1Script::OnCollisionExit(Collider2D* other)
+	void DragonSoldierAttackBasic1ObjectScript::OnCollisionExit(Collider2D* other)
 	{
 	}
 

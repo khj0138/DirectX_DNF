@@ -32,7 +32,7 @@ namespace hj
 		void SetCenter(Vector2 size) { mCenter = size; }
 		Vector2 GetCenter() { return mCenter; }
 		UINT GetColliderID() { return mColliderID; }
-		Vector3 GetSize() { return mSize * fixedRes; }
+		Vector3 GetSize() { return mSize; }// *fixedRes; }
 		Vector3 GetPosition() { return mPosition; }
 		Vector3 GetPrevPosition() { return mPrevPosition; }
 
@@ -51,6 +51,7 @@ namespace hj
 		Vector2 GetCollisionRange() { return mCollisionRange; }
 
 		void CollisionMesh(bool collision) { mMesh->CollisionMesh(collision); }
+		graphics::DebugMesh* GetMesh(){ return mMesh; }
 
 	private:
 		static UINT mColliderNumber;

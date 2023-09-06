@@ -17,7 +17,6 @@ namespace hj
 	{
 		GameObject* player = new GameObject();
 		mPlayer = player->AddComponent<PlayerScript>();
-		mPlayer->Initialize();
 
 	}
 	void SceneManager::Update()

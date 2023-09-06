@@ -40,7 +40,7 @@ namespace hj
 			for (auto effectObject = attackScript->second->GetEffectObjectsBegin();
 				effectObject != attackScript->second->GetEffectObjectsEnd();
 				effectObject++)
-				scene->AddGameObject(eLayerType::Effect, (GameObject*)(effectObject->second));
+				scene->AddGameObject(eLayerType::Effect, (GameObject*)(effectObject->second->GetOwner()));
 		}
 	}
 	void AttackScriptManager::ExitScene()
@@ -59,7 +59,7 @@ namespace hj
 			for (auto effectObject = attackScript->second->GetEffectObjectsBegin();
 				effectObject != attackScript->second->GetEffectObjectsEnd();
 				effectObject++)
-				scene->EraseGameObject(eLayerType::Effect, (GameObject*)effectObject->second);
+				scene->EraseGameObject(eLayerType::Effect, (GameObject*)effectObject->second->GetOwner());
 		}
 	}
 }

@@ -12,8 +12,8 @@ namespace hj
 	public:
 		enum class eAttackType
 		{
-			Attack1,
-			Attack2,
+			AttackBasic1,
+			AttackBasic2,
 			End,
 		};
 		DragonSoldierScript();

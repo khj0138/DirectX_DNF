@@ -22,9 +22,9 @@ VSOut main(VSIn In)
     
     float4x4 worldm = (float4x4) WorldMatrix;
     
-    worldm._12 = worldm._12 * 0.7143f; 
-    worldm._22 = worldm._22 * 0.7143f; 
-    worldm._32 = worldm._32 * 0.7143f; 
+    worldm._12 = worldm._12 * 0.7143f;
+    worldm._22 = worldm._22 * 0.7143f;
+    worldm._32 = worldm._32 * 0.7143f;
     worldm._42 = worldm._42 * 0.7143f;
     //worldm._42 = worldm._42 - abs(worldm._42 / (float) (cosh(0.78f)) * (1.0f - (float) cosh(0.78f)));// * 5.0f;
     float4 world = mul(float4(In.Pos, 1.0f), worldm);

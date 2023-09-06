@@ -52,7 +52,7 @@ namespace hj
 
 		fixedRes = (float)application.GetFixedWidth() / 800.f;
 
-		Vector3 size = mSize * fixedRes;
+		Vector3 size = mSize;// *fixedRes;
 		Vector3 scale = Vector3(size.x, size.y, 1.0f);
 		
 		//scale.x *= size.x;
@@ -62,7 +62,7 @@ namespace hj
 		Vector3 trPos = tr->GetPosition();
 
 		Vector2 center = mCenter;
-		center *= fixedRes;
+		//center *= fixedRes;
 		if (GetOwner()->GetFlip())
 		{
 			center.x = center.x * -1.0f;
@@ -90,6 +90,7 @@ namespace hj
 			mMesh->rotation = tr->GetRotation();
 			mMesh->rotation.z += mRotation;
 			mMesh->type = mType;
+			mMesh->setCurPercent(0.7f);
 
 			/*Vector2 vect2VZ = Vector2(0, pos.y);
 			math::Vector2::rotation(vect2VZ, math::degreeToRadian(mMesh->rotation.z));
@@ -104,7 +105,6 @@ namespace hj
 		renderer::PushDebugMeshAttribute(mMesh);
 		mTransform = tr;
 		SetCollisionRange(Vector2(mCollisionHeight + trPos.y, mCollisionHeight + trPos.y + size.z));
-		int a = 0;
 	}
 	void Collider2D::Render()
 	{

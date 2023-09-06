@@ -58,7 +58,13 @@ cbuffer Time : register(b6)
 cbuffer Collision : register(b7)
 {
     uint bCollision;
-    float3 CollisionPadding;
+}
+cbuffer AtkEffect : register(b8)
+{
+    uint type;
+    float1 startPercent;
+    float1 endPercent;
+    float1 curPercent;
 }
 
 Texture2D albedoTexture : register(t0);

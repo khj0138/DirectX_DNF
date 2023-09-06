@@ -1,7 +1,7 @@
 #pragma once
 #include <hjScript.h>
 #include "hjAttackObjectScript.h"
-#include "hjEffectObject.h"
+#include "hjEffectObjectScript.h"
 
 namespace hj
 {
@@ -83,24 +83,20 @@ namespace hj
 			T* effectObjectScript = new T();
 			effectObject->AddScript((Script*)effectObjectScript);
 
-			std::map<std::wstring, GameObject*>::iterator iter
+			std::map<std::wstring, EffectObjectScript*>::iterator iter
 				= mEffectObjects.find(name);
 
 			if (iter != mEffectObjects.end())
 				return false;
 
 			effectObject->SetName(name);
-			mEffectObjects.insert(std::make_pair(name, effectObject));
-			effectObjectScript->Initialize();
-			effectObjectScript->SetOwnerScript(this);
-
+			mEffectObjects.insert(std::make_pair(name, (EffectObjectScript*)effectObjectScript));
 			return true;
-
 		}
 
-		GameObject* LoadEffectObject(std::wstring name)
+		EffectObjectScript* LoadEffectObject(std::wstring name)
 		{
-			std::map<std::wstring, GameObject*>::iterator iter = mEffectObjects.find(name);
+			std::map<std::wstring, EffectObjectScript*>::iterator iter = mEffectObjects.find(name);
 			if (iter == mEffectObjects.end())
 				return nullptr;
 			return iter->second;
@@ -117,10 +113,10 @@ namespace hj
 
 		std::map<std::wstring, AttackObjectScript*>::iterator GetAttackObjectsBegin() { return mAttackObjects.begin(); }
 		std::map<std::wstring, AttackObjectScript*>::iterator GetAttackObjectsEnd() { return mAttackObjects.end(); }
-		std::map<std::wstring, GameObject*>::iterator GetEffectObjectsBegin() { return mEffectObjects.begin(); }
-		std::map<std::wstring, GameObject*>::iterator GetEffectObjectsEnd() { return mEffectObjects.end(); }
+		std::map<std::wstring, EffectObjectScript*>::iterator GetEffectObjectsBegin() { return mEffectObjects.begin(); }
+		std::map<std::wstring, EffectObjectScript*>::iterator GetEffectObjectsEnd() { return mEffectObjects.end(); }
 		std::map<std::wstring, AttackObjectScript*> mAttackObjects;
-		std::map<std::wstring, GameObject*> mEffectObjects;
+		std::map<std::wstring, EffectObjectScript*> mEffectObjects;
 		void Release()
 		{
 			/*for (auto iter = mAttackObjects.begin(); iter != mAttackObjects.end(); iter++)

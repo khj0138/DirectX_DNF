@@ -61,7 +61,7 @@ namespace hj
 		tr->SetScale(Vector3{ 320.0f, 320.0f, 2.0f });
 		tr->SetPosition(Vector3(500.0f, 0.0f, 450.000f));
 		Collider2D* mCollider = GetOwner()->AddComponent<Collider2D>();
-		mCollider->SetSize(Vector2{ 25.0f, 25.0f }, GetOwner()->GetComponent<Transform>()->GetScale().y);
+		mCollider->SetSize(Vector2{ 50.0f, 50.0f }, GetOwner()->GetComponent<Transform>()->GetScale().y);
 
 		Animator* mAnimator = GetOwner()->AddComponent<Animator>();
 		mAnimator->SetAnimatorOffset(Vector2{ 20.0f, -80.0f });

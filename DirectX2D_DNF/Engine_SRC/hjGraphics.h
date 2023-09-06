@@ -21,6 +21,8 @@
 #define CBSLOT_ETC		5
 #define CBSLOT_TIME 6
 #define CBSLOT_COLLISION 7
+#define CBSLOT_ATKEFFECT 8
+
 
 
 namespace hj::graphics
@@ -46,6 +48,7 @@ namespace hj::graphics
 		Etc,
 		Time,
 		Collision,
+		AtkEffect,
 		Material,
 		End,
 	};
@@ -125,8 +128,14 @@ namespace hj::graphics
 		float duration;
 		float time;
 
+		float startPercent;
+		float endPercent;
+		float curPercent;
 		bool bCollision;
 	public:
+		void setRectPercent(float start, float end) { startPercent = start; endPercent = end; }
+		void setCurPercent(float cur) { curPercent = cur; }
+
 		void CollisionMesh(bool collision) { bCollision = collision; }
 		bool isCollision() { return bCollision; }
 	};

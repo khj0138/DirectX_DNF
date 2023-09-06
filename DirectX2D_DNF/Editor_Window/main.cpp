@@ -46,9 +46,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); 
-    
-    
-
+    //_CrtDbgBreak(354);
+    //_CrtDumpMemoryLeaks()
+    //_crtBreakAlloc(354);
+    //_CrtSetBreakAlloc(14041);
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_EDITORWINDOW, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);

@@ -66,6 +66,21 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)ParticleGS.hlsl">
       <Filter>GS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)DebugGS.hlsl">
+      <Filter>GS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)DebugGsPS.hlsl">
+      <Filter>PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AtkCirclePS.hlsl">
+      <Filter>PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AtkCircleVS.hlsl">
+      <Filter>VS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AtkCircleGS.hlsl">
+      <Filter>GS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />

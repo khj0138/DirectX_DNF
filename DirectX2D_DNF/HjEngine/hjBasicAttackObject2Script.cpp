@@ -4,6 +4,8 @@
 #include "hjTransform.h"
 #include "hjCollider2D.h"
 #include "hjMonsterScript.h"
+#include "hjGameObject.h"
+
 namespace hj
 {
 

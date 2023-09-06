@@ -79,6 +79,13 @@ namespace renderer
 		UINT bCollision;
 		Vector3 Empty;
 	};
+	CBUFFER(AtkEffectCB, CBSLOT_ATKEFFECT)
+	{
+		UINT type;
+		float startPercent;
+		float endPercent;
+		float curPercent;
+	};
 	
 	
 	extern hj::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];

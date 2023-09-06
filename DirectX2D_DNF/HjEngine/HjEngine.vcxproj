@@ -151,8 +151,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BackGroundLoader.h" />
+    <ClInclude Include="hjAttackEffectScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackRushScript.h" />
     <ClInclude Include="hjCommonPortalScript.h" />
-    <ClInclude Include="hjDragonSoldierAttackObject1Script.h" />
+    <ClInclude Include="hjDragonSoldierAttackBasic1ObjectScript.h" />
     <ClInclude Include="hjAttackObjectScript.h" />
     <ClInclude Include="hjBasicAttackObject1Script.h" />
     <ClInclude Include="hjBasicAttackObject2Script.h" />
@@ -164,10 +166,15 @@
     <ClInclude Include="hjBasicAttackScript3.h" />
     <ClInclude Include="hjDetectObjectScript.h" />
     <ClInclude Include="hjDetectScript.h" />
-    <ClInclude Include="hjDragonSoldierAttack1Script.h" />
-    <ClInclude Include="hjDragonSoldierAttack2Script.h" />
-    <ClInclude Include="hjDragonSoldierAttackObject2Script.h" />
+    <ClInclude Include="hjDragonSoldierAttackBasic1Script.h" />
+    <ClInclude Include="hjDragonSoldierAttackBasic2Script.h" />
+    <ClInclude Include="hjDragonSoldierAttackBasic2ObjectScript.h" />
     <ClInclude Include="hjDragonSoldierScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackBasicScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackJumpScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackRoarScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackSpearScript.h" />
+    <ClInclude Include="hjDrakeSoldierScript.h" />
     <ClInclude Include="hjDungeon_Entrance_1.h" />
     <ClInclude Include="hjDungeon_Entrance_2.h" />
     <ClInclude Include="hjDungeon_Hysmar_Entrance.h" />
@@ -176,6 +183,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjEffectObject.h" />
+    <ClInclude Include="hjEffectObjectScript.h" />
     <ClInclude Include="hjGateOutSeriaRoomScript.h" />
     <ClInclude Include="hjGroundObjectScript.h" />
     <ClInclude Include="hjLoadingScene.h" />
@@ -197,8 +205,10 @@
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjAttackEffectScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackRushScript.cpp" />
     <ClCompile Include="hjCommonPortalScript.cpp" />
-    <ClCompile Include="hjDragonSoldierAttackObject1Script.cpp" />
+    <ClCompile Include="hjDragonSoldierAttackBasic1ObjectScript.cpp" />
     <ClCompile Include="hjAttackObjectScript.cpp" />
     <ClCompile Include="hjBasicAttackObject1Script.cpp" />
     <ClCompile Include="hjBasicAttackObject2Script.cpp" />
@@ -210,10 +220,15 @@
     <ClCompile Include="hjBasicAttackScript3.cpp" />
     <ClCompile Include="hjDetectObjectScript.cpp" />
     <ClCompile Include="hjDetectScript.cpp" />
-    <ClCompile Include="hjDragonSoldierAttack1Script.cpp" />
-    <ClCompile Include="hjDragonSoldierAttack2Script.cpp" />
-    <ClCompile Include="hjDragonSoldierAttackObject2Script.cpp" />
+    <ClCompile Include="hjDragonSoldierAttackBasic1Script.cpp" />
+    <ClCompile Include="hjDragonSoldierAttackBasic2Script.cpp" />
+    <ClCompile Include="hjDragonSoldierAttackBasic2ObjectScript.cpp" />
     <ClCompile Include="hjDragonSoldierScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackBasicScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackJumpScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackRoarScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackSpearScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierScript.cpp" />
     <ClCompile Include="hjDungeon_Entrance_1.cpp" />
     <ClCompile Include="hjDungeon_Entrance_2.cpp" />
     <ClCompile Include="hjDungeon_Hysmar_Entrance.cpp" />
@@ -221,6 +236,7 @@
     <ClCompile Include="hjDungeon_Spirazzi_Entrance.cpp" />
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjEffectObject.cpp" />
+    <ClCompile Include="hjEffectObjectScript.cpp" />
     <ClCompile Include="hjGateOutSeriaRoomScript.cpp" />
     <ClCompile Include="hjGroundObjectScript.cpp" />
     <ClCompile Include="hjLoadingScene.cpp" />

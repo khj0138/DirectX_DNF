@@ -21,5 +21,11 @@ float4 main(VSOut In) : SV_TARGET
     
     if (bCollision != 0)
         color = float4(1.0f, 0.0f, 0.0f, 1.0f);
+    
+    float2 UV = In.UV;
+    if (UV.x >= 1.01f)
+    {
+        discard;
+    }
     return color;
 }

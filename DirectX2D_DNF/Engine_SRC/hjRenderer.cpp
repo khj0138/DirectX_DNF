@@ -278,8 +278,8 @@ namespace renderer
 		vertexes.push_back(center);
 
 		int iSlice = 40;
-		float fRadiusX = 0.5f;
-		float fRadiusY = 0.5f;
+		float fRadiusX = 1.0f;
+		float fRadiusY = 1.0f;
 		//float fRadiusY = 0.5f * cosf(math::degreeToRadian(45.0f));
 		float fTheta = XM_2PI / (float)iSlice;
 
@@ -300,6 +300,41 @@ namespace renderer
 
 		std::shared_ptr<Mesh> circleDebug = std::make_shared<Mesh>();
 		Resources::Insert(L"DebugCircle", circleDebug);
+		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+		// Circle Attack Mesh
+		vertexes.clear();
+		indexes.clear();
+
+		center = {};
+		center.pos = Vector3(0.0f, 0.0f, 0.0f);
+		center.color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+		center.uv = Vector2(0.0f, 0.0f);
+		vertexes.push_back(center);
+
+		iSlice = 1440;
+		fRadiusX = 1.0f;
+		fRadiusY = 1.0f;
+		fTheta = XM_2PI / (float)1440;
+
+		for (int i = 1; i <= iSlice; ++i)
+		{
+			center.pos = Vector3(fRadiusX * cosf(fTheta * (float)i)
+				, fRadiusY * sinf(fTheta * (float)i)
+				, 0.0f);
+			center.color = Vector4(0.0f, 1.0f, 0.0f, 1.f);
+			center.uv = Vector2(1.0f, 0.0f);
+			vertexes.push_back(center);
+		}
+
+		for (int i = 1; i <= vertexes.size() - 1; ++i)
+		{
+			indexes.push_back(0);
+			indexes.push_back(i);
+		}
+
+		circleDebug = std::make_shared<Mesh>();
+		Resources::Insert(L"AttackCircle", circleDebug);
 		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 	}
@@ -341,6 +376,10 @@ namespace renderer
 		// Collision Buffer
 		constantBuffer[(UINT)eCBType::Collision] = new ConstantBuffer(eCBType::Collision);
 		constantBuffer[(UINT)eCBType::Collision]->Create(sizeof(CollisionCB));
+
+		// AtkEffect Buffer
+		constantBuffer[(UINT)eCBType::AtkEffect] = new ConstantBuffer(eCBType::AtkEffect);
+		constantBuffer[(UINT)eCBType::AtkEffect]->Create(sizeof(CollisionCB));
 	}
 
 	void CreateShader(const std::wstring vsName, const std::wstring psName, const std::wstring sName
@@ -377,6 +416,9 @@ namespace renderer
 			, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST, eRSType::WireframeNone, eDSType::NoWrite);
 		CreateShader(L"DebugVS.hlsl", L"DebugPS.hlsl", L"DebugCircleShader", L""
 		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, eRSType::WireframeNone, eDSType::NoWrite);
+
+		CreateShader(L"AtkCircleVS.hlsl", L"AtkCirclePS.hlsl", L"AttackCircleShader", L"AtkCircleGS.hlsl"
+		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, eRSType::SolidNone, eDSType::NoWrite);
 		
 		
 		CreateShader(L"ParticleVS.hlsl", L"ParticlePS.hlsl", L"ParticleShader", L"ParticleGS.hlsl"
@@ -450,6 +492,8 @@ namespace renderer
 		CreateMaterial(L"GridShader", L"GridMaterial", eRenderingMode::Transparent);
 		CreateMaterial(L"DebugRectShader", L"DebugRectMaterial", eRenderingMode::Transparent);
 		CreateMaterial(L"DebugCircleShader", L"DebugCircleMaterial", eRenderingMode::Transparent);
+
+		CreateMaterial(L"AttackCircleShader", L"AttackCircleMaterial", eRenderingMode::Transparent);
 		
 		
 		

@@ -1,6 +1,5 @@
 #include "hjTown_SeriaRoom.h"
 #include "hjSceneManager.h"
-//#include "hjPlayScene.h"
 #include "hjTransform.h"
 #include "hjMeshRenderer.h"
 #include "hjResources.h"
@@ -11,7 +10,6 @@
 #include "hjPlayerScript.h"
 #include "hjGateInSeriaRoomScript.h"
 #include "hjRenderer.h"
-//#include "hjObject.h"
 #include "hjCollider2D.h"
 #include "hjCollisionManager.h"
 #include "hjAnimator.h"
@@ -29,6 +27,8 @@
 #include "hjAudioSource.h"
 #include "hjGroundObjectScript.h"
 #include "hjPortalScript.h"
+
+#include "hjDrakeSoldierScript.h"
 namespace hj
 {
 	Town_SeriaRoom::Town_SeriaRoom()
@@ -79,12 +79,13 @@ namespace hj
 			//as->SetClip(Resources::Load<AudioClip>(L"TestSound", L"..\\Resources\\Sound\\0.mp3"));
 			//as->Play();
 		}
-		/*DragonSoldier* dragon = new DragonSoldier();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-		AddGameObject(eLayerType::Monster, dragon);
-		dragon->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
-		dragon->Initialize();
-		dragon->EnterScene();*/
-
+		
+		/*GameObject* testmonster = new GameObject();
+		AddGameObject(eLayerType::Monster, testmonster);
+		testmonster->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
+		testmonster->Initialize();
+		testmonster->AddComponent<DrakeSoldierScript>();
+		testmonster->FindScript<DrakeSoldierScript>()->EnterScene();*/
 		
 		PlayerScript* player = SceneManager::GetPlayer();
 		// MainCamera

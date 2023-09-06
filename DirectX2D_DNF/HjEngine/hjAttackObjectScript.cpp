@@ -25,7 +25,6 @@ namespace hj
 	AttackObjectScript::AttackObjectScript(AttackObjectType attackObjectType)
 		: mType((AttackObjectType)attackObjectType)
 		, bActivate(false)
-		, bAnimate(false)
 		, mCoolTime(0.0f)
 		, mVelocity(Vector2::Zero)
 		, animOffset(Vector2::Zero)
