@@ -25,8 +25,14 @@ namespace hj
 		SetCoolTime(5.0f);
 		RegisterAttackObject<DragonSoldierAttackBasic2ObjectScript>(L"DragonSoldierAttackBasic2");
 		RegisterEffectObject<AttackEffectScript>(L"AttackEffect");
-		LoadEffectObject(L"AttackEffect")->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
-		LoadEffectObject(L"AttackEffect")->SetCastingTime(1.0f);
+		EffectObjectScript* AttackEffect = LoadEffectObject(L"AttackEffect");
+		AttackEffectScript* AttackEffectObject = dynamic_cast<AttackEffectScript*>(AttackEffect);
+		if (AttackEffectObject != nullptr)
+		{
+			AttackEffectObject->SetMesh(AttackEffectScript::AtkEffectType::Circle);
+		}
+		AttackEffect->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
+		AttackEffect->SetCastingTime(1.0f);
 	}
 	void DragonSoldierAttackBasic2Script::Update()
 	{

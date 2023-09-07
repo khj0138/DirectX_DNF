@@ -70,6 +70,7 @@ namespace hj
 			center.x = center.x * -1.0f;
 		}
 		GetOwner()->GetComponent<Transform>()->SetPosition(tr->GetPosition() + Vector3(center.x, 0.0f, 0.0f));
+		GetOwner()->GetComponent<Transform>()->SetRotation(tr->GetRotation());
 		GetOwner()->GetComponent<Transform>()->SetVirtualZ(tr->GetVirtualZ() - tr->GetScale().y / 2.0f * sec45 + center.y);
 		GetOwner()->SetFlip(object->GetFlip());
 	}

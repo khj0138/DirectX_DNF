@@ -21,6 +21,7 @@ namespace hj
 		virtual void Initialize() override;
 		virtual void Update() override;
 
+		void SetMesh(AtkEffectType type);
 		void SetAtkEffectType(AtkEffectType type) { mType = type; }
 		AtkEffectType GetAtkEffectType() { return mType; }
 	public:

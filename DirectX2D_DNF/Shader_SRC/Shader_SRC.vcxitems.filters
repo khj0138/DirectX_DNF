@@ -81,6 +81,12 @@
     <FxCompile Include="$(MSBuildThisFileDirectory)AtkCircleGS.hlsl">
       <Filter>GS</Filter>
     </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AtkRectPS.hlsl">
+      <Filter>PS</Filter>
+    </FxCompile>
+    <FxCompile Include="$(MSBuildThisFileDirectory)AtkRectVS.hlsl">
+      <Filter>VS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)globals.hlsli" />

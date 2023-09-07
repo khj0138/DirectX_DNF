@@ -92,6 +92,15 @@ namespace renderer
 		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());
+
+		shader = hj::Resources::Find<Shader>(L"AttackCircleShader");
+		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+		shader = hj::Resources::Find<Shader>(L"AttackRectShader");
+		hj::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
 		
 #pragma endregion
 #pragma region Sampler State
@@ -268,6 +277,11 @@ namespace renderer
 		rectDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
 		rectDebug->CreateIndexBuffer(indexes.data(), indexes.size());
 
+		// Rect Attack Mesh
+		std::shared_ptr<Mesh> rectAttack = std::make_shared<Mesh>();
+		Resources::Insert(L"AttackRect", rectAttack);
+		rectAttack->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		rectAttack->CreateIndexBuffer(indexes.data(), indexes.size());
 		// Circle Debug Mesh
 		vertexes.clear();
 		indexes.clear();
@@ -333,10 +347,10 @@ namespace renderer
 			indexes.push_back(i);
 		}
 
-		circleDebug = std::make_shared<Mesh>();
-		Resources::Insert(L"AttackCircle", circleDebug);
-		circleDebug->CreateVertexBuffer(vertexes.data(), vertexes.size());
-		circleDebug->CreateIndexBuffer(indexes.data(), indexes.size());
+		std::shared_ptr<Mesh> circleAttack = std::make_shared<Mesh>();
+		Resources::Insert(L"AttackCircle", circleAttack);
+		circleAttack->CreateVertexBuffer(vertexes.data(), vertexes.size());
+		circleAttack->CreateIndexBuffer(indexes.data(), indexes.size());
 	}
 	
 	void LoadBuffer()
@@ -419,7 +433,8 @@ namespace renderer
 
 		CreateShader(L"AtkCircleVS.hlsl", L"AtkCirclePS.hlsl", L"AttackCircleShader", L"AtkCircleGS.hlsl"
 		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_LINESTRIP, eRSType::SolidNone, eDSType::NoWrite);
-		
+		CreateShader(L"AtkRectVS.hlsl", L"AtkRectPS.hlsl", L"AttackRectShader", L""
+			, D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST, eRSType::SolidNone, eDSType::NoWrite);
 		
 		CreateShader(L"ParticleVS.hlsl", L"ParticlePS.hlsl", L"ParticleShader", L"ParticleGS.hlsl"
 		, D3D11_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST, eRSType::SolidNone, eDSType::NoWrite, eBSType::AlphaBlend);
@@ -494,6 +509,7 @@ namespace renderer
 		CreateMaterial(L"DebugCircleShader", L"DebugCircleMaterial", eRenderingMode::Transparent);
 
 		CreateMaterial(L"AttackCircleShader", L"AttackCircleMaterial", eRenderingMode::Transparent);
+		CreateMaterial(L"AttackRectShader", L"AttackRectMaterial", eRenderingMode::Transparent);
 		
 		
 		
