@@ -19,6 +19,7 @@ namespace hj
 		void Reset()
 		{
 		}
+		
 	private:
 		Animator* mAnimator;
 		bool mActivate;

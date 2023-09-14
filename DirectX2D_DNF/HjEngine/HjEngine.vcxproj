@@ -152,6 +152,10 @@
   <ItemGroup>
     <ClInclude Include="BackGroundLoader.h" />
     <ClInclude Include="hjAttackEffectScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackBasicObjectScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackJumpObjectScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackRoarObjectScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackRushObjectScript.h" />
     <ClInclude Include="hjDrakeSoldierAttackRushScript.h" />
     <ClInclude Include="hjCommonPortalScript.h" />
     <ClInclude Include="hjDragonSoldierAttackBasic1ObjectScript.h" />
@@ -173,6 +177,7 @@
     <ClInclude Include="hjDrakeSoldierAttackBasicScript.h" />
     <ClInclude Include="hjDrakeSoldierAttackJumpScript.h" />
     <ClInclude Include="hjDrakeSoldierAttackRoarScript.h" />
+    <ClInclude Include="hjDrakeSoldierAttackSpearObjectScript.h" />
     <ClInclude Include="hjDrakeSoldierAttackSpearScript.h" />
     <ClInclude Include="hjDrakeSoldierScript.h" />
     <ClInclude Include="hjDungeon_Entrance_1.h" />
@@ -206,6 +211,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hjAttackEffectScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackBasicObjectScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackJumpObjectScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackRoarObjectScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackRushObjectScript.cpp" />
     <ClCompile Include="hjDrakeSoldierAttackRushScript.cpp" />
     <ClCompile Include="hjCommonPortalScript.cpp" />
     <ClCompile Include="hjDragonSoldierAttackBasic1ObjectScript.cpp" />
@@ -227,6 +236,7 @@
     <ClCompile Include="hjDrakeSoldierAttackBasicScript.cpp" />
     <ClCompile Include="hjDrakeSoldierAttackJumpScript.cpp" />
     <ClCompile Include="hjDrakeSoldierAttackRoarScript.cpp" />
+    <ClCompile Include="hjDrakeSoldierAttackSpearObjectScript.cpp" />
     <ClCompile Include="hjDrakeSoldierAttackSpearScript.cpp" />
     <ClCompile Include="hjDrakeSoldierScript.cpp" />
     <ClCompile Include="hjDungeon_Entrance_1.cpp" />

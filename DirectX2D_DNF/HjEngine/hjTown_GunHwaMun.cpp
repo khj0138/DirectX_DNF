@@ -97,7 +97,7 @@ namespace hj
 			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
-			cameraComp->setMaxXY(Vector2(2680.0f, 1340.0f));
+			cameraComp->setMaxXY(Vector2(1340.0f, 670.0f));
 
 		}
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);

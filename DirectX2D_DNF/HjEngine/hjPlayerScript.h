@@ -19,6 +19,8 @@ namespace hj
 			Run,
 			Attack,
 			Jump,
+			Hit,
+			Die,
 			End,
 		};
 
@@ -34,6 +36,7 @@ namespace hj
 		{
 			UINT maxHP;
 			UINT HP;
+			bool SuperArmor;
 		};
 
 		PlayerScript();
@@ -45,11 +48,7 @@ namespace hj
 		virtual void Initialize() override;
 		virtual void Update() override;
 
-		void Hit(UINT damage, bool direction)
-		{
-			GetOwner()->SetFlip(!direction);
-			mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
-		}
+		void Hit(UINT damage, bool flip, Vector2 direction);
 
 		float getMoveTime() { return moveTime; }
 		//BehaviorTree* GetBT() { return mBehaviors; }
@@ -66,6 +65,9 @@ namespace hj
 		void Jump();
 		void Attack();
 		void Anim();
+		void Die();
+		void Hit();
+		void AnimHit();
 
 		void JumpUpStartEvent();
 		void JumpUpCompleteEvent();
@@ -108,6 +110,7 @@ namespace hj
 		bool mActivate;
 		bool bAttack;
 		status mStatus;
+		float mHitTime;
 	};
 
 

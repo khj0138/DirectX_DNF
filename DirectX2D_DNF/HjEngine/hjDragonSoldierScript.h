@@ -33,13 +33,9 @@ namespace hj
 		void Hit();
 		void Die();
 		void Anim();
+		void AnimHit();
 		
-		void Attack1StartEvent();
-		void Attack2StartEvent();
-		void Attack1CompleteEvent();
-		void Attack2CompleteEvent();
-		void HitCompleteEvent();
-		void DieCompleteEvent();
+		void AttackCompleteEvent();
 	private:
 		bool bMove;
 		Vector3 mVelocity;
@@ -49,7 +45,6 @@ namespace hj
 		
 		//AttackScriptManager* AtkManager;
 		std::wstring attackName;
-		float curTime;
 
 		bool mActivate;
 		bool bAttack;

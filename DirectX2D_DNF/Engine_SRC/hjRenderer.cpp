@@ -292,8 +292,8 @@ namespace renderer
 		vertexes.push_back(center);
 
 		int iSlice = 40;
-		float fRadiusX = 1.0f;
-		float fRadiusY = 1.0f;
+		float fRadiusX = 0.5f;
+		float fRadiusY = 0.5f;
 		//float fRadiusY = 0.5f * cosf(math::degreeToRadian(45.0f));
 		float fTheta = XM_2PI / (float)iSlice;
 
@@ -327,8 +327,8 @@ namespace renderer
 		vertexes.push_back(center);
 
 		iSlice = 1440;
-		fRadiusX = 1.0f;
-		fRadiusY = 1.0f;
+		fRadiusX = 0.5f;
+		fRadiusY = 0.5f;
 		fTheta = XM_2PI / (float)1440;
 
 		for (int i = 1; i <= iSlice; ++i)
@@ -916,6 +916,7 @@ namespace renderer
 		//CreateMaterial(L"SpriteShader", L"H", eRenderingMode::Transparent, L"H", L"..\\Resources\\Texture\\Town\\GeonHwaMun\\south_tile.png");
 		//CreateMaterial(L"SpriteShader", L"H", eRenderingMode::Transparent, L"H", L"..\\Resources\\Texture\\Town\\GeonHwaMun\\p.png");
 		
+		CreateMaterial(L"SpriteShader", L"DrakeSpear", eRenderingMode::Transparent, L"DrakeSpear", L"..\\Resources\\Texture\\Monster\\normal\\drake_soldier\\drake_spear.png");
 	}
 	void Initialize()
 	{

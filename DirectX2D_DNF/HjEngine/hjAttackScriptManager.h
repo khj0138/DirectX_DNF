@@ -25,6 +25,7 @@ namespace hj
 			AttackScript* attack = (AttackScript*)newAttack;
 			if(attack != nullptr)
 				mAttackScripts.insert(std::make_pair(name, attack));
+			attack->SetManager(this);
 		}
 		AttackScript* LoadAttackScript(std::wstring name)
 		{
@@ -44,11 +45,26 @@ namespace hj
 
 		GameObject* GetManagerOwner() { return mManagerOwner; }
 		void SetManagerOwner(GameObject* owner) { mManagerOwner = owner; }
+
+		void SetTargetColPos(GameObject* target);
+		void SetTargetPos(GameObject* target);
+		Vector3 GetTargetPos() { return mTargetPos; }
+		float GetTargetPosVZ() { return mTargetPosVZ; }
+
+		bool CheckActivate(std::wstring name)
+		{
+			std::map<std::wstring, AttackScript*>::iterator iter = mAttackScripts.find(name);
+			if (iter != mAttackScripts.end())
+				return iter->second->GetActivate();
+			return false;
+		}
 	private:
 		hj::enums::eLayerType mType;
 		hj::math::Vector2 mPosition;
 		float mPositionVZ;
 		GameObject* mManagerOwner;
+		Vector3 mTargetPos;
+		float mTargetPosVZ;
 	};
 }
 

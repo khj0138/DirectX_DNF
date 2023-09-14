@@ -63,15 +63,39 @@ namespace hj
 	{
 		float sec45 = 1.4f;
 		Transform* tr = object->GetComponent<Transform>();
-		Collider2D* col = object->GetComponent<Collider2D>();
-		Vector2 center = col->GetCenter();
+		Collider2D* objCol = object->GetComponent<Collider2D>();
+		Vector2 objCenter = objCol->GetCenter();
 		if (object->GetFlip())
 		{
-			center.x = center.x * -1.0f;
+			objCenter.x = objCenter.x * -1.0f;
 		}
-		GetOwner()->GetComponent<Transform>()->SetPosition(tr->GetPosition() + Vector3(center.x, 0.0f, 0.0f));
-		GetOwner()->GetComponent<Transform>()->SetRotation(tr->GetRotation());
-		GetOwner()->GetComponent<Transform>()->SetVirtualZ(tr->GetVirtualZ() - tr->GetScale().y / 2.0f * sec45 + center.y);
 		GetOwner()->SetFlip(object->GetFlip());
+		GetOwner()->GetComponent<Transform>()->SetPosition(tr->GetPosition() + Vector3(objCenter.x, 0.0f, 0.0f));
+		GetOwner()->GetComponent<Transform>()->SetRotation(tr->GetRotation());
+		GetOwner()->GetComponent<Transform>()->SetVirtualZ(tr->GetVirtualZ() - tr->GetScale().y / 2.0f * sec45 + objCenter.y);
+		//GetOwner()->SetFlip(object->GetFlip());
 	}
+	void EffectObjectScript::SetPosCol(GameObject* object)
+	{
+		float sec45 = 1.4f;
+		Transform* tr = object->GetComponent<Transform>();
+		Collider2D* objCol = object->GetComponent<Collider2D>();
+		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
+		Vector3 objColPos = objCol->GetPosition();
+		Vector3 objColSize = objCol->GetSize();
+		Vector2 objColCenter = objCol->GetCenter();
+		if (object->GetFlip())
+		{
+			objColCenter.x = objColCenter.x * -1.0f;
+		}
+		GetOwner()->SetFlip(object->GetFlip());
+		//objColPos.y -= objColSize.y / 2.0f * sec45;
+		GetOwner()->GetComponent<Transform>()->SetVirtualZ(objColPos.y);
+		//objColPos.x -= objColCenter.x;
+		objColPos.y = 0.0f;
+		GetOwner()->GetComponent<Transform>()->SetPosition(objColPos);
+		GetOwner()->GetComponent<Transform>()->SetRotation(tr->GetRotation());
+		//GetOwner()->SetFlip(object->GetFlip());
+	}
+	
 }

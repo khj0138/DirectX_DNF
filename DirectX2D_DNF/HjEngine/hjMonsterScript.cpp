@@ -76,4 +76,66 @@ namespace hj
 	{
 		AtkManager->ExitScene();
 	}
+	void MonsterScript::Hit(UINT damage, bool flip, Vector2 direction)
+	{
+		mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
+
+		
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+		if (flip)
+		{
+			direction.x *= -1.f;
+		}
+			
+		if (GetMonsterState() != eMonsterState::Hit)
+		{
+			if (mStatus.HP == 0)
+			{
+				mCurTime = 0.0f;
+				SetMonsterState(eMonsterState::Die);
+			}
+			else
+			{
+				if (!mStatus.SuperArmor && GetMonsterState() != eMonsterState::Attack)
+				{
+					GetOwner()->SetFlip(!flip);
+					SetMonsterState(eMonsterState::Hit);
+					rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					if (rb->GetGround() && direction.y > 0.0f)
+						rb->SetGround(false);
+				}
+			}
+		}
+		else
+		{
+			
+			if (rb->GetGround())
+			{
+				if (mStatus.HP == 0)
+				{
+					mCurTime = 0.0f;
+					SetMonsterState(eMonsterState::Die);
+				}
+				else
+				{
+					if (!mStatus.SuperArmor)
+					{
+						GetOwner()->SetFlip(!flip);
+						if (direction.y > 0.0f)
+							rb->SetGround(false);
+						rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					}
+				}
+			}
+			else
+			{
+				if (!mStatus.SuperArmor)
+				{
+					GetOwner()->SetFlip(!flip);
+					rb->SetVelocity(Vector3(direction.x, direction.y + vel.y, vel.z));
+				}
+			}
+		}
+	}
 }

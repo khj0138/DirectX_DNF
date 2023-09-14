@@ -40,7 +40,7 @@ namespace hj
 		void SetPosition(Vector3 position) { mPosition = position; }
 		float GetRotation() { return mRotation; }
 
-		Transform* GetTransform() { return mTransform; }
+		Vector3 GetObjectRotation() { return mObjRotation; }
 		void SetCollision(bool collision) { bCollision = collision; }
 		bool GetCollision() { return bCollision; }
 
@@ -57,13 +57,13 @@ namespace hj
 		static UINT mColliderNumber;
 		UINT mColliderID;
 		eColliderType mType;
-		Transform* mTransform;
 
 		Vector2 mCollisionRange;
 		float mCollisionHeight;
 		Vector3 mPosition;
 		Vector3 mPrevPosition;
 		float mRotation;
+		Vector3 mObjRotation;
 
 		Vector3 mSize;
 		Vector2 mCenter;

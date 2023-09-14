@@ -24,7 +24,7 @@ namespace hj
 	PlayerScript::PlayerScript()
 		: mActivate(false)
 		, AtkManager(nullptr)
-		, mStatus(status(100, 100))
+		, mStatus(status(10, 10, false))
 		, moveVector({})
 		, moveTime(0.0f)
 		, mPlayerState(ePlayerState::Idle)
@@ -33,6 +33,7 @@ namespace hj
 		, jumpDown(false)
 		, bCommand(false)
 		, mVelocity(Vector3::Zero)
+		, mHitTime(0.0f)
 	{
 		moveVector.resize(2);
 		bAttackVector.resize((UINT)eAttackType::End);
@@ -61,7 +62,7 @@ namespace hj
 		tr->SetScale(Vector3{ 320.0f, 320.0f, 2.0f });
 		tr->SetPosition(Vector3(500.0f, 0.0f, 450.000f));
 		Collider2D* mCollider = GetOwner()->AddComponent<Collider2D>();
-		mCollider->SetSize(Vector2{ 50.0f, 50.0f }, GetOwner()->GetComponent<Transform>()->GetScale().y);
+		mCollider->SetSize(Vector2{ 50.0f, 50.0f }, 120.0f);
 
 		Animator* mAnimator = GetOwner()->AddComponent<Animator>();
 		mAnimator->SetAnimatorOffset(Vector2{ 20.0f, -80.0f });
@@ -73,6 +74,10 @@ namespace hj
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack1", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack2", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack3", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Hit", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\HitUp", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\HitDown", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Die", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CompleteEvent(L"SwordManJumpUp") = std::bind(&PlayerScript::JumpUpCompleteEvent, this);
 		mAnimator->StartEvent(L"SwordManAttack1") = std::bind(&PlayerScript::Attack1StartEvent, this);
 		mAnimator->StartEvent(L"SwordManAttack2") = std::bind(&PlayerScript::Attack2StartEvent, this);
@@ -112,6 +117,12 @@ namespace hj
 		case ePlayerState::Attack:
 			Attack();
 			break;
+		case ePlayerState::Hit:
+			Hit();
+			break;
+		case ePlayerState::Die:
+			Die();
+			break;
 
 		case ePlayerState::Jump:
 			Jump();
@@ -138,6 +149,66 @@ namespace hj
 		float posVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 		AtkManager->SetPosition(Vector2{pos.x,pos.y}, posVZ);
 		AtkManager->Update();
+	}
+	void PlayerScript::Hit(UINT damage, bool flip, Vector2 direction)
+	{
+		mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
+
+
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+		if (flip)
+		{
+			direction.x *= -1.f;
+		}
+
+		if (mPlayerState != ePlayerState::Hit)
+		{
+			if (mStatus.HP == 0)
+			{
+				mPlayerState = ePlayerState::Die;
+			}
+			else
+			{
+				if (!mStatus.SuperArmor)
+				{
+					GetOwner()->SetFlip(!flip);
+					mPlayerState = ePlayerState::Hit;
+					rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					if (rb->GetGround() && direction.y > 0.0f)
+						rb->SetGround(false);
+				}
+			}
+		}
+		else
+		{
+
+			if (rb->GetGround())
+			{
+				if (mStatus.HP == 0)
+				{
+					mPlayerState = ePlayerState::Die;
+				}
+				else
+				{
+					if (!mStatus.SuperArmor)
+					{
+						GetOwner()->SetFlip(!flip);
+						if (direction.y > 0.0f)
+							rb->SetGround(false);
+						rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					}
+				}
+			}
+			else
+			{
+				if (!mStatus.SuperArmor)
+				{
+					GetOwner()->SetFlip(!flip);
+					rb->SetVelocity(Vector3(direction.x, direction.y + vel.y, vel.z));
+				}
+			}
+		}
 	}
 	bool PlayerScript::IsWalk()
 	{
@@ -217,14 +288,7 @@ namespace hj
 			mPlayerState = ePlayerState::Attack;
 			mVelocity.x = 150.0f;
 		}
-		if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
-		{
-			GetOwner()->SetFlip(false);
-		}
-		else
-		{
-			GetOwner()->SetFlip(true);
-		}
+		
 		Vector3 velocity = rb->GetVelocity();
 		velocity.x = 0.0f;
 		rb->SetVelocity(velocity);
@@ -671,7 +735,7 @@ namespace hj
 	{
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 
-		animator->SetFlip(GetOwner()->GetFlip());
+		//animator->SetFlip(GetOwner()->GetFlip());
 		switch (mPlayerState)
 		{
 		case ePlayerState::Idle:
@@ -686,7 +750,13 @@ namespace hj
 			if (mPrevPlayerState != mPlayerState)
 				animator->PlayAnimation(L"SwordManRun", true);
 			break;
-		case ePlayerState::Attack:
+		case ePlayerState::Hit:
+			AnimHit();
+			break;
+		case ePlayerState::Die:
+			if (mPrevPlayerState != mPlayerState)
+				animator->PlayAnimation(L"SwordManDie", false);
+			break;
 			break;
 		case ePlayerState::Jump:
 			if (mPrevPlayerState != mPlayerState)
@@ -694,6 +764,97 @@ namespace hj
 			break;
 		default:
 			break;
+		}
+	}
+	void PlayerScript::Die()
+	{
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 velocity = rb->GetVelocity();
+		rb->SetVelocity(Vector3(0.0f, 0.0f, 0.0f));
+		moveTime += Time::DeltaTime();
+		if (moveTime > 1.0f)
+		{
+			mStatus.HP = mStatus.maxHP;
+			mPlayerState = ePlayerState::Idle;
+		}
+	}
+	void PlayerScript::Hit()
+	{
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 velocity = rb->GetVelocity();
+		if (rb->GetGround())
+		{
+			if (abs(velocity.y) > 200.0f)
+			{
+				rb->SetGround(false);
+				velocity.y *= -0.5f;
+				velocity.x *= 0.5f;
+				rb->SetVelocity(velocity);
+			}
+			else
+			{
+				mHitTime = (mHitTime + Time::DeltaTime());
+			}
+		}
+		else
+		{
+			mHitTime = 0.0f;
+		}
+
+		if (mHitTime >= 0.3f)
+		{
+			rb->SetVelocity(Vector3::Zero);
+			if (GetStatus().HP > 0.0f)
+			{
+				mHitTime = 0.0f;
+				mPlayerState = ePlayerState::Idle;
+			}
+			else
+			{
+				moveTime = 0.0f;
+				mPlayerState = ePlayerState::Die;
+			}
+
+		}
+	}
+	void PlayerScript::AnimHit()
+	{
+		Animator* mAnimator = GetOwner()->GetComponent<Animator>();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 velocity = rb->GetVelocity();
+		Animation* activeAnim = mAnimator->GetActiveAnimation();
+		if (mPrevPlayerState != mPlayerState)
+		{
+			if (rb->GetGround())
+				mAnimator->PlayAnimation(L"SwordManHit", false);
+			else
+			{
+				mAnimator->PlayAnimation(L"SwordManHitUp", false);
+			}
+		}
+		else if (activeAnim->GetKey() == L"SwordManHitUp")
+		{
+			if (velocity.y < 0.0f)
+			{
+				mAnimator->PlayAnimation(L"SwordManHitDown", false);
+				activeAnim->SetPause(true);
+			}
+		}
+		else if (activeAnim->GetKey() == L"SwordManHitDown")
+		{
+			if (velocity.y < 0.0f)
+			{
+				activeAnim->SetIndex(0);
+			}
+			else if (velocity.y > 0.0f)
+			{
+				activeAnim->SetIndex(1);
+			}
+			else
+			{
+				activeAnim->SetIndex(2);
+				activeAnim->SetPause(false);
+			}
 		}
 	}
 	void PlayerScript::JumpUpStartEvent()

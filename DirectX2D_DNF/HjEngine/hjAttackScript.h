@@ -28,7 +28,7 @@ namespace hj
 
 		void SetCoolTime(float coolTime) { mCoolTime = coolTime; }
 
-		void SetActivate(bool activate)
+		virtual void SetActivate(bool activate)
 		{
 			if (activate)
 			{
@@ -130,7 +130,8 @@ namespace hj
 			mAttackObjects.clear();
 			mEffectObjects.clear();*/
 		}
-
+		void SetManager(AttackScriptManager* manager) { attackManager = manager; }
+		AttackScriptManager* GetManager() { return attackManager; }
 	private:
 		bool mActivate;
 		float mCoolTime;
@@ -138,6 +139,7 @@ namespace hj
 		bool flip;
 		Vector2 mPosition;
 		float mPositionVZ;
+		AttackScriptManager* attackManager;
 	};
 
 

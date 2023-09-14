@@ -88,7 +88,7 @@ namespace hj
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			cameraComp->setMaxXY(Vector2(3580.0f, 1340.0f));
+			cameraComp->setMaxXY(Vector2(1790.0f, 670.0f));
 			camera->AddComponent<CameraScript>();
 			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");

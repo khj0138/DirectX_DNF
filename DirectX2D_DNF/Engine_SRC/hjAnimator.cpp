@@ -1,7 +1,9 @@
 #include "hjAnimator.h"
 #include "hjResources.h"
 #include "hjGameObject.h"
+#include "hjApplication.h"
 
+extern hj::Application application;
 namespace hj
 {
 	Animator::Animator()
@@ -26,14 +28,15 @@ namespace hj
 	}
 	void Animator::Initialize()
 	{
+		//fixedRes = (float)(application.GetFixedWidth()) / 800.0f;
 	}
 	void Animator::Update()
 	{
 		
 		if (mActiveAnimation == nullptr)
 			return;
-		else
-			SetFlip(GetOwner()->GetFlip());
+		/*else
+			SetFlip(GetOwner()->GetFlip());*/
 		if (mActiveAnimation->IsComplete())
 		{
 			Events* events
@@ -197,7 +200,7 @@ namespace hj
 	{
 		if (mActiveAnimation == nullptr)
 			return;
-
+		mActiveAnimation->SetFlip(GetOwner()->GetFlip());
 		mActiveAnimation->Binds();
 	}
 	std::function<void()>& Animator::StartEvent(const std::wstring key)

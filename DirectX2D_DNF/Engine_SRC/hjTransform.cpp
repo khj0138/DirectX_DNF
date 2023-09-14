@@ -83,8 +83,11 @@ namespace hj
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		if (animator != nullptr)
 		{
-			fixedPosition.x += animator->GetAnimatorOffset().x;
-			fixedPosition.y += animator->GetAnimatorOffset().y * sec45;
+			Vector2 animOffset = animator->GetAnimatorOffset();
+			if (GetOwner()->GetFlip())
+				animOffset.x *= -1.0f;
+			fixedPosition.x += animOffset.x;
+			fixedPosition.y += animOffset.y * sec45;
 		}
 
 		fixedPosition = fixedPosition * fixedRes;

@@ -55,16 +55,16 @@ namespace hj
 		void Binds();
 		void SetFlip(bool flip) 
 		{
-			isFlip = flip;
+			/*isFlip = flip;
 			mActiveAnimation->SetFlip(flip);
 			if (isFlip)
 			{
-				animatorOffset.x = -1.0f * abs(animatorOffset.x);
+				animatorOffset.x = -1.0f * (animatorOffset.x);
 			}
 			else
 			{
-				animatorOffset.x = abs(animatorOffset.x);
-			}
+				animatorOffset.x = (animatorOffset.x);
+			}*/
 		}
 		bool GetFlip() { return isFlip; }
 
@@ -85,5 +85,6 @@ namespace hj
 		bool isFlip;
 		Vector2 animatorOffset;
 		bool isBack;
+		//float fixedRes;
 	};
 }

@@ -80,12 +80,12 @@ namespace hj
 			//as->Play();
 		}
 		
-		/*GameObject* testmonster = new GameObject();
+		GameObject* testmonster = new GameObject();
 		AddGameObject(eLayerType::Monster, testmonster);
 		testmonster->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
 		testmonster->Initialize();
 		testmonster->AddComponent<DrakeSoldierScript>();
-		testmonster->FindScript<DrakeSoldierScript>()->EnterScene();*/
+		testmonster->FindScript<DrakeSoldierScript>()->EnterScene();
 		
 		PlayerScript* player = SceneManager::GetPlayer();
 		// MainCamera
@@ -99,7 +99,7 @@ namespace hj
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			cameraComp->TurnLayerMask(eLayerType::PlayerAttack, true);
 			cameraComp->TurnLayerMask(eLayerType::Monster, true);
-			cameraComp->setMaxXY(Vector2(2230.0f, 1200.0f));
+			cameraComp->setMaxXY(Vector2(1115.0f, 600.0f));
 
 			camera->AddComponent<CameraScript>();
 			camera->GetComponent<Camera>()->RegisterTarget(player->GetOwner());

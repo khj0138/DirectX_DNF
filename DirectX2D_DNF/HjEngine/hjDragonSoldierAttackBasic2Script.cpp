@@ -31,7 +31,7 @@ namespace hj
 		{
 			AttackEffectObject->SetMesh(AttackEffectScript::AtkEffectType::Circle);
 		}
-		AttackEffect->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
+		AttackEffect->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(200.0f, 200.0f, 1.0f));
 		AttackEffect->SetCastingTime(1.0f);
 	}
 	void DragonSoldierAttackBasic2Script::Update()

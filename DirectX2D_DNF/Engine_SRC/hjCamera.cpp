@@ -51,6 +51,7 @@ namespace hj
 
 	void Camera::Initialize()
 	{
+		fixedRes = (float)(application.GetFixedWidth()) / 800.0f;
 	}
 
 	void Camera::Update()

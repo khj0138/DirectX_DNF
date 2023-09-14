@@ -42,21 +42,8 @@ namespace hj
 
 		void ExitScene();
 
-		void Hit(UINT damage, bool direction)
-		{
-			mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
-			
-			if (mStatus.HP == 0)
-			{
-				GetOwner()->SetFlip(!direction);
-				SetMonsterState(eMonsterState::Die);
-			}
-			else if (!mStatus.SuperArmor && GetMonsterState() != eMonsterState::Attack)
-			{
-				SetMonsterState(eMonsterState::Hit);
-				GetOwner()->SetFlip(!direction);
-			}
-		}
+		void Hit(UINT damage, bool flip, Vector2 direction);
+		
 
 
 		AttackScriptManager* GetAtkManager() { return AtkManager; }
@@ -77,6 +64,10 @@ namespace hj
 
 		float GetCoolTime() { return mCoolTime; }
 		void SetCoolTime(float cooltime) { mCoolTime = cooltime; }
+		float GetCurTime() { return mCurTime; }
+		void SetCurTime(float curtime) { mCurTime = curtime; }
+		float GetHitTime() { return mHitTime; }
+		void SetHitTime(float hittime) { mHitTime = hittime; }
 		//Animator* GetAnimator() { return mAnimator; }
 	private:
 		bool mActivate;
@@ -85,6 +76,8 @@ namespace hj
 		GameObject* mTarget;
 		status mStatus;
 		float mCoolTime;
+		float mCurTime;
+		float mHitTime;
 
 		eMonsterState mMonsterState;
 		eMonsterState mPrevMonsterState;

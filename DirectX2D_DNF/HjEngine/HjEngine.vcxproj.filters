@@ -85,9 +85,6 @@
     <Filter Include="Scene\AnimScenes\LoadingScene">
       <UniqueIdentifier>{7a36fe07-7252-4ac8-9af3-c1720a0fb9ae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\Monster\DragonSoldier\AttackObjectScript">
-      <UniqueIdentifier>{004e72df-32a6-49de-b589-cd80a65ae80f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\AttackScript">
       <UniqueIdentifier>{b009ec71-78c4-4b53-be8b-bb9e0464eb7c}</UniqueIdentifier>
     </Filter>
@@ -147,6 +144,24 @@
     </Filter>
     <Filter Include="Script\Monster\AttackEffectScript">
       <UniqueIdentifier>{180f2eb0-f28e-4e9b-ac7a-832f1ae7bd32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DragonSoldier\AttackObject">
+      <UniqueIdentifier>{004e72df-32a6-49de-b589-cd80a65ae80f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeSoldier\AttackObject\Basic">
+      <UniqueIdentifier>{affa4406-8abd-4f07-a014-80cfcffd948b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeSoldier\AttackObject\Jump">
+      <UniqueIdentifier>{d644a16e-8b9a-4aec-ba1a-22accce0f540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeSoldier\AttackObject\Roar">
+      <UniqueIdentifier>{29bee86f-a91f-4d87-9499-3fbe0991727a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeSoldier\AttackObject\Rush">
+      <UniqueIdentifier>{66792a64-3567-4ec0-a210-547c1b2f102b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeSoldier\AttackObject\Spear">
+      <UniqueIdentifier>{70380235-1c58-4900-b643-924b177b17a1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -251,10 +266,10 @@
       <Filter>Scene\AnimScenes\LoadingScene</Filter>
     </ClInclude>
     <ClInclude Include="hjDragonSoldierAttackBasic1ObjectScript.h">
-      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+      <Filter>Script\Monster\DragonSoldier\AttackObject</Filter>
     </ClInclude>
     <ClInclude Include="hjDragonSoldierAttackBasic2ObjectScript.h">
-      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+      <Filter>Script\Monster\DragonSoldier\AttackObject</Filter>
     </ClInclude>
     <ClInclude Include="hjBasicAttackObject1Script.h">
       <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
@@ -306,6 +321,21 @@
     </ClInclude>
     <ClInclude Include="hjEffectObjectScript.h">
       <Filter>Script\EffectObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeSoldierAttackBasicObjectScript.h">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeSoldierAttackJumpObjectScript.h">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeSoldierAttackRoarObjectScript.h">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Roar</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeSoldierAttackRushObjectScript.h">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Rush</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeSoldierAttackSpearObjectScript.h">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Spear</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -401,10 +431,10 @@
       <Filter>Scene\AnimScenes\LoadingScene</Filter>
     </ClCompile>
     <ClCompile Include="hjDragonSoldierAttackBasic1ObjectScript.cpp">
-      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+      <Filter>Script\Monster\DragonSoldier\AttackObject</Filter>
     </ClCompile>
     <ClCompile Include="hjDragonSoldierAttackBasic2ObjectScript.cpp">
-      <Filter>Script\Monster\DragonSoldier\AttackObjectScript</Filter>
+      <Filter>Script\Monster\DragonSoldier\AttackObject</Filter>
     </ClCompile>
     <ClCompile Include="hjBasicAttackObject1Script.cpp">
       <Filter>Script\Player\Attack\BasicAttackScript\BasicAttackObjectScript</Filter>
@@ -456,6 +486,21 @@
     </ClCompile>
     <ClCompile Include="hjEffectObjectScript.cpp">
       <Filter>Script\EffectObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeSoldierAttackBasicObjectScript.cpp">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeSoldierAttackJumpObjectScript.cpp">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeSoldierAttackRoarObjectScript.cpp">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Roar</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeSoldierAttackRushObjectScript.cpp">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Rush</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeSoldierAttackSpearObjectScript.cpp">
+      <Filter>Script\Monster\DrakeSoldier\AttackObject\Spear</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

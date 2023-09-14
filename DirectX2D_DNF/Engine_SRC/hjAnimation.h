@@ -54,6 +54,7 @@ namespace hj
 
 		bool IsComplete() { return mbComplete; }
 		int GetIndex() { return mIndex; }
+		void SetIndex(int index) { mIndex = index; }
 		void SetPause(bool pause) { mPause = pause; }
 		bool GetPause() { return mPause; }
 	private:

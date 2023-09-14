@@ -25,14 +25,14 @@ namespace hj
 		SetAnimate(false);
 		SetAttack(false);
 		SetVelocity(Vector2::Zero);
-		SetStatus(5, 2);
+		SetStatus(5, 2, Vector2(100.0f, 0.0f));
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		tr->SetScale(Vector3(100.0f, 100.0f, 1.0f));
+		tr->SetScale(Vector3(200.0f, 200.0f, 1.0f));
 		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
-		col->SetSize(Vector2(100.0f, 100.0f), 70.0f);
-		col->SetCenter(Vector2(50.0f, 0.0f));
-		col->SetCollisionHeight(30.0f);
+		col->SetSize(Vector2(200.0f, 200.0f), 150.0f);
+		col->SetCenter(Vector2(100.0f, 0.0f));
+		col->SetCollisionHeight(0.0f);
 
 	}
 	void DragonSoldierAttackBasic1ObjectScript::Update()

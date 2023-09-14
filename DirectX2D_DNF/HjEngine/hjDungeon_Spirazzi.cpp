@@ -75,7 +75,7 @@ namespace hj
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
-			cameraComp->setMaxXY(Vector2(3580.0f, 1340.0f));
+			cameraComp->setMaxXY(Vector2(1790.0f, 670.0f));
 
 		}
 		//CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);

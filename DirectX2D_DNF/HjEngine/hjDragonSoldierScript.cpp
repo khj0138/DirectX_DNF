@@ -52,17 +52,17 @@ namespace hj
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Idle", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Walk", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Die", 0.5f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\HitDown", 0.5f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\Hit", 0.2f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\HitUp", 0.2f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\AttackBasic1", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\Monster\\normal\\dragon_soldier\\AttackBasic2", 0.1f, Vector2(0.0f, 00.0f));
-		mAnimator->CompleteEvent(L"dragon_soldierAttackBasic1") = std::bind(&DragonSoldierScript::Attack1CompleteEvent, this);
-		mAnimator->CompleteEvent(L"dragon_soldierAttackBasic2") = std::bind(&DragonSoldierScript::Attack2CompleteEvent, this);
-		mAnimator->CompleteEvent(L"dragon_soldierHit") = std::bind(&DragonSoldierScript::HitCompleteEvent, this);
-		mAnimator->CompleteEvent(L"dragon_soldierDie") = std::bind(&DragonSoldierScript::DieCompleteEvent, this);
+		mAnimator->CompleteEvent(L"dragon_soldierAttackBasic1") = std::bind(&DragonSoldierScript::AttackCompleteEvent, this);
+		mAnimator->CompleteEvent(L"dragon_soldierAttackBasic2") = std::bind(&DragonSoldierScript::AttackCompleteEvent, this);
 		mAnimator->PlayAnimation(L"dragon_soldierIdle", true);
 
 		Collider2D* mCollider = GetOwner()->GetComponent<Collider2D>();
-		mCollider->SetSize(Vector2{50.0f, 50.0f }, 150.0f);
+		mCollider->SetSize(Vector2{100.0f, 100.0f }, 150.0f);
 
 		AttackScriptManager* AtkManager = GetAtkManager();
 		AtkManager->RegisterAttackScript<DragonSoldierAttackBasic1Script>(L"dragon_soldierAttackBasic1");
@@ -74,7 +74,7 @@ namespace hj
 
 		AttackScriptManager* AtkManager = GetAtkManager();
 
-		curTime += Time::DeltaTime();
+		SetCurTime(GetCurTime() + Time::DeltaTime());
 		switch (GetMonsterState())
 		{
 		case MonsterScript::eMonsterState::Idle:
@@ -120,8 +120,8 @@ namespace hj
 			float monPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 			Vector2 monPos2D = Vector2(monPos.x, monPosVZ);
 
-			if(math::Vector2::Distance(playerPos2D, monPos2D) > GetOwner()->GetComponent<Collider2D>()->GetSize().x / 2.0f * fixedRes
-				|| abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f * fixedRes)
+			if(math::Vector2::Distance(playerPos2D, monPos2D) > 100.0f * fixedRes
+				|| abs(playerPos2D.y - monPos2D.y) > 50.0f * fixedRes)
 				return true;
 		}
 		return false;
@@ -130,7 +130,7 @@ namespace hj
 	{
 		AttackScriptManager* AtkManager = GetAtkManager();
 
-		if (curTime < GetCoolTime())
+		if (GetCurTime() < GetCoolTime())
 		{
 			return false;
 		}
@@ -143,7 +143,7 @@ namespace hj
 				if (AtkManager->LoadAttackScript(iter->first) != nullptr)
 				{
 					attackName = iter->first;
-					//curTime = 0.0f;
+					//SetCurTime(0.0f);
 					return true;
 				}
 			}
@@ -156,7 +156,7 @@ namespace hj
 		Vector3 pos = tr->GetPosition();
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
-		rb->SetVelocity(Vector3(0.0f, velocity.y,0.0f));
+		rb->SetVelocity(Vector3(0.0f, 0.0f,0.0f));
 
 		GameObject* target = GetTarget();
 		if (target != nullptr)
@@ -180,6 +180,7 @@ namespace hj
 	}
 	void DragonSoldierScript::Walk()
 	{
+		float fixedRes = (float)application.GetFixedWidth() / 800.0f;
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
@@ -199,24 +200,28 @@ namespace hj
 			if (playerPos2D.x <= monPos2D.x)
 			{
 				GetOwner()->SetFlip(true);
-				if(abs(playerPos2D.x - monPos2D.x) > GetOwner()->GetComponent<Collider2D>()->GetSize().x / 2.0f)
+				//if(abs(playerPos2D.x - monPos2D.x) > GetOwner()->GetComponent<Collider2D>()->GetSize().x / 2.0f)
+				if(abs(playerPos2D.x - monPos2D.x) > 70.0f * fixedRes)
 					moveVector.x = -1.f;
 			}
 			else if (playerPos2D.x > monPos2D.x)
 			{
 				GetOwner()->SetFlip(false);
-				if (abs(playerPos2D.x - monPos2D.x) > GetOwner()->GetComponent<Collider2D>()->GetSize().x / 2.0f)
+				//if (abs(playerPos2D.x - monPos2D.x) > 100.0f * fixedRes)
+				if (abs(playerPos2D.x - monPos2D.x) > 70.0f * fixedRes)
 					moveVector.x = 1.f;
 			}
 			
 			if(playerPos2D.y > monPos2D.y)
 			{
-				if (abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f)
+				//if (abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f)
+				if (abs(playerPos2D.y - monPos2D.y) > 25.0f * fixedRes)
 				moveVector.y = 1.f;
 			}
 			else
 			{
-				if (abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f)
+				//if (abs(playerPos2D.y - monPos2D.y) > GetOwner()->GetComponent<Collider2D>()->GetSize().y / 4.0f)
+				if (abs(playerPos2D.y - monPos2D.y) > 25.0f * fixedRes)
 					moveVector.y = -1.f;
 			}
 		}
@@ -244,30 +249,30 @@ namespace hj
 		Animation* animation = GetOwner()->GetComponent<Animator>()->GetActiveAnimation();
 		if (attackName == L"dragon_soldierAttackBasic1")
 		{
-			if (curTime > 1.0f && animation->GetPause())
+			if (GetCurTime() > 1.0f && animation->GetPause())
 			{
 				animation->SetPause(false);
-				curTime = 0.0f;
+				SetCurTime(0.0f);
 
 			}
-			else if (curTime > 0.5f && !(animation->GetPause()) && animation->GetIndex() == 1)
+			else if (GetCurTime() > 0.5f && !(animation->GetPause()) && animation->GetIndex() == 1)
 			{
 				animation->SetPause(true);
-				curTime = 0.0f;
+				SetCurTime(0.0f);
 			}
 		}
 		else if (attackName == L"dragon_soldierAttackBasic2")
 		{
-			if (curTime > 1.0f && animation->GetPause())
+			if (GetCurTime() > 1.0f && animation->GetPause())
 			{
 				animation->SetPause(false);
-				curTime = 0.0f;
+				SetCurTime(0.0f);
 
 			}
-			else if (curTime > 0.5f && !(animation->GetPause()) && animation->GetIndex() == 0)
+			else if (GetCurTime() > 0.5f && !(animation->GetPause()) && animation->GetIndex() == 0)
 			{
 				animation->SetPause(true);
-				curTime = 0.0f;
+				SetCurTime(0.0f);
 			}
 		}
 	}
@@ -275,24 +280,95 @@ namespace hj
 	{
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
-		bool flip = GetOwner()->GetFlip();
-
-		Vector2 moveVector = Vector2::Zero;
-		if (flip)
-			moveVector.x = 1.0f;
+		if (rb->GetGround() )
+		{
+			if(abs(velocity.y) > 200.0f)
+			{
+				rb->SetGround(false);
+				velocity.y *= -0.5f;
+				velocity.x *= 0.5f;
+				rb->SetVelocity(velocity);
+			}
+			else
+			{
+				
+				SetHitTime(GetHitTime() + Time::DeltaTime());
+			}
+		}
 		else
-			moveVector.x = -1.0f;
-		moveVector.Normalize();
-		moveVector *= 200.0f;
-		velocity.x = moveVector.x;
-		velocity.z = moveVector.y;
-		rb->SetVelocity(velocity);
+		{
+			SetHitTime(0.0f);
+		}
+
+		if (GetHitTime() >= 0.3f)
+		{
+			rb->SetVelocity(Vector3::Zero);
+			if (GetStatus().HP > 0.0f)
+			{
+				SetHitTime(0.0f);
+				SetMonsterState(eMonsterState::Idle);
+			}
+			else
+			{
+				SetCurTime(0.0f);
+				SetMonsterState(eMonsterState::Die);
+			}
+
+		}
+
 	}
 	void DragonSoldierScript::Die()
 	{
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
-		rb->SetVelocity(Vector3(0.0f, velocity.y, 0.0f));
+		rb->SetVelocity(Vector3(0.0f, 0.0f, 0.0f));
+		SetCurTime(GetCurTime() + Time::DeltaTime());
+		if (GetCurTime() >= 1.0f)
+		{
+			GetOwner()->SetState(GameObject::eState::Paused);
+		}
+	}
+	void DragonSoldierScript::AnimHit()
+	{
+		Animator* mAnimator = GetOwner()->GetComponent<Animator>();
+		MonsterScript::eMonsterState monsterState = GetMonsterState();
+		MonsterScript::eMonsterState prevMonsterState = GetPrevMonsterState();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 velocity = rb->GetVelocity();
+		Animation* activeAnim = mAnimator->GetActiveAnimation();
+		if (prevMonsterState != monsterState)
+		{
+			if(rb->GetGround())
+				mAnimator->PlayAnimation(L"dragon_soldierHit", false);
+			else
+			{
+				mAnimator->PlayAnimation(L"dragon_soldierHitUp", false);
+			}
+		}
+		else if (activeAnim->GetKey() == L"dragon_soldierHitUp")
+		{
+			if (velocity.y < 0.0f)
+			{
+				mAnimator->PlayAnimation(L"dragon_soldierHitDown", false);
+				activeAnim->SetPause(true);
+			}
+		}
+		else if (activeAnim->GetKey() == L"dragon_soldierHitDown")
+		{
+			if (velocity.y < 0.0f)
+			{
+				activeAnim->SetIndex(0);
+			}
+			else if (velocity.y > 0.0f)
+			{
+				activeAnim->SetIndex(1);
+			}
+			else
+			{
+				activeAnim->SetIndex(2);
+				activeAnim->SetPause(false);
+			}
+		}
 	}
 	void DragonSoldierScript::Anim()
 	{
@@ -315,47 +391,20 @@ namespace hj
 				mAnimator->PlayAnimation(attackName, true);
 			break;
 		case MonsterScript::eMonsterState::Hit:
-			if (prevMonsterState != monsterState)
-				mAnimator->PlayAnimation(L"dragon_soldierHit", true);
+			AnimHit();
 			break;
 		case MonsterScript::eMonsterState::Die:
 			if (prevMonsterState != monsterState)
-				mAnimator->PlayAnimation(L"dragon_soldierDie", true);
+				mAnimator->PlayAnimation(L"dragon_soldierDie", false);
 			break;
 		default:
 			break;
 		}
 	}
-	void DragonSoldierScript::HitCompleteEvent()
+	void DragonSoldierScript::AttackCompleteEvent()
 	{
 		SetMonsterState(MonsterScript::eMonsterState::Idle);
 
-		curTime = 0.0f;
-	}
-	void DragonSoldierScript::Attack1StartEvent()
-	{
-		
-
-
-	}
-	void DragonSoldierScript::Attack2StartEvent()
-	{
-		
-	}
-	void DragonSoldierScript::Attack1CompleteEvent()
-	{
-		SetMonsterState(MonsterScript::eMonsterState::Idle);
-
-		curTime = 0.0f;
-	}
-	void DragonSoldierScript::Attack2CompleteEvent()
-	{
-		SetMonsterState(MonsterScript::eMonsterState::Idle);
-
-		curTime = 0.0f;
-	}
-	void DragonSoldierScript::DieCompleteEvent()
-	{
-		GetOwner()->SetState(GameObject::eState::Dead);
+		SetCurTime(0.0f);
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <hjScript.h>
 
+
 namespace hj
 {
 	//class Animator;
@@ -15,6 +16,7 @@ namespace hj
 		{
 			UINT Damage;
 			UINT DamageRange;
+			Vector2 Direction;
 		};
 		enum class AttackObjectType
 		{
@@ -37,7 +39,10 @@ namespace hj
 		void SetOwner(AttackObject* owner) { mOwner = owner; }*/
 
 
-		void SetStatus(UINT damage, UINT damageRange) { mStatus.Damage = damage; mStatus.DamageRange = damageRange; }
+		void SetStatus(UINT damage, UINT damageRange, Vector2 direction)
+		{
+			mStatus.Damage = damage; mStatus.DamageRange = damageRange; mStatus.Direction = direction;
+		}
 		void SetActivate(bool activate) { bActivate = activate; }
 		void SetAttack(bool attack) { bAttack = attack; }
 		void SetAnimate(bool animate) { bAnimate = animate; }
@@ -54,6 +59,8 @@ namespace hj
 		Vector2 GetVelocity() { return mVelocity; }
 		bool GetAnimate() { return bAnimate; }
 		float GetCoolTime() { return mCoolTime; }
+		float GetFinTime() { return mFinTime; }
+		void SetFinTime(float finTime) { mFinTime = finTime; }
 		//Vector3 GetPos() { return GetOwner()->GetComponent<Transform>()->GetPosition(); }
 		//float GetPosVZ() { return GetOwner()->GetComponent<Transform>()->GetVirtualZ(); }
 		//bool GetFlip() { return GetOwner()->GetFlip(); }
@@ -81,6 +88,7 @@ namespace hj
 		{
 			targets.clear();
 		}
+		void SetPosCol(GameObject* object);
 
 	
 	private:
@@ -94,6 +102,7 @@ namespace hj
 		//float attackHeight;
 		Vector2 mVelocity;
 		Vector2 animOffset;
+		float mFinTime;
 		std::map<UINT32, float> targets;
 
 		status mStatus;

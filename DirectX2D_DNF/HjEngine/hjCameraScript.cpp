@@ -12,7 +12,7 @@ namespace hj
 	
 	void CameraScript::Update()
 	{
-		float fixedRes = (float)(application.GetWidth()) / 800.0f;
+		float fixedRes = (float)(application.GetFixedWidth()) / 800.0f;
 		Vector3 pos = Vector3::Zero;
 		float virtualZ = 0.0f;
 		Camera* cam = GetOwner()->GetComponent<Camera>();

@@ -42,9 +42,7 @@ namespace hj
 		float GetCurTime() { return mCurTime; }
 		effectType GetType() { return mType; }
 		void SetPos(GameObject* object);
-
-
-
+		void SetPosCol(GameObject* object);
 
 	private:
 		effectType mType;

@@ -57,9 +57,10 @@ namespace hj
 
 
 		Vector2 getMinXY() { return minXY; }
-		void setMinXY(Vector2 xy) { minXY = xy; }
+		void setMinXY(Vector2 xy) { minXY = xy * fixedRes; }
 		Vector2 getMaxXY() { return maxXY; }
-		void setMaxXY(Vector2 xy) { maxXY = xy; }
+		void setMaxXY(Vector2 xy) { maxXY = xy * fixedRes; }
+
 	private:
 		static Matrix View;
 		static Matrix Projection;
@@ -84,5 +85,7 @@ namespace hj
 
 		Vector2 minXY;
 		Vector2 maxXY;
+
+		float fixedRes;
 	};
 }

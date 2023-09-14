@@ -11,7 +11,7 @@ namespace hj
 	UINT Collider2D::mColliderNumber = 0;
 	Collider2D::Collider2D()
 		: Component(eComponentType::Collider2D)
-		, mTransform(nullptr)
+		, mObjRotation(Vector3::Zero)
 		, mSize(Vector2::One)
 		, mCenter(Vector2::Zero)
 		, mType(eColliderType::Circle)
@@ -26,8 +26,9 @@ namespace hj
 	}
 	void Collider2D::Initialize()
 	{
-		mTransform = GetOwner()->GetComponent<Transform>();
-		Vector3 trScale = mTransform->GetScale();
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		mObjRotation = tr->GetRotation();
+		Vector3 trScale = tr->GetScale();
 		mSize = Vector3{ trScale.x, trScale.y, trScale.y };
 		/*if (mType == eColliderType::Rect)
 		{
@@ -76,6 +77,7 @@ namespace hj
 		pos.x += trPos.x; // transform 별도 적용
 		pos.z = 1.0f;
 
+
 		mPosition = pos;
 		//float sec45 = 1.0f / cosf(math::degreeToRadian(45.0f));
 		float sec45 = 1.4f;
@@ -101,9 +103,8 @@ namespace hj
 			mMesh->position.y -= scale.y / 2.0f *sec45;
 			//mMesh->bCollision = false;
 		}
-
 		renderer::PushDebugMeshAttribute(mMesh);
-		mTransform = tr;
+		mObjRotation = tr->GetRotation();
 		SetCollisionRange(Vector2(mCollisionHeight + trPos.y, mCollisionHeight + trPos.y + size.z));
 	}
 	void Collider2D::Render()

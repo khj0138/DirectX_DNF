@@ -144,9 +144,9 @@ namespace hj
 			if (left->GetType() == eColliderType::Rect)
 			{
 				Vector3 leftScale = left->GetSize();
-				float leftRotation = left->GetTransform()->GetRotation().z;
+				float leftRotation = left->GetObjectRotation().z;
 				Vector3 rightScale = right->GetSize();
-				float rightRotation = right->GetTransform()->GetRotation().z;
+				float rightRotation = right->GetObjectRotation().z;
 
 				/*std::vector<Vector3> axis3D;
 				axis3D.push_back(Vector3::Up * left->GetTransform()->GetScale());
@@ -212,7 +212,7 @@ namespace hj
 			}
 			
 			Vector3 leftScale = left->GetSize();
-			float leftRotation = left->GetTransform()->GetRotation().z + left->GetRotation();
+			float leftRotation = left->GetObjectRotation().z + left->GetRotation();
 
 			std::vector<Vector2> axis2D;
 			axis2D.push_back((Vector2{ 0.0f, 1.0f } *Vector2(leftScale.x, leftScale.y)));
@@ -237,7 +237,7 @@ namespace hj
 				{
 					sum += abs(axis.Dot(axis2D[j]));
 				}
-				sum += right->GetSize().x * 2;
+				sum += right->GetSize().x;
 				if (sum < (length * 2))
 					return false;
 			}

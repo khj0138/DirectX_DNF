@@ -5,6 +5,7 @@ namespace hj
 {
 	//class Animator;
 	class GameObject;
+	class AttackScriptManager;
 	class AttackEffectScript : public EffectObjectScript
 	{
 	public:
@@ -24,6 +25,8 @@ namespace hj
 		void SetMesh(AtkEffectType type);
 		void SetAtkEffectType(AtkEffectType type) { mType = type; }
 		AtkEffectType GetAtkEffectType() { return mType; }
+
+		
 	public:
 
 	private:

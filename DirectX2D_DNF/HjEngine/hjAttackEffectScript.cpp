@@ -1,5 +1,6 @@
 #include "hjAttackEffectScript.h"
 
+#include "hjAttackScriptManager.h"
 #include "hjTime.h"
 
 #include "hjTransform.h"

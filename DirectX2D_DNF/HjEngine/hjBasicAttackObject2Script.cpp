@@ -23,9 +23,11 @@ namespace hj
 		GetOwner()->SetState(GameObject::eState::Paused);
 
 		SetAnimate(false);
+
 		SetAttack(false);
 		SetVelocity(Vector2::Zero);
-		SetStatus(10, 5);
+		SetStatus(10, 5, Vector2(100.0f, 000.0f));
+
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3(100.0f, 100.0f, 1.0f));
