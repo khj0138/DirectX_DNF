@@ -12,6 +12,7 @@ extern hj::Application application;
 namespace hj
 {
 	double Time::mDeltaTime = 0.0l;
+	double Time::mTimeForRandom = 0.0l;
 	double Time::mSecond = 0.0f;
 	LARGE_INTEGER Time::mCpuFrequency = {};
 	LARGE_INTEGER Time::mPrevFrequency = {};
@@ -40,6 +41,8 @@ namespace hj
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 
 		Time::BindConstantBuffer();
+
+		mTimeForRandom = mDeltaTime;
 	}
 
 	void Time::Render()

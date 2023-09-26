@@ -14,7 +14,7 @@ namespace hj
 		virtual void Update() override;
 
 		virtual void Reset() override;
-
+		virtual void SetActivate(bool activate) override;
 	public:
 
 	private:

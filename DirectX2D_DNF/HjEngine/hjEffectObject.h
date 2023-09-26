@@ -4,6 +4,7 @@
 namespace hj
 {
 	class Animator;
+	class AttackScriptManager;
 	class EffectObject : public GameObject
 	{
 	public:
@@ -20,6 +21,7 @@ namespace hj
 		{
 		}
 		
+	
 	private:
 		Animator* mAnimator;
 		bool mActivate;

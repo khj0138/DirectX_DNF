@@ -2,6 +2,7 @@
 #include <hjScript.h>
 #include "hjAttackObjectScript.h"
 #include "hjEffectObjectScript.h"
+#include "hjGameObject.h"
 
 namespace hj
 {
@@ -9,7 +10,7 @@ namespace hj
 	//class AttackObject;
 	//class EffectObject;
 	class AttackScriptManager;
-	class GameObject;
+	//class GameObject;
 	class AttackScript : public Script
 	{
 	public:
@@ -18,6 +19,8 @@ namespace hj
 
 		virtual void Initialize() override;
 		virtual void Update() override;
+		virtual void LateUpdate() override;
+		virtual void Render() override;
 
 		virtual void Reset() = 0;
 
@@ -44,6 +47,7 @@ namespace hj
 			}
 		}
 		bool GetActivate() { return mActivate; }
+		void SetPause();
 		//template <typename T>
 
 		template <typename T>
@@ -62,6 +66,8 @@ namespace hj
 
 			attackObject->SetName(name);
 			mAttackObjects.insert(std::make_pair(name, (AttackObjectScript*)attackObjectScript));
+
+			attackObjectScript->SetManager(GetManager());
 			return true;
 
 		}
@@ -91,6 +97,9 @@ namespace hj
 
 			effectObject->SetName(name);
 			mEffectObjects.insert(std::make_pair(name, (EffectObjectScript*)effectObjectScript));
+
+			effectObjectScript->SetManager(GetManager());
+
 			return true;
 		}
 
@@ -132,6 +141,7 @@ namespace hj
 		}
 		void SetManager(AttackScriptManager* manager) { attackManager = manager; }
 		AttackScriptManager* GetManager() { return attackManager; }
+
 	private:
 		bool mActivate;
 		float mCoolTime;

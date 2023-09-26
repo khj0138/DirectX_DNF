@@ -22,6 +22,10 @@
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
 
+#include "hjDragonSoldierScript.h"
+#include "hjDrakeSoldierScript.h"
+#include "hjDrakeRiderScript.h"
+
 namespace hj
 {
 	Dungeon_Skasa_Entrance::Dungeon_Skasa_Entrance()
@@ -47,7 +51,7 @@ namespace hj
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(50.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(50.0f, 0.0f, 450.0f));
 
 			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
 
@@ -70,7 +74,7 @@ namespace hj
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(1050.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(1050.0f, 0.0f, 450.0f));
 			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
 
 			Animator* at = gate->AddComponent<Animator>();
@@ -132,6 +136,55 @@ namespace hj
 			mouse->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
 			Collider2D* cd = mouse->AddComponent<Collider2D>();
 		}*/
+		GameObject* monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(700.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetVirtualZ(100.0f);
+		monster->Initialize();
+		monster->AddComponent<DragonSoldierScript>();
+		monster->FindScript<DragonSoldierScript>()->EnterScene();
+
+		monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetVirtualZ(200.0f);
+		monster->Initialize();
+		monster->AddComponent<DragonSoldierScript>();
+		monster->FindScript<DragonSoldierScript>()->EnterScene();
+
+		monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(450.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetVirtualZ(100.0f);
+		monster->Initialize();
+		monster->AddComponent<DrakeSoldierScript>();
+		monster->FindScript<DrakeSoldierScript>()->EnterScene();
+
+
+		monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(800.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetVirtualZ(200.0f);
+		monster->Initialize();
+		monster->AddComponent<DrakeSoldierScript>();
+		monster->FindScript<DrakeSoldierScript>()->EnterScene();
+
+		monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(350.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetVirtualZ(150.0f);
+		monster->Initialize();
+		monster->AddComponent<DrakeRiderScript>();
+		monster->FindScript<DrakeRiderScript>()->EnterScene();
+
+		monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(600.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetVirtualZ(150.0f);
+		monster->Initialize();
+		monster->AddComponent<DrakeRiderScript>();
+		monster->FindScript<DrakeRiderScript>()->EnterScene();
+
 	}
 
 	void Dungeon_Skasa_Entrance::Update()

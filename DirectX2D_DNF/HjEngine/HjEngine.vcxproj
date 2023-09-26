@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -52,7 +52,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>true</EnableUnitySupport>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -150,8 +150,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="hjDrakeRiderAttackBreathObjectScript.h" />
+    <ClInclude Include="hjDrakeRiderAttackBasicObjectScript.h" />
     <ClInclude Include="BackGroundLoader.h" />
+    <ClInclude Include="hjDrakeArmorAttackBreathObjectScript.h" />
     <ClInclude Include="hjAttackEffectScript.h" />
+    <ClInclude Include="hjDrakeArmorAttackBasicObjectScript.h" />
+    <ClInclude Include="hjDrakeArmorAttackBasicScript.h" />
+    <ClInclude Include="hjDrakeArmorAttackBreathScript.h" />
+    <ClInclude Include="hjDrakeArmorAttackRushObjectScript.h" />
+    <ClInclude Include="hjDrakeArmorAttackRushScript.h" />
+    <ClInclude Include="hjDrakeArmorScript.h" />
+    <ClInclude Include="hjDrakeRiderAttackBasicScript.h" />
+    <ClInclude Include="hjDrakeRiderAttackBreathScript.h" />
+    <ClInclude Include="hjDrakeRiderScript.h" />
     <ClInclude Include="hjDrakeSoldierAttackBasicObjectScript.h" />
     <ClInclude Include="hjDrakeSoldierAttackJumpObjectScript.h" />
     <ClInclude Include="hjDrakeSoldierAttackRoarObjectScript.h" />
@@ -210,7 +222,19 @@
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjDrakeRiderAttackBreathObjectScript.cpp" />
+    <ClCompile Include="hjDrakeRiderAttackBasicObjectScript.cpp" />
+    <ClCompile Include="hjDrakeArmorAttackBreathObjectScript.cpp" />
     <ClCompile Include="hjAttackEffectScript.cpp" />
+    <ClCompile Include="hjDrakeArmorAttackBasicObjectScript.cpp" />
+    <ClCompile Include="hjDrakeArmorAttackBasicScript.cpp" />
+    <ClCompile Include="hjDrakeArmorAttackBreathScript.cpp" />
+    <ClCompile Include="hjDrakeArmorAttackRushObjectScript.cpp" />
+    <ClCompile Include="hjDrakeArmorAttackRushScript.cpp" />
+    <ClCompile Include="hjDrakeArmorScript.cpp" />
+    <ClCompile Include="hjDrakeRiderAttackBasicScript.cpp" />
+    <ClCompile Include="hjDrakeRiderAttackBreathScript.cpp" />
+    <ClCompile Include="hjDrakeRiderScript.cpp" />
     <ClCompile Include="hjDrakeSoldierAttackBasicObjectScript.cpp" />
     <ClCompile Include="hjDrakeSoldierAttackJumpObjectScript.cpp" />
     <ClCompile Include="hjDrakeSoldierAttackRoarObjectScript.cpp" />

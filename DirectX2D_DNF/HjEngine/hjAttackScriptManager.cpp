@@ -26,6 +26,24 @@ namespace hj
 			AttackScriptiter->second->Update();
 		}
 	}
+
+	void AttackScriptManager::LateUpdate()
+	{
+		for (auto AttackScriptiter = mAttackScripts.begin(); AttackScriptiter != mAttackScripts.end(); AttackScriptiter++)
+		{
+			AttackScriptiter->second->SetPos(mPosition, mPositionVZ);
+			AttackScriptiter->second->LateUpdate();
+		}
+	}
+
+	void AttackScriptManager::Render()
+	{
+		for (auto AttackScriptiter = mAttackScripts.begin(); AttackScriptiter != mAttackScripts.end(); AttackScriptiter++)
+		{
+			AttackScriptiter->second->SetPos(mPosition, mPositionVZ);
+			AttackScriptiter->second->Render();
+		}
+	}
 	
 	void AttackScriptManager::EnterScene()
 	{
@@ -38,13 +56,13 @@ namespace hj
 				attackObject++)
 			scene->AddGameObject(mType, (GameObject*)(attackObject->second->GetOwner()));
 		}
-		for (auto attackScript = mAttackScripts.begin(); attackScript != mAttackScripts.end(); attackScript++)
+		/*for (auto attackScript = mAttackScripts.begin(); attackScript != mAttackScripts.end(); attackScript++)
 		{
 			for (auto effectObject = attackScript->second->GetEffectObjectsBegin();
 				effectObject != attackScript->second->GetEffectObjectsEnd();
 				effectObject++)
 				scene->AddGameObject(eLayerType::Effect, (GameObject*)(effectObject->second->GetOwner()));
-		}
+		}*/
 	}
 	void AttackScriptManager::ExitScene()
 	{
@@ -57,13 +75,13 @@ namespace hj
 				attackObject++)
 				scene->EraseGameObject(mType, (GameObject*)attackObject->second->GetOwner());
 		}
-		for (auto attackScript = mAttackScripts.begin(); attackScript != mAttackScripts.end(); attackScript++)
+		/*for (auto attackScript = mAttackScripts.begin(); attackScript != mAttackScripts.end(); attackScript++)
 		{
 			for (auto effectObject = attackScript->second->GetEffectObjectsBegin();
 				effectObject != attackScript->second->GetEffectObjectsEnd();
 				effectObject++)
 				scene->EraseGameObject(eLayerType::Effect, (GameObject*)effectObject->second->GetOwner());
-		}
+		}*/
 	}
 	void AttackScriptManager::SetTargetColPos(GameObject* target)
 	{
@@ -89,5 +107,12 @@ namespace hj
 		Transform* tr = target->GetComponent<Transform>();
 		mTargetPos = tr->GetPosition();
 		mTargetPosVZ = tr->GetVirtualZ();
+	}
+	void AttackScriptManager::SetPause()
+	{
+		for (auto AttackScriptiter = mAttackScripts.begin(); AttackScriptiter != mAttackScripts.end(); AttackScriptiter++)
+		{
+			AttackScriptiter->second->SetPause();
+		}
 	}
 }

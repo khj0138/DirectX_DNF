@@ -13,6 +13,16 @@ namespace hj
 
 
 		__forceinline static double DeltaTime() { return mDeltaTime; }
+		__forceinline static double TimeForRandom() { 
+			int intNum = (int)mTimeForRandom;
+			mTimeForRandom -= (float)intNum;
+			while (mTimeForRandom < 1.0f)
+			{
+				mTimeForRandom *= 10.0f;
+			}
+
+			return mTimeForRandom;
+		}
 
 	private:
 		static double mDeltaTime;
@@ -20,5 +30,7 @@ namespace hj
 		static LARGE_INTEGER mCpuFrequency;
 		static LARGE_INTEGER mPrevFrequency;
 		static LARGE_INTEGER mCurFrequency;
+
+		static double mTimeForRandom;
 	};
 }

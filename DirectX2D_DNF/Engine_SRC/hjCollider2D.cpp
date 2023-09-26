@@ -42,6 +42,9 @@ namespace hj
 
 		mMesh = new DebugMesh();
 		mMesh->bCollision = false;
+		mMesh->startPercent = Vector2::One;
+		mMesh->endPercent = Vector2::One;
+		mMesh->SetActivate(true);
 	}
 	void Collider2D::Update()
 	{
@@ -92,7 +95,6 @@ namespace hj
 			mMesh->rotation = tr->GetRotation();
 			mMesh->rotation.z += mRotation;
 			mMesh->type = mType;
-			mMesh->setCurPercent(0.7f);
 
 			/*Vector2 vect2VZ = Vector2(0, pos.y);
 			math::Vector2::rotation(vect2VZ, math::degreeToRadian(mMesh->rotation.z));

@@ -1,10 +1,11 @@
 #pragma once
 #include <hjScript.h>
 
+
 namespace hj
 {
 	//class Animator;
-	//class AttackObject;
+	class AttackScriptManager;
 	class Monster;
 	class Player;
 	class Animator;
@@ -23,6 +24,7 @@ namespace hj
 		~EffectObjectScript();
 		virtual void Initialize() override;
 		virtual void Update() override;
+		virtual void EffectRender();
 
 
 		/*AttackObject* GetOwner() { return mOwner; }
@@ -34,7 +36,7 @@ namespace hj
 		void SetCastingTime(float castingTime) { mCastingTime = castingTime; }
 		void SetCurTime(float curTime) { mCurTime = curTime; }
 		void SetType(effectType type) { mType = type; }
-
+		void SetPause();
 
 		bool GetActivate() { return bActivate; }
 		bool GetAnimate() { return bAnimate; }
@@ -44,12 +46,15 @@ namespace hj
 		void SetPos(GameObject* object);
 		void SetPosCol(GameObject* object);
 
+		void SetManager(AttackScriptManager* manager) { attackManager = manager; }
+		AttackScriptManager* GetManager() { return attackManager; }
 	private:
 		effectType mType;
 		bool bAnimate;
 		bool bActivate;
 		float mCastingTime;
 		float mCurTime;
+		AttackScriptManager* attackManager;
 	};
 
 

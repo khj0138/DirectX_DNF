@@ -26,40 +26,60 @@ float4 main(GSOut In) : SV_TARGET
     //if (bCollision != 0
     //    color = float4(1.0f, 0.0f, 0.0f, 1.0f);
     
+    
     float2 UV = In.UV;
     if (UV.x <= 1.0f && UV.x >= 0.999f)
-        color = float4(1.0f, 0.1f, 0.05f, 0.05f);
+        color = float4(1.0f, 0.1f, 0.05f, 0.1f);
     else if (UV.x < 0.999f && UV.x >= 0.997f)
-        color = float4(1.0f, 0.2f, 0.1f, 0.1f);
+        color = float4(1.0f, 0.2f, 0.1f, 0.2f);
     else if (UV.x < 0.997f && UV.x >= 0.996f)
-        color = float4(1.0f, 0.9f, 0.7f, 0.5f);
+        color = float4(1.0f, 0.9f, 0.7f, 0.7f);
     else if (UV.x < 0.996f && UV.x >= 0.994f)
-        color = float4(1.0f, 1.0f, 0.75f, 0.5f);
+        color = float4(1.0f, 1.0f, 0.75f, 0.7f);
     else if (UV.x < 0.994f && UV.x >= 0.993f)
-        color = float4(1.0f, 0.9f, 0.7f, 0.5f);
+        color = float4(1.0f, 0.9f, 0.7f, 0.7f);
     else if (UV.x < 0.993f && UV.x >= 0.991f)
-        color = float4(1.0f, 0.2f, 0.1f, 0.1f);
+        color = float4(1.0f, 0.2f, 0.1f, 0.2f);
     else if (UV.x < 0.991f && UV.x >= 0.990f)
-        color = float4(1.0f, 0.1f, 0.05f, 0.05f);
+        color = float4(1.0f, 0.1f, 0.05f, 0.1f);
 
     if (UV.x <= curPercent && UV.x >= (curPercent - 0.001f))
-        color = float4(1.0f, 0.1f, 0.05f, 0.05f);
+        color = float4(1.0f, 0.1f, 0.05f, 0.1f);
     else if (UV.x < (curPercent - 0.001f) && UV.x >= (curPercent - 0.003f))
-        color = float4(1.0f, 0.2f, 0.1f, 0.1f);
+        color = float4(1.0f, 0.2f, 0.1f, 0.2f);
     else if (UV.x < (curPercent - 0.003f) && UV.x >= (curPercent - 0.004f))
-        color = float4(1.0f, 0.9f, 0.7f, 0.5f);
+        color = float4(1.0f, 0.9f, 0.7f, 0.7f);
     else if (UV.x < (curPercent - 0.004f) && UV.x >= (curPercent - 0.006f))
-        color = float4(1.0f, 1.0f, 0.75f, 0.5f);
+        color = float4(1.0f, 1.0f, 0.75f, 0.7f);
     else if (UV.x < (curPercent - 0.006f) && UV.x >= (curPercent - 0.007f))
-        color = float4(1.0f, 0.9f, 0.7f, 0.5f);
+        color = float4(1.0f, 0.9f, 0.7f, 0.7f);
     else if (UV.x < (curPercent - 0.007f) && UV.x >= (curPercent - 0.009f))
-        color = float4(1.0f, 0.2f, 0.1f, 0.1f);
+        color = float4(1.0f, 0.2f, 0.1f, 0.2f);
     else if (UV.x < (curPercent - 0.009f) && UV.x >= (curPercent - 0.01f))
-        color = float4(1.0f, 0.1f, 0.05f, 0.05f);
+        color = float4(1.0f, 0.1f, 0.05f, 0.1f);
     else if (UV.x < (curPercent - 0.01f))
-        color = float4(0.3f, 0.1f, 0.1f, 0.1f);
+        color = float4(0.3f, 0.1f, 0.1f, 0.2f);
+    
+    if (UV.x <= startPercent && UV.x >= (startPercent - 0.001f))
+        color = float4(1.0f, 0.1f, 0.05f, 0.1f);
+    else if (UV.x < (startPercent - 0.001f) && UV.x >= (startPercent - 0.003f))
+        color = float4(1.0f, 0.2f, 0.1f, 0.2f);
+    else if (UV.x < (startPercent - 0.003f) && UV.x >= (startPercent - 0.004f))
+        color = float4(1.0f, 0.9f, 0.7f, 0.7f);
+    else if (UV.x < (startPercent - 0.004f) && UV.x >= (startPercent - 0.006f))
+        color = float4(1.0f, 1.0f, 0.75f, 0.7f);
+    else if (UV.x < (startPercent - 0.006f) && UV.x >= (startPercent - 0.007f))
+        color = float4(1.0f, 0.9f, 0.7f, 0.7f);
+    else if (UV.x < (startPercent - 0.007f) && UV.x >= (startPercent - 0.009f))
+        color = float4(1.0f, 0.2f, 0.1f, 0.2f);
+    else if (UV.x < (startPercent - 0.009f) && UV.x >= (startPercent - 0.01f))
+        color = float4(1.0f, 0.1f, 0.05f, 0.1f);
+    else if (UV.x < (startPercent - 0.01f))
+        color = float4(0.3f, 0.1f, 0.1f, 0.0f);
+    
 
+   
     //if (UV.x <= 0.5f)
     //    discard;
-    return color;
+        return color;
 }

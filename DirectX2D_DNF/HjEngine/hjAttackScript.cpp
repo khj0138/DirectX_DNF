@@ -3,7 +3,9 @@
 #include "hjTime.h"
 #include "hjEffectObject.h"
 #include "hjAttackScriptManager.h"
-#include "hjGameObject.h"
+
+#include "hjCollider2D.h"
+//#include "hjGameObject.h"
 //#include "hjBehaviorTree.h"
 
 namespace hj
@@ -26,6 +28,32 @@ namespace hj
 	void AttackScript::Update()
 	{
 		curTime >= mCoolTime ? curTime = mCoolTime : curTime += Time::DeltaTime();
+		for (auto iter = mEffectObjects.begin(); iter != mEffectObjects.end(); iter++)
+		{
+			if (iter->second->GetOwner()->GetState() == GameObject::eState::Active)
+				iter->second->GetOwner()->Update();
+		}
+	}
+
+	void AttackScript::LateUpdate()
+	{
+		for (auto iter = mEffectObjects.begin(); iter != mEffectObjects.end(); iter++)
+		{
+			if (iter->second->GetOwner()->GetState() == GameObject::eState::Active)
+				iter->second->GetOwner()->LateUpdate();
+		}
+	}
+
+	void AttackScript::Render()
+	{
+		for (auto iter = mEffectObjects.begin(); iter != mEffectObjects.end(); iter++)
+		{
+			if (iter->second->GetOwner()->GetState() == GameObject::eState::Active)
+			{
+				iter->second->EffectRender();
+				iter->second->GetOwner()->Render();
+			}
+		}
 	}
 
 	void AttackScript::OnCollisionEnter(Collider2D* other)
@@ -38,6 +66,28 @@ namespace hj
 
 	void AttackScript::OnCollisionExit(Collider2D* other)
 	{
+	}
+
+	void AttackScript::SetPause()
+	{
+		for (auto iter = mAttackObjects.begin(); iter != mAttackObjects.end(); iter++)
+		{
+			if (iter->second->GetOwner()->GetState() == GameObject::eState::Active)
+			{
+				iter->second->SetActivate(false);
+				iter->second->SetPause();
+			}
+		}
+		for (auto iter = mEffectObjects.begin(); iter != mEffectObjects.end(); iter++)
+		{
+			if (iter->second->GetOwner()->GetState() == GameObject::eState::Active)
+			{
+				iter->second->SetActivate(false);
+				iter->second->SetPause();
+			}
+
+		}
+		SetActivate(false);
 	}
 
 }

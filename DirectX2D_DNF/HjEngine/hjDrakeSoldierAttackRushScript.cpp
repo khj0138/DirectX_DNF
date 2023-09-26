@@ -25,7 +25,7 @@ namespace hj
 	}
 	void DrakeSoldierAttackRushScript::Initialize()
 	{
-		SetCoolTime(5.0f);
+		SetCoolTime(15.0f);
 		RegisterAttackObject<DrakeSoldierAttackRushObjectScript>(L"DrakeSoldierAttackRush");
 		AttackObjectScript* DrakeSoldierAttackRush = LoadAttackObject(L"DrakeSoldierAttackRush");
 		//DragonSoldierAttackRush1->GetOwner()->GetComponent<Transform>()->SetRotation2D(45);
@@ -189,6 +189,35 @@ namespace hj
 			DrakeSoldierAttackRush->clearTargets();
 
 
+		}
+	}
+
+	void DrakeSoldierAttackRushScript::SetActivate(bool activate)
+	{
+		AttackScript::SetActivate(activate);
+		if (GetActivate() && activate == true)
+		{
+			MonsterScript* monster = GetOwner()->FindScript<MonsterScript>();
+			if (monster != nullptr)
+			{
+				GameObject* player = monster->GetTarget();
+
+				if (player != nullptr)
+				{
+					Vector3 playerPos = player->GetComponent<Transform>()->GetPosition();
+					float playerVZ = player->GetComponent<Transform>()->GetVirtualZ();
+					Vector2 playerPos2D = Vector2(playerPos.x, playerVZ);
+
+					Vector3 monsterPos = monster->GetOwner()->GetComponent<Transform>()->GetPosition();
+					float monsterVZ = monster->GetOwner()->GetComponent<Transform>()->GetVirtualZ();
+					Vector2 monsterPos2D = Vector2(monsterPos.x, monsterVZ);
+
+					float dist = Vector2::Distance(playerPos2D, monsterPos2D);
+					if (dist > 340.0f)
+						AttackScript::SetActivate(false);
+					return;
+				}
+			}
 		}
 	}
 

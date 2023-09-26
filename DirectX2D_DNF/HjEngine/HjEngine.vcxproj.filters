@@ -163,6 +163,54 @@
     <Filter Include="Script\Monster\DrakeSoldier\AttackObject\Spear">
       <UniqueIdentifier>{70380235-1c58-4900-b643-924b177b17a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script\Monster\DrakeArmor">
+      <UniqueIdentifier>{49f27857-086f-47af-802f-7ab339e65a7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeRider">
+      <UniqueIdentifier>{a226d0b9-6f1b-40db-ac86-ce3edd9eccbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\Attack">
+      <UniqueIdentifier>{e54d1a26-37b0-40bf-900e-ae7b82149be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\AttackObject">
+      <UniqueIdentifier>{e5aa8094-3642-485c-ab40-4fc983ff7f7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\Attack\Basic">
+      <UniqueIdentifier>{a44fde7e-ef84-4733-a70d-4ff9b35b1aa4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\Attack\Breath">
+      <UniqueIdentifier>{01e0b8ff-313d-40f5-aea2-ffd5e9152951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\Attack\Rush">
+      <UniqueIdentifier>{dde92977-489d-4dce-9e79-c521071a16b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\AttackObject\Basic">
+      <UniqueIdentifier>{d42b2627-62c6-497d-b9eb-5f32c9fb8915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\AttackObject\Breath">
+      <UniqueIdentifier>{c4bccd83-3179-4460-a3c0-6485ac5adc5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeArmor\AttackObject\Rush">
+      <UniqueIdentifier>{770e8d5f-d0b1-4b73-be95-5533ed12b526}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeRider\Attack">
+      <UniqueIdentifier>{0936f801-96c9-48e4-a6b9-953b0d2dcda0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeRider\AttackObject">
+      <UniqueIdentifier>{d2fe1e92-ecca-474d-abee-51af3c0c7a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeRider\Attack\Basic">
+      <UniqueIdentifier>{c472faeb-205b-444d-9fa3-bd7ecf826254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeRider\Attack\Breath">
+      <UniqueIdentifier>{27e8fbe9-2838-4dc2-96e1-e4318c9fcfc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeRider\AttackObject\Basic">
+      <UniqueIdentifier>{a864f1f3-73f5-4414-959e-087ab402cb1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\DrakeRider\AttackObject\Breath">
+      <UniqueIdentifier>{24a2b34f-1b39-4fea-893a-682f9a7e1bcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -337,6 +385,42 @@
     <ClInclude Include="hjDrakeSoldierAttackSpearObjectScript.h">
       <Filter>Script\Monster\DrakeSoldier\AttackObject\Spear</Filter>
     </ClInclude>
+    <ClInclude Include="hjDrakeArmorScript.h">
+      <Filter>Script\Monster\DrakeArmor</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeArmorAttackBasicScript.h">
+      <Filter>Script\Monster\DrakeArmor\Attack\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeArmorAttackBreathScript.h">
+      <Filter>Script\Monster\DrakeArmor\Attack\Breath</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeArmorAttackRushScript.h">
+      <Filter>Script\Monster\DrakeArmor\Attack\Rush</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeArmorAttackBasicObjectScript.h">
+      <Filter>Script\Monster\DrakeArmor\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeArmorAttackBreathObjectScript.h">
+      <Filter>Script\Monster\DrakeArmor\AttackObject\Breath</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeArmorAttackRushObjectScript.h">
+      <Filter>Script\Monster\DrakeArmor\AttackObject\Rush</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeRiderScript.h">
+      <Filter>Script\Monster\DrakeRider</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeRiderAttackBreathObjectScript.h">
+      <Filter>Script\Monster\DrakeRider\AttackObject\Breath</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeRiderAttackBasicObjectScript.h">
+      <Filter>Script\Monster\DrakeRider\AttackObject\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeRiderAttackBreathScript.h">
+      <Filter>Script\Monster\DrakeRider\Attack\Breath</Filter>
+    </ClInclude>
+    <ClInclude Include="hjDrakeRiderAttackBasicScript.h">
+      <Filter>Script\Monster\DrakeRider\Attack\Basic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -501,6 +585,42 @@
     </ClCompile>
     <ClCompile Include="hjDrakeSoldierAttackSpearObjectScript.cpp">
       <Filter>Script\Monster\DrakeSoldier\AttackObject\Spear</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeArmorScript.cpp">
+      <Filter>Script\Monster\DrakeArmor</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeArmorAttackBasicScript.cpp">
+      <Filter>Script\Monster\DrakeArmor\Attack\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeArmorAttackBreathScript.cpp">
+      <Filter>Script\Monster\DrakeArmor\Attack\Breath</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeArmorAttackRushScript.cpp">
+      <Filter>Script\Monster\DrakeArmor\Attack\Rush</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeArmorAttackBasicObjectScript.cpp">
+      <Filter>Script\Monster\DrakeArmor\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeArmorAttackBreathObjectScript.cpp">
+      <Filter>Script\Monster\DrakeArmor\AttackObject\Breath</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeArmorAttackRushObjectScript.cpp">
+      <Filter>Script\Monster\DrakeArmor\AttackObject\Rush</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeRiderScript.cpp">
+      <Filter>Script\Monster\DrakeRider</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeRiderAttackBreathObjectScript.cpp">
+      <Filter>Script\Monster\DrakeRider\AttackObject\Breath</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeRiderAttackBasicObjectScript.cpp">
+      <Filter>Script\Monster\DrakeRider\AttackObject\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeRiderAttackBreathScript.cpp">
+      <Filter>Script\Monster\DrakeRider\Attack\Breath</Filter>
+    </ClCompile>
+    <ClCompile Include="hjDrakeRiderAttackBasicScript.cpp">
+      <Filter>Script\Monster\DrakeRider\Attack\Basic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

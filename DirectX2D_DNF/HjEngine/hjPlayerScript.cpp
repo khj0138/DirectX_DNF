@@ -150,6 +150,14 @@ namespace hj
 		AtkManager->SetPosition(Vector2{pos.x,pos.y}, posVZ);
 		AtkManager->Update();
 	}
+	void PlayerScript::LateUpdate()
+	{
+		AtkManager->LateUpdate();
+	}
+	void PlayerScript::Render()
+	{
+		AtkManager->Render();
+	}
 	void PlayerScript::Hit(UINT damage, bool flip, Vector2 direction)
 	{
 		mStatus.HP > damage ? mStatus.HP = mStatus.HP - damage : mStatus.HP = 0;
@@ -684,14 +692,6 @@ namespace hj
 					GetOwner()->SetFlip(false);
 					//mVelocity.x = 600.0f;
 				}
-				/*else if (isFlip)
-				{
-					mVelocity.x = -150.0f;
-				}
-				else if (!isFlip)
-				{
-					mVelocity.x = 150.0f;
-				}*/
 
 
 				bAttackVector[i] = false;
@@ -716,7 +716,6 @@ namespace hj
 		else
 			moveTime = 0.0f;
 
-		//velocity.x = mVelocity.x;
 		if (bMove && moveTime <= 0.2f)
 		{
 			velocity.x = mVelocity.x;

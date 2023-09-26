@@ -45,7 +45,7 @@ namespace hj
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(800.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(800.0f, 0.0f, 450.0f));
 			gate->GetComponent<Transform>()->SetVirtualZ(350.0f);
 
 			Animator* at = gate->AddComponent<Animator>();

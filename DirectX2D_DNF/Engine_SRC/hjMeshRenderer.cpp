@@ -34,6 +34,7 @@ namespace hj
 
 		Animator* animator = GetOwner()->GetComponent<Animator>();
 		mMesh->BindBuffer();
+		mFlip = GetOwner()->GetFlip();
 		if (animator)
 		{
 			animator->Binds();

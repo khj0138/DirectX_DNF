@@ -29,6 +29,8 @@
 #include "hjPortalScript.h"
 
 #include "hjDrakeSoldierScript.h"
+#include "hjDrakeArmorScript.h"
+#include "hjDrakeRiderScript.h"
 namespace hj
 {
 	Town_SeriaRoom::Town_SeriaRoom()
@@ -84,8 +86,10 @@ namespace hj
 		AddGameObject(eLayerType::Monster, testmonster);
 		testmonster->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
 		testmonster->Initialize();
-		testmonster->AddComponent<DrakeSoldierScript>();
-		testmonster->FindScript<DrakeSoldierScript>()->EnterScene();
+		testmonster->AddComponent<DrakeRiderScript>();
+		testmonster->FindScript<DrakeRiderScript>()->EnterScene();
+		//testmonster->AddComponent<DrakeArmorScript>();
+		//testmonster->FindScript<DrakeArmorScript>()->EnterScene();
 		
 		PlayerScript* player = SceneManager::GetPlayer();
 		// MainCamera

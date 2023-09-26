@@ -22,6 +22,8 @@ namespace hj
 
 		virtual void Initialize() override;
 		virtual void Update() override;
+		virtual void LateUpdate() override;
+		virtual void Render() override;
 
 		//behavior
 		bool IsWalk();
@@ -36,6 +38,7 @@ namespace hj
 		void AnimHit();
 		
 		void AttackCompleteEvent();
+		
 	private:
 		bool bMove;
 		Vector3 mVelocity;

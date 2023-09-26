@@ -33,6 +33,7 @@ namespace hj
 		col->SetSize(Vector2(200.0f, 200.0f), 150.0f);
 		col->SetCenter(Vector2(100.0f, 0.0f));
 		col->SetCollisionHeight(0.0f);
+		
 
 	}
 	void DragonSoldierAttackBasic1ObjectScript::Update()

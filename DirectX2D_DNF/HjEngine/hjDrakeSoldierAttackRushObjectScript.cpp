@@ -30,7 +30,7 @@ namespace hj
 
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		tr->SetScale(Vector3(100.0f, 100.0f, 1.0f));
+		tr->SetScale(Vector3(150.0f, 50.0f, 1.0f));
 		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 
 		col->SetType(eColliderType::Rect);

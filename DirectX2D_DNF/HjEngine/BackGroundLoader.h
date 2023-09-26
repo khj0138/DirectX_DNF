@@ -31,12 +31,14 @@ namespace hj
 		//fixedRes = 1.0f;
 
 		GameObject* basicImage = new GameObject();
+		basicImage->SetFlip(flip);
+
 		//basicImage->SetName(name);
 		MeshRenderer* mr = basicImage->AddComponent<MeshRenderer>();
 		//Collider2D * cd = basicImage->AddComponent<Collider2D>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(name));
-		mr->SetUVFlip(flip);
+		//mr->SetUVFlip(flip);
 
 		Vector3 imageScale = Resources::Find<Material>(name)->GetTextureSize();
 		basicImage->GetComponent<Transform>()->SetScale(imageScale);
@@ -44,6 +46,8 @@ namespace hj
 		//position.y = (position.y + imageScale.y / 2.0f) * fixedRes;// *moveRate.y;
 		basicImage->GetComponent<Transform>()->SetPosition(position);
 		basicImage->GetComponent<Transform>()->SetCamMoveRate(moveRate);
+		if (position.z == 450.0f)
+			basicImage->GetComponent<Transform>()->YtoVirtualZ();
 		//return basicImage;
 		basicImage->SetName(name);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::BackGround, basicImage);
@@ -57,12 +61,13 @@ namespace hj
 
 		GameObject* basicImage = new GameObject();
 		basicImage->SetName(name);
+		basicImage->SetFlip(flip);
 		MeshRenderer* mr = basicImage->AddComponent<MeshRenderer>();
 		//Collider2D * cd = basicImage->AddComponent<Collider2D>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(name));
 		mr->SetUVScale(repeatScale);
-		mr->SetUVFlip(flip);
+		//mr->SetUVFlip(flip);
 
 		Vector3 imageScale = Resources::Find<Material>(name)->GetTextureSize();
 
@@ -75,7 +80,8 @@ namespace hj
 		basicImage->GetComponent<Transform>()->SetScale(imageScale);
 		basicImage->GetComponent<Transform>()->SetPosition(position);
 		basicImage->GetComponent<Transform>()->SetCamMoveRate(moveRate);
-
+		if (position.z == 450.0f)
+			basicImage->GetComponent<Transform>()->YtoVirtualZ();
 		
 		/*ImageScript* script = basicImage->AddComponent<ImageScript>();
 		script->setScale(repeatScale);*/
@@ -91,13 +97,15 @@ namespace hj
 
 		GameObject* basicImage = new GameObject();
 		basicImage->SetName(name);
+		basicImage->SetFlip(flip);
+
 		MeshRenderer* mr = basicImage->AddComponent<MeshRenderer>();
 		//Collider2D * cd = basicImage->AddComponent<Collider2D>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(name));
 		mr->SetUVScale(repeatScale);
 		mr->SetUVMove(uvMove);
-		mr->SetUVFlip(flip);
+		//mr->SetUVFlip(flip);
 		mr->SetUVRepeat(repeat);
 		Vector3 imageScale = Resources::Find<Material>(name)->GetTextureSize();
 
@@ -110,7 +118,8 @@ namespace hj
 		basicImage->GetComponent<Transform>()->SetScale(imageScale);
 		basicImage->GetComponent<Transform>()->SetPosition(position);
 		basicImage->GetComponent<Transform>()->SetCamMoveRate(moveRate);
-
+		if (position.z == 450.0f)
+			basicImage->GetComponent<Transform>()->YtoVirtualZ();
 
 		/*ImageScript* script = basicImage->AddComponent<ImageScript>();
 		script->setScale(repeatScale);*/
@@ -195,7 +204,7 @@ namespace hj
 			CreateBasicObject(L"MainCamp_object_main_16", Vector3(85.0f, 345.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_main_5", Vector3(230.0f, 340.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_main_0", Vector3(000.0f, 220.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"MainCamp_object_main_3", Vector3(-80.0f, -30.0f, 497.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"MainCamp_object_main_3", Vector3(-80.0f, -30.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_main_12", Vector3(130.0f, 125.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_main_9", Vector3(1240.0f, 325.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_main_4", Vector3(1200.0f, 365.0f, 497.0f), false, Vector2(1.0f, 1.0f));
@@ -208,11 +217,11 @@ namespace hj
 			CreateBasicObject(L"MainCamp_object_main_11", Vector3(1240.0f, 345.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_door_0", Vector3(1168.0f, 15.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_object_title_0", Vector3(1500.0f, 545.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"MainCamp_object_door_1", Vector3(1442.0f, 72.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"MainCamp_object_main_8", Vector3(1280.0f, -165.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"MainCamp_object_door_2", Vector3(1530.0f, -60.0f, 497.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"MainCamp_object_door_1", Vector3(1442.0f, 72.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"MainCamp_object_main_8", Vector3(1280.0f, -165.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"MainCamp_object_door_2", Vector3(1530.0f, -60.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"MainCamp_dodge_light_0", Vector3(1177.0f, 396.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"MainCamp_object_main_6", Vector3(1070.0f, -60.0f, 497.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"MainCamp_object_main_6", Vector3(1070.0f, -60.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 			// border object
 			CreateBasicObject(L"MainCamp_border_0", Vector3(0.0f, -55.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 		}
@@ -230,10 +239,10 @@ namespace hj
 
 			//object
 			CreateBasicObject(L"GunHwaMun_door_0", Vector3(000.0f, 50.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"GunHwaMun_door_1", Vector3(000.0f, 110.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"GunHwaMun_object_title_0", Vector3(220.0f, 605.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"GunHwaMun_object_0", Vector3(575.0f, 325.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"GunHwaMun_object_1", Vector3(725.0f, 295.0f, 497.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_door_1", Vector3(000.0f, 110.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_object_title_0", Vector3(220.0f, 605.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_object_0", Vector3(575.0f, 325.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"GunHwaMun_object_1", Vector3(725.0f, 295.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 			// border object
 			CreateBasicObject(L"GunHwaMun_border_2", Vector3(200.0f, 00.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"GunHwaMun_border_0", Vector3(-30.0f, -10.0f, 400.0f), false, Vector2(1.0f, 1.0f));
@@ -283,10 +292,10 @@ namespace hj
 
 			//object945 145 1095 165
 			CreateBasicObject(L"Dungeon_Entrance_object_building_0", Vector3(-30.0f, 70.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_tree_0", Vector3(595.0f, 310.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_7", Vector3(545.0f, 305.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_2", Vector3(320.0f, 255.0f, 495.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_3", Vector3(1095.0f, 255.0f, 495.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_tree_0", Vector3(595.0f, 310.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_7", Vector3(545.0f, 305.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_2", Vector3(320.0f, 255.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_3", Vector3(1095.0f, 255.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 			// border object
 			CreateBasicObject(L"Dungeon_Entrance_object_border_1", Vector3(0.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(257.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
@@ -341,16 +350,16 @@ namespace hj
 			CreateBasicObject(L"Dungeon_Entrance_object_bottom_16", Vector3(340.0f, 190.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"Dungeon_Entrance_object_bottom_15", Vector3(640.0f, 110.0f, 497.0f), false, Vector2(1.0f, 1.0f));
 			
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_0", Vector3(-75.0f, 275.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_1", Vector3(-70.0f, 25.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_4", Vector3(400.0f, 275.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_3", Vector3(85.0f, 300.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_tree_2", Vector3(675.0f, 310.0f, 495.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_0", Vector3(-75.0f, 275.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_1", Vector3(-70.0f, 25.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_4", Vector3(400.0f, 275.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_3", Vector3(85.0f, 300.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_tree_2", Vector3(675.0f, 310.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_7", Vector3(980.0f, 315.0f, 497.0f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Dungeon_Entrance_object_basic_8", Vector3(940.0f, 300.0f, 497.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_7", Vector3(980.0f, 315.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_basic_8", Vector3(940.0f, 300.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 
-			CreateBasicObject(L"Dungeon_Entrance_object_bottom_13", Vector3(1000.0f, 265.0f, 497.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Dungeon_Entrance_object_bottom_13", Vector3(1000.0f, 265.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Dungeon_Entrance_object_basic_3", Vector3(1095.0f, 255.0f, 496.0f), false, Vector2(1.0f, 1.0f));
 			// border object
 			CreateBasicObject(L"Dungeon_Entrance_object_border_2", Vector3(-90.0f, 0.0f, 400.0f), false, Vector2(1.0f, 1.0f));
@@ -404,9 +413,9 @@ namespace hj
 			CreateBasicObject(L"Skasa_common_snow_0_2", Vector3(570.0f, 158.0f, 497.000f), false,  Vector2(1.0f, 1.0f));
 			CreateBasicObject(L"Skasa_common_snow_0_3", Vector3(1000.0f, 0.0f, 497.000f), false,  Vector2(1.0f, 1.0f));
 
-			CreateBasicObject(L"Skasa_common_icicle_1", Vector3(75.0f, 28.0f, 497.000f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Skasa_common_icicle_1", Vector3(406.0f, 289.0f, 497.000f), false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"Skasa_common_icicle_0", Vector3(787.0f, 277.0f, 497.000f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_icicle_1", Vector3(75.0f, 28.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_icicle_1", Vector3(406.0f, 289.0f, 450.0f), false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_icicle_0", Vector3(787.0f, 277.0f, 450.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Spirazzi_bottom_obj_0", Vector3(463.0f, 443.0f, 497.000f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Spirazzi_bottom_obj_0", Vector3(728.0f, 450.0f, 497.000f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Spirazzi_bottom_obj_6", Vector3(428.0f, 379.0f, 497.000f), false, Vector2(1.0f, 1.0f));
@@ -421,7 +430,7 @@ namespace hj
 			CreateBasicObject(L"Skasa_common_icicle_3", Vector3(550.0f, 540.0f, 400.0f), false, Vector2(1.0f, 1.0f));
 			//CreateBasicObject(L"Spirazzi_border_1", Vector3(767.0f, 0.0f, 496.000f), false, Vector2(1.0f, 1.0f));
 			//object
-			CreateBasicObject(L"Skasa_common_pillar_fence_9", Vector3(-165.0f, 50.0f, 400.0f), false,  Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"Skasa_common_pillar_fence_9", Vector3(-165.0f, 50.0f, 450.0f), false,  Vector2(1.0f, 1.0f));
 			//CreateMoveRepeatObject(L"Spirazzi_fog_normal_0", Vector3(0.0f, 0.0f, 495.000f), false, false, Vector2(3.0f, 1.0f), Vector2(-20.0f, 0.0f), Vector2::One);
 		}
 		else if (activeScene->GetName() == L"Dungeon_Skasa")
@@ -455,9 +464,9 @@ namespace hj
 			CreateBasicObject(L"Skasa_object_bigice_1", Vector3(1390.0f, 280.0f, 496.0f), false, Vector2::One);
 			CreateBasicObject(L"Skasa_object_ice_0", Vector3(180.0f,425.0f, 496.0f), false, Vector2::One);
 			CreateBasicObject(L"Skasa_object_ice_1", Vector3(600.0f,410.0f, 496.0f), false, Vector2::One);
-			CreateBasicObject(L"Skasa_object_ice_0", Vector3(590.0f, -140.0f, 496.0f), false, Vector2::One);
-			CreateBasicObject(L"Skasa_object_ice_1", Vector3(655.0f, -110.0f, 496.0f), false, Vector2::One);
 			CreateBasicObject(L"Skasa_object_ice_2", Vector3(480.0f,450.0f, 496.0f), false, Vector2::One);
+			CreateBasicObject(L"Skasa_object_ice_0", Vector3(590.0f, -140.0f, 400.0f), false, Vector2::One);
+			CreateBasicObject(L"Skasa_object_ice_1", Vector3(655.0f, -110.0f, 400.0f), false, Vector2::One);
 			// border object
 		}
 		

@@ -34,7 +34,6 @@ namespace hj
 		col->SetSize(Vector2(50.0f, 50.0f), 70.0f);
 		//col->SetCenter(Vector2(50.0f, 0.0f));
 		col->SetCollisionHeight(30.0f);
-
 	}
 	void DrakeSoldierAttackJumpObjectScript::Update()
 	{

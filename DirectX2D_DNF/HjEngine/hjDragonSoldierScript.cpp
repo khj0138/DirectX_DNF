@@ -38,7 +38,8 @@ namespace hj
 	void DragonSoldierScript::Initialize()
 	{
 		MonsterScript::Initialize();
-		SetCoolTime(3.0f);
+		
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3{ 401.0f, 325.0f, 2.0f });
 		GetOwner()->SetName(L"DragonSoldier");
@@ -70,6 +71,10 @@ namespace hj
 	}
 	void DragonSoldierScript::Update()
 	{
+		if (GetCoolTime() == -1.0f)
+		{
+			SetCoolTime(3.0f + 0.1f * Time::TimeForRandom());
+		}
 		MonsterScript::Update();
 
 		AttackScriptManager* AtkManager = GetAtkManager();
@@ -105,6 +110,20 @@ namespace hj
 		AtkManager->SetPosition(Vector2{ pos.x,pos.y }, posVZ);
 		AtkManager->Update();
 	}
+
+	void DragonSoldierScript::LateUpdate()
+	{
+		AttackScriptManager* AtkManager = GetAtkManager();
+
+		AtkManager->LateUpdate();
+	}
+
+	void DragonSoldierScript::Render()
+	{
+		AttackScriptManager* AtkManager = GetAtkManager();
+
+		AtkManager->Render();
+	}
 	
 	bool DragonSoldierScript::IsWalk()
 	{
@@ -120,8 +139,7 @@ namespace hj
 			float monPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 			Vector2 monPos2D = Vector2(monPos.x, monPosVZ);
 
-			if(math::Vector2::Distance(playerPos2D, monPos2D) > 100.0f * fixedRes
-				|| abs(playerPos2D.y - monPos2D.y) > 50.0f * fixedRes)
+			if(math::Vector2::Distance(playerPos2D, monPos2D) > 100.0f * fixedRes)
 				return true;
 		}
 		return false;
@@ -169,13 +187,13 @@ namespace hj
 		}
 
 		
-		if (IsWalk())
-		{
-			SetMonsterState(MonsterScript::eMonsterState::Walk);
-		}
 		if (IsAttack())
 		{
 			SetMonsterState(MonsterScript::eMonsterState::Attack);
+		}
+		if (IsWalk())
+		{
+			SetMonsterState(MonsterScript::eMonsterState::Walk);
 		}
 	}
 	void DragonSoldierScript::Walk()
@@ -228,6 +246,11 @@ namespace hj
 
 		moveVector.Normalize();
 		moveVector *= 100.0f;
+		if (IsAttack())
+		{
+			SetMonsterState(MonsterScript::eMonsterState::Attack);
+			moveVector = Vector2::Zero;
+		}
 		if (!IsWalk())
 		{
 			SetMonsterState(MonsterScript::eMonsterState::Idle);
@@ -274,6 +297,12 @@ namespace hj
 				animation->SetPause(true);
 				SetCurTime(0.0f);
 			}
+		}
+		if (!GetAtkManager()->CheckActivate(attackName))
+		{
+			SetMonsterState(MonsterScript::eMonsterState::Idle);
+			SetCurTime(0.0f);
+			return;
 		}
 	}
 	void DragonSoldierScript::Hit()
@@ -327,6 +356,7 @@ namespace hj
 		{
 			GetOwner()->SetState(GameObject::eState::Paused);
 		}
+		GetAtkManager();
 	}
 	void DragonSoldierScript::AnimHit()
 	{
@@ -394,9 +424,11 @@ namespace hj
 			AnimHit();
 			break;
 		case MonsterScript::eMonsterState::Die:
+		{
 			if (prevMonsterState != monsterState)
 				mAnimator->PlayAnimation(L"dragon_soldierDie", false);
 			break;
+		}
 		default:
 			break;
 		}

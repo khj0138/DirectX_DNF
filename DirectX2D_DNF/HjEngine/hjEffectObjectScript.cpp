@@ -19,6 +19,7 @@
 #include "hjMonsterScript.h"
 //#include "hjAttackScript.h"
 
+#include "hjAttackScriptManager.h"
 namespace hj
 {
 	EffectObjectScript::EffectObjectScript(effectType type)
@@ -27,6 +28,7 @@ namespace hj
 		, bActivate(false)
 		, mCastingTime(0.0f)
 		, mCurTime(0.0f)
+		, attackManager(nullptr)
 	{
 	}
 	EffectObjectScript::~EffectObjectScript()
@@ -57,6 +59,15 @@ namespace hj
 		tr->SetPosition(pos);
 		tr->SetVirtualZ(tr->GetVirtualZ() + rb->GetVelocity().y);
 		Script::Update();
+	}
+
+	void EffectObjectScript::EffectRender()
+	{
+	}
+
+	void EffectObjectScript::SetPause()
+	{
+		GetOwner()->SetState(GameObject::eState::Paused);
 	}
 
 	void EffectObjectScript::SetPos(GameObject* object)

@@ -20,6 +20,7 @@ namespace hj
 	MonsterScript::MonsterScript()
 		: mActivate(false)
 		, mMonsterState(eMonsterState::Idle)
+		, mCoolTime(-1.0f)
 	{
 	}
 	MonsterScript::~MonsterScript()
@@ -54,6 +55,14 @@ namespace hj
 					int a = 0;
 			}
 		}
+	}
+
+	void MonsterScript::LateUpdate()
+	{
+	}
+
+	void MonsterScript::Render()
+	{
 	}
 
 
@@ -93,7 +102,10 @@ namespace hj
 			if (mStatus.HP == 0)
 			{
 				mCurTime = 0.0f;
+
 				SetMonsterState(eMonsterState::Die);
+				GetOwner()->GetComponent<Collider2D>()->GetMesh()->SetActivate(false);
+				GetAtkManager()->SetPause();
 			}
 			else
 			{
@@ -115,7 +127,10 @@ namespace hj
 				if (mStatus.HP == 0)
 				{
 					mCurTime = 0.0f;
+
 					SetMonsterState(eMonsterState::Die);
+					GetOwner()->GetComponent<Collider2D>()->GetMesh()->SetActivate(false);
+					GetAtkManager()->SetPause();
 				}
 				else
 				{

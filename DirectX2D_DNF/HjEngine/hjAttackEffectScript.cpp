@@ -17,6 +17,8 @@ namespace hj
 
 	AttackEffectScript::AttackEffectScript()
 		: EffectObjectScript(effectType::Mesh)
+		, mStartPercent(1.0f)
+		, mEndPercent(1.0f)
 	{
 
 	}
@@ -44,19 +46,39 @@ namespace hj
 		}
 		SetCurTime(time);
 
+		
+	}
+
+	void AttackEffectScript::EffectRender()
+	{
 		renderer::AtkEffectCB AtkEffectObj = {};
 		AtkEffectObj.type = (UINT)mType;
 		AtkEffectObj.startPercent = 1.0f;
 		AtkEffectObj.endPercent = 1.0f;
-		/*if (mType == AtkEffectType::Rect)
+		if (mType == AtkEffectType::Rect)
 		{
 			AtkEffectObj.startPercent = mStartPercent;
 			AtkEffectObj.endPercent = mEndPercent;
-		}*/
-		AtkEffectObj.curPercent = GetCurTime() / GetCastingTime();
+			AtkEffectObj.curPercent = GetCurTime() / GetCastingTime();
+		}
+		else if (mType == AtkEffectType::Circle)
+		{
+			if (mStartPercent == 1.0f && mEndPercent == 1.0f)
+			{
+				AtkEffectObj.startPercent = 0.0f;
+				AtkEffectObj.curPercent = GetCurTime() / GetCastingTime();
+			}
+			else
+			{
+				AtkEffectObj.startPercent = mStartPercent;
+				AtkEffectObj.endPercent = mEndPercent;
+				AtkEffectObj.curPercent = mStartPercent + (mEndPercent - mStartPercent) * GetCurTime() / GetCastingTime();
+			}
+		}
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::AtkEffect];
 		cb->SetData(&AtkEffectObj);
 		cb->Bind(eShaderStage::PS);
+
 	}
 
 	void AttackEffectScript::SetMesh(AtkEffectType type)

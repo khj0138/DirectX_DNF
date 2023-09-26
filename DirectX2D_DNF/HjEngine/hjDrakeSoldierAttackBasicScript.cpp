@@ -21,22 +21,31 @@ namespace hj
 	}
 	void DrakeSoldierAttackBasicScript::Initialize()
 	{
-		SetCoolTime(20.0f);
+		SetCoolTime(5.0f);
 		RegisterAttackObject<DrakeSoldierAttackBasicObjectScript>(L"DrakeSoldierAttackBasic");
 		AttackObjectScript* DrakeSoldierAttackBasic = LoadAttackObject(L"DrakeSoldierAttackBasic");
+		//DrakeSoldierAttackBasic->SetDefaultPercent(Vector2(0.5f, 0.5f), Vector2(1.0f, 1.0f));
+		//DrakeSoldierAttackBasic->SetCenterPercent(0.5f);
 		//DragonSoldierAttackBasic1->GetOwner()->GetComponent<Transform>()->SetRotation2D(45);
 		RegisterEffectObject<AttackEffectScript>(L"AttackEffect");
 		EffectObjectScript* AttackEffect = LoadEffectObject(L"AttackEffect");
 		AttackEffectScript* AttackEffectObject = dynamic_cast<AttackEffectScript*>(AttackEffect);
 		if (AttackEffectObject != nullptr)
 		{
+			/*AttackEffectObject->SetMesh(AttackEffectScript::AtkEffectType::Rect);
+			AttackEffectObject->SetStartPercent(0.5f);
+			AttackEffectObject->SetEndPercent(0.7f);*/
+
 			AttackEffectObject->SetMesh(AttackEffectScript::AtkEffectType::Rect);
+			//AttackEffectObject->SetStartPercent(0.5f);
+			//AttackEffectObject->SetEndPercent(1.0f);
 		}
 		AttackEffect->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(200.0f, 100.0f, 1.0f));
 		AttackEffect->SetCastingTime(1.0f);
 	}
 	void DrakeSoldierAttackBasicScript::Update()
 	{
+
 		//if (GetActivate())
 		if (GetActivate())
 		{
@@ -54,9 +63,8 @@ namespace hj
 
 				SetActivate(false);
 				return;
-
 			}
-			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 2)
+			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 2)
 			{
 				AttackObjectScript* DrakeSoldierAttackBasic = LoadAttackObject(L"DrakeSoldierAttackBasic");
 				DrakeSoldierAttackBasic->SetAttack(true);
@@ -75,6 +83,7 @@ namespace hj
 				EffectObjectScript* AttackEffect = LoadEffectObject(L"AttackEffect");
 				AttackEffect->SetPos(DrakeSoldierAttackBasicObject);
 				AttackEffect->GetOwner()->SetState(GameObject::eState::Active);
+				AttackEffect->GetOwner()->SetFlip(GetOwner()->GetFlip());
 				//float sec45 = 1.4f;
 				////AttackEffect->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(dMesh->position.x, 0.0f, dMesh->position.z));
 				//AttackEffect->GetOwner()->GetComponent<Transform>()->SetPosition(tr->GetPosition());
@@ -107,6 +116,7 @@ namespace hj
 			DrakeSoldierAttackBasic->GetOwner()->SetFlip(GetOwner()->GetFlip());
 			DrakeSoldierAttackBasic->GetOwner()->SetState(GameObject::eState::Active);
 			DrakeSoldierAttackBasic->GetOwner()->GetComponent<Collider2D>()->SetCollision(true);
+			DrakeSoldierAttackBasic->clearTargets();
 
 
 		}
@@ -133,16 +143,13 @@ namespace hj
 					Vector2 monsterPos2D = Vector2(monsterPos.x, monsterVZ);
 					
 					float dist = Vector2::Distance(playerPos2D, monsterPos2D);
-					if (dist >= 250.0f)
+					if (abs(playerPos2D.x - monsterPos2D.x) > 300.0f
+					|| abs(playerPos2D.y - monsterPos2D.y) > 50.0f)
 						AttackScript::SetActivate(false);
+					return;
 				}
 			}
-			AttackObjectScript* DrakeSoldierAttackBasic = LoadAttackObject(L"DrakeSoldierAttackBasic");
-			DrakeSoldierAttackBasic->clearTargets();
-			
 		}
-
-
 	}
 
 }

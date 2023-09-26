@@ -47,6 +47,8 @@ namespace hj
 
 		virtual void Initialize() override;
 		virtual void Update() override;
+		virtual void LateUpdate() override;
+		virtual void Render() override;
 
 		void Hit(UINT damage, bool flip, Vector2 direction);
 

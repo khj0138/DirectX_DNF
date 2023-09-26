@@ -9,6 +9,7 @@ namespace hj
 	class Monster;
 	class Player;
 	class Animator;
+	class AttackScriptManager;
 	class AttackObjectScript : public Script
 	{
 	public:
@@ -44,6 +45,8 @@ namespace hj
 			mStatus.Damage = damage; mStatus.DamageRange = damageRange; mStatus.Direction = direction;
 		}
 		void SetActivate(bool activate) { bActivate = activate; }
+		void SetPause();
+
 		void SetAttack(bool attack) { bAttack = attack; }
 		void SetAnimate(bool animate) { bAnimate = animate; }
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
@@ -90,7 +93,15 @@ namespace hj
 		}
 		void SetPosCol(GameObject* object);
 
-	
+		void SetManager(AttackScriptManager* manager) { attackManager = manager; }
+		AttackScriptManager* GetManager() { return attackManager; }
+
+		void SetDefaultPercent(Vector2 start, Vector2 end);
+		Vector2 GetDefaultStartPercent() { return mStartPercent; }
+		Vector2 GetDefaultEndPercent() { return mEndPercent; }
+
+		void SetCenterPercent(float center);
+		float GetCenterPercent() { return mCenterPercent; }
 	private:
 		AttackObjectType mType;
 		Animator* mAnimator;
@@ -106,6 +117,13 @@ namespace hj
 		std::map<UINT32, float> targets;
 
 		status mStatus;
+		AttackScriptManager* attackManager;
+
+		Vector2 mStartPercent;
+		Vector2 mEndPercent;
+
+		float mCenterPercent;
+
 	};
 
 

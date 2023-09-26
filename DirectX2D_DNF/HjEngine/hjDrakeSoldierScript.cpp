@@ -41,7 +41,8 @@ namespace hj
 	void DrakeSoldierScript::Initialize()
 	{
 		MonsterScript::Initialize();
-		SetCoolTime(3.0f);
+		
+
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		tr->SetScale(Vector3{ 501.0f, 300.0f, 2.0f });
 		GetOwner()->SetName(L"DrakeSoldier");
@@ -88,8 +89,11 @@ namespace hj
 	}
 	void DrakeSoldierScript::Update()
 	{
+		if (GetCoolTime() == -1.0f)
+		{
+			SetCoolTime(3.0f + 0.1f * Time::TimeForRandom());
+		}
 		MonsterScript::Update();
-
 		AttackScriptManager* AtkManager = GetAtkManager();
 
 		SetCurTime(GetCurTime() + Time::DeltaTime());
@@ -125,6 +129,20 @@ namespace hj
 		AtkManager->Update();
 	}
 
+	void DrakeSoldierScript::LateUpdate()
+	{
+		AttackScriptManager* AtkManager = GetAtkManager();
+
+		AtkManager->LateUpdate();
+	}
+
+	void DrakeSoldierScript::Render()
+	{
+		AttackScriptManager* AtkManager = GetAtkManager();
+
+		AtkManager->Render();
+	}
+
 	bool DrakeSoldierScript::IsWalk()
 	{
 		float fixedRes = (float)application.GetFixedWidth() / 800.f;
@@ -139,8 +157,7 @@ namespace hj
 			float monPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
 			Vector2 monPos2D = Vector2(monPos.x, monPosVZ);
 
-			if (math::Vector2::Distance(playerPos2D, monPos2D) > 100.0f * fixedRes
-				|| abs(playerPos2D.y - monPos2D.y) > 50.0f * fixedRes)
+			if (math::Vector2::Distance(playerPos2D, monPos2D) > 200.0f * fixedRes)
 				return true;
 		}
 		return false;
@@ -409,6 +426,8 @@ namespace hj
 			{
 				SetCurTime(0.0f);
 				SetMonsterState(eMonsterState::Die);
+				GetOwner()->GetComponent<Collider2D>()->GetMesh()->SetActivate(false);
+				GetAtkManager()->SetPause();
 			}
 
 		}

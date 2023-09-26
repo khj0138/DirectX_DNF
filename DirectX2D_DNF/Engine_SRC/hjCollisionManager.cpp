@@ -161,6 +161,8 @@ namespace hj
 				axis2D.push_back((Vector2{ 0.0f, 1.0f } * Vector2(rightScale.x, rightScale.y)));
 				axis2D.push_back((Vector2{ 1.0f, 0.0f } * Vector2(rightScale.x, rightScale.y)));
 				
+
+
 				for (int i = 0; i < 2; i++)
 				{
 					math::Vector2::rotation(axis2D[i], leftRotation);
@@ -188,14 +190,13 @@ namespace hj
 			}
 			else if (left->GetType() == eColliderType::Circle)
 			{
-				float leftRadius = left->GetSize().x;
-				float rightRadius = right->GetSize().x;
+				float leftRadius = left->GetSize().x * 0.5f;
+				float rightRadius = right->GetSize().x * 0.5f;
 
 				Vector3 temp = left->GetPosition() - right->GetPosition();
 				//Vector2 temp2D = Vector2{ temp.x,temp.y / cosf(math::degreeToRadian(45.0f))};
 				Vector2 temp2D = Vector2{ temp.x,temp.y};
-				float length = temp2D.Length() * 2.0f;
-
+				float length = temp2D.Length();
 
 				if (length > (leftRadius + rightRadius))
 					return false;
@@ -223,9 +224,12 @@ namespace hj
 				math::Vector2::rotation(axis2D[i], leftRotation);
 			}
 
+			Vector2 leftPos = Vector2(left->GetPosition().x, left->GetPosition().y);
+			Vector2 rightPos = Vector2(right->GetPosition().x, right->GetPosition().y);
+
 			Vector3 temp = left->GetPosition() - right->GetPosition();
 			axis2D.push_back(Vector2{ temp.x, temp.y });
-				
+
 			for (int i = 0; i < 2; i++)
 			{
 				Vector2 axis = axis2D[i];
@@ -241,6 +245,36 @@ namespace hj
 				if (sum < (length * 2))
 					return false;
 			}
+			
+			/*Vector2 startPercent = left->GetMesh()->startPercent;
+			Vector2 endPercent = left->GetMesh()->endPercent;
+			if (startPercent != Vector2::One || endPercent != Vector2::One)
+			{
+				std::vector<Vector2> leftLine;
+				leftLine.push_back((Vector2(1.0f, (endPercent.y -startPercent.y) * 0.5f) ));
+				leftLine.push_back((Vector2(1.0f, (endPercent.x - startPercent.x) * 0.5f) ));
+
+				std::vector<Vector2> leftLinePoint;
+				leftLinePoint.push_back(Vector2{ -0.5f, (startPercent.y) * 0.5f });
+				leftLinePoint.push_back(Vector2{ -0.5f, (startPercent.x) * 0.5f });
+
+				for (int i = 0; i < 2; i++)
+				{
+					math::Vector2::rotation(leftLine[i], leftRotation);
+					math::Vector2::rotation(leftLinePoint[i], leftRotation);
+					leftLinePoint[i] = leftPos + leftLinePoint[i] * Vector2(leftScale.x, leftScale.y);
+				}
+
+				Vector2 rightToLeftLine1 = rightPos - leftLinePoint[0];
+				Vector2 rightToLeftLine2 = rightPos - leftLinePoint[1];
+
+				float rightCross1 = rightToLeftLine1.x * leftLine[0].y - rightToLeftLine1.y * leftLine[0].x;
+				float rightCross2 = rightToLeftLine2.x * 
+					leftLine[1].y - rightToLeftLine2.y * leftLine[1].x;
+				if(rightCross1 < 0.0f || rightCross2 > 0.0f)
+					return false;
+			}*/
+
 			return HeightCheck(left, right);
 		}
 	}

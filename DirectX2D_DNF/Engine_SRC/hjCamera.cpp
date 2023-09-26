@@ -15,8 +15,15 @@ namespace hj
 	{
 		if (a->GetComponent<Transform>()->GetPosition().z
 			<= b->GetComponent<Transform>()->GetPosition().z)
-			return false;
-
+		{
+			if (a->GetComponent<Transform>()->GetPosition().z
+			== b->GetComponent<Transform>()->GetPosition().z
+			&& a->GetComponent<Transform>()->GetVirtualZ()
+			> b->GetComponent<Transform>()->GetVirtualZ())
+				return true;
+			else
+				return false;
+		}
 		return true;
 	}
 

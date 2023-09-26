@@ -31,10 +31,10 @@ namespace hj
 		tr->SetScale(Vector3(200.0f, 100.0f, 1.0f));
 		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
 		col->SetType(eColliderType::Rect);
+		//col->SetType(eColliderType::Circle);
 		col->SetSize(Vector2(200.0f, 100.0f), 70.0f);
 		col->SetCenter(Vector2(100.0f, 0.0f));
 		col->SetCollisionHeight(30.0f);
-
 	}
 	void DrakeSoldierAttackBasicObjectScript::Update()
 	{

@@ -23,7 +23,7 @@ namespace hj
 	}
 	void DrakeSoldierAttackSpearScript::Initialize()
 	{
-		SetCoolTime(20.0f);
+		SetCoolTime(5.0f);
 		RegisterAttackObject<DrakeSoldierAttackSpearObjectScript>(L"DrakeSoldierAttackSpear");
 		AttackObjectScript* DrakeSoldierAttackSpear = LoadAttackObject(L"DrakeSoldierAttackSpear");
 		//DragonSoldierAttackSpear1->GetOwner()->GetComponent<Transform>()->SetRotation2D(45);
@@ -127,6 +127,12 @@ namespace hj
 
 
 		}
+	}
+
+	void DrakeSoldierAttackSpearScript::SetActivate(bool activate)
+	{
+		AttackScript::SetActivate(activate);
+
 	}
 
 }

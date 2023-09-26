@@ -30,7 +30,7 @@ namespace hj
 		AttackEffectScript* AttackEffectObject = dynamic_cast<AttackEffectScript*>(AttackEffect);
 		if (AttackEffectObject != nullptr)
 		{
-			AttackEffectObject->SetMesh(AttackEffectScript::AtkEffectType::Rect);
+			AttackEffectObject->SetMesh(AttackEffectScript::AtkEffectType::Circle);
 		}
 		AttackEffect->GetOwner()->GetComponent<Transform>()->SetScale(Vector3(200.0f, 200.0f, 1.0f));
 		AttackEffect->SetCastingTime(1.0f);
@@ -53,8 +53,9 @@ namespace hj
 				AttackEffect->SetCurTime(0.0f);
 
 				SetActivate(false);
+				return;
 			}
-			else if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 2)
+			if (GetOwner()->GetComponent<Animator>()->GetActiveAnimation()->GetIndex() == 2)
 			{
 				AttackObjectScript* DragonSoldierAttackBasic1 = LoadAttackObject(L"DragonSoldierAttackBasic1");
 				DragonSoldierAttackBasic1->SetAttack(true);
@@ -106,6 +107,38 @@ namespace hj
 			DragonSoldierAttackBasic1->clearTargets();
 
 
+		}
+	}
+
+	void DragonSoldierAttackBasic1Script::SetActivate(bool activate)
+	{
+		AttackScript::SetActivate(activate);
+		if (GetActivate() && activate == true)
+		{
+			MonsterScript* monster = GetOwner()->FindScript<MonsterScript>();
+			if (monster != nullptr)
+			{
+				GameObject* player = monster->GetTarget();
+
+				if (player != nullptr)
+				{
+					Vector3 playerPos = player->GetComponent<Transform>()->GetPosition();
+					float playerVZ = player->GetComponent<Transform>()->GetVirtualZ();
+					Vector2 playerPos2D = Vector2(playerPos.x, playerVZ);
+
+					Vector3 monsterPos = monster->GetOwner()->GetComponent<Transform>()->GetPosition();
+					float monsterVZ = monster->GetOwner()->GetComponent<Transform>()->GetVirtualZ();
+					if (GetOwner()->GetFlip())
+						monsterPos.x -= 100.0f;
+					else
+						monsterPos.x += 100.0f;
+					Vector2 monsterPos2D = Vector2(monsterPos.x, monsterVZ);
+					float dist = Vector2::Distance(playerPos2D, monsterPos2D);
+					if (dist > 100.0f)
+						AttackScript::SetActivate(false);
+					return;
+				}
+			}
 		}
 	}
 

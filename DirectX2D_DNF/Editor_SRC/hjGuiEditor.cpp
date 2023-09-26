@@ -88,7 +88,12 @@ namespace gui
 		for (const hj::graphics::DebugMesh* mesh
 			: renderer::debugMeshs)
 		{
-			DebugRender(mesh);
+			if(mesh->bActivate)
+				DebugRender(mesh);
+			else
+			{
+				int a = 0;
+			}
 		}
 		renderer::debugMeshs.clear();
 	}

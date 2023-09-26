@@ -46,7 +46,7 @@ namespace hj
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(100.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(100.0f, 0.0f, 450.0f));
 
 			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
 
@@ -74,7 +74,7 @@ namespace hj
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
-			cameraComp->setMaxXY(Vector2(1790.0f, 670.0f));
+			cameraComp->setMaxXY(Vector2(1560.0f, 670.0f));
 
 		}
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);

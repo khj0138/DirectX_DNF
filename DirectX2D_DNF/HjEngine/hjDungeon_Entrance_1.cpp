@@ -25,6 +25,7 @@
 
 
 
+
 namespace hj
 {
 	Dungeon_Entrance_1::Dungeon_Entrance_1()
@@ -48,7 +49,7 @@ namespace hj
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(250.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(250.0f, 0.0f, 450.0f));
 			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
 
 			Animator* at = gate->AddComponent<Animator>();
@@ -68,7 +69,7 @@ namespace hj
 			MeshRenderer* mr = gate->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimationMaterial"));
-			gate->GetComponent<Transform>()->SetPosition(Vector3(1050.0f, 0.0f, 400.000f));
+			gate->GetComponent<Transform>()->SetPosition(Vector3(1050.0f, 0.0f, 450.0f));
 			gate->GetComponent<Transform>()->SetVirtualZ(250.0f);
 
 			Animator* at = gate->AddComponent<Animator>();
@@ -81,6 +82,7 @@ namespace hj
 		}
 		PlayerScript* player = SceneManager::GetPlayer();
 
+		
 		// MainCamera
 		Camera* cameraComp = nullptr;
 		{

@@ -28,6 +28,8 @@ namespace hj
 		};
 		virtual void Initialize() override;
 		virtual void Update() override;
+		virtual void LateUpdate() override;
+		virtual void Render() override;
 
 		eMonsterState GetMonsterState() { return mMonsterState; }
 		void SetMonsterState(eMonsterState monsterState) { mMonsterState = monsterState; }

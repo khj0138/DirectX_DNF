@@ -128,16 +128,18 @@ namespace hj::graphics
 		float duration;
 		float time;
 
-		float startPercent;
-		float endPercent;
+		math::Vector2 startPercent;
+		math::Vector2 endPercent;
 		float curPercent;
 		bool bCollision;
+		bool bActivate;
 	public:
-		void setRectPercent(float start, float end) { startPercent = start; endPercent = end; }
+		void setRectPercent(math::Vector2 start, math::Vector2 end) { startPercent = start; endPercent = end; }
 		void setCurPercent(float cur) { curPercent = cur; }
 
 		void CollisionMesh(bool collision) { bCollision = collision; }
 		bool isCollision() { return bCollision; }
+		void SetActivate(bool activate) { bActivate = activate; }
 	};
 
 	struct LightAttribute

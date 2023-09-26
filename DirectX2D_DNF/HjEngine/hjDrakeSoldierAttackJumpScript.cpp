@@ -23,7 +23,7 @@ namespace hj
 	}
 	void DrakeSoldierAttackJumpScript::Initialize()
 	{
-		SetCoolTime(5.0f);
+		SetCoolTime(15.0f);
 		RegisterAttackObject<DrakeSoldierAttackJumpObjectScript>(L"DrakeSoldierAttackJump");
 		AttackObjectScript* DrakeSoldierAttackJump = LoadAttackObject(L"DrakeSoldierAttackJump");
 		//DragonSoldierAttackJump1->GetOwner()->GetComponent<Transform>()->SetRotation2D(45);
@@ -142,6 +142,12 @@ namespace hj
 
 
 		}
+	}
+
+	void DrakeSoldierAttackJumpScript::SetActivate(bool activate)
+	{
+		AttackScript::SetActivate(activate);
+		
 	}
 
 
