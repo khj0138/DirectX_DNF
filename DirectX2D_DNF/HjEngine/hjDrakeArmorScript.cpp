@@ -196,7 +196,7 @@ namespace hj
 		{
 			SetMonsterState(MonsterScript::eMonsterState::Attack);
 		}
-		if (IsWalk())
+		else if (IsWalk())
 		{
 			SetMonsterState(MonsterScript::eMonsterState::Walk);
 		}
@@ -252,7 +252,7 @@ namespace hj
 			SetMonsterState(MonsterScript::eMonsterState::Attack);
 			moveVector = Vector2::Zero;
 		}
-		if (!IsWalk())
+		else if (!IsWalk())
 		{
 			SetMonsterState(MonsterScript::eMonsterState::Idle);
 
@@ -498,6 +498,7 @@ namespace hj
 		if (GetCurTime() >= 1.0f)
 		{
 			GetOwner()->SetState(GameObject::eState::Paused);
+			GetAtkManager()->SetPause();
 		}
 	}
 	void DrakeArmorScript::Anim()

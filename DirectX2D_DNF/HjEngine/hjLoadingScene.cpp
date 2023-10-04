@@ -71,9 +71,10 @@ namespace hj
 
 		Scene::LateUpdate();
 
-		if (rotate < -1440.0f)
+		if (rotate < -2880.0f)
 		{
 			SceneManager::LoadScene(L"Town_SeriaRoom");
+			//SceneManager::LoadScene(L"Dungeon_Hysmar");
 
 		}
 	}

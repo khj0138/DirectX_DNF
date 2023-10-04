@@ -26,7 +26,7 @@ namespace hj
 
 		SetAttack(false);
 		SetVelocity(Vector2::Zero);
-		SetStatus(10, 5, Vector2(100.0f, 000.0f));
+		SetStatus(1, 1, Vector2(100.0f, 000.0f));
 
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();

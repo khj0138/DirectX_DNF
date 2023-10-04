@@ -33,7 +33,7 @@ namespace hj
 		bool mbInitialize = false;
 		// 스마트 포인터
 		std::unique_ptr<hj::graphics::GraphicDevice_Dx11> graphicDevice;
-
+		 
 		// HDC mHdc; -> GPU API
 		HWND mHwnd;
 		UINT mWidth;

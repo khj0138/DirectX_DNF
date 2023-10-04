@@ -207,19 +207,8 @@ namespace hj::graphics
             }
             idx++;
         }
-        if (FAILED(hr))
-        {
-            // Error handling if image loading, conversion, or copy rectangle fails
-            return hr;
-        }
 
-        if (FAILED(hr))
-        {
-            // Error handling if the texture creation failed
-            return hr;
-        }
-
-        CreateShaderResourceView
+		hr = CreateShaderResourceView
         (
             GetDevice()->GetID3D11Device()
             , atlasImage.GetImages()
@@ -227,6 +216,11 @@ namespace hj::graphics
             , atlasImage.GetMetadata()
             , mSRV.GetAddressOf()
         );
+		if (FAILED(hr))
+		{
+			// Error handling if the texture creation failed
+			return hr;
+		}
         mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
         // Create an atlas texture object

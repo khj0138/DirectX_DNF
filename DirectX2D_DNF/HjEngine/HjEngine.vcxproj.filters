@@ -211,6 +211,48 @@
     <Filter Include="Script\Monster\DrakeRider\AttackObject\Breath">
       <UniqueIdentifier>{24a2b34f-1b39-4fea-893a-682f9a7e1bcb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script\Monster\Hysmar">
+      <UniqueIdentifier>{98a28073-738c-42e1-a97d-184469266271}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Hysmar\Attack">
+      <UniqueIdentifier>{f985e4bc-511b-4eb6-928d-093a105c1878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Hysmar\AttackObject">
+      <UniqueIdentifier>{5000a89c-d686-42be-9cd4-564327ea7aee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\UpperSlashAttackScript">
+      <UniqueIdentifier>{8aa348a7-2dfb-4518-80bd-4d02f3d6e4bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\UpperSlashAttackScript\UpperSlashAttackObjectScript">
+      <UniqueIdentifier>{9acdac3f-1a7f-4417-9ac6-d61d7a16de62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\RushAttackScript">
+      <UniqueIdentifier>{69293a2a-3f41-4836-8eb3-2330606c1ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\RushAttackScript\RushAttackObjectScript">
+      <UniqueIdentifier>{214156b7-4824-478d-ac09-85d1869d1e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\UpperSlashAttackScript\UpperSlashAddAttackObjectScript">
+      <UniqueIdentifier>{367978d5-16e7-43ff-87e9-588afa17b3d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\IceWaveAttackScript">
+      <UniqueIdentifier>{84ffaee3-77d3-497c-b506-f53cb77a5142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\FireWaveAttackScript">
+      <UniqueIdentifier>{f202daec-b04b-4008-a5a4-ce14d48ace62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\FireWaveAttackScript\FireWaveAttackObjectScript">
+      <UniqueIdentifier>{1900d228-567a-491d-80c0-077a967a52ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\IceWaveAttackScript\IceWaveAttackObjectScript">
+      <UniqueIdentifier>{8cd96ab8-4512-4ef0-88ca-bd32003d6427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\ThrustAttackScript">
+      <UniqueIdentifier>{9817b13d-4383-4edf-9af4-16c2ac20bdfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\ThrustAttackScript\ThrustAttackObjectScript">
+      <UniqueIdentifier>{93541fd2-c696-415e-996d-b5d9db5c1f8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -265,13 +307,7 @@
     <ClInclude Include="hjAttackScriptManager.h">
       <Filter>Script\AttackScriptManager</Filter>
     </ClInclude>
-    <ClInclude Include="hjBasicAttackScript3.h">
-      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackScript1.h">
-      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
-    </ClInclude>
-    <ClInclude Include="hjBasicAttackScript2.h">
+    <ClInclude Include="hjBasicAttackScript.h">
       <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClInclude>
     <ClInclude Include="hjCameraScript.h">
@@ -421,6 +457,48 @@
     <ClInclude Include="hjDrakeRiderAttackBasicScript.h">
       <Filter>Script\Monster\DrakeRider\Attack\Basic</Filter>
     </ClInclude>
+    <ClInclude Include="hjHysmarScript.h">
+      <Filter>Script\Monster\Hysmar</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRushAttackObjectScript.h">
+      <Filter>Script\Player\Attack\RushAttackScript\RushAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjRushAttackScript.h">
+      <Filter>Script\Player\Attack\RushAttackScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjUpperSlashAttackObjectScript.h">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjUpperSlashAttackScript.h">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAddAttackObject1Script.h">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAddAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAddAttackObject2Script.h">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAddAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjBasicAddAttackObject3Script.h">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAddAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjIceWaveAttackObjectScript.h">
+      <Filter>Script\Player\Attack\IceWaveAttackScript\IceWaveAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjIceWaveAttackScript.h">
+      <Filter>Script\Player\Attack\IceWaveAttackScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFireWaveAttackScript.h">
+      <Filter>Script\Player\Attack\FireWaveAttackScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjFireWaveAttackObjectScript.h">
+      <Filter>Script\Player\Attack\FireWaveAttackScript\FireWaveAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjThrustAttackObjectScript.h">
+      <Filter>Script\Player\Attack\ThrustAttackScript\ThrustAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjThrustAttackScript.h">
+      <Filter>Script\Player\Attack\ThrustAttackScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -466,13 +544,7 @@
     <ClCompile Include="hjAttackScriptManager.cpp">
       <Filter>Script\AttackScriptManager</Filter>
     </ClCompile>
-    <ClCompile Include="hjBasicAttackScript1.cpp">
-      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackScript2.cpp">
-      <Filter>Script\Player\Attack\BasicAttackScript</Filter>
-    </ClCompile>
-    <ClCompile Include="hjBasicAttackScript3.cpp">
+    <ClCompile Include="hjBasicAttackScript.cpp">
       <Filter>Script\Player\Attack\BasicAttackScript</Filter>
     </ClCompile>
     <ClCompile Include="hjCameraScript.cpp">
@@ -621,6 +693,48 @@
     </ClCompile>
     <ClCompile Include="hjDrakeRiderAttackBasicScript.cpp">
       <Filter>Script\Monster\DrakeRider\Attack\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="hjHysmarScript.cpp">
+      <Filter>Script\Monster\Hysmar</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRushAttackObjectScript.cpp">
+      <Filter>Script\Player\Attack\RushAttackScript\RushAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjRushAttackScript.cpp">
+      <Filter>Script\Player\Attack\RushAttackScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjUpperSlashAttackObjectScript.cpp">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjUpperSlashAttackScript.cpp">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAddAttackObject1Script.cpp">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAddAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAddAttackObject2Script.cpp">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAddAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjBasicAddAttackObject3Script.cpp">
+      <Filter>Script\Player\Attack\UpperSlashAttackScript\UpperSlashAddAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjIceWaveAttackObjectScript.cpp">
+      <Filter>Script\Player\Attack\IceWaveAttackScript\IceWaveAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjIceWaveAttackScript.cpp">
+      <Filter>Script\Player\Attack\IceWaveAttackScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFireWaveAttackScript.cpp">
+      <Filter>Script\Player\Attack\FireWaveAttackScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjFireWaveAttackObjectScript.cpp">
+      <Filter>Script\Player\Attack\FireWaveAttackScript\FireWaveAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjThrustAttackObjectScript.cpp">
+      <Filter>Script\Player\Attack\ThrustAttackScript\ThrustAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjThrustAttackScript.cpp">
+      <Filter>Script\Player\Attack\ThrustAttackScript</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

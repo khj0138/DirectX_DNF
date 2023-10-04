@@ -20,7 +20,7 @@
 #include "hjPortalScript.h"
 #include "hjSceneManager.h"
 
-
+#include "hjHysmarScript.h"
 namespace hj
 {
 	Dungeon_Hysmar::Dungeon_Hysmar()
@@ -106,6 +106,13 @@ namespace hj
 			mouse->GetComponent<Transform>()->SetScale(Vector3(100.0f, 100.0f, 1.0f));
 			Collider2D* cd = mouse->AddComponent<Collider2D>();
 		}*/
+		GameObject* monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(-500.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetVirtualZ(630.0f);
+		monster->Initialize();
+		monster->AddComponent<HysmarScript>();
+		monster->FindScript<HysmarScript>()->EnterScene();
 	}
 
 	void Dungeon_Hysmar::Update()
@@ -156,6 +163,8 @@ namespace hj
 		PlayerScript* player = SceneManager::GetPlayer();
 		if (player != nullptr)
 		{
+			player->GetOwner()->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, player->GetOwner()->GetComponent<Transform>()->GetPosition().z));
+			player->GetOwner()->GetComponent<Transform>()->SetVirtualZ(300.0f);
 			player->EnterScene();
 			AddGameObject(eLayerType::Player, player->GetOwner());
 		}

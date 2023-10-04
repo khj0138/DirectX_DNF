@@ -32,6 +32,32 @@ namespace hj
 			End,
 		};
 
+		enum class eCommandType
+		{
+			Z,
+			X,
+			C,
+			D,
+			UP,
+			LEFT,
+			DOWN,
+			RIGHT,
+			End,
+		};
+
+		enum class eMoveType
+		{
+			axisX,
+			axisY,
+			End,
+		};
+
+		struct Command
+		{
+			eCommandType type;
+			float time;
+		};
+
 		struct status
 		{
 			UINT maxHP;
@@ -52,15 +78,30 @@ namespace hj
 
 		void Hit(UINT damage, bool flip, Vector2 direction);
 
-		float getMoveTime() { return moveTime; }
+		//float getMoveTime() { return moveTime; }
+		eCommandType CheckMoveDirection();
+		void CommandCheck();
+		std::vector<Command> GetCommandVector() { return mCommandVector; }
+		std::vector<eCommandType> GetXMoveVector() { return mMoveVector[(UINT)eMoveType::axisX]; }
+		std::vector<eCommandType> GetYMoveVector() { return mMoveVector[(UINT)eMoveType::axisY]; }
+		ePlayerState GetPlayerState() { return mPlayerState; }
+		std::vector<std::wstring> mAttackVector;
+
 		//BehaviorTree* GetBT() { return mBehaviors; }
 
 		//behavior
 		bool IsWalk();
 		bool IsRun();
 		bool IsJump();
+		bool IsAttack();
 
-	public:
+		float GetCurTime() { return mCurTime; }
+		void SetCurTime(float time) { mCurTime = time; }
+
+		void EnterScene();
+		void ExitScene();
+
+	private:
 		void Idle();
 		void Walk();
 		void Run();
@@ -80,23 +121,32 @@ namespace hj
 		void Attack2CompleteEvent();
 		void Attack3CompleteEvent();
 
-		void EnterScene();
-		void ExitScene();
+		void Attack_Basic();
+		void Attack_Rush();
+		void Attack_Thrust();
+		void Attack_UpperSlash();
+		void Attack_IceWave();
+		void Attack_FireWave();
+
+
+
 	private:
 		ePlayerState mPlayerState;
 		ePlayerState mPrevPlayerState;
 
-		std::vector<UINT> moveVector;
-		float moveTime;
-		bool bMove;
+		//std::vector<UINT> moveVector;
+		//float moveTime;
+		//bool bMove;
+		float mCurTime;
 		Vector3 mVelocity;
 
-		std::vector<UINT> commandVector;
+		std::vector<Command> mCommandVector;
+		std::vector<eCommandType> mMoveVector[2];
 		float commandTime;
 		bool bCommand;
 
 		std::vector<bool> bAttackVector;
-		std::vector<std::wstring> mAttackVector;
+		//std::vector<std::wstring> mAttackVector;
 
 		//Animator* mAnimator;
 		//Collider2D* mCollider;
@@ -113,6 +163,9 @@ namespace hj
 		bool bAttack;
 		status mStatus;
 		float mHitTime;
+
+		std::wstring attackName;
+
 	};
 
 

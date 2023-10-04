@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="hjFireWaveAttackObjectScript.h" />
     <ClInclude Include="hjDrakeRiderAttackBreathObjectScript.h" />
     <ClInclude Include="hjDrakeRiderAttackBasicObjectScript.h" />
     <ClInclude Include="BackGroundLoader.h" />
@@ -177,9 +178,7 @@
     <ClInclude Include="hjBasicAttackObject3Script.h" />
     <ClInclude Include="hjAttackScript.h" />
     <ClInclude Include="hjAttackScriptManager.h" />
-    <ClInclude Include="hjBasicAttackScript1.h" />
-    <ClInclude Include="hjBasicAttackScript2.h" />
-    <ClInclude Include="hjBasicAttackScript3.h" />
+    <ClInclude Include="hjBasicAttackScript.h" />
     <ClInclude Include="hjDetectObjectScript.h" />
     <ClInclude Include="hjDetectScript.h" />
     <ClInclude Include="hjDragonSoldierAttackBasic1Script.h" />
@@ -201,12 +200,20 @@
     <ClInclude Include="hjCameraScript.h" />
     <ClInclude Include="hjEffectObject.h" />
     <ClInclude Include="hjEffectObjectScript.h" />
+    <ClInclude Include="hjFireWaveAttackScript.h" />
     <ClInclude Include="hjGateOutSeriaRoomScript.h" />
     <ClInclude Include="hjGroundObjectScript.h" />
+    <ClInclude Include="hjHysmarScript.h" />
+    <ClInclude Include="hjIceWaveAttackObjectScript.h" />
+    <ClInclude Include="hjIceWaveAttackScript.h" />
     <ClInclude Include="hjLoadingScene.h" />
     <ClInclude Include="hjNPCScript.h" />
     <ClInclude Include="hjPortalScript.h" />
     <ClInclude Include="hjGateInSeriaRoomScript.h" />
+    <ClInclude Include="hjRushAttackObjectScript.h" />
+    <ClInclude Include="hjRushAttackScript.h" />
+    <ClInclude Include="hjThrustAttackObjectScript.h" />
+    <ClInclude Include="hjThrustAttackScript.h" />
     <ClInclude Include="hjTown_GunHwaMun.h" />
     <ClInclude Include="hjDungeon_Hysmar.h" />
     <ClInclude Include="hjDungeon_Skasa.h" />
@@ -218,10 +225,16 @@
     <ClInclude Include="hjPlayScene.h" />
     <ClInclude Include="hjTown_SeriaRoom.h" />
     <ClInclude Include="hjMonsterScript.h" />
+    <ClInclude Include="hjBasicAddAttackObject2Script.h" />
+    <ClInclude Include="hjBasicAddAttackObject3Script.h" />
+    <ClInclude Include="hjBasicAddAttackObject1Script.h" />
+    <ClInclude Include="hjUpperSlashAttackObjectScript.h" />
+    <ClInclude Include="hjUpperSlashAttackScript.h" />
     <ClInclude Include="PlayerBehavior.h" />
     <ClInclude Include="SceneLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hjFireWaveAttackObjectScript.cpp" />
     <ClCompile Include="hjDrakeRiderAttackBreathObjectScript.cpp" />
     <ClCompile Include="hjDrakeRiderAttackBasicObjectScript.cpp" />
     <ClCompile Include="hjDrakeArmorAttackBreathObjectScript.cpp" />
@@ -248,9 +261,7 @@
     <ClCompile Include="hjBasicAttackObject3Script.cpp" />
     <ClCompile Include="hjAttackScript.cpp" />
     <ClCompile Include="hjAttackScriptManager.cpp" />
-    <ClCompile Include="hjBasicAttackScript1.cpp" />
-    <ClCompile Include="hjBasicAttackScript2.cpp" />
-    <ClCompile Include="hjBasicAttackScript3.cpp" />
+    <ClCompile Include="hjBasicAttackScript.cpp" />
     <ClCompile Include="hjDetectObjectScript.cpp" />
     <ClCompile Include="hjDetectScript.cpp" />
     <ClCompile Include="hjDragonSoldierAttackBasic1Script.cpp" />
@@ -271,12 +282,20 @@
     <ClCompile Include="hjCameraScript.cpp" />
     <ClCompile Include="hjEffectObject.cpp" />
     <ClCompile Include="hjEffectObjectScript.cpp" />
+    <ClCompile Include="hjFireWaveAttackScript.cpp" />
     <ClCompile Include="hjGateOutSeriaRoomScript.cpp" />
     <ClCompile Include="hjGroundObjectScript.cpp" />
+    <ClCompile Include="hjHysmarScript.cpp" />
+    <ClCompile Include="hjIceWaveAttackObjectScript.cpp" />
+    <ClCompile Include="hjIceWaveAttackScript.cpp" />
     <ClCompile Include="hjLoadingScene.cpp" />
     <ClCompile Include="hjNPCScript.cpp" />
     <ClCompile Include="hjPortalScript.cpp" />
     <ClCompile Include="hjGateInSeriaRoomScript.cpp" />
+    <ClCompile Include="hjRushAttackObjectScript.cpp" />
+    <ClCompile Include="hjRushAttackScript.cpp" />
+    <ClCompile Include="hjThrustAttackObjectScript.cpp" />
+    <ClCompile Include="hjThrustAttackScript.cpp" />
     <ClCompile Include="hjTown_GunHwaMun.cpp" />
     <ClCompile Include="hjDungeon_Hysmar.cpp" />
     <ClCompile Include="hjDungeon_Skasa.cpp" />
@@ -289,6 +308,11 @@
     <ClCompile Include="hjPlayScene.cpp" />
     <ClCompile Include="hjTown_SeriaRoom.cpp" />
     <ClCompile Include="hjMonsterScript.cpp" />
+    <ClCompile Include="hjBasicAddAttackObject2Script.cpp" />
+    <ClCompile Include="hjBasicAddAttackObject3Script.cpp" />
+    <ClCompile Include="hjBasicAddAttackObject1Script.cpp" />
+    <ClCompile Include="hjUpperSlashAttackObjectScript.cpp" />
+    <ClCompile Include="hjUpperSlashAttackScript.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -134,9 +134,9 @@ namespace hj
 		{
 			float fixedRes = 1.0f / ((float)application.GetFixedWidth() / 800.f);
 
-			CreateBasicObject(L"LoadingSceneBackground", Vector3(-40.0f, -150.0f, 0.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"LoadingSceneCircle", Vector3(693.0f, 0.0f, 0.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
-			CreateBasicObject(L"LoadingSceneEffect", Vector3(788.0f, 63.0f, 0.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"LoadingSceneBackground", Vector3(-40.0f, -150.0f, 1.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"LoadingSceneCircle", Vector3(693.0f, 0.0f, 1.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
+			CreateBasicObject(L"LoadingSceneEffect", Vector3(788.0f, 63.0f,1.0f) * fixedRes, false, Vector2(1.0f, 1.0f));
 
 			Vector3 fixedScale = Vector3::Zero;
 			Transform* objectTr;

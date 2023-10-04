@@ -18,6 +18,7 @@ namespace hj
 			Attack,
 			Hit,
 			Die,
+			SceneEnter,
 			End,
 		};
 		struct status

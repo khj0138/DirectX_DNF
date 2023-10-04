@@ -30,12 +30,13 @@ namespace hj
 	public:
 
 		void SetCoolTime(float coolTime) { mCoolTime = coolTime; }
+		void SetCurTime(float curTime) { mCurTime = curTime; }
 
 		virtual void SetActivate(bool activate)
 		{
 			if (activate)
 			{
-				if (curTime >= mCoolTime)
+				if (mCurTime >= mCoolTime)
 				{
 					mActivate = true;
 				}
@@ -43,7 +44,6 @@ namespace hj
 			else
 			{
 				mActivate = false;
-				curTime = 0.0f;
 			}
 		}
 		bool GetActivate() { return mActivate; }
@@ -118,7 +118,12 @@ namespace hj
 		}
 		Vector2 GetPos() { return mPosition; }
 		float GetPosVZ() { return mPositionVZ; }
-		bool checkCoolTime() { return (curTime == mCoolTime); }
+		bool GetFlip() { return mFlip; }
+		void SetFlip(bool flip) { mFlip = flip; }
+		bool checkCoolTime() { return (mCurTime == mCoolTime); }
+
+		void SavePos(Vector3 pos) { mSavedPos = pos; }
+		Vector3 LoadPos() { return mSavedPos; }
 
 		std::map<std::wstring, AttackObjectScript*>::iterator GetAttackObjectsBegin() { return mAttackObjects.begin(); }
 		std::map<std::wstring, AttackObjectScript*>::iterator GetAttackObjectsEnd() { return mAttackObjects.end(); }
@@ -145,10 +150,11 @@ namespace hj
 	private:
 		bool mActivate;
 		float mCoolTime;
-		float curTime;
-		bool flip;
+		float mCurTime;
+		bool mFlip;
 		Vector2 mPosition;
 		float mPositionVZ;
+		Vector3 mSavedPos;
 		AttackScriptManager* attackManager;
 	};
 

@@ -14,7 +14,7 @@ namespace hj
 	AttackScript::AttackScript()
 		: mActivate(false)
 		, mCoolTime(0.0f)
-		, curTime(0.0f)
+		, mCurTime(0.0f)
 	{
 	}
 	AttackScript::~AttackScript()
@@ -27,7 +27,7 @@ namespace hj
 	}
 	void AttackScript::Update()
 	{
-		curTime >= mCoolTime ? curTime = mCoolTime : curTime += Time::DeltaTime();
+		mCurTime >= mCoolTime ? mCurTime = mCoolTime : mCurTime += Time::DeltaTime();
 		for (auto iter = mEffectObjects.begin(); iter != mEffectObjects.end(); iter++)
 		{
 			if (iter->second->GetOwner()->GetState() == GameObject::eState::Active)

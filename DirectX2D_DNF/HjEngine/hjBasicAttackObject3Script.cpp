@@ -25,7 +25,7 @@ namespace hj
 		SetAnimate(false);
 		SetAttack(false);
 		SetVelocity(Vector2::Zero);
-		SetStatus(10, 5, Vector2(100.0f, 500.0f));
+		SetStatus(10, 5, Vector2(100.0f, 300.0f));
 
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();

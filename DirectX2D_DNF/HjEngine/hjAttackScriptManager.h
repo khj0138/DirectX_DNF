@@ -34,12 +34,19 @@ namespace hj
 			std::map<std::wstring, AttackScript*>::iterator iter = mAttackScripts.find(name);
 			if (iter == mAttackScripts.end())
 				return nullptr;
-			iter->second->SetActivate(true);
-			if (iter->second->GetActivate())
-				iter->second->Reset();
-			else
-				return nullptr;
-			return iter->second;
+			if (!(iter->second->GetActivate()))
+			{
+				iter->second->SetActivate(true);
+				if (iter->second->GetActivate())
+				{
+					iter->second->SetCurTime(0.0f);
+					iter->second->Reset();
+					return iter->second;
+				}
+			}
+			else if (name == L"Detect")
+				return iter->second;
+			return nullptr;
 		}
 		void EnterScene();
 		void ExitScene();

@@ -15,9 +15,12 @@
 
 #include "hjAttackScriptManager.h"
 #include "hjAttackScript.h"
-#include "hjBasicAttackScript1.h"
-#include "hjBasicAttackScript2.h"
-#include "hjBasicAttackScript3.h"
+#include "hjBasicAttackScript.h"
+#include "hjRushAttackScript.h"
+#include "hjUpperSlashAttackScript.h"
+#include "hjIceWaveAttackScript.h"
+#include "hjFireWaveAttackScript.h"
+#include "hjThrustAttackScript.h"
 namespace hj
 {
 
@@ -25,8 +28,6 @@ namespace hj
 		: mActivate(false)
 		, AtkManager(nullptr)
 		, mStatus(status(10, 10, false))
-		, moveVector({})
-		, moveTime(0.0f)
 		, mPlayerState(ePlayerState::Idle)
 		, mPrevPlayerState(ePlayerState::Idle)
 		, bRun(false)
@@ -34,15 +35,15 @@ namespace hj
 		, bCommand(false)
 		, mVelocity(Vector3::Zero)
 		, mHitTime(0.0f)
+		, mCurTime(0.0f)
 	{
-		moveVector.resize(2);
-		bAttackVector.resize((UINT)eAttackType::End);
-		commandVector.resize((UINT)eAttackType::End);
+		//bAttackVector.resize((UINT)eAttackType::End);
+		//commandVector.resize((UINT)eAttackType::End);
 		//mAttackVector.resize((UINT)eAttackType::End);
 
-		mAttackVector.push_back(L"SwordManAttack1");
+		/*mAttackVector.push_back(L"SwordManAttack1");
 		mAttackVector.push_back(L"SwordManAttack2");
-		mAttackVector.push_back(L"SwordManAttack3");
+		mAttackVector.push_back(L"SwordManAttack3");*/
 
 
 	}
@@ -71,20 +72,28 @@ namespace hj
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\JumpUp", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\JumpDown", 0.1f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack1", 0.03f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack2", 0.03f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack3", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Basic\\Attack1", 0.02f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Basic\\Attack2", 0.02f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Basic\\Attack3", 0.02f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Rush\\Rush1", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Rush\\Rush2", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Rush\\Rush3", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_UpperSlash\\Attack", 0.02f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Wave\\IceWave", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Wave\\FireWave", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Thrust\\Thrust1", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Thrust\\Thrust2", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Hit", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\HitUp", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\HitDown", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Die", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CompleteEvent(L"SwordManJumpUp") = std::bind(&PlayerScript::JumpUpCompleteEvent, this);
-		mAnimator->StartEvent(L"SwordManAttack1") = std::bind(&PlayerScript::Attack1StartEvent, this);
-		mAnimator->StartEvent(L"SwordManAttack2") = std::bind(&PlayerScript::Attack2StartEvent, this);
-		mAnimator->StartEvent(L"SwordManAttack3") = std::bind(&PlayerScript::Attack3StartEvent, this);
-		mAnimator->CompleteEvent(L"SwordManAttack1") = std::bind(&PlayerScript::Attack1CompleteEvent, this);
-		mAnimator->CompleteEvent(L"SwordManAttack2") = std::bind(&PlayerScript::Attack2CompleteEvent, this);
-		mAnimator->CompleteEvent(L"SwordManAttack3") = std::bind(&PlayerScript::Attack3CompleteEvent, this);
+		//mAnimator->StartEvent(L"Attack_BasicAttack1") = std::bind(&PlayerScript::Attack1StartEvent, this);
+		//mAnimator->StartEvent(L"Attack_BasicAttack2") = std::bind(&PlayerScript::Attack1StartEvent, this);
+		//mAnimator->StartEvent(L"Attack_BasicAttack3") = std::bind(&PlayerScript::Attack1StartEvent, this);
+		//mAnimator->CompleteEvent(L"SwordManAttack1") = std::bind(&PlayerScript::Attack1CompleteEvent, this);
+		//mAnimator->CompleteEvent(L"SwordManAttack2") = std::bind(&PlayerScript::Attack2CompleteEvent, this);
+		//mAnimator->CompleteEvent(L"SwordManAttack3") = std::bind(&PlayerScript::Attack3CompleteEvent, this);
 		mAnimator->PlayAnimation(L"SwordManIdle", true);
 
 		GetOwner()->AddComponent<Rigidbody>();
@@ -93,13 +102,18 @@ namespace hj
 		AtkManager->SetManagerOwner(GetOwner());
 		AtkManager->SetType(eLayerType::PlayerAttack);
 
-		AtkManager->RegisterAttackScript<BasicAttackScript1>(L"Attack1");
-		AtkManager->RegisterAttackScript<BasicAttackScript2>(L"Attack2");
-		AtkManager->RegisterAttackScript<BasicAttackScript3>(L"Attack3");
+		AtkManager->RegisterAttackScript<BasicAttackScript>(L"Attack_Basic");
+		AtkManager->RegisterAttackScript<RushAttackScript>(L"Attack_Rush");
+		AtkManager->RegisterAttackScript<UpperSlashAttackScript>(L"Attack_UpperSlash");
+		AtkManager->RegisterAttackScript<IceWaveAttackScript>(L"Attack_IceWave");
+		//AtkManager->RegisterAttackScript<FireWaveAttackScript>(L"Attack_FireWave");
+		AtkManager->RegisterAttackScript<ThrustAttackScript>(L"Attack_Thrust");
 		
 	}
 	void PlayerScript::Update()
 	{
+		SetCurTime(GetCurTime() + Time::DeltaTime());
+		CommandCheck();
 		switch (mPlayerState)
 		{
 		case ePlayerState::Idle:
@@ -175,6 +189,7 @@ namespace hj
 			if (mStatus.HP == 0)
 			{
 				mPlayerState = ePlayerState::Die;
+				SetCurTime(0.0f);
 			}
 			else
 			{
@@ -196,6 +211,8 @@ namespace hj
 				if (mStatus.HP == 0)
 				{
 					mPlayerState = ePlayerState::Die;
+					SetCurTime(0.0f);
+
 				}
 				else
 				{
@@ -218,45 +235,179 @@ namespace hj
 			}
 		}
 	}
+	PlayerScript::eCommandType PlayerScript::CheckMoveDirection()
+	{
+		for (int i = mCommandVector.size(); i > 0; i--)
+		{
+			if(mCommandVector[i].type == eCommandType::LEFT || mCommandVector[i].type == eCommandType::RIGHT)
+				return mCommandVector[i].type;
+		}
+		return eCommandType::End;
+	}
+	void PlayerScript::CommandCheck()
+	{
+		UINT deleteIndex = 0;
+		for (int command = 0; command < mCommandVector.size(); command++)
+		{
+			if (mCommandVector[command].time >= 5.0f)
+			{
+				deleteIndex++;
+			}
+			mCommandVector[command].time += Time::DeltaTime();
+		}
+		for (int i = 0; i < deleteIndex; i++)
+		{
+			mCommandVector.pop_back();
+		}
+		Command input = { eCommandType::End, 0.0f };
+		if (Input::GetKeyDown(eKeyCode::C))
+		{
+			input.type = eCommandType::C;
+		}
+		else if (Input::GetKeyDown(eKeyCode::X))
+		{
+			input.type = eCommandType::X;
+		}
+		else if (Input::GetKeyDown(eKeyCode::Z))
+		{
+			input.type = eCommandType::Z;
+		}
+		else if (Input::GetKeyDown(eKeyCode::D))
+		{
+			input.type = eCommandType::D;
+		}
+		else if (Input::GetKeyDown(eKeyCode::DOWN))
+		{
+			input.type = eCommandType::DOWN;
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisY].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisY].begin(), mMoveVector[(UINT)eMoveType::axisY].end(), eCommandType::DOWN);
+				if (temp != mMoveVector[(UINT)eMoveType::axisY].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisY].erase(temp);
+					break;
+				}
+			}
+			mMoveVector[(UINT)eMoveType::axisY].push_back(input.type);
+		}
+		else if (Input::GetKeyDown(eKeyCode::UP))
+		{
+			input.type = eCommandType::UP;
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisY].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisY].begin(), mMoveVector[(UINT)eMoveType::axisY].end(), eCommandType::UP);
+				if (temp != mMoveVector[(UINT)eMoveType::axisY].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisY].erase(temp);
+					break;
+				}
+			}
+			mMoveVector[(UINT)eMoveType::axisY].push_back(input.type);
+		}
+		else if (Input::GetKeyDown(eKeyCode::LEFT))
+		{
+			input.type = eCommandType::LEFT;
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisX].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisX].begin(), mMoveVector[(UINT)eMoveType::axisX].end(), eCommandType::LEFT);
+				if (temp != mMoveVector[(UINT)eMoveType::axisX].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisX].erase(temp);
+					break;
+				}
+			}
+			mMoveVector[(UINT)eMoveType::axisX].push_back(input.type);
+		}
+		else if (Input::GetKeyDown(eKeyCode::RIGHT))
+		{
+			input.type = eCommandType::RIGHT;
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisX].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisX].begin(), mMoveVector[(UINT)eMoveType::axisX].end(), eCommandType::RIGHT);
+				if (temp != mMoveVector[(UINT)eMoveType::axisX].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisX].erase(temp);
+					break;
+				}
+			}
+			mMoveVector[(UINT)eMoveType::axisX].push_back(input.type);
+		}
+
+		if (Input::GetKeyUp(eKeyCode::LEFT))
+		{
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisX].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisX].begin(), mMoveVector[(UINT)eMoveType::axisX].end(), eCommandType::LEFT);
+				if (temp != mMoveVector[(UINT)eMoveType::axisX].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisX].erase(temp);
+					break;
+				}
+			}
+		}
+		if( Input::GetKeyUp(eKeyCode::RIGHT))
+		{
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisX].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisX].begin(), mMoveVector[(UINT)eMoveType::axisX].end(), eCommandType::RIGHT);
+				if (temp != mMoveVector[(UINT)eMoveType::axisX].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisX].erase(temp);
+					break;
+				}
+			}
+		}
+		if (Input::GetKeyUp(eKeyCode::UP))
+		{
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisY].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisY].begin(), mMoveVector[(UINT)eMoveType::axisY].end(), eCommandType::UP);
+				if (temp != mMoveVector[(UINT)eMoveType::axisY].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisY].erase(temp);
+					break;
+				}
+			}
+		}
+		if (Input::GetKeyUp(eKeyCode::DOWN))
+		{
+			for (int i = 0; i < mMoveVector[(UINT)eMoveType::axisY].size(); i++)
+			{
+				std::vector<eCommandType>::iterator temp = find(mMoveVector[(UINT)eMoveType::axisY].begin(), mMoveVector[(UINT)eMoveType::axisY].end(), eCommandType::DOWN);
+				if (temp != mMoveVector[(UINT)eMoveType::axisY].end())
+				{
+					mMoveVector[(UINT)eMoveType::axisY].erase(temp);
+					break;
+				}
+			}
+		}
+
+
+		if (input.type != eCommandType::End)
+			mCommandVector.push_back(input);
+	}
 	bool PlayerScript::IsWalk()
 	{
-		if (Input::GetKey(eKeyCode::RIGHT))
-		{
-			GetOwner()->SetFlip(false);
-			moveVector[0] = (UINT)(eKeyCode::RIGHT);
-			return true;
-		}
-		else if (Input::GetKey(eKeyCode::LEFT))
-		{
-			GetOwner()->SetFlip(true);
-			moveVector[0] = (UINT)(eKeyCode::LEFT);
-			return true;
-		}
-
-		else if (Input::GetKey(eKeyCode::UP)
-			|| Input::GetKey(eKeyCode::DOWN))
-		{
-			return true;
-		}
-
-		return false;
+		if (mMoveVector[(UINT)eMoveType::axisX].empty() && mMoveVector[(UINT)eMoveType::axisY].empty())
+			return false;
+		return true;
 	}
 	bool PlayerScript::IsRun()
 	{
-		moveTime += Time::DeltaTime();
-		if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
+		
+		int size = mCommandVector.size();
+		if (size >= 2)
 		{
-			if (Input::GetKeyDown(eKeyCode::RIGHT))
+			if (mCommandVector[size - 1].type == eCommandType::RIGHT && mCommandVector[size - 2].type == eCommandType::RIGHT)
 			{
-				moveVector[0] = (UINT)eKeyCode::RIGHT;
+				GetOwner()->SetFlip(false);
+				mCommandVector.clear();
 				return true;
 			}
-		}
-		else if ((eKeyCode)moveVector[0] == eKeyCode::LEFT)
-		{
-			if (Input::GetKeyDown(eKeyCode::LEFT))
+			else if (mCommandVector[size - 1].type == eCommandType::LEFT && mCommandVector[size - 2].type == eCommandType::LEFT)
 			{
-				moveVector[0] = (UINT)eKeyCode::LEFT;
+				GetOwner()->SetFlip(true);
+				mCommandVector.clear();
 				return true;
 			}
 		}
@@ -264,41 +415,68 @@ namespace hj
 	}
 	bool PlayerScript::IsJump()
 	{
-		if (Input::GetKeyDown(eKeyCode::C))
+		int size = mCommandVector.size();
+		if (size >= 1)
 		{
-			Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
-			rb->SetGround(false);
-			rb->SetVelocity(rb->GetVelocity() + Vector3::Up * 750.0f);
-			return true;
+			if (mCommandVector[size - 1].type == eCommandType::C)
+			{
+				Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+				rb->SetGround(false);
+				rb->SetVelocity(rb->GetVelocity() + Vector3::Up * 750.0f);
+				mCommandVector.clear();
+				return true;
+			}
 		}
+		return false;
+	}
+	bool PlayerScript::IsAttack()
+	{
+
+		for (auto iter = AtkManager->mAttackScripts.begin(); iter != AtkManager->mAttackScripts.end(); iter++)
+		{
+			if (AtkManager->LoadAttackScript(iter->first) != nullptr)
+			{
+				Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+				Vector3 vel = rb->GetVelocity();
+				vel.x = 0.0f;
+				vel.z = 0.0f;
+				rb->SetVelocity(vel);
+			
+				attackName = iter->first;
+
+				return true;
+			}
+		}
+
 		return false;
 	}
 	void PlayerScript::Idle()
 	{
-		//moveVector.clear();
-		//moveVector.resize(2);
+
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
-		moveTime = 0.0f;
+		if (IsAttack())
+		{
+			mPlayerState = ePlayerState::Attack;
+			Attack();
+			return;
+		}
 		if (IsJump())
 		{
 			mPlayerState = ePlayerState::Jump;
+			return;
 		}
-		else if (IsWalk())
+		if (IsWalk())
 		{
-			bRun = true;
 			mPlayerState = ePlayerState::Walk;
+			return;
 		}
-		else if (Input::GetKey(eKeyCode::X))
-		{
-			bAttackVector[(UINT)eAttackType::Attack1] = true;
-			bMove = false;
-			commandVector[0] = (UINT)eKeyCode::X;
-			mPlayerState = ePlayerState::Attack;
-			mVelocity.x = 150.0f;
-		}
+
+
+		
 		
 		Vector3 velocity = rb->GetVelocity();
 		velocity.x = 0.0f;
+		velocity.z = 0.0f;
 		rb->SetVelocity(velocity);
 	}
 	void PlayerScript::Walk()
@@ -308,270 +486,122 @@ namespace hj
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
 
-		if (bRun)
+		if (IsRun())
 		{
-			if (IsRun())
-			{
-				moveTime = 0.0f;
-				mPlayerState = ePlayerState::Run;
-				bRun = false;
-				return;
-			}
-			else if (moveTime > 0.15f)
-			{
-				moveTime = 0.0f;
-				bRun = false;
-			}
+			mPlayerState = ePlayerState::Run;
+			return;
 		}
-		else
+		int size = mMoveVector[(UINT)eMoveType::axisX].size();
+		if(size >= 1)
 		{
-
-			if (Input::GetKeyNone(eKeyCode::RIGHT)
-				&& Input::GetKeyNone(eKeyCode::LEFT)
-				&& Input::GetKeyNone(eKeyCode::UP)
-				&& Input::GetKeyNone(eKeyCode::DOWN))
-			{
-				moveTime += Time::DeltaTime();
-				if (moveTime > 0.05f)
-				{
-					moveTime = 0.0f;
-					velocity.x = 0.0f;
-					mPlayerState = ePlayerState::Idle;
-				}
-			}
-			else
-			{
-				moveTime = 0.0f;
-
-
-				if (Input::GetKeyDown(eKeyCode::LEFT))
-				{
-					bRun = true;
-					GetOwner()->SetFlip(true);
-					moveVector[0] = (UINT)eKeyCode::LEFT;
-				}
-				else if (Input::GetKeyDown(eKeyCode::RIGHT))
-				{
-					bRun = true;
-					GetOwner()->SetFlip(false);
-					moveVector[0] = (UINT)eKeyCode::RIGHT;
-				}
-
-				if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
-				{
-					if (Input::GetKeyUp(eKeyCode::RIGHT))
-					{
-						velocity.x = 0.0f;
-						if (Input::GetKey(eKeyCode::LEFT))
-						{
-
-							GetOwner()->SetFlip(true);
-							moveVector[0] = (UINT)eKeyCode::LEFT;
-						}
-					}
-				}
-				else if ((eKeyCode)moveVector[0] == eKeyCode::LEFT)
-				{
-					if (Input::GetKeyUp(eKeyCode::LEFT))
-					{
-						velocity.x = 0.0f;
-						if (Input::GetKey(eKeyCode::RIGHT))
-						{
-							GetOwner()->SetFlip(false);
-							moveVector[0] = (UINT)eKeyCode::RIGHT;
-						}
-					}
-				}
-				else
-				{
-					if (Input::GetKeyDown(eKeyCode::LEFT))
-					{
-						bRun = true;
-						GetOwner()->SetFlip(true);
-						moveVector[0] = (UINT)eKeyCode::LEFT;
-					}
-					else if (Input::GetKeyDown(eKeyCode::RIGHT))
-					{
-						bRun = true;
-						GetOwner()->SetFlip(false);
-						moveVector[0] = (UINT)eKeyCode::RIGHT;
-					}
-				}
-			}
-		}
-
-		if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
-		{
-			if (Input::GetKey(eKeyCode::RIGHT))
+			if(mMoveVector[(UINT)eMoveType::axisX][size -1] == eCommandType::RIGHT)
 			{
 				velocity.x = 255.0f;
-				//pos.x += 255.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
+				if (GetOwner()->GetFlip())
+					GetOwner()->SetFlip(false);
 			}
-		}
-		else if ((eKeyCode)moveVector[0] == eKeyCode::LEFT)
-		{
-			if (Input::GetKey(eKeyCode::LEFT))
+			else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
 			{
 				velocity.x = -255.0f;
-				//	pos.x -= 255.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
+				if (!GetOwner()->GetFlip())
+					GetOwner()->SetFlip(true);
 			}
 		}
-		if (Input::GetKey(eKeyCode::DOWN))
+		size = mMoveVector[(UINT)eMoveType::axisY].size();
+		if (size >= 1)
 		{
-			//float virtualZ = tr->GetVirtualZ();
-			velocity.z = -255.0f;
-			//tr->SetVirtualZ(virtualZ - 255.0f * Time::DeltaTime());
+			if (mMoveVector[(UINT)eMoveType::axisY][size - 1] == eCommandType::UP)
+			{
+				velocity.z = 255.0f;
+			}
+			else if (mMoveVector[(UINT)eMoveType::axisY][size - 1] == eCommandType::DOWN)
+			{
+				velocity.z = -255.0f;
+			}
 		}
-		else if (Input::GetKey(eKeyCode::UP))
+		if (mMoveVector[(UINT)eMoveType::axisX].empty())
 		{
-			//float virtualZ = tr->GetVirtualZ();
-			velocity.z = 255.0f;
-
-			//tr->SetVirtualZ(virtualZ + 255.0f * Time::DeltaTime());
+			velocity.x = 0.0f;
 		}
-		else if (Input::GetKeyNone(eKeyCode::UP) && Input::GetKeyNone(eKeyCode::DOWN))
+		if (mMoveVector[(UINT)eMoveType::axisY].empty())
 		{
-			//float virtualZ = tr->GetVirtualZ();
 			velocity.z = 0.0f;
-			//tr->SetVirtualZ(virtualZ + 255.0f * Time::DeltaTime());
 		}
 		rb->SetVelocity(velocity);
 
+		if (velocity.x == 0.0f && velocity.z == 0.0f)
+		{
+			mPlayerState = ePlayerState::Idle;
+			return;
+		}
+
+		if (IsAttack())
+		{
+			mPlayerState = ePlayerState::Attack;
+			Attack();
+			return;
+		}
 		if (IsJump())
 		{
 			mPlayerState = ePlayerState::Jump;
-		}
-		if (Input::GetKey(eKeyCode::X))
-		{
-			bAttackVector[(UINT)eAttackType::Attack1] = true;
-			bMove = false;
-			commandVector[0] = (UINT)eKeyCode::X;
-			mPlayerState = ePlayerState::Attack;
-			mVelocity.x = 400.0f;
+			return;
 		}
 	}
 	void PlayerScript::Run()
 	{
+		if (IsAttack())
+		{
+			mPlayerState = ePlayerState::Attack;
+			Attack();
+			return;
+		}
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
-		if (Input::GetKeyNone(eKeyCode::RIGHT)
-			&& Input::GetKeyNone(eKeyCode::LEFT)
-			&& Input::GetKeyNone(eKeyCode::UP)
-			&& Input::GetKeyNone(eKeyCode::DOWN))
+
+		int size = mMoveVector[(UINT)eMoveType::axisX].size();
+		if (size >= 1)
 		{
-			moveTime += Time::DeltaTime();
-			if (moveTime > 0.05f)
+			if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
 			{
-				moveTime = 0.0f;
-				//moveVector[0] = 0;
-				velocity.x = 0.0f;
-				mPlayerState = ePlayerState::Idle;
-			}
-		}
-
-		else
-		{
-			moveTime = 0.0f;
-
-
-			if (Input::GetKeyDown(eKeyCode::LEFT))
-			{
-				GetOwner()->SetFlip(true);
-				moveVector[0] = (UINT)eKeyCode::LEFT;
-			}
-			else if (Input::GetKeyDown(eKeyCode::RIGHT))
-			{
-				GetOwner()->SetFlip(false);
-				moveVector[0] = (UINT)eKeyCode::RIGHT;
-			}
-
-			if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
-			{
-				if (Input::GetKeyUp(eKeyCode::RIGHT))
-				{
-					velocity.x = 0.0f;
-					if (Input::GetKey(eKeyCode::LEFT))
-					{
-						GetOwner()->SetFlip(true);
-						moveVector[0] = (UINT)eKeyCode::LEFT;
-					}
-				}
-			}
-			else if ((eKeyCode)moveVector[0] == eKeyCode::LEFT)
-			{
-				if (Input::GetKeyUp(eKeyCode::LEFT))
-				{
-					velocity.x = 0.0f;
-					if (Input::GetKey(eKeyCode::RIGHT))
-					{
-						GetOwner()->SetFlip(false);
-						moveVector[0] = (UINT)eKeyCode::RIGHT;
-					}
-				}
-			}
-			else
-			{
-				if (Input::GetKeyDown(eKeyCode::LEFT))
-				{
-					GetOwner()->SetFlip(true);
-					moveVector[0] = (UINT)eKeyCode::LEFT;
-				}
-				else if (Input::GetKeyDown(eKeyCode::RIGHT))
-				{
-					GetOwner()->SetFlip(false);
-					moveVector[0] = (UINT)eKeyCode::RIGHT;
-				}
-			}
-
-		}
-
-		if ((eKeyCode)moveVector[0] == eKeyCode::RIGHT)
-		{
-			if (Input::GetKey(eKeyCode::RIGHT))
-			{
-				GetOwner()->SetFlip(false);
 				velocity.x = 510.0f;
-				//pos.x += 510.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
+				if (GetOwner()->GetFlip())
+					GetOwner()->SetFlip(false);
 			}
-		}
-		else if ((eKeyCode)moveVector[0] == eKeyCode::LEFT)
-		{
-			if (Input::GetKey(eKeyCode::LEFT))
+			else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
 			{
-				GetOwner()->SetFlip(true);
 				velocity.x = -510.0f;
-				//pos.x -= 510.0f * Time::DeltaTime();
-				tr->SetPosition(pos);
+				if (!GetOwner()->GetFlip())
+					GetOwner()->SetFlip(true);
 			}
 		}
-		if (Input::GetKey(eKeyCode::DOWN))
+		size = mMoveVector[(UINT)eMoveType::axisY].size();
+		if (size >= 1)
 		{
-			//float virtualZ = tr->GetVirtualZ();
-			velocity.z = -255.0f;
-			//tr->SetVirtualZ(virtualZ - 255.0f * Time::DeltaTime());
+			if (mMoveVector[(UINT)eMoveType::axisY][size - 1] == eCommandType::UP)
+			{
+				velocity.z = 255.0f;
+			}
+			else if (mMoveVector[(UINT)eMoveType::axisY][size - 1] == eCommandType::DOWN)
+			{
+				velocity.z = -255.0f;
+			}
 		}
-		else if (Input::GetKey(eKeyCode::UP))
+		if (mMoveVector[(UINT)eMoveType::axisX].empty())
 		{
-			//float virtualZ = tr->GetVirtualZ();
-			velocity.z = 255.0f;
-
-			//tr->SetVirtualZ(virtualZ + 255.0f * Time::DeltaTime());
+			velocity.x = 0.0f;
 		}
-		else if (Input::GetKeyNone(eKeyCode::UP) && Input::GetKeyNone(eKeyCode::DOWN))
+		if (mMoveVector[(UINT)eMoveType::axisY].empty())
 		{
-			//float virtualZ = tr->GetVirtualZ();
 			velocity.z = 0.0f;
-			//tr->SetVirtualZ(virtualZ + 255.0f * Time::DeltaTime());
 		}
 		rb->SetVelocity(velocity);
-		if (IsJump())
+
+		if (velocity.x == 0.0f && velocity.z == 0.0f)
 		{
-			mPlayerState = ePlayerState::Jump;
+			mPlayerState = ePlayerState::Idle;
+			return;
 		}
 	}
 	void PlayerScript::Jump()
@@ -634,101 +664,32 @@ namespace hj
 	}
 	void PlayerScript::Attack()
 	{
-
-		Transform* tr = GetOwner()->GetComponent<Transform>();
-		Vector3 pos = tr->GetPosition();
-		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
-		Vector3 velocity = rb->GetVelocity();
-		Animator* animator = GetOwner()->GetComponent<Animator>();
-
-		if (Input::GetKeyDown(eKeyCode::X))
+		Animation* animation = GetOwner()->GetComponent<Animator>()->GetActiveAnimation();
+		if (attackName == L"Attack_Rush")
 		{
-			for (UINT i = 0; i < (UINT)eAttackType::End; i++)
-			{
-				if (commandVector[i] != (UINT)eKeyCode::X)
-				{
-				commandVector[i] = (UINT)eKeyCode::X;
-					break;
-				}
-				else
-				{
-					continue;
-				}
-			}
+			Attack_Rush();
 		}
-
-		if (commandTime > 0.2f)
+		else if (attackName == L"Attack_UpperSlash")
 		{
-			commandTime = 0.0f;
-			bCommand = false;
-			mPlayerState = ePlayerState::Idle;
-			moveTime = 0.0f;
-			bMove = false;
-			for (UINT i = 0; i < (UINT)eAttackType::End; i++)
-			{
-				commandVector[i] = 0;
-				bAttackVector[i] = false;
-			}
+			Attack_UpperSlash();
 		}
-
-
-
-		if (bCommand)
-			commandTime += Time::DeltaTime();
-		else
-			commandTime = 0.0f;
-
-		for (UINT i = 0; i < (UINT)eAttackType::End; i++)
+		else if (attackName == L"Attack_Basic")
 		{
-			if (bAttackVector[i] && (commandVector[i] == (UINT)eKeyCode::X))
-			{
-				if (Input::GetKey(eKeyCode::LEFT))
-				{
-					GetOwner()->SetFlip(true);
-					//mVelocity.x = -600.0f;
-				}
-				else if (Input::GetKey(eKeyCode::RIGHT))
-				{
-					GetOwner()->SetFlip(false);
-					//mVelocity.x = 600.0f;
-				}
-
-
-				bAttackVector[i] = false;
-				bCommand = false;
-				commandTime = 0.0f;
-				animator->PlayAnimation(mAttackVector[i], false);
-				moveTime = 0.0f;
-				bMove = true;
-				break;
-			}
-			else
-			{
-				continue;
-			}
+			Attack_Basic();
 		}
-
-
-		if (bMove)
+		else if (attackName == L"Attack_IceWave")
 		{
-			moveTime += Time::DeltaTime();
+			Attack_IceWave();
 		}
-		else
-			moveTime = 0.0f;
-
-		if (bMove && moveTime <= 0.2f)
+		else if (attackName == L"Attack_FireWave")
 		{
-			velocity.x = mVelocity.x;
-			if (GetOwner()->GetFlip())
-				velocity.x = -1.0f * abs(velocity.x);
+			Attack_FireWave();
 		}
-		else
+		else if (attackName == L"Attack_Thrust")
 		{
-			bMove = false;
-			velocity.x = 0.0f;
+			Attack_Thrust();
 		}
-
-		rb->SetVelocity(velocity);
+		
 	}
 	void PlayerScript::Anim()
 	{
@@ -770,11 +731,12 @@ namespace hj
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
 		rb->SetVelocity(Vector3(0.0f, 0.0f, 0.0f));
-		moveTime += Time::DeltaTime();
-		if (moveTime > 1.0f)
+		mCurTime += Time::DeltaTime();
+		if (mCurTime > 1.0f)
 		{
 			mStatus.HP = mStatus.maxHP;
 			mPlayerState = ePlayerState::Idle;
+			mCurTime = 0.0f;
 		}
 	}
 	void PlayerScript::Hit()
@@ -810,8 +772,10 @@ namespace hj
 			}
 			else
 			{
-				moveTime = 0.0f;
+				//mCurTime = 0.0f;
 				mPlayerState = ePlayerState::Die;
+				SetCurTime(0.0f);
+
 			}
 
 		}
@@ -866,38 +830,819 @@ namespace hj
 	}
 	void PlayerScript::Attack1StartEvent()
 	{
-		moveTime = 0.0f;
-		bMove = true;
 		AtkManager->LoadAttackScript(L"Attack1");
 
 	}
 	void PlayerScript::Attack2StartEvent()
 	{
-		moveTime = 0.0f;
-		bMove = true;
 		AtkManager->LoadAttackScript(L"Attack2");
 	}
 	void PlayerScript::Attack3StartEvent()
 	{
-		moveTime = 0.0f;
-		bMove = true;
 		AtkManager->LoadAttackScript(L"Attack3");
 	}
 	void PlayerScript::Attack1CompleteEvent()
 	{
 		bAttackVector[(UINT)eAttackType::Attack2] = true;
-		bCommand = true;
-		bMove = false;
 	}
 	void PlayerScript::Attack2CompleteEvent()
 	{
 		bAttackVector[(UINT)eAttackType::Attack3] = true;
-		bCommand = true;
-		bMove = false;
 	}
 	void PlayerScript::Attack3CompleteEvent()
 	{
 		bCommand = true;
+	}
+
+	void PlayerScript::Attack_Basic()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+		if (activeAnim->GetKey() == L"Attack_BasicAttack1")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.1f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.09f)
+				{
+					int size = mCommandVector.size();
+					if (size >= 1)
+					{
+						for (int i = 0; i < size; i++)
+						{
+							if (mCommandVector[i].type == PlayerScript::eCommandType::X)
+							{
+								animator->PlayAnimation(L"Attack_BasicAttack2", false);
+								mCommandVector.clear();
+								SetCurTime(0.0f);
+								break;
+							}
+						}
+					}
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() > 0.09f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						vel.x = 510.0f;
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						vel.x = -510.0f;
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				else
+				{
+					if (GetOwner()->GetFlip())
+					{
+						vel.x = -255.0f;
+					}
+					else
+					{
+						vel.x = 255.0f;
+					}
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.066f)
+				{
+					if (vel.x != 0.0f)
+						mVelocity = vel;
+					vel.x = 0.0f;
+				}
+			}
+		}
+		else if (activeAnim->GetKey() == L"Attack_BasicAttack2")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+
+				if (GetCurTime() > 0.1f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.09f)
+				{
+					int size = mCommandVector.size();
+					if (size >= 1)
+					{
+						for (int i = 0; i < size; i++)
+						{
+							if (mCommandVector[i].type == PlayerScript::eCommandType::X)
+							{
+								animator->PlayAnimation(L"Attack_BasicAttack3", false);
+								mCommandVector.clear();
+								SetCurTime(0.0f);
+								break;
+							}
+						}
+					}
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() > 0.09f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				if (GetOwner()->GetFlip())
+				{
+					vel.x = -1.f * abs(mVelocity.x);
+				}
+				else
+				{
+					vel.x = abs(mVelocity.x);
+				}
+			}
+			
+			else
+			{
+				if (GetCurTime() > 0.066f)
+				{
+					
+					vel.x = 0.0f;
+				}
+			}
+		}
+		else if (activeAnim->GetKey() == L"Attack_BasicAttack3")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.1f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.09f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				if (GetOwner()->GetFlip())
+				{
+					vel.x = -1.f * abs(mVelocity.x);
+				}
+				else
+				{
+					vel.x = abs(mVelocity.x);
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.066f)
+				{
+					vel.x = 0.0f;
+				}
+			}
+		}
+		else
+		{
+			animator->PlayAnimation(L"Attack_BasicAttack1", false);
+			mCommandVector.clear();
+		}
+
+		rb->SetVelocity(vel);
+	}
+
+	void PlayerScript::Attack_Rush()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+		if (activeAnim->GetKey() == L"Attack_RushRush1")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.19f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.17f)
+				{
+					int comSize = mCommandVector.size();
+					int moveSize = mMoveVector[(UINT)eMoveType::axisX].size();
+					if (comSize >= 1 && moveSize >= 1)
+					{
+						for (int i = 0; i < comSize; i++)
+						{
+							if (mCommandVector[i].type == PlayerScript::eCommandType::Z)
+							{
+								animator->PlayAnimation(L"Attack_RushRush2", false);
+								mCommandVector.clear();
+								SetCurTime(0.0f);
+								break;
+							}
+						}
+					}
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() > 0.17f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						vel.x = 1020.0f;
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						vel.x = -1020.0f;
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.12f)
+				{
+					if (vel.x != 0.0f)
+						mVelocity = vel;
+					vel.x = 0.0f;
+				}
+			}
+		}
+		else if (activeAnim->GetKey() == L"Attack_RushRush2")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.19f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.17f)
+				{
+					int comSize = mCommandVector.size();
+					int moveSize = mMoveVector[(UINT)eMoveType::axisX].size();
+					if (comSize >= 1 && moveSize >= 1)
+					{
+						for (int i = 0; i < comSize; i++)
+						{
+							if (mCommandVector[i].type == PlayerScript::eCommandType::Z)
+							{
+								animator->PlayAnimation(L"Attack_RushRush3", false);
+								mCommandVector.clear();
+								SetCurTime(0.0f);
+								break;
+							}
+						}
+					}
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() > 0.17f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				if (GetOwner()->GetFlip())
+				{
+					vel.x = -1.f * abs(mVelocity.x);
+				}
+				else
+				{
+					vel.x = abs(mVelocity.x);
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.12f)
+				{
+					vel.x = 0.0f;
+				}
+			}
+		}
+		else if (activeAnim->GetKey() == L"Attack_RushRush3")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.19f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.14f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				if (GetOwner()->GetFlip())
+				{
+					vel.x = -1.f * abs(mVelocity.x);
+				}
+				else
+				{
+					vel.x = abs(mVelocity.x);
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.12f)
+				{
+					vel.x = 0.0f;
+				}
+			}
+		}
+		else
+		{
+			animator->PlayAnimation(L"Attack_RushRush1", false);
+			mCommandVector.clear();
+		}
+
+		rb->SetVelocity(vel);
+	}
+	void PlayerScript::Attack_UpperSlash()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+		if (activeAnim->GetKey() == L"Attack_UpperSlashAttack")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.1f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.05f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						vel.x = 510.0f;
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						vel.x = -510.0f;
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				else
+				{
+					if (GetOwner()->GetFlip())
+					{
+						vel.x = -255.0f;
+					}
+					else
+					{
+						vel.x = 255.0f;
+					}
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.066f)
+				{
+					if (vel.x != 0.0f)
+						mVelocity = vel;
+					vel.x = 0.0f;
+				}
+			}
+		}
+		
+		else
+		{
+			animator->PlayAnimation(L"Attack_UpperSlashAttack", false);
+			mCommandVector.clear();
+		}
+
+		rb->SetVelocity(vel);
+	}
+	void PlayerScript::Attack_IceWave()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+		if (activeAnim->GetKey() == L"Attack_WaveIceWave")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.15f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.05f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						vel.x = 510.0f;
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						vel.x = -510.0f;
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				else
+				{
+					if (GetOwner()->GetFlip())
+					{
+						vel.x = -255.0f;
+					}
+					else
+					{
+						vel.x = 255.0f;
+					}
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.1f)
+				{
+					if (vel.x != 0.0f)
+						mVelocity = vel;
+					vel.x = 0.0f;
+				}
+			}
+		}
+
+		else
+		{
+			animator->PlayAnimation(L"Attack_WaveIceWave", false);
+			mCommandVector.clear();
+		}
+	}
+	void PlayerScript::Attack_FireWave()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+		if (activeAnim->GetKey() == L"Attack_WaveFireWave")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.15f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.05f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						vel.x = 510.0f;
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						vel.x = -510.0f;
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+				else
+				{
+					if (GetOwner()->GetFlip())
+					{
+						vel.x = -255.0f;
+					}
+					else
+					{
+						vel.x = 255.0f;
+					}
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.1f)
+				{
+					if (vel.x != 0.0f)
+						mVelocity = vel;
+					vel.x = 0.0f;
+				}
+			}
+		}
+
+		else
+		{
+			animator->PlayAnimation(L"Attack_WaveFireWave", false);
+			mCommandVector.clear();
+		}
+	}
+	void PlayerScript::Attack_Thrust()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+		if (activeAnim->GetKey() == L"Attack_ThrustThrust1")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.1f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (GetCurTime() <= 0.09f)
+				{
+					int size = mCommandVector.size();
+					if (size >= 1)
+					{
+						for (int i = 0; i < size; i++)
+						{
+							if (mCommandVector[i].type == PlayerScript::eCommandType::X)
+							{
+								animator->PlayAnimation(L"Attack_ThrustThrust2", false);
+								mCommandVector.clear();
+								SetCurTime(0.0f);
+								break;
+							}
+						}
+					}
+				}
+				
+				else if (GetCurTime() > 0.09f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				vel.x = 0.0f;
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+			}
+			else if (activeAnim->GetIndex() == 2)
+			{
+				if (GetCurTime() > 0.1f)
+				{
+					SetCurTime(0.0f);
+					if (GetOwner()->GetFlip())
+					{
+						vel.x = -765.0f;
+					}
+					else
+					{
+						vel.x = 765.0f;
+					}
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.1f)
+				{
+					if (vel.x != 0.0f)
+						mVelocity = vel;
+					vel.x = 0.0f;
+				}
+			}
+		}
+		else if (activeAnim->GetKey() == L"Attack_ThrustThrust2")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.15f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.05f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				vel.x = 0.0f;
+
+				SetCurTime(0.0f);
+				if (GetOwner()->GetFlip())
+				{
+					vel.x = -1.f * abs(mVelocity.x);
+				}
+				else
+				{
+					vel.x = abs(mVelocity.x);
+				}
+			}
+			else if (activeAnim->GetIndex() == 2)
+			{
+				if (GetCurTime() > 0.1f)
+				{
+					SetCurTime(0.0f);
+					if (GetOwner()->GetFlip())
+					{
+						vel.x = -1.f * abs(mVelocity.x);
+					}
+					else
+					{
+						vel.x = abs(mVelocity.x);
+					}
+				}
+			}
+			else
+			{
+				if (GetCurTime() > 0.1f)
+				{
+					vel.x = 0.0f;
+				}
+			}
+		}
+		
+		else
+		{
+			animator->PlayAnimation(L"Attack_ThrustThrust1", false);
+			mCommandVector.clear();
+		}
+
+		rb->SetVelocity(vel);
 	}
 
 	void PlayerScript::EnterScene()
