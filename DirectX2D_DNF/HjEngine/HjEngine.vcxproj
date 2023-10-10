@@ -210,6 +210,9 @@
     <ClInclude Include="hjNPCScript.h" />
     <ClInclude Include="hjPortalScript.h" />
     <ClInclude Include="hjGateInSeriaRoomScript.h" />
+    <ClInclude Include="hjQuickStandingScript.h" />
+    <ClInclude Include="hjReleaseWaveAttackObjectScript.h" />
+    <ClInclude Include="hjReleaseWaveAttackScript.h" />
     <ClInclude Include="hjRushAttackObjectScript.h" />
     <ClInclude Include="hjRushAttackScript.h" />
     <ClInclude Include="hjThrustAttackObjectScript.h" />
@@ -292,6 +295,9 @@
     <ClCompile Include="hjNPCScript.cpp" />
     <ClCompile Include="hjPortalScript.cpp" />
     <ClCompile Include="hjGateInSeriaRoomScript.cpp" />
+    <ClCompile Include="hjQuickStandingScript.cpp" />
+    <ClCompile Include="hjReleaseWaveAttackObjectScript.cpp" />
+    <ClCompile Include="hjReleaseWaveAttackScript.cpp" />
     <ClCompile Include="hjRushAttackObjectScript.cpp" />
     <ClCompile Include="hjRushAttackScript.cpp" />
     <ClCompile Include="hjThrustAttackObjectScript.cpp" />

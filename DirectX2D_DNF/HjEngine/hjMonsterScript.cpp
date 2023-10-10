@@ -113,7 +113,8 @@ namespace hj
 				{
 					GetOwner()->SetFlip(!flip);
 					SetMonsterState(eMonsterState::Hit);
-					rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					//rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					rb->SetVelocity(Vector3(direction.x, direction.y, 0.0f));
 					if (rb->GetGround() && direction.y > 0.0f)
 						rb->SetGround(false);
 				}
@@ -139,7 +140,8 @@ namespace hj
 						GetOwner()->SetFlip(!flip);
 						if (direction.y > 0.0f)
 							rb->SetGround(false);
-						rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+						//rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+						rb->SetVelocity(Vector3(direction.x, direction.y, 0.0f));
 					}
 				}
 			}
@@ -148,7 +150,7 @@ namespace hj
 				if (!mStatus.SuperArmor)
 				{
 					GetOwner()->SetFlip(!flip);
-					rb->SetVelocity(Vector3(direction.x, direction.y + vel.y, vel.z));
+					rb->SetVelocity(Vector3(direction.x, direction.y + vel.y, 0.0f));
 				}
 			}
 		}

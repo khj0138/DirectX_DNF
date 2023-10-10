@@ -39,7 +39,8 @@ namespace hj
 	void Dungeon_Entrance_1::Initialize()
 	{
 	
-		
+		SetMinMax(Vector2(200.0f, 0.0f), Vector2(1100.0f, 280.0f));
+
 
 		GameObject* gate = new GameObject();
 		{
@@ -87,7 +88,7 @@ namespace hj
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
@@ -170,7 +171,7 @@ namespace hj
 
 	void Dungeon_Entrance_1::LateUpdate()
 	{
-		Scene::LateUpdate();
+		PlayScene::LateUpdate();
 	}
 
 	void Dungeon_Entrance_1::Render()

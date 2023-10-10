@@ -20,14 +20,17 @@
 #include "hjUpperSlashAttackScript.h"
 #include "hjIceWaveAttackScript.h"
 #include "hjFireWaveAttackScript.h"
+#include "hjReleaseWaveAttackScript.h"
 #include "hjThrustAttackScript.h"
+
+#include "hjQuickStandingScript.h"
 namespace hj
 {
 
 	PlayerScript::PlayerScript()
 		: mActivate(false)
 		, AtkManager(nullptr)
-		, mStatus(status(10, 10, false))
+		, mStatus(status(1000, 1000, false, true))
 		, mPlayerState(ePlayerState::Idle)
 		, mPrevPlayerState(ePlayerState::Idle)
 		, bRun(false)
@@ -72,6 +75,7 @@ namespace hj
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Run", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\JumpUp", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\JumpDown", 0.1f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Sit", 0.1f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Basic\\Attack1", 0.02f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Basic\\Attack2", 0.02f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Basic\\Attack3", 0.02f, Vector2(0.0f, 00.0f));
@@ -81,6 +85,7 @@ namespace hj
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_UpperSlash\\Attack", 0.02f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Wave\\IceWave", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Wave\\FireWave", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_ReleaseWave\\Attack", 0.05f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Thrust\\Thrust1", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack_Thrust\\Thrust2", 0.03f, Vector2(0.0f, 00.0f));
 		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Hit", 0.1f, Vector2(0.0f, 00.0f));
@@ -106,9 +111,11 @@ namespace hj
 		AtkManager->RegisterAttackScript<RushAttackScript>(L"Attack_Rush");
 		AtkManager->RegisterAttackScript<UpperSlashAttackScript>(L"Attack_UpperSlash");
 		AtkManager->RegisterAttackScript<IceWaveAttackScript>(L"Attack_IceWave");
-		//AtkManager->RegisterAttackScript<FireWaveAttackScript>(L"Attack_FireWave");
+		AtkManager->RegisterAttackScript<FireWaveAttackScript>(L"Attack_FireWave");
+		AtkManager->RegisterAttackScript<ReleaseWaveAttackScript>(L"Attack_ReleaseWave");
 		AtkManager->RegisterAttackScript<ThrustAttackScript>(L"Attack_Thrust");
 		
+		AtkManager->RegisterAttackScript<QuickStandingScript>(L"QuickStanding");
 	}
 	void PlayerScript::Update()
 	{
@@ -133,6 +140,9 @@ namespace hj
 			break;
 		case ePlayerState::Hit:
 			Hit();
+			break;
+		case ePlayerState::Sit:
+			QuickStanding();
 			break;
 		case ePlayerState::Die:
 			Die();
@@ -197,7 +207,8 @@ namespace hj
 				{
 					GetOwner()->SetFlip(!flip);
 					mPlayerState = ePlayerState::Hit;
-					rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					//rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+					rb->SetVelocity(Vector3(direction.x, direction.y, 0.0f));
 					if (rb->GetGround() && direction.y > 0.0f)
 						rb->SetGround(false);
 				}
@@ -221,7 +232,9 @@ namespace hj
 						GetOwner()->SetFlip(!flip);
 						if (direction.y > 0.0f)
 							rb->SetGround(false);
-						rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+						//rb->SetVelocity(Vector3(direction.x, direction.y, vel.z));
+						rb->SetVelocity(Vector3(direction.x, direction.y, 0.0f));
+
 					}
 				}
 			}
@@ -230,7 +243,8 @@ namespace hj
 				if (!mStatus.SuperArmor)
 				{
 					GetOwner()->SetFlip(!flip);
-					rb->SetVelocity(Vector3(direction.x, direction.y + vel.y, vel.z));
+					//rb->SetVelocity(Vector3(direction.x, direction.y + vel.y, vel.z));
+					rb->SetVelocity(Vector3(direction.x, direction.y + vel.y, 0.0f));
 				}
 			}
 		}
@@ -249,7 +263,7 @@ namespace hj
 		UINT deleteIndex = 0;
 		for (int command = 0; command < mCommandVector.size(); command++)
 		{
-			if (mCommandVector[command].time >= 5.0f)
+			if (mCommandVector[command].time >= 0.5f)
 			{
 				deleteIndex++;
 			}
@@ -272,9 +286,17 @@ namespace hj
 		{
 			input.type = eCommandType::Z;
 		}
+		else if (Input::GetKeyDown(eKeyCode::S))
+		{
+			input.type = eCommandType::S;
+		}
 		else if (Input::GetKeyDown(eKeyCode::D))
 		{
 			input.type = eCommandType::D;
+		}
+		else if (Input::GetKeyDown(eKeyCode::F))
+		{
+			input.type = eCommandType::F;
 		}
 		else if (Input::GetKeyDown(eKeyCode::DOWN))
 		{
@@ -450,9 +472,20 @@ namespace hj
 
 		return false;
 	}
+	bool PlayerScript::IsSit()
+	{
+		if (AtkManager->LoadAttackScript(L"QuickStanding") != nullptr)
+		{
+			Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+			rb->SetVelocity(Vector3::Zero);
+			rb->SetGround(true);
+			mCommandVector.clear();
+			return true;
+		}
+		return false;
+	}
 	void PlayerScript::Idle()
 	{
-
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		if (IsAttack())
 		{
@@ -553,6 +586,11 @@ namespace hj
 		{
 			mPlayerState = ePlayerState::Attack;
 			Attack();
+			return;
+		}
+		if (IsJump())
+		{
+			mPlayerState = ePlayerState::Jump;
 			return;
 		}
 		Transform* tr = GetOwner()->GetComponent<Transform>();
@@ -685,10 +723,45 @@ namespace hj
 		{
 			Attack_FireWave();
 		}
+		else if (attackName == L"Attack_ReleaseWave")
+		{
+			Attack_ReleaseWave();
+		}
 		else if (attackName == L"Attack_Thrust")
 		{
 			Attack_Thrust();
 		}
+		
+	}
+	void PlayerScript::QuickStanding()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+			
+		if (activeAnim->GetKey() == L"SwordManSit")
+		{
+			if (!Input::GetKey(eKeyCode::C) || GetCurTime() > 6.0f)
+			{
+				mPlayerState = ePlayerState::Idle;
+				activeAnim->SetPause(false);
+				mStatus.Hit = true;
+			}
+			else if (activeAnim->IsComplete())
+			{
+				activeAnim->SetPause(true);
+			}
+		}
+		else
+		{
+			animator->PlayAnimation(L"SwordManSit", false);
+			SetCurTime(0.0f);
+			mStatus.Hit = false;
+		}
+
+		rb->SetVelocity(vel);
 		
 	}
 	void PlayerScript::Anim()
@@ -743,6 +816,7 @@ namespace hj
 	{
 		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
 		Vector3 velocity = rb->GetVelocity();
+
 		if (rb->GetGround())
 		{
 			if (abs(velocity.y) > 200.0f)
@@ -817,6 +891,13 @@ namespace hj
 			{
 				activeAnim->SetIndex(2);
 				activeAnim->SetPause(false);
+				if (mStatus.HP > 0)
+				{
+					if (IsSit())
+					{
+						mPlayerState = ePlayerState::Sit;
+					}
+				}
 			}
 		}
 	}
@@ -1420,6 +1501,8 @@ namespace hj
 			animator->PlayAnimation(L"Attack_WaveIceWave", false);
 			mCommandVector.clear();
 		}
+		rb->SetVelocity(vel);
+
 	}
 	void PlayerScript::Attack_FireWave()
 	{
@@ -1493,6 +1576,63 @@ namespace hj
 			animator->PlayAnimation(L"Attack_WaveFireWave", false);
 			mCommandVector.clear();
 		}
+		rb->SetVelocity(vel);
+
+	}
+	void PlayerScript::Attack_ReleaseWave()
+	{
+		Animator* animator = GetOwner()->GetComponent<Animator>();
+		Animation* activeAnim = animator->GetActiveAnimation();
+		Rigidbody* rb = GetOwner()->GetComponent<Rigidbody>();
+		Vector3 vel = rb->GetVelocity();
+
+		if (activeAnim->GetKey() == L"Attack_ReleaseWaveAttack")
+		{
+			if (activeAnim->IsComplete())
+			{
+				vel.x = 0.0f;
+				if (GetCurTime() > 0.15f)
+				{
+					SetCurTime(0.0f);
+				}
+				else if (activeAnim->IsComplete() && GetCurTime() <= 0.05f)
+				{
+					mPlayerState = ePlayerState::Idle;
+					mStatus.SuperArmor = false;
+					vel.x = 0.0f;
+					vel.y = 0.0f;
+					vel.z = 0.0f;
+					mCommandVector.clear();
+				}
+			}
+			else if (activeAnim->GetIndex() == 0)
+			{
+				int size = mMoveVector[(UINT)eMoveType::axisX].size();
+				SetCurTime(0.0f);
+				if (size >= 1)
+				{
+					if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::RIGHT)
+					{
+						if (GetOwner()->GetFlip())
+							GetOwner()->SetFlip(false);
+					}
+					else if (mMoveVector[(UINT)eMoveType::axisX][size - 1] == eCommandType::LEFT)
+					{
+						if (!GetOwner()->GetFlip())
+							GetOwner()->SetFlip(true);
+					}
+				}
+			}
+		}
+
+		else
+		{
+			animator->PlayAnimation(L"Attack_ReleaseWaveAttack", false);
+			mCommandVector.clear();
+			mStatus.SuperArmor = true;
+		}
+		rb->SetVelocity(vel);
+
 	}
 	void PlayerScript::Attack_Thrust()
 	{

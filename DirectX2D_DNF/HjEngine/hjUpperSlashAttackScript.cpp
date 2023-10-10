@@ -23,6 +23,7 @@ namespace hj
 	{
 		RegisterAttackObject<UpperSlashAttackObjectScript>(L"UpperSlashAttack");
 		RegisterAttackObject<BasicAddAttackObject3Script>(L"UpperSlashAddAttack");
+		SetCoolTime(3.0f);
 
 	}
 	void UpperSlashAttackScript::Update()

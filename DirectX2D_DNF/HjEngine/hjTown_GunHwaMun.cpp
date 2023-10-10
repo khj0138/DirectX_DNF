@@ -35,7 +35,8 @@ namespace hj
 	}
 	void Town_GunHwaMun::Initialize()
 	{
-		
+		SetMinMax(Vector2(00.0f, 0.0f), Vector2(1300.0f, 310.0f));
+
 		GameObject* gate = new GameObject();
 		{
 			//gate->GetComponent<Transform>()->SetScale(Vector3{ 300.0f, 300.0f, 2.0f });
@@ -88,7 +89,7 @@ namespace hj
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
@@ -104,7 +105,7 @@ namespace hj
 		// UI Camera 
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
@@ -170,7 +171,7 @@ namespace hj
 
 	void Town_GunHwaMun::LateUpdate()
 	{
-		Scene::LateUpdate();
+		PlayScene::LateUpdate();
 	}
 
 	void Town_GunHwaMun::Render()

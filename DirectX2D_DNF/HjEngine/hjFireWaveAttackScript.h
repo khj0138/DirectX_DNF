@@ -19,7 +19,8 @@ namespace hj
 	public:
 
 	private:
-
+		int WaveMax;
+		int WaveIndex;
 	};
 
 

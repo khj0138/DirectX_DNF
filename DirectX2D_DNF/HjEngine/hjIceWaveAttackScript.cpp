@@ -72,6 +72,7 @@ namespace hj
 					Vector3 IcePos = Vector3(LoadPos().x, LoadPos().y, ownerPos.z);
 					IcePos.x += 30.0f * (float)(IceIndex - 1 + WaveIndex * 6) * (1.0f - 2.0f * (float)GetFlip());
 					IceWaveAttack->GetOwner()->GetComponent<Transform>()->SetPosition(IcePos);
+					IceWaveAttack->GetOwner()->SetFlip(GetFlip());
 					IceWaveAttack->GetOwner()->GetComponent<Transform>()->SetVirtualZ(LoadPos().z);
 					std::wstring iceName = L"IceWaveWave";
 					iceName.append(iceidx);

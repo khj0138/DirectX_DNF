@@ -72,7 +72,7 @@ namespace hj
 		{
 			for (auto& iter : targets)
 			{
-				float a = Time::DeltaTime();
+				//float a = Time::DeltaTime();
 				iter.second += Time::DeltaTime();
 			}
 		}
@@ -177,11 +177,14 @@ namespace hj
 			MonsterScript* monster = dynamic_cast<MonsterScript*>(target);
 			if (monster != nullptr)
 			{
-				bool flip = true;
-				if (playerPos.x < monsterPos.x)
-					flip = false;
-				monster->Hit(damage, flip, direction);
-				return;
+				if (monster->CheckHit())
+				{
+					bool flip = true;
+					if (playerPos.x < monsterPos.x)
+						flip = false;
+					monster->Hit(damage, flip, direction);
+					return;
+				}
 			}
 		}
 		else if (mType == AttackObjectType::Monster)
@@ -191,11 +194,14 @@ namespace hj
 			PlayerScript* player = dynamic_cast<PlayerScript*>(target);
 			if (player != nullptr)
 			{
-				bool flip = true;
-				if (monsterPos.x < playerPos.x)
-					flip = false;
-				player->Hit(damage, flip, direction);
-				return;
+				if (player->CheckHit())
+				{
+					bool flip = true;
+					if (monsterPos.x < playerPos.x)
+						flip = false;
+					player->Hit(damage, flip, direction);
+					return;
+				}
 			}
 		}
 	}

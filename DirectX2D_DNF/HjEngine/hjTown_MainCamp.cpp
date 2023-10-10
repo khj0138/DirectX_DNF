@@ -34,6 +34,8 @@ namespace hj
 	void Town_MainCamp::Initialize()
 	{
 		
+		SetMinMax(Vector2(00.0f, 0.0f), Vector2(1600.0f, 310.0f));
+
 
 		GameObject* gate = new GameObject();
 		{
@@ -83,7 +85,7 @@ namespace hj
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
@@ -100,7 +102,7 @@ namespace hj
 		// UI Camera 
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
@@ -166,7 +168,7 @@ namespace hj
 
 	void Town_MainCamp::LateUpdate()
 	{
-		Scene::LateUpdate();
+		PlayScene::LateUpdate();
 	}
 
 	void Town_MainCamp::Render()

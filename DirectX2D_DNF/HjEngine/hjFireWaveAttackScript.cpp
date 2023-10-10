@@ -13,6 +13,8 @@ namespace hj
 {
 
 	FireWaveAttackScript::FireWaveAttackScript()
+		: WaveIndex(-1)
+		, WaveMax(4)
 	{
 	}
 	FireWaveAttackScript::~FireWaveAttackScript()
@@ -20,7 +22,11 @@ namespace hj
 	}
 	void FireWaveAttackScript::Initialize()
 	{
-		RegisterAttackObject<FireWaveAttackObjectScript>(L"FireWaveAttack");
+		RegisterAttackObject<FireWaveAttackObjectScript>(L"FireWaveAttack1");
+		RegisterAttackObject<FireWaveAttackObjectScript>(L"FireWaveAttack2");
+		RegisterAttackObject<FireWaveAttackObjectScript>(L"FireWaveAttack3");
+
+		SetCoolTime(1.0f);
 
 	}
 	void FireWaveAttackScript::Update()
@@ -29,58 +35,69 @@ namespace hj
 		{
 			Animation* activeAnim = GetOwner()->GetComponent<Animator>()->GetActiveAnimation();
 
-			if (activeAnim->GetKey() == L"Attack_Wave")
+
+			if (WaveIndex == -1)
 			{
-				AttackObjectScript* FireWaveAttack = LoadAttackObject(L"FireWaveAttack");
-
-				Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
-				float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
-				FireWaveAttack->GetOwner()->GetComponent<Transform>()->SetPosition(ownerPos);
-				FireWaveAttack->GetOwner()->GetComponent<Transform>()->SetVirtualZ(ownerPosVZ);
-
-				if (activeAnim->IsComplete())
+				if (activeAnim->GetKey() == L"Attack_WaveFireWave")
 				{
-					FireWaveAttack->GetOwner()->SetState(GameObject::eState::Paused);
-					FireWaveAttack->GetOwner()->GetComponent<Collider2D>()->SetCollision(false);
-					FireWaveAttack->SetAttack(false);
+					if (activeAnim->GetIndex() == 2)
+					{
+						Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+						float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
+						SavePos(Vector3(ownerPos.x, ownerPos.y, ownerPosVZ));
+						SetFlip(GetOwner()->GetFlip());
+						WaveIndex = 1;
+					}
 
-					AttackObjectScript* FireWaveAddAttack = LoadAttackObject(L"FireWaveAddAttack");
-					FireWaveAddAttack->GetOwner()->SetState(GameObject::eState::Paused);
-					FireWaveAddAttack->GetOwner()->GetComponent<Collider2D>()->SetCollision(false);
-					FireWaveAddAttack->SetAttack(false);
-
-					SetPause();
 				}
-				else if (activeAnim->GetIndex() == 0)
+			}
+			else if (WaveIndex < 4)
+			{
+				Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+				std::wstring waveName = L"FireWaveAttack";
+				std::wstring FireIndex = std::to_wstring(WaveIndex);
+
+				waveName.append(FireIndex);
+				AttackObjectScript* FireWaveAttack = LoadAttackObject(waveName);
+				if (FireWaveAttack->GetOwner()->GetState() == GameObject::eState::Paused)
 				{
-					FireWaveAttack->GetOwner()->SetFlip(GetOwner()->GetFlip());
 					FireWaveAttack->GetOwner()->SetState(GameObject::eState::Active);
 					FireWaveAttack->GetOwner()->GetComponent<Collider2D>()->SetCollision(true);
+					FireWaveAttack->GetOwner()->SetFlip(GetFlip());
+
 					FireWaveAttack->SetAttack(true);
+					Vector3 FirePos = Vector3(LoadPos().x, LoadPos().y, ownerPos.z);
+					FirePos.x += 140.0f * (float)(WaveIndex - 1) * (1.0f - 2.0f * (float)GetFlip());
+					FireWaveAttack->GetOwner()->GetComponent<Transform>()->SetPosition(FirePos);
+					FireWaveAttack->GetOwner()->GetComponent<Transform>()->SetVirtualZ(LoadPos().z);
+					FireWaveAttack->GetOwner()->GetComponent<Animator>()->PlayAnimation(L"FireWaveWave", false);
 					FireWaveAttack->clearTargets();
 				}
-				else if (activeAnim->GetIndex() == 2)
+				else
 				{
-					AttackObjectScript* FireWaveAddAttack = LoadAttackObject(L"FireWaveAddAttack");
-
-					Vector3 ownerPos = GetOwner()->GetComponent<Transform>()->GetPosition();
-					float ownerPosVZ = GetOwner()->GetComponent<Transform>()->GetVirtualZ();
-					FireWaveAddAttack->GetOwner()->GetComponent<Transform>()->SetPosition(ownerPos);
-					FireWaveAddAttack->GetOwner()->GetComponent<Transform>()->SetVirtualZ(ownerPosVZ);
-					FireWaveAddAttack->GetOwner()->SetFlip(GetOwner()->GetFlip());
-					FireWaveAddAttack->GetOwner()->SetState(GameObject::eState::Active);
-					FireWaveAddAttack->GetOwner()->GetComponent<Collider2D>()->SetCollision(true);
-					//Vector3 vel = FireWaveAddAttack->GetOwner()->GetComponent<Rigidbody>()->GetVelocity();
-
-					Vector3 vel = Vector3(200.0f, 0.0f, 0.0f);
-					if (FireWaveAddAttack->GetOwner()->GetFlip())
-						vel.x = -1.0f * vel.x;
-					FireWaveAddAttack->GetOwner()->GetComponent<Rigidbody>()->SetVelocity(vel);
-					Animator* mAnimator = FireWaveAddAttack->GetOwner()->GetComponent<Animator>();
-					mAnimator->PlayAnimation(L"AddwaveAddwave3", false);
-					FireWaveAddAttack->SetAttack(true);
-					FireWaveAddAttack->clearTargets();
+					Animator* mAnimator = FireWaveAttack->GetOwner()->GetComponent<Animator>();
+					if (mAnimator->GetActiveAnimation()->GetIndex() == 3)
+					{
+						WaveIndex++;
+					}
 				}
+			}
+			else
+			{
+				for (int i = 1; i < 4; i++)
+				{
+					std::wstring waveName = L"FireWaveAttack";
+					std::wstring FireIdx = std::to_wstring(i);
+					waveName.append(FireIdx);
+					if (LoadAttackObject(waveName)->GetOwner()->GetState() != GameObject::eState::Paused)
+						break;
+					if (i == 3)
+					{
+						WaveIndex = -1;
+						SetPause();
+					}
+				}
+
 			}
 		}
 		AttackScript::Update();
@@ -99,8 +116,10 @@ namespace hj
 			PlayerScript* player = GetOwner()->FindScript<PlayerScript>();
 			if (player != nullptr)
 			{
-				if (player->GetPlayerState() == PlayerScript::ePlayerState::Idle
-					|| player->GetPlayerState() == PlayerScript::ePlayerState::Walk)
+				PlayerScript::ePlayerState playerState = player->GetPlayerState();
+				if (playerState == PlayerScript::ePlayerState::Idle
+					|| playerState == PlayerScript::ePlayerState::Walk
+					|| playerState == PlayerScript::ePlayerState::Run)
 				{
 					std::vector<PlayerScript::Command> commands = player->GetCommandVector();
 					int size = commands.size();
@@ -108,7 +127,7 @@ namespace hj
 					{
 						for (int i = 0; i < size; i++)
 						{
-							if (commands[i].type == PlayerScript::eCommandType::Z)
+							if (commands[i].type == PlayerScript::eCommandType::F)
 							{
 								return;
 							}

@@ -150,19 +150,39 @@ namespace hj
 
 	void PlayScene::LateUpdate()
 	{
-		/*Vector3 pos(800, 450, 0.0f);
-		Vector3 pos2(800, 450, 1000.0f);
-		Viewport viewport;
-		viewport.width = 1600.0f;
-		viewport.height = 900.0f;
-		viewport.x = 0;
-		viewport.y = 0;
-		viewport.minDepth = 0.0f;
-		viewport.maxDepth = 1.0f;
+		std::vector<GameObject*> monsters = GetLayer(eLayerType::Monster).GetGameObjects();
+		std::vector<GameObject*> players = GetLayer(eLayerType::Player).GetGameObjects();
+		GameObject* player = GetLayer(eLayerType::Player).GetGameObjects()[0];
 
-		pos = viewport.Unproject(pos, Camera::GetGPUProjectionMatrix(), Camera::GetGPUViewMatrix(), Matrix::Identity);
-		pos2 = viewport.Unproject(pos2, Camera::GetGPUProjectionMatrix(), Camera::GetGPUViewMatrix(), Matrix::Identity);*/
+		monsters.push_back(player);
 
+		for (auto monster : monsters)
+		{
+			Transform* tr = monster->GetComponent<Transform>();
+			Vector3 pos = tr->GetPosition();
+			float posX = pos.x;
+			if (posX < minMax[0].x)
+			{
+				posX = minMax[0].x;
+			}
+			else if (posX > minMax[1].x)
+			{
+				posX = minMax[1].x;
+			}
+			float posZ = tr->GetVirtualZ();
+			if (posZ < minMax[0].y * 1.4f)
+			{
+				posZ = minMax[0].y * 1.4f;
+			}
+			else if (posZ > minMax[1].y * 1.4f)
+			{
+				posZ = minMax[1].y * 1.4f;
+			}
+			pos.x = posX;
+			tr->SetPosition(pos);
+			tr->SetVirtualZ(posZ);
+		}
+		
 		Scene::LateUpdate();
 	}
 

@@ -25,12 +25,12 @@ namespace hj
 
 		Animator* mAnimator = GetOwner()->AddComponent<Animator>();
 		mAnimator->SetAnimatorOffset(Vector2(0.0f, -10.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave1", 0.03f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave2", 0.03f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave3", 0.03f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave4", 0.03f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave5", 0.03f, Vector2(0.0f, 00.0f));
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave6", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave1", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave2", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave3", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave4", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave5", 0.04f, Vector2(0.0f, 00.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\IceWave\\Wave6", 0.04f, Vector2(0.0f, 00.0f));
 		AttackObjectScript::Initialize();
 
 		SetAnimate(true);

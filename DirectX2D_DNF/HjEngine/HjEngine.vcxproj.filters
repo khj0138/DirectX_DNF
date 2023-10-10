@@ -253,6 +253,15 @@
     <Filter Include="Script\Player\Attack\ThrustAttackScript\ThrustAttackObjectScript">
       <UniqueIdentifier>{93541fd2-c696-415e-996d-b5d9db5c1f8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Script\Player\Attack\ReleaseWaveAttackScript">
+      <UniqueIdentifier>{9c59adff-be5a-4c34-a586-40709c07d678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\ReleaseWaveAttackScript\ReleaseWaveAttackObjectScript">
+      <UniqueIdentifier>{586522af-2f69-4863-89e1-facbf6509a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\Attack\QuickStandingScript">
+      <UniqueIdentifier>{85cf3be1-3ae4-4473-b2e2-e746cefd74df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -499,6 +508,13 @@
     <ClInclude Include="hjThrustAttackScript.h">
       <Filter>Script\Player\Attack\ThrustAttackScript</Filter>
     </ClInclude>
+    <ClInclude Include="hjReleaseWaveAttackObjectScript.h">
+      <Filter>Script\Player\Attack\ReleaseWaveAttackScript\ReleaseWaveAttackObjectScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjReleaseWaveAttackScript.h">
+      <Filter>Script\Player\Attack\ReleaseWaveAttackScript</Filter>
+    </ClInclude>
+    <ClInclude Include="hjQuickStandingScript.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HjEngine.cpp" />
@@ -736,5 +752,12 @@
     <ClCompile Include="hjThrustAttackScript.cpp">
       <Filter>Script\Player\Attack\ThrustAttackScript</Filter>
     </ClCompile>
+    <ClCompile Include="hjReleaseWaveAttackObjectScript.cpp">
+      <Filter>Script\Player\Attack\ReleaseWaveAttackScript\ReleaseWaveAttackObjectScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjReleaseWaveAttackScript.cpp">
+      <Filter>Script\Player\Attack\ReleaseWaveAttackScript</Filter>
+    </ClCompile>
+    <ClCompile Include="hjQuickStandingScript.cpp" />
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ namespace hj
 		, mVelocity(Vector3::Zero)
 		, attackName(L"")
 	{
-		SetStatus(MonsterScript::status(100, 100, false));
+		SetStatus(MonsterScript::status(100, 100, true, true));
 	}
 	HysmarScript::~HysmarScript()
 	{
@@ -502,6 +502,9 @@ namespace hj
 					}
 					else if (tr->GetVirtualZ() >= 200.0f && GetCurTime() > 1.0f)
 					{
+						Vector3 hysmarPos = GetOwner()->GetComponent<Transform>()->GetPosition();
+						hysmarPos.z = 450.0f;
+						GetOwner()->GetComponent<Transform>()->SetPosition(hysmarPos);
 						rb->SetVelocity(Vector3(0.0f, 0.0f, -1000.0f));
 						mAnimator->PlayAnimation(L"Phase1_EnterPhase1_Enter2", false);
 

@@ -26,6 +26,7 @@ namespace hj
 			UINT maxHP;
 			UINT HP;
 			bool SuperArmor;
+			bool Hit;
 		};
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -55,7 +56,7 @@ namespace hj
 		GameObject* GetTarget() { return mTarget; }
 
 		void SetStatus(status stat) { mStatus = stat; }
-		void SetStatus(UINT maxHP, UINT hp, bool armor) { mStatus = status(maxHP, hp, armor); }
+		void SetStatus(UINT maxHP, UINT hp, bool armor, bool hit) { mStatus = status(maxHP, hp, armor, hit); }
 		status GetStatus() { return mStatus; }
 
 		void SetMaxHP(UINT maxHP) { mStatus.maxHP = maxHP; }
@@ -64,6 +65,8 @@ namespace hj
 		UINT GetHP() { return mStatus.HP; }
 		void SetSuperArmor(bool armor) { mStatus.SuperArmor = armor; }
 		bool GetSuperArmor() { return mStatus.SuperArmor; }
+		bool CheckHit() { return mStatus.Hit; }
+
 
 		float GetCoolTime() { return mCoolTime; }
 		void SetCoolTime(float cooltime) { mCoolTime = cooltime; }

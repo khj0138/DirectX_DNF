@@ -33,7 +33,8 @@ namespace hj
 	}
 	void Dungeon_Hysmar::Initialize()
 	{
-		
+		SetMinMax(Vector2(00.0f, 0.0f), Vector2(1500.0f, 320.0f));
+
 		GameObject* gate = new GameObject();
 		{
 			//gate->GetComponent<Transform>()->SetScale(Vector3{ 300.0f, 300.0f, 2.0f });
@@ -62,7 +63,7 @@ namespace hj
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
@@ -72,7 +73,7 @@ namespace hj
 			camera->GetComponent<Camera>()->SetTarget(L"SwordMan2");
 			renderer::cameras.push_back(cameraComp);
 
-			cameraComp->setMaxXY(Vector2(1790.0f, 670.0f));
+			cameraComp->setMaxXY(Vector2(1550.0f, 670.0f));
 		}
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 		// UI Camera 
@@ -108,7 +109,7 @@ namespace hj
 		}*/
 		GameObject* monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(-500.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(-500.0f, 0.0f, 498.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(630.0f);
 		monster->Initialize();
 		monster->AddComponent<HysmarScript>();
@@ -151,7 +152,7 @@ namespace hj
 
 	void Dungeon_Hysmar::LateUpdate()
 	{
-		Scene::LateUpdate();
+		PlayScene::LateUpdate();
 	}
 
 	void Dungeon_Hysmar::Render()

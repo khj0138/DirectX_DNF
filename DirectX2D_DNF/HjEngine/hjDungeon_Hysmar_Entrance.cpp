@@ -39,7 +39,8 @@ namespace hj
 	}
 	void Dungeon_Hysmar_Entrance::Initialize()
 	{
-		
+		SetMinMax(Vector2(00.0f, 0.0f), Vector2(1100.0f, 350.0f));
+
 
 		GameObject* gate = new GameObject();
 		{
@@ -91,7 +92,7 @@ namespace hj
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			//camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.f));
 			cameraComp = camera->AddComponent<Camera>();
@@ -138,7 +139,7 @@ namespace hj
 		}*/
 		GameObject* monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(250.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(250.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(350.0f);
 		monster->Initialize();
 		monster->AddComponent<DragonSoldierScript>();
@@ -146,7 +147,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(500.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(350.0f);
 		monster->Initialize();
 		monster->AddComponent<DragonSoldierScript>();
@@ -154,7 +155,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(750.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(750.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(350.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeArmorScript>();
@@ -163,7 +164,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(1000.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(1000.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(350.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeSoldierScript>();
@@ -171,7 +172,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(350.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(350.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(200.0f);
 		monster->Initialize();
 		monster->AddComponent<DragonSoldierScript>();
@@ -179,7 +180,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(600.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(600.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(200.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeArmorScript>();
@@ -187,7 +188,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(850.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(850.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(200.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeSoldierScript>();
@@ -230,7 +231,7 @@ namespace hj
 
 	void Dungeon_Hysmar_Entrance::LateUpdate()
 	{
-		Scene::LateUpdate();
+		PlayScene::LateUpdate();
 	}
 
 	void Dungeon_Hysmar_Entrance::Render()

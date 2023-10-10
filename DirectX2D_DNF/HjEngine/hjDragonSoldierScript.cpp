@@ -30,7 +30,7 @@ namespace hj
 		, mVelocity(Vector3::Zero)
 		, attackName(L"")
 	{
-		SetStatus(MonsterScript::status(100, 100, false));
+		SetStatus(MonsterScript::status(100, 100, false, true));
 	}
 	DragonSoldierScript::~DragonSoldierScript()
 	{

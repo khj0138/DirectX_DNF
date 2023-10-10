@@ -19,6 +19,7 @@ namespace hj
 			Run,
 			Attack,
 			Jump,
+			Sit,
 			Hit,
 			Die,
 			End,
@@ -37,7 +38,9 @@ namespace hj
 			Z,
 			X,
 			C,
+			S,
 			D,
+			F,
 			UP,
 			LEFT,
 			DOWN,
@@ -63,12 +66,14 @@ namespace hj
 			UINT maxHP;
 			UINT HP;
 			bool SuperArmor;
+			bool Hit;
 		};
 
 		PlayerScript();
 		~PlayerScript();
 
-		void SetStatus(UINT maxHP, UINT HP) { mStatus.maxHP = maxHP; mStatus.HP = HP; }
+		void SetStatus(UINT maxHP, UINT HP, bool armor, bool hit) { mStatus.maxHP = maxHP; mStatus.HP = HP; mStatus.SuperArmor = armor; mStatus.Hit = hit;}
+		bool CheckHit() { return mStatus.Hit; }
 		status GetStatus() { return mStatus; }
 
 		virtual void Initialize() override;
@@ -93,6 +98,7 @@ namespace hj
 		bool IsWalk();
 		bool IsRun();
 		bool IsJump();
+		bool IsSit();
 		bool IsAttack();
 
 		float GetCurTime() { return mCurTime; }
@@ -107,6 +113,7 @@ namespace hj
 		void Run();
 		void Jump();
 		void Attack();
+		void QuickStanding();
 		void Anim();
 		void Die();
 		void Hit();
@@ -127,6 +134,7 @@ namespace hj
 		void Attack_UpperSlash();
 		void Attack_IceWave();
 		void Attack_FireWave();
+		void Attack_ReleaseWave();
 
 
 

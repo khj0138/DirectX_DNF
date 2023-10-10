@@ -38,7 +38,8 @@ namespace hj
 	}
 	void Dungeon_Spirazzi_Entrance::Initialize()
 	{
-		
+		SetMinMax(Vector2(00.0f, 0.0f), Vector2(1100.0f, 400.0f));
+
 		GameObject* gate = new GameObject();
 		{
 			//gate->GetComponent<Transform>()->SetScale(Vector3{ 300.0f, 300.0f, 2.0f });
@@ -89,7 +90,7 @@ namespace hj
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
@@ -104,7 +105,7 @@ namespace hj
 		//// UI Camera 
 		//{
 		//	GameObject* camera = new GameObject();
-		//	AddGameObject(eLayerType::Player, camera);
+		//	AddGameObject(eLayerType::UI, camera);
 		//	camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 		//	Camera* cameraComp = camera->AddComponent<Camera>();
 		//	cameraComp->TurnLayerMask(eLayerType::Player, false);
@@ -134,7 +135,7 @@ namespace hj
 		}*/
 		GameObject* monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(300.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(300.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(250.0f);
 		monster->Initialize();
 		monster->AddComponent<DragonSoldierScript>();
@@ -142,7 +143,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(900.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(900.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(250.0f);
 		monster->Initialize();
 		monster->AddComponent<DragonSoldierScript>();
@@ -150,7 +151,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(450.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(450.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(300.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeSoldierScript>();
@@ -158,7 +159,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(750.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(750.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(300.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeSoldierScript>();
@@ -166,7 +167,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(550.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(550.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(200.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeSoldierScript>();
@@ -174,7 +175,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(650.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(650.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(200.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeSoldierScript>();
@@ -182,7 +183,7 @@ namespace hj
 
 		monster = new GameObject();
 		AddGameObject(eLayerType::Monster, monster);
-		monster->GetComponent<Transform>()->SetPosition(Vector3(600.0f, 0.0f, 2.000f));
+		monster->GetComponent<Transform>()->SetPosition(Vector3(600.0f, 0.0f, 450.0f));
 		monster->GetComponent<Transform>()->SetVirtualZ(350.0f);
 		monster->Initialize();
 		monster->AddComponent<DrakeRiderScript>();
@@ -225,7 +226,7 @@ namespace hj
 
 	void Dungeon_Spirazzi_Entrance::LateUpdate()
 	{
-		Scene::LateUpdate();
+		PlayScene::LateUpdate();
 	}
 
 	void Dungeon_Spirazzi_Entrance::Render()

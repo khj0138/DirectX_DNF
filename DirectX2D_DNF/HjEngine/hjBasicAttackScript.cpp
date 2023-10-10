@@ -33,6 +33,7 @@ namespace hj
 		RegisterAttackObject<BasicAddAttackObject1Script>(L"BasicAddAttack1");
 		RegisterAttackObject<BasicAddAttackObject2Script>(L"BasicAddAttack2");
 		RegisterAttackObject<BasicAddAttackObject3Script>(L"BasicAddAttack3");
+
 	}
 	void BasicAttackScript::Update()
 	{

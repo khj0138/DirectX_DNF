@@ -24,20 +24,20 @@ namespace hj
 		GetOwner()->SetState(GameObject::eState::Paused);
 
 		Animator* mAnimator = GetOwner()->AddComponent<Animator>();
-		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\Addwave\\Addwave1", 0.03f, Vector2(0.0f, 00.0f));
+		mAnimator->SetAnimatorOffset(Vector2(0.0f, -100.0f));
+		mAnimator->CreateAnimations(L"..\\Resources\\Texture\\SwordMan\\Attack\\FireWave\\Wave", 0.07f, Vector2(0.0f, 00.0f));
 		AttackObjectScript::Initialize();
 
 		SetAnimate(true);
 		SetAttack(false);
 		SetVelocity(Vector2::Zero);
-		SetStatus(5, 2, Vector2(100.0f, 300.0f));
-
+		SetStatus(5, 2, Vector2(100.0f, 500.0f));
 
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		tr->SetScale(Vector3(468.0f, 423.0f, 1.0f));
+		tr->SetScale(Vector3(479.0f, 565.0f, 1.0f));
 		Collider2D* col = GetOwner()->GetComponent<Collider2D>();
-		col->SetSize(Vector2(120.0f, 120.0f), 120.0f);
-		col->SetCenter(Vector2(174.0f, 0.0f));
+		col->SetSize(Vector2(180.0f, 180.0f), 240.0f);
+		col->SetCenter(Vector2(94.0f, 0.0f));
 		col->SetCollisionHeight(0.0f);
 	}
 
@@ -49,6 +49,9 @@ namespace hj
 	void FireWaveAttackObjectScript::Update()
 	{
 		AttackObjectScript::Update();
+		Animator* mAnimator = GetOwner()->GetComponent<Animator>();
+		if (mAnimator->GetActiveAnimation()->IsComplete())
+			GetOwner()->SetState(GameObject::eState::Paused);
 	}
 
 

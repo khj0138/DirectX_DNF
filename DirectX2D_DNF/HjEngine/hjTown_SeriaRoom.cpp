@@ -43,6 +43,8 @@ namespace hj
 	}
 	void Town_SeriaRoom::Initialize()
 	{
+		SetMinMax(Vector2(280.0f, 0.0f), Vector2(840.0f, 200.0f));
+
 		GameObject* gate = new GameObject();
 		{
 			gate->GetComponent<Transform>()->SetScale(Vector3{278.0f, 254.0f, 2.0f});
@@ -82,21 +84,21 @@ namespace hj
 			//as->Play();
 		}
 		
-		GameObject* testmonster = new GameObject();
-		AddGameObject(eLayerType::Monster, testmonster);
-		testmonster->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 2.000f));
-		testmonster->Initialize();
-		testmonster->AddComponent<DrakeRiderScript>();
-		testmonster->FindScript<DrakeRiderScript>()->EnterScene();
-		//testmonster->AddComponent<DrakeArmorScript>();
-		//testmonster->FindScript<DrakeArmorScript>()->EnterScene();
+		GameObject* monster = new GameObject();
+		AddGameObject(eLayerType::Monster, monster);
+		monster->GetComponent<Transform>()->SetPosition(Vector3(400.0f, 0.0f, 450.0f));
+		monster->Initialize();
+		monster->AddComponent<DrakeRiderScript>();
+		monster->FindScript<DrakeRiderScript>()->EnterScene();
+		//monster->AddComponent<DrakeArmorScript>();
+		//monster->FindScript<DrakeArmorScript>()->EnterScene();
 		
 		PlayerScript* player = SceneManager::GetPlayer();
 		// MainCamera
 		Camera* cameraComp = nullptr;
 		{
 			GameObject* camera = new GameObject();
-			AddGameObject(eLayerType::Player, camera);
+			AddGameObject(eLayerType::UI, camera);
 			//camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (450.0f + 0.0f) * 1.0f, -10.0f));
 			camera->GetComponent<Transform>()->SetPosition(Vector3((800.0f + 0.0f) * 1.0f, (+ 0.0f) * 1.0f, -10.0f));
 			cameraComp = camera->AddComponent<Camera>();
@@ -159,8 +161,7 @@ namespace hj
 
 	void Town_SeriaRoom::LateUpdate()
 	{
-
-		Scene::LateUpdate();
+		PlayScene::LateUpdate();
 	}
 
 	void Town_SeriaRoom::Render()
